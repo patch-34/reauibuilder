@@ -1,6 +1,6 @@
 # ReaUI Builder — руководство, версия 1.0.3
 
-[English version](manuals/ReaUI_Builder_Manual_en_v1_0_3.md) · [HTML-версия (скачать и открыть локально)](manuals/ReaUI_Builder_Manual_ru_v1_0_3.html)
+[English version](manuals/ReaUI_Builder_Manual_en_v1_0_3.md) · [HTML-версия (скачать и открыть локально)](ReaUI_Builder_Manual_ru_v1_0_3.html)
 
 <details>
 <summary>Оглавление</summary>

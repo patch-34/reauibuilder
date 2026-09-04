@@ -6,7 +6,7 @@ ReaUI Builder generates Lua code from a canvas layout. Arrange controls, nest th
 
 The editor runs from a single local HTML file. No installation, server, or build step is required.
 
-![ReaUI Builder logo](reaui-builder-logo.svg)
+![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
 **Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](manuals/ReaUI_Builder_Manual_en_v1_0_3.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru_v1_0_3.md)
 

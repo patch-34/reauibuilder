@@ -70,7 +70,6 @@
     - [16. Keyboard and mouse reference](#manual-16-keyboard-and-mouse-reference)
     - [17. Release limitations](#manual-17-release-limitations)
         - [Not implemented](#manual-not-implemented)
-        - [REAPER validation status](#manual-reaper-validation-status)
         - [Behavior to be aware of](#manual-behavior-to-be-aware-of)
     - [Appendix A · Widget contracts](#manual-appendix-a-widget-contracts)
     - [Appendix B · Inspector matrix](#manual-appendix-b-inspector-matrix)
@@ -84,7 +83,7 @@
 
 A visual layout editor for ReaImGui interfaces.
 
-Design a window on the canvas and let Builder generate the ReaImGui Lua code, including widget calls, draw list geometry, and style settings. Canvas coordinates map directly to the interface in REAPER: one pixel in Builder corresponds to one interface pixel.
+Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.
 
 This guide covers version **1.0.3**.
 
@@ -101,7 +100,7 @@ Use Builder to design the **interface layout** for your script. Set widget posit
 Builder does not generate DSP, project logic, or event handling. In the exported code, `-- TODO` comments mark where to add your own logic for interactive widgets.
 
 - **Output:** Lua code for ReaImGui 0.10
-- **Widgets:** 50 types in 41 families
+- **Widgets:** 48 placeable types in 41 families, plus the automatically managed TabItem and TableCell types
 - **Drawing primitives:** 7 — rectangle, circle, polygon, line, text, triangle, and arc
 - **Project format:** versioned JSON
 
@@ -121,7 +120,7 @@ This keeps element coordinates consistent between the canvas and REAPER.
 
 Each widget type has a **contract**: a set of rules that defines its default size, resizing constraints, how its width is applied, and where its label appears.
 
-The canvas, inspector, and code generator all use the same contract, so a widget behaves consistently throughout Builder. For example, a Checkbox has a fixed height, while a Slider displays its label above the control.
+The canvas, inspector, and code generator share the contract definitions, with additional rules for specific types. A Checkbox has fixed dimensions; a Slider has fixed height and an external label; ColorPicker height is derived. The sections below explain differences between the editing box and exported sizing.
 
 ---
 
@@ -129,13 +128,13 @@ The canvas, inspector, and code generator all use the same contract, so a widget
 
 ## 02. Quick start
 
-Open the HTML file in Chrome, Edge, Firefox, or Safari. Builder runs locally through `file://`. Editing layouts and generating code do not require a network connection.
+Open the HTML file in a modern browser. Builder runs locally through `file://`; editing layouts and generating code do not require a network connection. To run the exported Lua script, use REAPER with ReaImGui 0.10 installed.
 
 1. Open the **Canvas** tab in the right sidebar and set the window size. The default is **600 × 400 px**.
 2. Choose a widget from a category in the top toolbar: **Buttons & Toggles, Display, Input, Selection, Color,** or **Layout**. The **Group, Style, Table, Header, Tree,** and **Tabs** containers are also available as permanent shortcuts in the left palette.
 3. Click the canvas to place the widget. Its top-left corner is positioned at the click location, adjusted for grid snapping.
 4. Use the **Selection** inspector to set the widget's label, value range, flags, position, and size.
-5. Click **Export**, copy the generated Lua code, and save it as a `.lua` file in your REAPER scripts folder. You can then run the script in REAPER.
+5. Click **Export**, resolve any errors in the preflight panel, and click **download .lua**. Alternatively, use **copy** and save the code in a `.lua` file. Load the file through REAPER’s Actions window and run it.
 
 > **Workspace at startup.** The tool palette is on the left. The canvas, window layout, and rulers occupy the center. On the right are the **Canvas / Elements / Info** tabs and the **Selection** inspector. The status bar runs along the bottom.
 
@@ -206,7 +205,7 @@ Use **Hand** to pan the workspace. Hold `Space` to pan temporarily while using a
 
 Drawing tools are single-use by default: after you create a shape, Builder switches back to **Select**.
 
-To place several objects with the same tool, hold `Shift` when selecting it. The tool stays active until you press `Esc`. The status bar marks this mode next to the tool name, for example `rect [sticky]`.
+To draw several rectangles, circles, lines, triangles, or arcs, hold `Shift` while selecting the tool, then release it before drawing. The tool stays active until you choose another tool or press `Esc`. The status bar shows `[sticky]`. Polygon, Text, and widget placement return to Select after completion.
 
 <a name="manual-3-4-canvas-area"></a>
 
@@ -240,7 +239,7 @@ When a widget is selected, or its placement tool is active, the **Info** tab sho
 
 Choosing a widget from the widget panel or left palette opens **Info** automatically. The tab stays open after placement, updating to show the newly created object.
 
-When no widget is selected, this tab shows a project summary.
+Info shows a preview and description for one selected widget or drawing, or for an active placement tool. With no single-object or tool context, it shows the project summary.
 
 <a name="manual-elements"></a>
 
@@ -312,9 +311,9 @@ Canvas objects fall into two categories: **widgets** and **drawings**. They diff
 |  | Widgets | Drawings |
 | --- | --- | --- |
 | **Definition** | ImGui widgets: buttons, sliders, tables, and other interactive elements | Geometry in the window's draw list |
-| **Interactivity** | Interactive | Non-interactive; used for decoration |
+| **Interactivity** | Native controls can be interactive; display widgets are visual only | Non-interactive; used for decoration |
 | **Export** | `ImGui_Button`, `ImGui_SliderDouble`, … | `DrawList_AddRect`, `AddCircle`, … |
-| **Overlap** | Not allowed | Allowed; stacking order applies |
+| **Overlap** | Prevented by placement checks; see §4.7 for exceptions | Allowed; stacking order applies |
 | **Nesting** | Supported inside containers | Not supported |
 | **Drawing order** | Above drawings | Below all widgets |
 
@@ -343,6 +342,8 @@ For families with multiple variants, a **variant** row appears at the top of the
 Choose the variant before placement, while the placement tool is active. After placement, the row shows the current variant but cannot be edited. To use another variant, delete the widget and place it again.
 
 Keep the palette's family name distinct from the concrete type used in code. For example, **Slider** is the family name in Builder, while **SliderDouble** identifies a specific widget type in the generated code.
+
+Some palette labels are shorter than the contract names used in this guide: **Hint** = HelpMarker, **RadioButton** = RadioButtonEx, **TextLink** = TextLinkOpenURL, **Multiline** = InputTextMultiline, **Style** = StyleRegion, **Header** = CollapsingHeader, **Tree** = TreeNode, and **Tabs** = TabBar.
 
 <a name="manual-4-3-coordinates-and-snapping"></a>
 
@@ -384,22 +385,27 @@ There are four height modes:
 
 | Mode | Behavior |
 | --- | --- |
-| `explicit-size` | Height is set in Builder and passed to ImGui. Used by Button, Panel, ListBox, and other containers, for example. |
+| `explicit-size` | The contract has an explicit layout box. Button, Panel, and similar controls pass dimensions to ImGui; some types use a derived height or a row-count conversion instead. |
 | `native-fixed` | ImGui determines the height, usually one frame height, approximately 20 px. Most input widgets use this mode. |
 | `native-content` | Content, such as text, determines the height. |
 | `native-line` | Height matches a single separator line. |
 
-For a widget with a fixed height, the lower resize handles are hidden, the inspector's **H** field is disabled, and the following hint appears beneath it:
+For a widget with fixed height, only horizontal resize handles remain where width is editable, and **H** is read-only. Checkbox, ArrowButton, and SmallButton have no resize handles; SmallButton width follows its label. ColorPicker has horizontal handles only, with height derived from width and flags.
 
-`↑ height fixed by ImGui`
+`↑ height fixed by ImGui` or `↑ size fixed by ImGui`, depending on the widget.
 
 You can still change the widget's width where its contract allows it.
 
-There are three width modes:
+**ColorPicker.** A new picker is 200 px wide with **NoSidePrev** enabled; Builder reserves 246 px of height. H is read-only and changes with width and flags. Enabling the side preview adds 60 px to the reserved width while keeping the picker width unchanged. The export passes the picker width, not the full reserved width, to `SetNextItemWidth`.
+
+**ListBox.** The exporter converts H to a visible-row count: `max(2, round(H / 18))`. H is not passed as a pixel height. TextWrapped also uses a layout box in Builder, while ImGui determines the height of its text.
+
+The contracts use four width modes:
 
 - `explicit-size` — width is passed directly to the widget call.
 - `next-item-width` — `SetNextItemWidth` is called before the widget.
 - `content-or-widget-box` — the canvas box reserves space for the content; ImGui determines the actual size.
+- `widget-box-preview` — the stored box reserves space in Builder; Checkbox and RadioButtonEx use native sizing in the exported interface.
 
 <a name="manual-4-5-labels"></a>
 
@@ -413,7 +419,7 @@ Builder therefore uses two label placement methods.
 
 #### Inline labels
 
-Used by **Button, Selectable,** and containers.
+Used by **Button, SmallButton, Selectable, RadioButtonEx,** and native container headers or tabs. Group and StyleRegion have no visible exported header.
 
 The text is passed directly to the ImGui call and rendered as part of the widget.
 
@@ -455,11 +461,11 @@ Placing a widget inside a container's content area makes it a child of that cont
 
 There is no separate command for adding an object to a container.
 
-Each container reserves a **24 px** editor strip at the top. Click this strip to select the container itself. Clicking its content area selects an object inside it or places a new widget there.
+Each of the seven placeable containers reserves a **24 px** strip at the top for editing and placement. TabItem and TableCell are structural children and do not reserve another such strip.
 
-The strip appears only in Editor mode and is not exported.
+The editing strip itself is not exported. Child coordinates still include the reserved space; native headers and tab strips are drawn by ImGui.
 
-When you resize a container, Builder adjusts its children's positions to keep them inside. If the requested size cannot accommodate the contents, the resize is rejected.
+Resizing a container adjusts child positions toward its content area. Table cells and tab pages follow their parent’s size. Keep enough room for the contents: repositioning children does not reduce their dimensions, and the resize checks differ between canvas handles and inspector fields.
 
 Containers can be nested. For example:
 
@@ -473,7 +479,7 @@ The inspector's **parent** row shows the selected widget's parent hierarchy.
 
 ### 4.7 · Overlap prevention
 
-Two widgets cannot occupy the same area.
+Builder checks widget footprints during placement and movement to prevent overlap. These checks are not a guarantee for every editing path; in particular, pasting containers or children into an existing parent does not use the same free-space search as pasting a top-level leaf widget.
 
 ImGui processes widgets in call order. Overlapping interactive elements can intercept each other's mouse input, so Builder prevents these layouts.
 
@@ -525,7 +531,7 @@ Select a widget, then place it on the canvas using either method below.
 
 **Click** to create a widget at the default size defined by its contract.
 
-**Click and drag** to set its size as you place it. If the drag distance on an axis exceeds one grid interval, Builder uses that distance, adjusted for snapping. If the contract does not allow resizing on that axis, the contract's size is used instead.
+**Click and drag** to set the size during placement. On each axis, a drag extent of at least **10 layout px**, after snapping, replaces the default dimension. Smaller extents use the default. Fixed or derived dimensions follow the widget’s sizing rules.
 
 For example, you can draw a Button at 200 × 70 px. Dragging a Slider can set its width to 300 px, but its height remains fixed.
 
@@ -539,7 +545,7 @@ While a placement tool is active, the **Selection** inspector shows properties y
 
 In version 1.0.3, some fields in this form do not work correctly. The values for `min`, `max`, `format`, numeric flags, `components`, `tooltip`, and `bullet` are not transferred to the new widget on placement.
 
-The label and variant are transferred correctly, and the name is assigned automatically. Set other properties after placement rather than relying on this form.
+The variant, label, placeholder text, LabelText value, URL, arrow direction, radio group, and radio value are transferred where applicable. Names are assigned automatically. Set other properties after placement; their pre-placement values are not copied to the new widget.
 
 **Reset** restores the placement settings to their defaults.
 
@@ -597,7 +603,7 @@ The widget's contract determines which resize handles are available:
 
 For precise placement, use the inspector's **position** and **size** fields.
 
-These fields use absolute layout coordinates and bypass grid snapping.
+These fields use absolute layout coordinates and follow **Snap to grid**. Turn snapping off to enter coordinates in 1 px increments. Values are parsed as integers; negative coordinates are clamped to zero.
 
 The arrow keys move the selection by one grid interval, or by 1 px when snapping is off. Hold `Shift` to move it ten times as far. To enter exact coordinates, use the inspector's **position** fields.
 
@@ -611,7 +617,9 @@ The arrow keys move the selection by one grid interval, or by 1 px when snapping
 
 `Cmd/Ctrl + C` and `Cmd/Ctrl + V`
 
-The copy is placed with a **20 px** offset from the original.
+The initial paste position is offset by **20 px** on both axes. For a top-level leaf widget, Builder searches for a nearby free position if needed and skips that widget if no position is found. Repeated pastes advance the intended offset.
+
+For Line primitives, Copy/Paste in 1.0.3 leaves the endpoint coordinates unchanged. The pasted line can therefore lie on top of the original; move the selected copy to separate them.
 
 Copying a container includes its entire subtree and preserves all parent–child relationships.
 
@@ -663,7 +671,7 @@ When multiple objects are selected, the inspector shows their total count and a 
 
 If selected objects have different values for a property, its field shows **Mixed**. No object's value changes until you enter a new value.
 
-The `ΔX / ΔY` fields move the entire selection by the specified offset. The move uses the same checks as dragging: if it would place objects outside the layout or cause overlap, it is rejected and the status bar explains why. If both a container and its child are selected, the container moves once and the child moves with it.
+The `ΔX / ΔY` fields move the entire selection by the specified offset, subject to workspace-boundary and overlap checks. The workspace extends beyond the exported layout, so a move can leave a widget outside the export frame. If both a container and its child are selected, the child moves with the container once.
 
 Each batch edit is a single history step. One **Undo** restores the original values for every object in the selection.
 
@@ -673,7 +681,7 @@ Each batch edit is a single history step. One **Undo** restores the original val
 
 ## 06. Widget catalog
 
-This catalog lists the **41 widget families** in the same categories as the top toolbar. Each entry describes the control and typical uses. For the default dimensions and export modes of individual widget types, see [Appendix A](#manual-appendix-a-widget-contracts).
+This catalog lists the **41 widget families** in the toolbar categories. For base dimensions and sizing modes, see [Appendix A](#manual-appendix-a-widget-contracts).
 
 **Buttons & Toggles**
 
@@ -681,7 +689,7 @@ This catalog lists the **41 widget families** in the same categories as the top 
 | --- | --- |
 | `Button` | A button that triggers an action when clicked. *Use for commands such as render, apply, reset, or running a script step.* |
 | `SmallButton` | A button with reduced padding and the same behavior as Button. *Use for secondary actions or compact layouts.* |
-| `Checkbox` | A labeled Boolean control that displays a checkmark when enabled. *Use for on/off settings such as enable, mute, loop, or bypass.* |
+| `Checkbox` | A Boolean control with a checkmark and an external label above it. *Use for on/off settings such as enable, mute, loop, or bypass.* |
 | `RadioButtonEx` | A radio button that belongs to a mutually exclusive group; only one option in the group is active. *Use to choose a mode from a short, fixed list.* |
 | `ArrowButton` | A square button with an arrow. *Use for steppers, counters, and expand/collapse controls.* |
 
@@ -694,7 +702,7 @@ This catalog lists the **41 widget families** in the same categories as the top 
 | `TextWrapped` | Text that wraps to the available width. *Use for longer descriptions and help text.* |
 | `TextColored` | Text in a specified color. *Use for warnings, status messages, and category labels.* |
 | `TextDisabled` | Text in the disabled style. *Use for hints, placeholders, and labels for unavailable options.* |
-| `LabelText` | A label with a read-only value on its right. *Use for named values such as “Tempo: 120”.* |
+| `LabelText` | A read-only value on the left and its label on the right. *Use for named values such as tempo or status.* |
 | `TextLinkOpenURL` | An underlined link that opens a URL in the browser. *Use for documentation, website, and support links.* |
 | `ProgressBar` | A horizontal progress indicator from 0 to 100%. *Use to show progress during rendering, scanning, or other lengthy operations.* |
 
@@ -735,7 +743,7 @@ This catalog lists the **41 widget families** in the same categories as the top 
 
 | Family | Purpose |
 | --- | --- |
-| `SeparatorText` | A separator line with a centered label. *Use to title a section and separate it from the preceding content.* |
+| `SeparatorText` | A separator line with a label near the left edge. *Use to title a section.* |
 | `Separator` | A horizontal separator line. *Use to divide layout sections.* |
 | `HelpMarker` | A “(?)” marker with a tooltip on hover. *Use to explain a nearby control without expanding the layout.* |
 | `Panel` | A bordered, scrollable region containing other widgets. *Use for sidebars, settings blocks, and widget groups.* |
@@ -750,7 +758,7 @@ This catalog lists the **41 widget families** in the same categories as the top 
 
 ### Catalog notes
 
-**Slider, Drag, and Input.** Slider has a visible track and defined bounds. Drag has no track; horizontal dragging changes the value, making it useful for unbounded values and fine adjustments. Input provides direct numeric entry with step buttons. All three families use the same set of numeric inspector fields.
+**Slider, Drag, and Input.** Slider has a track and range bounds; Drag adjusts values by horizontal dragging; Input supports direct numeric entry. Their inspector fields differ: Slider exposes bounds and flags, Drag adds speed, and scalar Input exposes step settings. SliderAngle and N-suffix families have their own field sets; see Appendix B.
 
 **Families with an N suffix** (SliderN, DragN, InputN) export a `reaper.new_array` with the number of elements specified in *array size*, controlled through a single call. Standard families instead use *components*, from 1 to 4, to generate calls such as `SliderDouble2` or `DragInt3` with separate scalar variables.
 
@@ -778,12 +786,12 @@ Panel is an ImGui child window: a bordered region that can scroll when needed. U
 - **h-scroll.** Enables a horizontal scrollbar. Without it, content wider than the panel is clipped.
 
 ```lua
-reaper.ImGui_BeginChild(ctx, "Output##Panel_6", 220, 140, ChildFlags_Borders(), 0)
+reaper.ImGui_BeginChild(ctx, "Output##Panel_6", 220, 140, reaper.ImGui_ChildFlags_Borders(), 0)
   -- Child widgets; set SetCursorScreenPos for each one
 reaper.ImGui_EndChild(ctx)
 ```
 
-When the project uses a theme other than Default, Builder applies the panel background with `PushStyleColor` before `BeginChild` and removes the override after `EndChild`. Nested panels can therefore use their own background colors.
+When the theme is not Default, every Panel uses that theme’s child-background color. Builder pushes the color before `BeginChild` and pops it immediately afterward, before emitting the contents. There is no separate per-panel background-color field.
 
 <a name="manual-7-2-group"></a>
 
@@ -814,7 +822,7 @@ StyleRegion applies style overrides to its child widgets without affecting the r
 
 Builder creates each unique font family and style combination with one `CreateFont` call and attaches the font to the context before the first frame. It calls `PushFont` after applying the style overrides and the matching `PopFont` before removing them. The font therefore applies only to widgets inside the StyleRegion.
 
-> **Note.** In Editor mode, StyleRegion remains an editing aid. In Preview mode, its text color, frame background, button color, rounding, and font overrides apply to child widgets. Labels drawn separately through the draw list are an exception: their explicit color is unaffected by `Col_Text`. An `Aa` marker in the region's header indicates that a font override is enabled.
+> **Note.** In Preview, StyleRegion applies supported color, rounding, and font overrides to its children. Its text-color override also reaches external labels and draw-list Text, Separator, SeparatorText, LabelText, and BulletText: Builder resolves their colors when generating Lua. An `Aa` marker in the editor header indicates a font override.
 
 <a name="manual-7-4-collapsingheader-and-treenode"></a>
 
@@ -822,7 +830,7 @@ Builder creates each unique font family and style combination with one `CreateFo
 
 Both containers can collapse their contents in the running interface. CollapsingHeader uses a full-width bar; TreeNode uses an indented node with an arrow. TreeNode exports with `TreeNodeFlags_DefaultOpen`, so it starts expanded.
 
-TreeNode also has an **hdr color** setting. With *default*, the color is unchanged. For a custom color, Builder applies `PushStyleColor(Col_Text)` to the node label.
+TreeNode has a **hdr color** setting. *default* chooses black or white text for contrast with the canvas; *custom* uses the selected color. The exporter applies this color to the node label in both modes.
 
 Both containers are always shown expanded in Builder.
 
@@ -830,7 +838,7 @@ Both containers are always shown expanded in Builder.
 
 ### 7.5 · TabBar
 
-> The TabBar inspector's **tabs** list manages its TabItem elements. Edit a tab name in its row, click × to delete it, or use the add button to create a tab. Each tab is a container.
+> Select the **Tabs** container header to access its **tabs** list. Edit names in the rows, use × to delete a page and its contents, or add a new page. The × control cannot remove the last remaining page.
 
 A new TabBar starts with two tabs. Click a tab on the canvas to switch pages. Only the active page's contents are displayed and handled. Widgets placed on a page belong to its TabItem.
 
@@ -842,11 +850,11 @@ In the export, `BeginTabItem` / `EndTabItem` pairs are nested inside `BeginTabBa
 
 > The Table inspector provides row and column counts, a label and width mode for each column, a header-row checkbox, four table flags, and an overall sizing policy.
 
-Table is a grid of cells, each of which is a container. Changing the number of rows or columns creates or deletes cells; deleting a cell also deletes its contents.
+Table is a grid of cells, each a container. Row and column counts range from 1 to 16; a new table starts with 3 × 3 cells. When shrinking removes populated cells, the confirmation offers **OK** to delete their contents or **Cancel** to keep those widgets at the top level. Cancel keeps the contents; it does not cancel the table resize.
 
 | Setting | Description |
 | --- | --- |
-| columns / rows | Number of columns and rows. Changing these rebuilds the grid, creating or deleting cells. |
+| columns / rows | From 1 to 16 per axis. Growing creates cells; shrinking removes cells and asks how to handle their contents. |
 | Column width | Three modes are available. *Auto* sets no width flag. *Fix* sets `WidthFixed` with a width in pixels. *Str* sets `WidthStretch` with a weighting factor. |
 | header row | Adds a `TableHeadersRow` call and reserves an 18 px strip for column labels on the canvas. |
 | Borders | Cell borders. |
@@ -855,9 +863,9 @@ Table is a grid of cells, each of which is a container. Changing the number of r
 | ScrollY | Enables vertical scrolling. The table height is passed to ImGui only when ScrollY is enabled. |
 | sizing | Sizing policy for columns set to *Auto*: `SizingFixedFit` or `SizingStretchSame`. |
 
-Builder calculates row height from the table geometry. It subtracts the 24 px container strip and the column-label strip from the table height, divides the remainder by the row count, and passes the result to `TableNextRow` as the minimum row height. Cell contents are emitted in reading order, from left to right and then top to bottom, because ImGui uses flow layout inside cells rather than absolute positioning.
+Builder subtracts the 24 px editor strip and the 18 px column-label strip, when enabled, from the table height and divides the remainder by the row count. It passes the rounded result to `TableNextRow` as a minimum height. Cells are emitted row by row; their children are ordered by Y, then X. The exporter still emits absolute cursor positions for those child widgets, so this is not automatic flow layout.
 
-> **Note.** A widget placed in a cell is centered and reduced in size if needed. A widget placed over the table but outside its cells is moved beyond the table to the nearest available side.
+> **Note.** Placement in a cell keeps the drop position where possible, clamps it to the cell’s interior with a 4 px inset, and reduces overflowing dimensions if needed. It does not center the widget. If the widget’s center misses the cells but its box intersects the table, placement moves it beyond the nearest table edge.
 
 ---
 
@@ -875,9 +883,9 @@ Builder calculates row height from the table geometry. It subtracts the 24 px co
 | name | Object identifier. Determines Lua variable names and the ImGui ID. Use a unique name containing only `[A-Za-z0-9_]`. |
 | parent | The widget's container hierarchy. Read-only. |
 | label / text | Visible text. For Text-family widgets, this is the content itself; for other widgets, it is the label above or inside the control. |
-| hint | InputTextWithHint only. Placeholder text shown while the field is empty. |
-| value | LabelText only. The read-only value displayed to the right of the label. |
-| url | TextLink only. The URL opened when the link is clicked. |
+| hint | InputTextWithHint only. The field is labeled **placeholder**; its text appears when the input is empty. |
+| value | LabelText only. The read-only value displayed on the left; the label appears on the right. |
+| url | TextLinkOpenURL only. The URL opened by the exported link. An empty URL exports `https://example.com`. |
 
 **Numeric properties**
 
@@ -887,23 +895,23 @@ Builder calculates row height from the table geometry. It subtracts the 24 px co
 | array size | N-suffix families only. The size of the `reaper.new_array`, from 2 to 64. |
 | min / max | Range bounds. Empty fields use the defaults for the widget type. |
 | speed | Drag families only. The change in value per pixel of mouse movement. |
-| step / step fast | Input families only. Step sizes for the ± buttons and Ctrl + click. |
+| step / step fast | Scalar InputInt/InputDouble. Explicit step sizes for the step controls. InputInt with 2–4 components omits these arguments in export. |
 | format | A printf-style format, such as `%.2f` or `%d dB`. Also controls how the value appears in the widget. |
 | format min / max | DragRange only. Separate formats for the lower and upper bounds, such as `Min: %d` and `Max: %d`. |
 | numeric flags | Clamp, Log, NoInput, Wrap. See [§9](#manual-09-flags). |
 
-Empty numeric fields show their default values in gray. Entering a value makes it explicit and includes it in the export. Clear the field to restore the default.
+Gray values in empty numeric fields are inspector suggestions. Export fallbacks depend on the widget and on which optional arguments are present, so the gray value is not always the exported default. Enter ranges, speeds, steps, and formats explicitly when their exact values matter. Clearing a field removes its explicit value.
 
 **Appearance and behavior**
 
 | Field | Description |
 | --- | --- |
-| tooltip | Text shown on hover. Adds a `SetItemTooltip` call to the export. Not applied to widgets rendered only through the draw list: Text, Separator, LabelText, and BulletText. |
-| bullet | Adds a `Bullet()` call before the widget. |
-| color | TextColored and color widgets only. The color value. |
-| alpha | From 0 to 255, for RGBA variants and ColorButton. |
+| tooltip | The field is labeled **hint**. It adds `SetItemTooltip` for supported leaf widgets. Text, Separator, SeparatorText, LabelText, BulletText, and TextWrapped do not offer it. Container inspectors show the field, but container export does not emit it. |
+| bullet | The **prefix bullet** checkbox adds `Bullet()` and `SameLine()` before supported leaf widgets. The field shown for containers is not emitted by container export. |
+| color | The initial color for TextColored and color widgets can be set through the **color** field in batch editing. In 1.0.3 this field is missing from the single-object inspector. |
+| alpha | From 0 to 255, for RGBA variants, ColorButton, and TextColored. For ColorEdit4 and ColorPicker4, the exporter uses this alpha only when the object also has an explicit color. |
 | direction | ArrowButton only. Arrow direction: Left, Right, Up, or Down. |
-| overlay | ProgressBar only. Text over the bar. If empty, ImGui displays the percentage. |
+| overlay | ProgressBar only. Text over the bar. An empty field exports an empty overlay string, so no automatic percentage is requested. |
 | indeterminate | ProgressBar only. Displays an animation instead of a progress value. |
 | group / radio value | RadioButtonEx only. The shared state variable and this button's value. |
 | hdr color | TreeNode only. The node label color: default or custom. |
@@ -912,7 +920,7 @@ Empty numeric fields show their default values in gray. Entering a value makes i
 
 **Geometry**
 
-The **position** (X, Y) and **size** (W, H) fields use absolute layout coordinates in pixels. H is disabled for widgets with a fixed height.
+The **position** (X, Y) and **size** (W, H) fields use integer layout pixels and follow Snap to grid. Fixed dimensions are read-only. ColorPicker’s H is calculated from its picker width and flags.
 
 Drawings also have a **primitive order** row with back, backward, forward, and front buttons. These change the order within the drawing layer only; drawings always remain below widgets.
 
@@ -920,7 +928,7 @@ Drawings also have a **primitive order** row with back, backward, forward, and f
 
 > The text input inspector shows basic flags first, followed by callback events and an EEL2 code field.
 
-To define a callback, enable one or more events (OnEdit, Always, CharFilter, OnTab, OnUp/Down), then enter EEL2 code in the field below. On export, the code is compiled with `ImGui_CreateFunctionFromEEL`, attached to the context, and passed to the input widget call. A hint below the field indicates whether the selected flags will cause the code to run.
+Select a placed text input and enter EEL2 code in **EEL2 callback**. If no callback event is selected, entering the first nonempty callback automatically enables **OnEdit**. Choose the required events in the flags section; OnTab and OnUp/Down are available only for single-line inputs. The generated script compiles and attaches the callback at startup. The hint below the field warns when code has no selected event.
 
 ---
 
@@ -933,6 +941,8 @@ To define a callback, enable one or more events (OnEdit, Always, CharFilter, OnT
 ### Numeric flags
 
 These flags apply to the Slider and Drag families. The export combines them using bitwise OR.
+
+**Wrap** is exported for Drag controls only. The SliderN inspector also allows it to be toggled in 1.0.3, but the exporter removes it from SliderN calls.
 
 | Option | ImGui flag | Effect |
 | --- | --- | --- |
@@ -966,7 +976,7 @@ These flags apply to the Slider and Drag families. The export combines them usin
 
 > The color flags inspector places independent toggles at the top, followed by four single-choice groups: display, data type, input, and picker style. Alpha-channel options appear last.
 
-> **Note.** Only one option can be active in each display, data type, input, or picker group. For example, enabling *HSV* disables *RGB*. These options look like ordinary buttons in this release, but switching between them is intentional.
+> **Note.** Display, data type, input, and picker options appear as segmented single-choice controls. Selecting an option clears the other flags in that group; clicking the active option clears it.
 
 | Section | Button | ImGui flag | Applies to |
 | --- | --- | --- | --- |
@@ -1007,16 +1017,18 @@ To draw a shape, select its tool from the palette and drag on the canvas. For a 
 | Primitive | Properties | Export |
 | --- | --- | --- |
 | Rectangle | fill, stroke, rounding, thickness, opacity | `AddRectFilled` and `AddRect` |
-| Circle | fill, stroke, thickness, opacity | `AddCircle(Filled)`; creates an ellipse path when W ≠ H |
+| Circle | fill, stroke, thickness, opacity | `AddCircle(Filled)`; `AddEllipse(Filled)` when W ≠ H |
 | Triangle | fill, stroke, thickness, orient (four directions) | `AddTriangle(Filled)` |
 | Line | stroke, thickness | `AddLine` |
-| Polygon | fill, stroke, thickness, list of points | `PathFillConvex`; a triangle fan for non-convex shapes |
+| Polygon | fill, stroke, thickness, list of points | `PathFillConvex` for convex polygons; triangulation with `AddTriangleFilled` for concave polygons |
 | Arc | `ring`: stroke, thickness, start and end angles; `pie`: the same properties plus fill | `PathArcTo` and `PathStroke`; `pie` also uses `PathFillConvex` |
 | Text | text, color, size, horizontal and vertical alignment | `AddText`, with `CalcTextSize` where needed |
 
 > The arc inspector uses angles in degrees following ImGui conventions: 0° points right, and angles increase clockwise. A 270° sweep starting at 135° gives a conventional rotary knob scale.
 
 Exported drawings are clipped to the layout. A drawing is included if any part of it intersects the layout: for example, a rectangle extending past an edge is exported, and ImGui clips the portion outside. Widgets follow a stricter rule: a widget must be entirely inside the frame to be exported.
+
+**Drawing text size.** The *text size* field changes text on the Builder canvas. The text primitive’s exported `AddText` call does not carry this size; it uses the current ImGui font size. Set the font in Lua when a specific exported text size is required.
 
 <a name="manual-fill-stroke-and-linked-colors"></a>
 
@@ -1057,15 +1069,15 @@ The Canvas tab's W and H fields set the window's content size. They are exported
 ### Background
 
 - **Default.** The canvas follows the active theme, while the export retains ImGui's native window background. If the selected theme is not Default, Builder also applies its background color to the canvas child window through `PushStyleColor`.
-- **Custom.** Set a color and opacity. The color picker provides a saturation/brightness square, a hue bar, a screen eyedropper, and recent swatches. In the exported code, the selected color is applied as `Col_WindowBg`.
+- **Custom.** Choose a color and opacity in the Canvas picker. Opacity blends the color toward white; the export writes the resulting opaque color as `Col_WindowBg`. It does not make the REAPER window transparent.
 
 <a name="manual-color-picker"></a>
 
 ### Color picker
 
-All color fields in Builder—including primitive fills and strokes, text colors, StyleRegion colors, and theme editor fields—open the same custom picker rather than the browser's native color dialog. It opens to the right of the swatch and extends upward, leaving the source field visible.
+Color swatches for drawings, StyleRegion overrides, batch editing, and the theme editor open Builder’s popover picker. It normally opens to the right and upward; near a window edge it moves left or downward. The Canvas tab has its own embedded background picker.
 
-The picker contains a saturation/brightness square, hue bar, **HEX** field, screen eyedropper, and recent swatches. The HEX field receives focus when the picker opens, so you can type a color immediately; both six-digit and three-digit notation are accepted. Dragging in the square updates the color live, with the entire drag recorded as one undo step. `Esc` closes the picker and returns focus to the swatch. `Enter` applies the color and closes the picker.
+The popover has a saturation/brightness square, hue bar, **HEX** field, and recent swatches. The screen eyedropper appears only if the browser supports it. The HEX field is focused on opening and accepts `#RRGGBB` and `#RGB`. Color changes apply live. `Enter` closes the picker; `Esc` closes it and restores focus without reverting changes. Undo grouping follows the edited field’s history behavior.
 
 Recent swatches are shared across all color fields and retained until the page is reloaded.
 
@@ -1095,7 +1107,7 @@ Zoom ranges from 75% to 250%. Choose a preset in the status bar, use `Cmd/Ctrl` 
 
 > The theme selector lists built-in and custom themes, with **+ Add** and **Edit** controls below. The active theme is saved with the project.
 
-A theme defines fifteen ImGui color slots, including text, frame backgrounds and their hovered/active states, buttons, headers, checkmarks, and slider grabs. Three themes are included: **Default** (no ImGui color overrides; uses ImGui's standard dark style), **Slate (dark)**, and **Light**.
+A theme defines fifteen color values: thirteen ImGui style colors, a child-window background, and a color for labels drawn through the draw list. Three themes are included: **Default** (no theme color overrides), **Slate (dark)**, and **Light**.
 
 Themes affect both Preview mode and the export. For a theme other than Default, the export applies its colors with `PushStyleColor` immediately after opening the canvas child window and removes them before closing it.
 
@@ -1110,7 +1122,7 @@ Themes affect both Preview mode and the export. For a theme other than Default, 
 To create a theme, choose colors for the background, text, controls, and accent. The remaining eleven slots are calculated automatically. Hovered and active states are derived from the control color: lighter on dark backgrounds and darker on light backgrounds. Header colors blend the background and accent. The accent is also used for checkmarks and the active slider grab.
 
 - Custom themes are stored in the browser's localStorage and are available only in that browser on that computer.
-- The active theme's definition is included in the project file. Loading the project on another computer registers the theme automatically.
+- The active custom theme’s definition is included in the project file. Loading that project makes the theme available for the current session; it does not automatically save it to the browser’s permanent theme library.
 - **Edit** opens custom theme management. Use the pencil button to edit a theme, or delete a theme you no longer need. Built-in themes cannot be edited or deleted.
 
 ---
@@ -1121,15 +1133,17 @@ To create a theme, choose colors for the background, text, controls, and accent.
 
 > Preview hides name tags, container editor strips, and selection controls. It approximates the widgets' ImGui appearance using the active theme.
 
-Use the Editor / Preview switch above the canvas to change modes. Preview is for inspection: you can click a widget to select it and view its properties, but you cannot move, resize, or create objects. Return to Editor mode to make changes.
+Use the Editor / Preview switch above the canvas. Preview prevents direct canvas dragging, resizing, and placement, but it does not lock the project: inspector edits and editing commands remain active. Widgets are drawn as visual approximations; clicking them selects them rather than operating the exported control. Switch tabs in Editor mode.
 
 Some widgets appear as labeled, hatched placeholders: **Group**, **Table**, **ColorPicker3/4**, and **TextWrapped**. A banner appears at the bottom when the canvas contains these widgets.
 
-> **Note.** Version 1.0.3 has one notable preview limitation:
+> **Preview limitations in 1.0.3:**
 >
 > - ColorEdit does not reflect display flags. It always shows R/G/B fields and a color swatch, regardless of *DisplayHSV*, *Hex*, or *NoInputs* settings.
 >
-> In Preview, StyleRegion applies colors, rounding, and fonts to child widgets. Labels drawn separately retain their own explicit colors.
+> In Preview and export, StyleRegion’s text-color override also applies to external labels. Other widget properties may be represented schematically: Preview does not run ReaImGui or execute the generated Lua.
+>
+> ProgressBar Preview uses a fixed fill of about 45%; it does not show the exported animation or overlay. Numeric controls likewise use representative values rather than running the generated script.
 
 ---
 
@@ -1143,8 +1157,8 @@ Some widgets appear as labeled, hatched placeholders: **Group**, **Table**, **Co
 
 The preflight panel at the top of the *Export* window runs whenever you open the window. It reports findings at three levels.
 
-- **Error.** The generated script would be invalid or fail to run. Examples include duplicate or missing IDs, ambiguous parents, cyclic nesting, invalid geometry, unknown widget types, orphaned tabs or table cells, and nonnumeric ranges. The *copy* and *download* buttons remain disabled until all errors are resolved. This check cannot be bypassed.
-- **Warning.** The Lua code is valid, but the result may differ from the canvas. Examples include objects outside the layout, objects inside an omitted container, clipped drawings, names that become identical after normalization, duplicate radio values within a group, an empty `TabBar`, or missing table cells.
+- **Error.** Preflight has found a condition that blocks export, such as invalid IDs, parent relationships, geometry, widget types, or numeric values. The *copy* and *download* buttons remain disabled until these errors are resolved. Preflight validates project data; it does not execute Lua.
+- **Warning.** Export remains available, but a setting or omission needs attention. Examples include objects outside the layout, children of omitted containers, clipped drawings, colliding names, duplicate radio values, an empty TabBar, or missing table cells.
 - **Information.** A single summary line reports how many elements have no visible label.
 
 The panel header reports how many objects will be **omitted** and how many will be exported out of the total. Review this summary to identify omissions that would not be apparent from the code alone.
@@ -1161,7 +1175,7 @@ The generated code follows a consistent structure:
 
 1. **Header comments.** Canvas dimensions and positioning rules.
 2. **Context and dimensions.** The `CreateContext` call and `W, H` and `OUTER_H` values. `OUTER_H` adds the title bar height so the content area matches the layout dimensions.
-3. **Position constants.** One line per object, for example `local SLIDER_4_X, SLIDER_4_Y, SLIDER_4_W = 20, 150, 120`. Edit these constants to adjust the layout in the generated code.
+3. **Position constants.** Widget X/Y coordinates and widths are listed near the top. The exporter also embeds coordinates and sizes directly in many draw-list and widget calls. For consistent layout changes, edit the Builder project and export again.
 4. **State variables.** State for interactive widgets, one shared variable per radio group, and `reaper.new_array` arrays for N-suffix families.
 5. **Fonts and EEL2 callbacks.** Created and attached once, before the loop, if a StyleRegion or input field uses them.
 6. **The `draw()` function.** Sets padding and spacing to zero, opens the window, obtains the draw list and coordinate origin, opens the canvas child window, applies the theme, draws primitives, and then emits widgets in tree order.
@@ -1193,7 +1207,6 @@ Widgets and draw list geometry use the same origin, `ox, oy`. A rectangle placed
 
 - A widget is exported only if its full footprint lies inside the layout bounds. A widget extending past an edge is omitted.
 - A drawing is exported if it intersects the layout area.
-- A background image is not exported. It serves only as a layout reference.
 - The audit grid is exported when enabled.
 
 ---
@@ -1210,13 +1223,13 @@ Builder automatically stores a draft of the current layout in browser storage. I
 
 The status bar shows *No unsaved changes*, *Unsaved changes*, *Saving…*, or *Autosaved HH:MM*.
 
-If the previous session ended unexpectedly, Builder offers to restore the draft the next time it opens. The recovery prompt shows the draft's time, object count, and build version. Check the version before restoring: when local `file://` Builder files share browser storage, an older build may also see a draft created by a newer build.
+If a recovery draft exists when Builder opens, it offers to restore or discard it. This can follow a normal close as well as an unexpected interruption. The prompt shows the draft’s time, element count, and Builder version. Browser handling of storage for local files varies, so keep a portable JSON copy.
 
-A successful save, a successful load, or a confirmed *New Project* command removes the draft. Canceling the file picker or encountering a load error does not. A restored draft is treated as unsaved until you save the project.
+Builder clears the recovery draft when it initiates a JSON download, successfully loads a project, or completes New Project. It cannot confirm that the browser finished saving the downloaded file. Canceling the load picker or encountering a load error keeps the draft. A restored draft remains unsaved until a project download is initiated.
 
 Autosave is a recovery aid, not a project file. It is tied to one browser and is lost when its site data is cleared.
 
-*File → Save Project* saves `reaper-ui-project.json`. The file includes the canvas size, background, theme and any custom theme definition, grid and snapping settings, name counters, and all objects with their properties.
+*File → Save Project* downloads `reaper-ui-project.json`. It includes the title, canvas dimensions, background, active theme and custom definition, audit-grid state, snap setting, grid step, counters, and objects. Editor/Preview mode, ordinary-grid visibility, zoom, and undo history are not saved in the file.
 
 *File → Load Project* replaces the current layout. If the current project has unsaved changes, Builder asks for confirmation before opening the file picker; otherwise, the picker opens immediately. A successful load clears undo history and resets zoom to 100%. Loaded data is normalized using the same rules as startup data, so projects from older builds may be updated to the current structure automatically.
 
@@ -1274,25 +1287,6 @@ This section describes features that are unavailable or may behave differently t
 
 - **Editing Combo and ListBox items.** The export uses five placeholder items. The widgets themselves work: their selection variables are declared and updated. Replace only the item strings. The generated code marks the relevant location with `-- TODO: replace the placeholder items …`.
 - **Importing or exporting a theme as a separate file.** Themes are stored in the project file and localStorage.
-- **Background images.** This feature is unavailable in the interface, although state handling and rendering remain in the code.
-
-<a name="manual-reaper-validation-status"></a>
-
-### REAPER validation status
-
-The project records describe a seven-check manual validation session covering key export paths in REAPER with ReaImGui **0.10.0.5**. Before version 1.0 was released, validation was repeated on the release line: `reaui_coord_stress_v1_0.json` (Panel → Group → Button, an adjacent object inside the panel, and a top-level widget) ran without coordinate discrepancies, and no new errors were found during normal use. Versions 1.0.1–1.0.3 received automated and static checks, but no further manual REAPER run.
-
-The separate seven-check file has not been rerun since version 3.364. The following are therefore priority checks if a generated script behaves unexpectedly; they are not a list of known defects:
-
-- Default theme behavior: a new project does not override the child window background.
-- `PushFont(ctx, font, size)` — the three-argument signature introduced in 0.10. It fails in version 0.9.
-- `CreateFont(family, flags)` with generic font family names and font style flags.
-- Renamed alpha flags: `AlphaOpaque`, `AlphaNoBg`, and `AlphaPreviewHalf`. These are unavailable in earlier builds.
-- EEL2 callback execution for each `Callback*` flag.
-- The custom theme's thirteen `PushStyleColor` calls and its child window background override.
-- Arc angle direction in REAPER's actual draw list.
-
-All of these checks assume ReaImGui 0.10 or later.
 
 <a name="manual-behavior-to-be-aware-of"></a>
 
@@ -1301,7 +1295,7 @@ All of these checks assume ReaImGui 0.10 or later.
 - **Widget settings before placement.** The form shows `min`, `max`, `format`, numeric flags, `components`, `tooltip`, and `bullet`, but version 1.0.3 does not transfer these values to the created widget. Set them after placement. See §5.1.
 - A widget extending outside the layout is not exported. The preflight panel in *Export* identifies these objects by name; see §14. If a container is omitted, all of its contents are omitted too, even if the children themselves lie inside the layout.
 - Labels for sliders, input fields, and similar controls appear above the widget, outside its bounds. Without vertical spacing, they overlap objects above them.
-- The `.lua` filename is derived from the window title. Spaces and punctuation are replaced with underscores.
+- The `.lua` filename comes from the window title. Characters other than Latin letters, digits, underscores, and hyphens become underscores; if no usable name remains, the filename is `MyPlugin.lua`.
 - The toolbar's second row is empty when no widget category is open. The **Display** category is open at startup.
 - In a narrow window, the theme panel may cover part of the layout. Click outside the panel to close it.
 - Custom themes are stored in one browser's localStorage and removed when its site data is cleared. Save the project file to keep a permanent copy of the active theme.
@@ -1312,14 +1306,14 @@ All of these checks assume ReaImGui 0.10 or later.
 
 ## Appendix A · Widget contracts
 
-The table lists every widget type, its family, default size, and width and height modes. **H** indicates a height fixed by ImGui.
+The table lists all 50 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. **H** marks a fixed height; **D** marks a height derived from width and flags. SmallButton width follows its label; Checkbox and ArrowButton cannot be resized.
 
 | Type | Family · variant | Size | Width | Height | Description |
 | --- | --- | --- | --- | --- | --- |
 | `Button` | `Button` | 100×20 | `explicit-size` | `explicit-size` | A button that triggers an action when clicked. |
 | `SmallButton` | `SmallButton` | 50×20 **H** | `explicit-size` | `native-fixed` | A button with reduced padding and the same behavior as Button. |
 | `ArrowButton` | `ArrowButton` | 17×17 **H** | `explicit-size` | `explicit-size` | A square button with an arrow. |
-| `Checkbox` | `Checkbox` | 20×20 **H** | `widget-box-preview` | `native-fixed` | A labeled Boolean control that displays a checkmark when enabled. |
+| `Checkbox` | `Checkbox` | 20×20 **H** | `widget-box-preview` | `native-fixed` | A Boolean control with a checkmark and an external label above it. *Use for on/off settings such as enable, mute, loop, or bypass.* |
 | `RadioButtonEx` | `RadioButtonEx` | 20×20 **H** | `widget-box-preview` | `native-fixed` | A radio button that belongs to a mutually exclusive group; only one option in the group is active. |
 | `Selectable` | `Selectable` | 140×20 | `explicit-size` | `explicit-size` | A selectable, full-width row. |
 | `Text` | `Text` | 120×20 **H** | `content-or-widget-box` | `native-content` | A static, single-line label. |
@@ -1327,9 +1321,9 @@ The table lists every widget type, its family, default size, and width and heigh
 | `TextDisabled` | `TextDisabled` | 120×20 **H** | `content-or-widget-box` | `native-content` | Text in the disabled style. |
 | `TextWrapped` | `TextWrapped` | 200×60 | `explicit-size` | `explicit-size` | Text that wraps to the available width. |
 | `BulletText` | `BulletText` | 160×14 **H** | `explicit-size` | `native-line` | A line of text preceded by a bullet. |
-| `LabelText` | `LabelText` | 140×20 **H** | `next-item-width` | `native-fixed` | A label with a read-only value on its right. |
+| `LabelText` | `LabelText` | 140×20 **H** | `next-item-width` | `native-fixed` | A read-only value on the left and its label on the right. *Use for named values such as tempo or status.* |
 | `TextLinkOpenURL` | `TextLinkOpenURL` | 120×14 **H** | `explicit-size` | `native-line` | An underlined link that opens a URL in the browser. |
-| `SeparatorText` | `SeparatorText` | 200×14 **H** | `explicit-size` | `native-line` | A separator line with a centered label. |
+| `SeparatorText` | `SeparatorText` | 200×14 **H** | `explicit-size` | `native-line` | A separator line with a label near the left edge. *Use to title a section.* |
 | `Separator` | `Separator` | 200×10 **H** | `explicit-size` | `native-line` | A horizontal separator line. |
 | `HelpMarker` | `HelpMarker` | 24×20 **H** | `content-or-widget-box` | `native-content` | A “(?)” marker with a tooltip on hover. |
 | `ProgressBar` | `ProgressBar` | 120×20 | `explicit-size` | `explicit-size` | A horizontal progress indicator from 0 to 100%. |
@@ -1354,8 +1348,8 @@ The table lists every widget type, its family, default size, and width and heigh
 | `ListBox` | `ListBox` | 160×80 | `next-item-width` | `explicit-size` | A scrollable list with several visible rows. |
 | `ColorEdit3` | `ColorEdit` · `RGB` | 160×20 **H** | `next-item-width` | `native-fixed` | A compact color editor with channel fields and a swatch. |
 | `ColorEdit4` | `ColorEdit` · `RGBA` | 160×20 **H** | `next-item-width` | `native-fixed` | A compact color editor with channel fields and a swatch. |
-| `ColorPicker3` | `ColorPicker` · `RGB` | 200×200 | `next-item-width` | `explicit-size` | A full color picker with a saturation area and hue bar. |
-| `ColorPicker4` | `ColorPicker` · `RGBA` | 200×200 | `next-item-width` | `explicit-size` | A full color picker with a saturation area and hue bar. |
+| `ColorPicker3` | `ColorPicker` · `RGB` | 200×246 **D** | `next-item-width` | `explicit-size` | A full color picker with a saturation area and hue bar. |
+| `ColorPicker4` | `ColorPicker` · `RGBA` | 200×246 **D** | `next-item-width` | `explicit-size` | A full color picker with a saturation area and hue bar. |
 | `ColorButton` | `ColorButton` | 40×20 | `explicit-size` | `explicit-size` | A button displaying a single color swatch. |
 | `Panel` | `Panel` | 220×140 | `explicit-size` | `explicit-size` | A bordered, scrollable region containing other widgets. |
 | `Group` | `Group` | 200×120 | `explicit-size` | `explicit-size` | An invisible container that groups child widgets into one block. |
@@ -1373,7 +1367,7 @@ The table lists every widget type, its family, default size, and width and heigh
 
 ## Appendix B · Inspector matrix
 
-The table lists the inspector rows available for each widget type, using the labels shown in the interface. The **name** field is available for every user-created object and is omitted here to avoid repetition.
+The table lists properties shown for a single selected widget. **name** is available for user-created objects; **parent** appears only when a parent exists. Internal property names are used where helpful: **tooltip** is labeled **hint**, **hint** is labeled **placeholder**, and **bullet** appears as **prefix bullet**. A visible field does not always affect export; see §8.
 
 | Type | Inspector rows |
 | --- | --- |
@@ -1423,7 +1417,7 @@ The table lists the inspector rows available for each widget type, using the lab
 | `StyleRegion` | label / text, tooltip, bullet, text color, frame bg, button color, rounding, selectable align, font, position, size |
 | `CollapsingHeader` | label / text, tooltip, bullet, position, size |
 | `TreeNode` | label / text, tooltip, bullet, hdr color, position, size |
-| `TabBar` | parent, label / text, tooltip, bullet, position, size |
+| `TabBar` | tabs, label / text, tooltip, bullet, position, size |
 | `TabItem` | label / text, tooltip, bullet, position, size |
 | `Table` | table grid, label / text, tooltip, bullet, position, size |
 | `TableCell` | label / text, tooltip, bullet, position, size |
@@ -1434,7 +1428,7 @@ The table lists the inspector rows available for each widget type, using the lab
 
 ## Appendix C · Generated file structure
 
-The example layout used in this guide—a separator, button, checkbox, slider, combo, panel with two child widgets, tab bar, and table on a 700 × 520 canvas—produces about 200 lines of code. An abbreviated outline follows.
+The abbreviated example below shows the exporter’s structure with a custom white background. Ellipses and comments omit parts of the generated file; this is a reading aid, not a complete script. Use **Export → download .lua** to obtain a complete file for your layout.
 
 ```lua
 -- ReaImGui layout  (700×520)
@@ -1453,6 +1447,8 @@ local SLIDER_4_X, SLIDER_4_Y, SLIDER_4_W = 20, 150, 120
 local Checkbox_3_checked = false
 local Slider_4_val = 0.0
 local Combo_5_item = 0
+
+local open = true
 
 local function draw()
   reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_WindowPadding(), 0, 0)
@@ -1485,7 +1481,7 @@ local function draw()
       local _label = "Gain"
       if _label ~= "" then
         local _tw, _th = reaper.ImGui_CalcTextSize(ctx, _label)
-        reaper.ImGui_DrawList_AddText(dl, ox+20, oy+148-_th, 0x884422FF, _label)
+        reaper.ImGui_DrawList_AddText(dl, ox+20, oy+148-_th, 0x000000FF, _label)
       end
       local _rv
       _rv, Slider_4_val = reaper.ImGui_SliderDouble(ctx, "##Slider_4", Slider_4_val, 0.0, 1.0)
@@ -1511,7 +1507,7 @@ reaper.defer(loop)
 
 Keep these three points in mind when editing the generated code.
 
-- Every widget is preceded by `SetCursorScreenPos`. To move a widget, edit its position constant at the top of the file rather than moving the call.
+- User-placed widgets receive absolute cursor positions; structural TabItem and TableCell elements are managed by their parents. Coordinates and sizes also occur as inline numbers, so editing only the top-of-file constants does not update the complete layout.
 - Widgets with external labels are enclosed in a `do … end` block. The label is drawn through the draw list, and the widget uses a hidden ID such as `##Name`.
 - Containers are nested in the same order as on the canvas, and each has a matching `End…` call. The outermost `EndChild` closes the canvas.
 

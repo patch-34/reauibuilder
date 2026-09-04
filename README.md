@@ -8,7 +8,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](reaui-builder-logo.svg)
 
-**Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](REAPER_UI_Builder_Manual_en_v1_0_3.html) · [Русское руководство](REAPER_UI_Builder_Manual_ru_v1_0_3.html)
+**Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](ReaUI_Builder_Manual_en_v1_0_3.md) · [Русское руководство](ReaUI_Builder_Manual_ru_v1_0_3.md)
 
 ## Contents
 
@@ -161,9 +161,9 @@ Check the exported interface in REAPER before distributing your script. The manu
 
 ## Documentation and feedback
 
-- [English user guide — version 1.0.3](ReaUI_Builder_Manual_en_v1_0_3.html)
-- [Русское руководство — версия 1.0.3](ReaUI_Builder_Manual_ru_v1_0_3.html)
+- [English user guide — version 1.0.3](ReaUI_Builder_Manual_en_v1_0_3.md)
+- [Русское руководство — версия 1.0.3](ReaUI_Builder_Manual_ru_v1_0_3.md)
 
-Download the HTML manuals and open them in a browser to use their formatted contents and navigation. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples.
+Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. For offline reading with the original formatting, download the [English HTML manual](ReaUI_Builder_Manual_en_v1_0_3.html) or [Russian HTML manual](ReaUI_Builder_Manual_ru_v1_0_3.html) and open it in a browser.
 
 Use **Help → Report a Bug…** in Builder when preparing a report. Include the Builder version, browser, reproduction steps, and a minimal JSON project. For export problems, also include the REAPER and ReaImGui versions and the error message.

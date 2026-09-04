@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="960"
+  height="240"
+  viewBox="0 0 960 240"
+  role="img"
+  aria-labelledby="logo-title logo-description"
+>
+  <title id="logo-title">ReaUI Builder logo</title>
+  <desc id="logo-description">
+    A graphite app icon with a teal selection frame and four blue corner handles,
+    beside the ReaUI Builder wordmark and tagline.
+  </desc>
+
+  <!-- Editable palette: background #FFFFFF, graphite #252A31,
+       teal #16B8A6, blue #3B82F6, muted graphite #65707D. -->
+  <rect id="background" width="960" height="240" fill="#FFFFFF"/>
+
+  <g id="app-icon">
+    <rect
+      id="icon-tile"
+      x="32"
+      y="32"
+      width="176"
+      height="176"
+      rx="40"
+      fill="#252A31"
+    />
+
+    <rect
+      id="selection-frame"
+      x="76"
+      y="76"
+      width="88"
+      height="88"
+      rx="12"
+      fill="none"
+      stroke="#16B8A6"
+      stroke-width="7"
+    />
+
+    <g id="corner-handles" fill="#3B82F6">
+      <rect id="handle-top-left" x="67" y="67" width="18" height="18" rx="3"/>
+      <rect id="handle-top-right" x="155" y="67" width="18" height="18" rx="3"/>
+      <rect id="handle-bottom-left" x="67" y="155" width="18" height="18" rx="3"/>
+      <rect id="handle-bottom-right" x="155" y="155" width="18" height="18" rx="3"/>
+    </g>
+  </g>
+
+  <g id="logo-copy" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif">
+    <text
+      id="wordmark"
+      x="248"
+      y="119"
+      font-size="58"
+      font-weight="700"
+      letter-spacing="-1.8"
+    ><tspan fill="#252A31">Rea</tspan><tspan fill="#16B8A6">UI</tspan><tspan fill="#252A31"> Builder</tspan></text>
+
+    <text
+      id="tagline"
+      x="251"
+      y="159"
+      fill="#65707D"
+      font-size="20"
+      font-weight="450"
+      letter-spacing="0.1"
+    >Visual layout editor for ReaImGui / REAPER.</text>
+  </g>
+</svg>

@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ReaUI Builder — User Guide, Version 1.0.3</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+:root{--ink:#171a1d;--muted:#5d6871;--rule:#d9dee3;--bg:#fff;--code:#f3f5f7;--accent:#2f5f72}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.62}
+main,.container{max-width:920px;margin:0 auto;padding:40px 24px 96px}
+h1,h2,h3,h4{line-height:1.25;color:#253744;scroll-margin-top:20px}
+h1{font-size:2rem;margin:0 0 1rem}
+h2{font-size:1.45rem;margin:3rem 0 1rem;padding-top:.9rem;border-top:2px solid #344d5b}
+h3{font-size:1.15rem;margin:2rem 0 .65rem}
+h4{font-size:1rem;margin:1.5rem 0 .5rem}
+p{margin:.7rem 0 1rem}
+ul,ol{padding-left:1.5rem}
+li{margin:.3rem 0}
+a{color:#275f75}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);border-radius:4px;padding:.08em .32em;font-size:.9em}
+pre{background:#1f2930;color:#eef4f7;border-radius:8px;padding:16px;overflow:auto;font-size:.9rem;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{margin:1.2rem 0;padding:.75rem 1rem;border-left:4px solid #678899;background:#f3f7f9;color:#27343c}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-weight:650;background:#f7f8f9}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+#TOC{margin:0 0 2.2rem;padding:1rem 1.2rem;background:#f7f8f9;border:1px solid var(--rule);border-radius:8px}
+#TOC ul{margin:.3rem 0}
+@media(max-width:640px){body{font-size:16px}.container{padding:24px 16px 72px}h1{font-size:1.7rem}h2{font-size:1.3rem}table{font-size:.86rem;display:block;overflow-x:auto}}
+@media print{body{font-size:11pt}.container{max-width:none;padding:0}#TOC{break-after:page}}
+
+</style>
+</head>
+<body>
+<div class="container">
+<header id="title-block-header">
+<h1 class="title">ReaUI Builder — User Guide, Version 1.0.3</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#reaui-builder" id="toc-reaui-builder">ReaUI Builder</a>
+<ul>
+<li><a href="#01-overview" id="toc-01-overview">01. Overview</a>
+<ul>
+<li><a href="#absolute-positioning"
+id="toc-absolute-positioning">Absolute positioning</a></li>
+<li><a href="#widget-contracts" id="toc-widget-contracts">Widget contracts</a></li>
+</ul></li>
+<li><a href="#02-quick-start" id="toc-02-quick-start">02. Quick start</a></li>
+<li><a href="#03-workspace"
+id="toc-03-workspace">03. Workspace</a>
+<ul>
+<li><a href="#3-1-top-toolbar-and-menus"
+id="toc-3-1-top-toolbar-and-menus">3.1 · Top toolbar and menus</a></li>
+<li><a href="#3-2-widget-panel" id="toc-3-2-widget-panel">3.2 · Widget panel</a></li>
+<li><a href="#3-3-left-palette" id="toc-3-3-left-palette">3.3 · Left palette</a></li>
+<li><a href="#3-4-canvas-area" id="toc-3-4-canvas-area">3.4 · Canvas area</a></li>
+<li><a href="#3-5-right-sidebar" id="toc-3-5-right-sidebar">3.5 · Right sidebar</a></li>
+<li><a href="#3-6-status-bar" id="toc-3-6-status-bar">3.6 · Status bar</a></li>
+</ul></li>
+<li><a href="#04-core-concepts" id="toc-04-core-concepts">04. Core concepts</a>
+<ul>
+<li><a href="#4-1-widgets-and-drawings" id="toc-4-1-widgets-and-drawings">4.1 · Widgets and drawings</a></li>
+<li><a href="#4-2-families-and-variants"
+id="toc-4-2-families-and-variants">4.2 · Families and variants</a></li>
+<li><a href="#4-3-coordinates-and-snapping"
+id="toc-4-3-coordinates-and-snapping">4.3 · Coordinates and snapping</a></li>
+<li><a href="#4-4-sizing-contracts"
+id="toc-4-4-sizing-contracts">4.4 · Sizing contracts</a></li>
+<li><a href="#4-5-labels" id="toc-4-5-labels">4.5 · Labels</a></li>
+<li><a href="#4-6-containers-and-nesting"
+id="toc-4-6-containers-and-nesting">4.6 · Containers and nesting</a></li>
+<li><a href="#4-7-overlap-prevention" id="toc-4-7-overlap-prevention">4.7 · Overlap prevention</a></li>
+<li><a href="#4-8-object-names" id="toc-4-8-object-names">4.8 · Object names</a></li>
+</ul></li>
+<li><a href="#05-working-with-objects" id="toc-05-working-with-objects">05. Working with objects</a>
+<ul>
+<li><a href="#5-1-placing-widgets"
+id="toc-5-1-placing-widgets">5.1 · Placing widgets</a></li>
+<li><a href="#5-2-selecting-objects" id="toc-5-2-selecting-objects">5.2 · Selecting objects</a></li>
+<li><a href="#5-3-moving-and-resizing"
+id="toc-5-3-moving-and-resizing">5.3 · Moving and resizing</a></li>
+<li><a href="#5-4-copying-duplicating-and-deleting"
+id="toc-5-4-copying-duplicating-and-deleting">5.4 · Copying, duplicating, and deleting</a></li>
+<li><a href="#5-5-undo-history" id="toc-5-5-undo-history">5.5 · Undo history</a></li>
+<li><a href="#5-6-batch-editing"
+id="toc-5-6-batch-editing">5.6 · Batch editing</a></li>
+</ul></li>
+<li><a href="#06-widget-catalog" id="toc-06-widget-catalog">06. Widget catalog</a>
+<ul>
+<li><a href="#catalog-notes"
+id="toc-catalog-notes">Catalog notes</a></li>
+</ul></li>
+<li><a href="#07-containers" id="toc-07-containers">07. Containers</a>
+<ul>
+<li><a href="#7-1-panel" id="toc-7-1-panel">7.1 · Panel</a></li>
+<li><a href="#7-2-group" id="toc-7-2-group">7.2 · Group</a></li>
+<li><a href="#7-3-styleregion" id="toc-7-3-styleregion">7.3 · StyleRegion</a></li>
+<li><a href="#7-4-collapsingheader-and-treenode"
+id="toc-7-4-collapsingheader-and-treenode">7.4 · CollapsingHeader and TreeNode</a></li>
+<li><a href="#7-5-tabbar" id="toc-7-5-tabbar">7.5 · TabBar</a></li>
+<li><a href="#7-6-table" id="toc-7-6-table">7.6 · Table</a></li>
+</ul></li>
+<li><a href="#08-inspector-reference"
+id="toc-08-inspector-reference">08. Inspector reference</a></li>
+<li><a href="#09-flags" id="toc-09-flags">09. Flags</a>
+<ul>
+<li><a href="#numeric-flags" id="toc-numeric-flags">Numeric flags</a></li>
+<li><a href="#text-input-flags"
+id="toc-text-input-flags">Text input flags</a></li>
+<li><a href="#color-flags" id="toc-color-flags">Color flags</a></li>
+</ul></li>
+<li><a href="#10-drawing-primitives"
+id="toc-10-drawing-primitives">10. Drawing primitives</a>
+<ul>
+<li><a href="#fill-stroke-and-linked-colors"
+id="toc-fill-stroke-and-linked-colors">Fill, stroke, and linked colors</a></li>
+</ul></li>
+<li><a href="#11-canvas-and-project-settings"
+id="toc-11-canvas-and-project-settings">11. Canvas and project settings</a>
+<ul>
+<li><a href="#window-title" id="toc-window-title">Window title</a></li>
+<li><a href="#size" id="toc-size">Size</a></li>
+<li><a href="#background" id="toc-background">Background</a></li>
+<li><a href="#color-picker" id="toc-color-picker">Color picker</a></li>
+<li><a href="#grid" id="toc-grid">Grid</a></li>
+<li><a href="#audit-grid" id="toc-audit-grid">Audit grid</a></li>
+<li><a href="#zoom-and-pan"
+id="toc-zoom-and-pan">Zoom and pan</a></li>
+</ul></li>
+<li><a href="#12-themes" id="toc-12-themes">12. Themes</a>
+<ul>
+<li><a href="#custom-themes"
+id="toc-custom-themes">Custom themes</a></li>
+</ul></li>
+<li><a href="#13-preview-mode" id="toc-13-preview-mode">13. Preview mode</a></li>
+<li><a href="#14-exporting" id="toc-14-exporting">14. Exporting</a>
+<ul>
+<li><a href="#export-preflight"
+id="toc-export-preflight">Export preflight</a></li>
+<li><a href="#generated-file-structure"
+id="toc-generated-file-structure">Generated file structure</a></li>
+<li><a href="#positioning-in-code"
+id="toc-positioning-in-code">Positioning in code</a></li>
+<li><a href="#what-is-included" id="toc-what-is-included">What is included</a></li>
+</ul></li>
+<li><a href="#15-saving-and-loading"
+id="toc-15-saving-and-loading">15. Saving and loading</a>
+<ul>
+<li><a href="#autosave-and-recovery"
+id="toc-autosave-and-recovery">Autosave and recovery</a></li>
+</ul></li>
+<li><a href="#16-keyboard-and-mouse-reference" id="toc-16-keyboard-and-mouse-reference">16. Keyboard and mouse reference</a></li>
+<li><a href="#17-release-limitations" id="toc-17-release-limitations">17. Release limitations</a>
+<ul>
+<li><a href="#not-implemented" id="toc-not-implemented">Not implemented</a></li>
+<li><a href="#reaper-validation-status" id="toc-reaper-validation-status">REAPER validation status</a></li>
+<li><a href="#behavior-to-be-aware-of"
+id="toc-behavior-to-be-aware-of">Behavior to be aware of</a></li>
+</ul></li>
+<li><a href="#appendix-a-widget-contracts"
+id="toc-appendix-a-widget-contracts">Appendix A · Widget contracts</a></li>
+<li><a href="#appendix-b-inspector-matrix"
+id="toc-appendix-b-inspector-matrix">Appendix B · Inspector matrix</a></li>
+<li><a href="#appendix-c-generated-file-structure"
+id="toc-appendix-c-generated-file-structure">Appendix C · Generated file structure</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="reaui-builder">ReaUI Builder</h1>
+<p>A visual layout editor for ReaImGui interfaces.</p>
+<p>Design a window on the canvas and let Builder generate the ReaImGui Lua code, including widget calls, draw list geometry, and style settings. Canvas coordinates map directly to the interface in REAPER: one pixel in Builder corresponds to one interface pixel.</p>
+<p>This guide covers version <strong>1.0.3</strong>.</p>
+<hr />
+<h2 id="01-overview">01. Overview</h2>
+<p>ReaUI Builder runs from a local HTML file. No installation, server, or build process is required. Styles, icons, widget contracts, and code generation logic are included in the file. The editor uses locally available fonts.</p>
+<p>Use Builder to design the <strong>interface layout</strong> for your script. Set widget positions, sizes, labels, and basic properties, then export the window structure as Lua code.</p>
+<p>Builder does not generate DSP, project logic, or event handling. In the exported code, <code>-- TODO</code> comments mark where to add your own logic for interactive widgets.</p>
+<ul>
+<li><strong>Output:</strong> Lua code for ReaImGui 0.10</li>
+<li><strong>Widgets:</strong> 50 types in 41 families</li>
+<li><strong>Drawing primitives:</strong> 7 — rectangle, circle, polygon, line, text, triangle, and arc</li>
+<li><strong>Project format:</strong> versioned JSON</li>
+</ul>
+<p>Builder is based on two principles.</p>
+<h3 id="absolute-positioning">Absolute positioning</h3>
+<p>ImGui normally lays out widgets in sequence. Builder uses absolute positioning: it sets <code>WindowPadding</code> and <code>ItemSpacing</code> to zero and explicitly positions the cursor before each widget.</p>
+<p>This keeps element coordinates consistent between the canvas and REAPER.</p>
+<h3 id="widget-contracts">Widget contracts</h3>
+<p>Each widget type has a <strong>contract</strong>: a set of rules that defines its default size, resizing constraints, how its width is applied, and where its label appears.</p>
+<p>The canvas, inspector, and code generator all use the same contract, so a widget behaves consistently throughout Builder. For example, a Checkbox has a fixed height, while a Slider displays its label above the control.</p>
+<hr />
+<h2 id="02-quick-start">02. Quick start</h2>
+<p>Open the HTML file in Chrome, Edge, Firefox, or Safari. Builder runs locally through <code>file://</code>. Editing layouts and generating code do not require a network connection.</p>
+<ol type="1">
+<li>Open the <strong>Canvas</strong> tab in the right sidebar and set the window size. The default is <strong>600 × 400 px</strong>.</li>
+<li>Choose a widget from a category in the top toolbar: <strong>Buttons &amp; Toggles, Display, Input, Selection, Color,</strong> or <strong>Layout</strong>. The <strong>Group, Style, Table, Header, Tree,</strong> and <strong>Tabs</strong> containers are also available as permanent shortcuts in the left palette.</li>
+<li>Click the canvas to place the widget. Its top-left corner is positioned at the click location, adjusted for grid snapping.</li>
+<li>Use the <strong>Selection</strong> inspector to set the widget's label, value range, flags, position, and size.</li>
+<li>Click <strong>Export</strong>, copy the generated Lua code, and save it as a <code>.lua</code> file in your REAPER scripts folder. You can then run the script in REAPER.</li>
+</ol>
+<blockquote>
+<p><strong>Workspace at startup.</strong> The tool palette is on the left. The canvas, window layout, and rulers occupy the center. On the right are the <strong>Canvas / Elements / Info</strong> tabs and the <strong>Selection</strong> inspector. The status bar runs along the bottom.</p>
+</blockquote>
+<blockquote>
+<p><strong>Tip: Save your project.</strong> Builder automatically stores a recovery draft in browser storage and may offer to restore it the next time you open the file. Treat this as a fallback. Before closing the tab, choose <strong>File → Save Project</strong> and keep the resulting JSON file with your script.</p>
+</blockquote>
+<hr />
+<h2 id="03-workspace">03. Workspace</h2>
+<p>In <strong>Editor</strong> mode, a gray name tag appears above each widget.</p>
+<p><strong>Panel, TabBar,</strong> and <strong>Table</strong> containers also display a header strip. Click this strip to select the container itself instead of an element inside it.</p>
+<blockquote>
+<p><strong>Layout in Editor mode.</strong> Name tags and container strips help you edit the layout structure. They are editor aids and are not included in the exported interface.</p>
+</blockquote>
+<h3 id="3-1-top-toolbar-and-menus">3.1 · Top toolbar and menus</h3>
+<p>The top toolbar contains four menus, global commands, and widget categories.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Menu</th>
+<th>Commands</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>File</strong></td>
+<td>New Project · Save Project · Load Project</td>
+</tr>
+<tr class="even">
+<td><strong>Edit</strong></td>
+<td>Undo · Redo · Copy · Paste · Delete · Duplicate · Select All ·
+Deselect All · Clear All</td>
+</tr>
+<tr class="odd">
+<td><strong>View</strong></td>
+<td>Dark mode · Grid · Snap to grid · Reference grid in export · Widget
+footprints · Zoom to fit · Actual size (100%)</td>
+</tr>
+<tr class="even">
+<td><strong>Help</strong></td>
+<td>Keyboard Shortcuts · Report a Bug… · About</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Undo</strong> and <strong>Redo</strong> are unavailable when there are no actions to undo or redo.</p>
+<p><strong>Reference grid in export</strong> adds a magenta measurement grid with 50 px spacing. Unlike the regular editor grid, it is included in the export. The same setting appears as <strong>Audit grid</strong> on the Canvas tab.</p>
+<p><strong>Snap to grid</strong> toggles grid snapping. Enabled options in the <strong>View</strong> menu are marked with a checkmark.</p>
+<p><strong>Clear All</strong> removes every element from the canvas after you confirm the action.</p>
+<p><strong>Export</strong> opens a window containing the generated code.</p>
+<p>The six widget categories appear on the right side of the toolbar. Click a category to show its widgets. Click it again to close the panel.</p>
+<h3 id="3-2-widget-panel">3.2 · Widget panel</h3>
+<p>The widget panel contains the full set of widgets, organized into six categories.</p>
+<p>To add a widget, open its category, select the widget, and click the canvas.</p>
+<p>If a category is wider than the panel, use the mouse wheel to scroll it horizontally.</p>
+<p>The <strong>Display</strong> category is open at startup. Click its button again to close it. When no category is open, the panel is empty; this is expected behavior.</p>
+<h3 id="3-3-left-palette">3.3 · Left palette</h3>
+<p>The left palette provides permanent access to:</p>
+<ul>
+<li>The <strong>Select</strong> and <strong>Hand</strong> tools.</li>
+<li>Seven drawing tools.</li>
+<li>Shortcuts for six containers: Group, StyleRegion, Table, CollapsingHeader, TreeNode, and TabBar.</li>
+</ul>
+<p><strong>Select</strong> is the default tool. Builder returns to it automatically after you place an object.</p>
+<p>Use <strong>Hand</strong> to pan the workspace. Hold <code>Space</code> to pan temporarily while using any other tool.</p>
+<p>Drawing tools are single-use by default: after you create a shape, Builder switches back to <strong>Select</strong>.</p>
+<p>To place several objects with the same tool, hold <code>Shift</code> when selecting it. The tool stays active until you press <code>Esc</code>. The status bar marks this mode next to the tool name, for example <code>rect [sticky]</code>.</p>
+<h3 id="3-4-canvas-area">3.4 · Canvas area</h3>
+<p>The center of the workspace shows the script window layout: the <strong>MyPlugin</strong> title, the interface area, and the surrounding workspace.</p>
+<p>The layout area matches the exported content size. The title bar represents ImGui's native title bar, whose height is added in the exported code:</p>
+<p><code>OUTER_H = H + title bar height</code></p>
+<p>The canvas area also includes these controls and indicators:</p>
+<ul>
+<li><strong>Editor / Preview</strong> — the display mode switch above the center of the canvas. See §13.</li>
+<li><strong>Theme</strong> — the theme selector above the canvas on the right. See §12.</li>
+<li><strong>Rulers</strong> — along the top and left edges, showing layout coordinates at the current zoom level.</li>
+<li><strong>Resize handle ⇲</strong> — at the bottom-right corner of the layout. Drag it to resize the canvas. This is equivalent to changing <code>W</code> and <code>H</code> on the <strong>Canvas</strong> tab.</li>
+<li><strong>Preview banner</strong> — appears in Preview mode when the layout contains widgets that Builder can only approximate.</li>
+</ul>
+<h3 id="3-5-right-sidebar">3.5 · Right sidebar</h3>
+<p>The right sidebar has two parts: the <strong>Canvas / Elements / Info</strong> tabs and the <strong>Selection</strong> inspector.</p>
+<h4 id="info">Info</h4>
+<p>When a widget is selected, or its placement tool is active, the <strong>Info</strong> tab shows an approximation of its ImGui appearance and a brief description of its purpose.</p>
+<p>Choosing a widget from the widget panel or left palette opens <strong>Info</strong> automatically. The tab stays open after placement, updating to show the newly created object.</p>
+<p>When no widget is selected, this tab shows a project summary.</p>
+<h4 id="elements">Elements</h4>
+<p>The <strong>Elements</strong> tab lists all layout objects in a tree.</p>
+<p>Child elements are indented beneath their containers. Click a row to select the corresponding object on the canvas.</p>
+<h4 id="canvas">Canvas</h4>
+<p>The <strong>Canvas</strong> tab contains layout settings: window size, background mode, grid visibility, and grid spacing.</p>
+<p>It also provides a background color picker with an eyedropper, recent swatches, and opacity control. The color value on the bottom line updates as you choose a color. In <em>Custom</em> mode, you can enter it directly. In <em>Default</em> mode, this line shows the name of the theme that supplies the canvas background.</p>
+<p>To edit the window title, click the title on the canvas itself. See §11.</p>
+<h4 id="selection">Selection</h4>
+<p>The <strong>Selection</strong> inspector uses the selected widget's contract to show only the properties supported by that type.</p>
+<p>The available fields therefore change with the selection. Simple widgets have only a few basic properties; widgets with ranges, formatting, or additional flags have more extensive controls.</p>
+<p>Inspector fields are organized into sections: <strong>Main</strong> for labels, names, values, and ranges; <strong>Structure</strong> for tabs and tables; <strong>Appearance</strong> for colors, rounding, and thickness; and <strong>Advanced</strong> for formats and flags. Position and size fields follow without a section heading. Empty sections are hidden.</p>
+<p>Selecting multiple objects switches the inspector to batch editing. See §5.6.</p>
+<p>Section 8 describes all inspector properties. Appendix B lists the properties available for each widget type.</p>
+<h3 id="3-6-status-bar">3.6 · Status bar</h3>
+<p>The status bar shows:</p>
+<ul>
+<li>The current zoom level and a button to fit the layout in the view.</li>
+<li>The active tool and a usage hint.</li>
+<li>The cursor coordinates.</li>
+<li>The current selection's <code>X</code>, <code>Y</code>, <code>W</code>, and <code>H</code>.</li>
+<li>Whether grid snapping is enabled.</li>
+<li>The element count.</li>
+</ul>
+<p>This area also displays status messages.</p>
+<p>When Builder rejects a placement, it briefly shows the reason in the status bar instead of opening a dialog. For example:</p>
+<p><code>blocked: overlaps existing widget</code></p>
+<p>or</p>
+<p><code>blocked: container too large for target</code></p>
+<hr />
+<h2 id="04-core-concepts">04. Core concepts</h2>
+<h3 id="4-1-widgets-and-drawings">4.1 · Widgets and drawings</h3>
+<p>Canvas objects fall into two categories: <strong>widgets</strong> and <strong>drawings</strong>. They differ in interactivity, nesting, overlap rules, drawing order, and export behavior.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>Widgets</th>
+<th>Drawings</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Definition</strong></td>
+<td>ImGui widgets: buttons, sliders, tables, and other interactive elements</td>
+<td>Geometry in the window's draw list</td>
+</tr>
+<tr class="even">
+<td><strong>Interactivity</strong></td>
+<td>Interactive</td>
+<td>Non-interactive; used for decoration</td>
+</tr>
+<tr class="odd">
+<td><strong>Export</strong></td>
+<td><code>ImGui_Button</code>, <code>ImGui_SliderDouble</code>, …</td>
+<td><code>DrawList_AddRect</code>, <code>AddCircle</code>, …</td>
+</tr>
+<tr class="even">
+<td><strong>Overlap</strong></td>
+<td>Not allowed</td>
+<td>Allowed; stacking order applies</td>
+</tr>
+<tr class="odd">
+<td><strong>Nesting</strong></td>
+<td>Supported inside containers</td>
+<td>Not supported</td>
+</tr>
+<tr class="even">
+<td><strong>Drawing order</strong></td>
+<td>Above drawings</td>
+<td>Below all widgets</td>
+</tr>
+</tbody>
+</table>
+<p>Use drawings for visual elements without a dedicated ImGui widget, such as a meter housing, a section border, a scale arc, or a logo.</p>
+<p>Use widgets for controls that the user interacts with.</p>
+<h3 id="4-2-families-and-variants">4.2 · Families and variants</h3>
+<p>Builder's palette is organized by <strong>family</strong>, while the exported code uses specific <strong>widget types</strong>.</p>
+<p>A family groups variants of the same control. For example:</p>
+<ul>
+<li><code>Slider</code> → <code>SliderInt</code> / <code>SliderDouble</code> — default: Double</li>
+<li><code>Drag</code> → <code>DragInt</code> / <code>DragDouble</code> — default: Double</li>
+<li><code>Input</code> → <code>InputInt</code> / <code>InputDouble</code> — default: Double</li>
+<li><code>VSlider</code> → <code>VSliderInt</code> / <code>VSliderDouble</code> — default: Double</li>
+<li><code>DragRange</code> → <code>DragIntRange2</code> / <code>DragFloatRange2</code> — default: Double</li>
+<li><code>ColorEdit</code> → <code>ColorEdit3</code> / <code>ColorEdit4</code> — default: RGB</li>
+<li><code>ColorPicker</code> → <code>ColorPicker3</code> / <code>ColorPicker4</code> — default: RGB</li>
+</ul>
+<p>For families with multiple variants, a <strong>variant</strong> row appears at the top of the inspector.</p>
+<p>Choose the variant before placement, while the placement tool is active. After placement, the row shows the current variant but cannot be edited. To use another variant, delete the widget and place it again.</p>
+<p>Keep the palette's family name distinct from the concrete type used in code. For example, <strong>Slider</strong> is the family name in Builder, while <strong>SliderDouble</strong> identifies a specific widget type in the generated code.</p>
+<h3 id="4-3-coordinates-and-snapping">4.3 · Coordinates and snapping</h3>
+<p>Each nested object's <code>x</code> and <code>y</code> coordinates are stored <strong>relative to its parent</strong>.</p>
+<p>For example, a button near the top-left corner of a panel may store the coordinates <code>(4, 28)</code>, even though the panel's position puts the button at <code>(24, 278)</code> in the overall layout.</p>
+<p>Moving the panel also moves the button. The button's own coordinates, <code>(4, 28)</code>, remain unchanged.</p>
+<p>The inspector and exported code use <strong>absolute layout coordinates</strong>. Builder converts between the two automatically.</p>
+<h4 id="grid-snapping">Grid snapping</h4>
+<p>When snapping is enabled, coordinates are rounded to the selected grid interval.</p>
+<p>Set the interval on the <strong>Canvas</strong> tab:</p>
+<ul>
+<li>2 px</li>
+<li>5 px</li>
+<li>10 px — default</li>
+</ul>
+<p>Snapping applies when placing, moving, and resizing objects.</p>
+<p>Choose <strong>View → Snap to grid</strong> to turn snapping off. Its current state appears in the status bar.</p>
+<blockquote>
+<p><strong>Note: Grid spacing and major grid lines.</strong> The selected interval controls snapping and the spacing of the thin grid lines. Thick lines always appear at 50 px intervals as a visual reference; objects do not snap to them independently. At low zoom levels, Builder may display a coarser grid, but snapping still uses the interval selected on the <strong>Canvas</strong> tab.</p>
+</blockquote>
+<h3 id="4-4-sizing-contracts">4.4 · Sizing contracts</h3>
+<p>ImGui does not allow independent width and height settings for every widget type. Builder applies the same constraints on the canvas so the layout can be reproduced correctly in code.</p>
+<p>There are four height modes:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Mode</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>explicit-size</code></td>
+<td>Height is set in Builder and passed to ImGui. Used by Button, Panel, ListBox, and other containers, for example.</td>
+</tr>
+<tr class="even">
+<td><code>native-fixed</code></td>
+<td>ImGui determines the height, usually one frame height, approximately 20 px. Most input widgets use this mode.</td>
+</tr>
+<tr class="odd">
+<td><code>native-content</code></td>
+<td>Content, such as text, determines the height.</td>
+</tr>
+<tr class="even">
+<td><code>native-line</code></td>
+<td>Height matches a single separator line.</td>
+</tr>
+</tbody>
+</table>
+<p>For a widget with a fixed height, the lower resize handles are hidden, the inspector's <strong>H</strong> field is disabled, and the following hint appears beneath it:</p>
+<p><code>↑ height fixed by ImGui</code></p>
+<p>You can still change the widget's width where its contract allows it.</p>
+<p>There are three width modes:</p>
+<ul>
+<li><code>explicit-size</code> — width is passed directly to the widget call.</li>
+<li><code>next-item-width</code> — <code>SetNextItemWidth</code> is called before the widget.</li>
+<li><code>content-or-widget-box</code> — the canvas box reserves space for the content; ImGui determines the actual size.</li>
+</ul>
+<h3 id="4-5-labels">4.5 · Labels</h3>
+<p>By default, ImGui renders a widget's label beside the control as part of the same call. With absolute positioning, this can place text outside the area reserved in Builder.</p>
+<p>Builder therefore uses two label placement methods.</p>
+<h4 id="inline-labels">Inline labels</h4>
+<p>Used by <strong>Button, Selectable,</strong> and containers.</p>
+<p>The text is passed directly to the ImGui call and rendered as part of the widget.</p>
+<h4 id="external-labels">External labels</h4>
+<p>Used by sliders, input fields, Combo, Checkbox, color controls, and some other widgets.</p>
+<p>The widget itself receives a hidden ID, for example:</p>
+<p><code>"##Slider_4"</code></p>
+<p>The visible label is drawn separately through the draw list, above the widget's top edge. Builder shows it in the same position on the canvas.</p>
+<p>An external label needs approximately <strong>14 px</strong> of additional vertical space. This space is outside the widget's own bounds.</p>
+<p>Leave enough room between controls. For example, if two sliders are placed 20 px apart vertically, the lower slider's label may overlap the upper slider.</p>
+<h3 id="4-6-containers-and-nesting">4.6 · Containers and nesting</h3>
+<p>Builder supports seven container types:</p>
+<ul>
+<li>Panel</li>
+<li>Group</li>
+<li>StyleRegion</li>
+<li>CollapsingHeader</li>
+<li>TreeNode</li>
+<li>TabBar</li>
+<li>Table</li>
+</ul>
+<p>Builder also uses <strong>TabItem</strong> and <strong>TableCell</strong>. These are created automatically and cannot be placed manually.</p>
+<p>Nesting is determined by the positions of objects on the canvas.</p>
+<p>Placing a widget inside a container's content area makes it a child of that container. Moving it outside returns it to the layout's top level or makes it a child of another suitable container.</p>
+<p>There is no separate command for adding an object to a container.</p>
+<p>Each container reserves a <strong>24 px</strong> editor strip at the top. Click this strip to select the container itself. Clicking its content area selects an object inside it or places a new widget there.</p>
+<p>The strip appears only in Editor mode and is not exported.</p>
+<p>When you resize a container, Builder adjusts its children's positions to keep them inside. If the requested size cannot accommodate the contents, the resize is rejected.</p>
+<p>Containers can be nested. For example:</p>
+<p><code>TabBar → TabItem → Panel → Button</code></p>
+<p>The corresponding ImGui calls are nested in the same order in the exported code.</p>
+<p>The inspector's <strong>parent</strong> row shows the selected widget's parent hierarchy.</p>
+<h3 id="4-7-overlap-prevention">4.7 · Overlap prevention</h3>
+<p>Two widgets cannot occupy the same area.</p>
+<p>ImGui processes widgets in call order. Overlapping interactive elements can intercept each other's mouse input, so Builder prevents these layouts.</p>
+<p>Overlap checks depend on the operation:</p>
+<ul>
+<li><strong>Placing a new widget.</strong> If the position is occupied, placement is rejected and the status bar displays a message.</li>
+<li><strong>Moving one widget.</strong> If the target position is occupied, Builder looks for the nearest available grid position.</li>
+<li><strong>Moving or resizing a selection.</strong> Builder checks the entire selection. If it cannot find a valid placement, it cancels the operation and restores the objects to their previous state.</li>
+</ul>
+<p>Some widgets occupy more space than their visible controls suggest.</p>
+<p>For example, <strong>ColorPicker</strong> includes a side preview area, while <strong>Checkbox</strong> occupies its full square control area.</p>
+<p>Overlap checks use the widget's entire footprint. A placement may therefore be rejected even where there appears to be unused space.</p>
+<h3 id="4-8-object-names">4.8 · Object names</h3>
+<p>Every new object receives an automatically numbered name:</p>
+<p><code>Button_2</code><br />
+<code>Slider_4</code><br />
+<code>Panel_6</code></p>
+<p>The name appears on the <strong>Elements</strong> tab and is used to generate Lua code.</p>
+<p>For example, <code>Slider_4</code> produces:</p>
+<ul>
+<li>The position constant <code>SLIDER_4_X</code>.</li>
+<li>The state variable <code>Slider_4_val</code>.</li>
+<li>The ImGui ID <code>"##Slider_4"</code>.</li>
+</ul>
+<p>You can rename objects.</p>
+<p>Use Latin letters, digits, and underscores (<code>_</code>). Other characters are replaced with <code>_</code> during export.</p>
+<p>Use unique names wherever possible. If two names become identical after normalization, the preflight panel shows a warning. The exporter resolves duplicates consistently by adding suffixes such as <code>_2</code> and <code>_3</code>, keeping ImGui IDs unique.</p>
+<hr />
+<h2 id="05-working-with-objects">05. Working with objects</h2>
+<h3 id="5-1-placing-widgets">5.1 · Placing widgets</h3>
+<p>Select a widget, then place it on the canvas using either method below.</p>
+<p><strong>Click</strong> to create a widget at the default size defined by its contract.</p>
+<p><strong>Click and drag</strong> to set its size as you place it. If the drag distance on an axis exceeds one grid interval, Builder uses that distance, adjusted for snapping. If the contract does not allow resizing on that axis, the contract's size is used instead.</p>
+<p>For example, you can draw a Button at 200 × 70 px. Dragging a Slider can set its width to 300 px, but its height remains fixed.</p>
+<p>After placement, Builder returns to <strong>Select</strong> and keeps the new widget selected, ready for editing in the inspector.</p>
+<h4 id="settings-before-placement">Settings before placement</h4>
+<p>While a placement tool is active, the <strong>Selection</strong> inspector shows properties you can set before creating the widget.</p>
+<p>In version 1.0.3, some fields in this form do not work correctly. The values for <code>min</code>, <code>max</code>, <code>format</code>, numeric flags, <code>components</code>, <code>tooltip</code>, and <code>bullet</code> are not transferred to the new widget on placement.</p>
+<p>The label and variant are transferred correctly, and the name is assigned automatically. Set other properties after placement rather than relying on this form.</p>
+<p><strong>Reset</strong> restores the placement settings to their defaults.</p>
+<p>Click the active tool again to cancel it.</p>
+<h4 id="placing-widgets-from-the-context-menu">Placing widgets from the context menu</h4>
+<p>You can also add widgets without opening the widget panel.</p>
+<p>Right-click the canvas to open a context menu listing all widget types by category.</p>
+<p>The widget you choose is placed at the right-click location.</p>
+<p>This is useful when you already know the widget type you need and want to place it directly.</p>
+<h3 id="5-2-selecting-objects">5.2 · Selecting objects</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Click</strong></td>
+<td>Select one object</td>
+</tr>
+<tr class="even">
+<td><strong>Shift + click</strong></td>
+<td>Add objects that intersect the rectangular area between the anchor object and the clicked object</td>
+</tr>
+<tr class="odd">
+<td><strong>Cmd/Ctrl + click</strong></td>
+<td>Add an object to the selection or remove it</td>
+</tr>
+<tr class="even">
+<td><strong>Drag on empty canvas</strong></td>
+<td>Draw a selection marquee</td>
+</tr>
+<tr class="odd">
+<td><strong>Shift + marquee</strong></td>
+<td>Add objects to the current selection</td>
+</tr>
+<tr class="even">
+<td><strong>Cmd/Ctrl + marquee</strong></td>
+<td>Toggle the selection state of objects within the marquee</td>
+</tr>
+<tr class="odd">
+<td><strong>Click an Elements row</strong></td>
+<td>Select the corresponding object on the canvas</td>
+</tr>
+<tr class="even">
+<td><strong>Cmd/Ctrl + A</strong></td>
+<td>Select all objects</td>
+</tr>
+<tr class="odd">
+<td><strong>Esc</strong></td>
+<td>Clear the selection or cancel the active tool</td>
+</tr>
+</tbody>
+</table>
+<p>Holding <code>Shift</code> or <code>Cmd/Ctrl</code> temporarily activates <strong>Select</strong>, even while a drawing or widget placement tool is active.</p>
+<p>This lets you change the selection without canceling the current tool.</p>
+<p>A multiple selection has a dashed bounding box with eight handles. Drag a handle to resize the selection while respecting each widget's sizing contract.</p>
+<h3 id="5-3-moving-and-resizing">5.3 · Moving and resizing</h3>
+<p>Drag a selected object to move it.</p>
+<p>Drag a selection handle to resize it.</p>
+<p>Both operations use grid snapping when enabled.</p>
+<p>The widget's contract determines which resize handles are available:</p>
+<ul>
+<li>Eight handles when both width and height can be changed freely.</li>
+<li>Two side handles when height is fixed but width is adjustable.</li>
+<li>No handles when ImGui determines the entire size.</li>
+</ul>
+<p>For precise placement, use the inspector's <strong>position</strong> and <strong>size</strong> fields.</p>
+<p>These fields use absolute layout coordinates and bypass grid snapping.</p>
+<p>The arrow keys move the selection by one grid interval, or by 1 px when snapping is off. Hold <code>Shift</code> to move it ten times as far. To enter exact coordinates, use the inspector's <strong>position</strong> fields.</p>
+<h3 id="5-4-copying-duplicating-and-deleting">5.4 · Copying, duplicating, and deleting</h3>
+<h4 id="copy-paste">Copy / Paste</h4>
+<p><code>Cmd/Ctrl + C</code> and <code>Cmd/Ctrl + V</code></p>
+<p>The copy is placed with a <strong>20 px</strong> offset from the original.</p>
+<p>Copying a container includes its entire subtree and preserves all parent–child relationships.</p>
+<p>If the original parent still exists, the pasted copy is placed inside it.</p>
+<h4 id="duplicate">Duplicate</h4>
+<p><code>Cmd/Ctrl + D</code></p>
+<p>Creates and places a copy in one step, equivalent to Copy followed by Paste.</p>
+<h4 id="alt-drag">Alt + drag</h4>
+<p>Hold <code>Alt</code> as you start dragging to move a copy while leaving the original in place.</p>
+<p>This also works with multiple selected objects.</p>
+<h4 id="delete">Delete</h4>
+<p><code>Del</code> or <code>Backspace</code></p>
+<p>Deleting a container also deletes all of its children.</p>
+<p>No confirmation is required. Use <strong>Undo</strong> to restore deleted objects.</p>
+<h3 id="5-5-undo-history">5.5 · Undo history</h3>
+<p>Builder stores <strong>50 history steps</strong>.</p>
+<p>Successive edits to the same property within <strong>600 ms</strong> are combined into one step. For example, several quick changes to <code>max</code> do not create a separate history entry for every intermediate value.</p>
+<p><strong>Undo</strong> restores both the objects and the selection that was active at that step.</p>
+<p>Loading a project clears the history. You cannot undo changes made before the load.</p>
+<h3 id="5-6-batch-editing">5.6 · Batch editing</h3>
+<p>When multiple objects are selected, the inspector shows their total count and a breakdown by type. It offers only properties shared by <strong>all</strong> selected objects. For example, a button and a checkbox share label, tooltip, and bullet properties.</p>
+<p>If selected objects have different values for a property, its field shows <strong>Mixed</strong>. No object's value changes until you enter a new value.</p>
+<p>The <code>ΔX / ΔY</code> fields move the entire selection by the specified offset. The move uses the same checks as dragging: if it would place objects outside the layout or cause overlap, it is rejected and the status bar explains why. If both a container and its child are selected, the container moves once and the child moves with it.</p>
+<p>Each batch edit is a single history step. One <strong>Undo</strong> restores the original values for every object in the selection.</p>
+<hr />
+<h2 id="06-widget-catalog">06. Widget catalog</h2>
+<p>This catalog lists the <strong>41 widget families</strong> in the same categories as the top toolbar. Each entry describes the control and typical uses. For the default dimensions and export modes of individual widget types, see <a href="#appendix-a-widget-contracts">Appendix A</a>.</p>
+<p><strong>Buttons &amp; Toggles</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Button</code></td>
+<td>A button that triggers an action when clicked. <em>Use for commands such as render, apply, reset, or running a script step.</em></td>
+</tr>
+<tr class="even">
+<td><code>SmallButton</code></td>
+<td>A button with reduced padding and the same behavior as Button. <em>Use for secondary actions or compact layouts.</em></td>
+</tr>
+<tr class="odd">
+<td><code>Checkbox</code></td>
+<td>A labeled Boolean control that displays a checkmark when enabled. <em>Use for on/off settings such as enable, mute, loop, or bypass.</em></td>
+</tr>
+<tr class="even">
+<td><code>RadioButtonEx</code></td>
+<td>A radio button that belongs to a mutually exclusive group; only one option in the group is active. <em>Use to choose a mode from a short, fixed list.</em></td>
+</tr>
+<tr class="odd">
+<td><code>ArrowButton</code></td>
+<td>A square button with an arrow. <em>Use for steppers, counters, and expand/collapse controls.</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Display</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Text</code></td>
+<td>A static, single-line label. <em>Use for field headings and short status messages.</em></td>
+</tr>
+<tr class="even">
+<td><code>BulletText</code></td>
+<td>A line of text preceded by a bullet. <em>Use for simple lists.</em></td>
+</tr>
+<tr class="odd">
+<td><code>TextWrapped</code></td>
+<td>Text that wraps to the available width. <em>Use for longer descriptions and help text.</em></td>
+</tr>
+<tr class="even">
+<td><code>TextColored</code></td>
+<td>Text in a specified color. <em>Use for warnings, status messages, and category labels.</em></td>
+</tr>
+<tr class="odd">
+<td><code>TextDisabled</code></td>
+<td>Text in the disabled style. <em>Use for hints, placeholders, and labels for unavailable options.</em></td>
+</tr>
+<tr class="even">
+<td><code>LabelText</code></td>
+<td>A label with a read-only value on its right. <em>Use for named values such as “Tempo: 120”.</em></td>
+</tr>
+<tr class="odd">
+<td><code>TextLinkOpenURL</code></td>
+<td>An underlined link that opens a URL in the browser. <em>Use for documentation, website, and support links.</em></td>
+</tr>
+<tr class="even">
+<td><code>ProgressBar</code></td>
+<td>A horizontal progress indicator from 0 to 100%. <em>Use to show progress during rendering, scanning, or other lengthy operations.</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Input</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Slider</code></td>
+<td>A horizontal track and thumb for a single numeric value. <em>Use for bounded continuous parameters such as gain, mix, or threshold.</em></td>
+</tr>
+<tr class="even">
+<td><code>VSlider</code></td>
+<td>A vertical slider for a single numeric value. <em>Use for faders and level controls.</em></td>
+</tr>
+<tr class="odd">
+<td><code>SliderAngle</code></td>
+<td>A slider for entering an angle in degrees. <em>Use for rotation, panning, and phase.</em></td>
+</tr>
+<tr class="even">
+<td><code>Drag</code></td>
+<td>A numeric field adjusted by dragging horizontally. <em>Use for fine adjustments and values without fixed bounds.</em></td>
+</tr>
+<tr class="odd">
+<td><code>DragRange</code></td>
+<td>Two linked Drag fields that define a lower and upper bound. <em>Use for ranges such as low/high cutoff or interval start and end.</em></td>
+</tr>
+<tr class="even">
+<td><code>Input</code></td>
+<td>A numeric input field with step buttons. <em>Use to enter exact integer or decimal values.</em></td>
+</tr>
+<tr class="odd">
+<td><code>InputText</code></td>
+<td>A single-line text input. <em>Use for names, paths, and other short text.</em></td>
+</tr>
+<tr class="even">
+<td><code>InputTextWithHint</code></td>
+<td>A single-line input with placeholder text displayed while the field is empty. <em>Use to provide a brief example or explain the expected input.</em></td>
+</tr>
+<tr class="odd">
+<td><code>InputTextMultiline</code></td>
+<td>A multiline text input. <em>Use for notes, descriptions, or pasted blocks of text.</em></td>
+</tr>
+<tr class="even">
+<td><code>SliderN</code></td>
+<td>Multiple sliders forming one multicomponent value. <em>Use for vectors or color channels edited together.</em></td>
+</tr>
+<tr class="odd">
+<td><code>DragN</code></td>
+<td>Multiple Drag fields forming one multicomponent value. <em>Use for coordinates and vectors such as X/Y/Z.</em></td>
+</tr>
+<tr class="even">
+<td><code>InputN</code></td>
+<td>Multiple numeric input fields in one widget. <em>Use to enter exact multicomponent values.</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Selection</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Combo</code></td>
+<td>A drop-down list that displays the selected item. <em>Use to choose one value from a long list when space is limited.</em></td>
+</tr>
+<tr class="even">
+<td><code>ListBox</code></td>
+<td>A scrollable list with several visible rows. <em>Use when the available options should remain visible.</em></td>
+</tr>
+<tr class="odd">
+<td><code>Selectable</code></td>
+<td>A selectable, full-width row. <em>Use for lists, menus, and selectable items.</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Color</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ColorEdit</code></td>
+<td>A compact color editor with channel fields and a swatch. <em>Use for editing color directly in the layout.</em></td>
+</tr>
+<tr class="even">
+<td><code>ColorPicker</code></td>
+<td>A full color picker with a saturation area and hue bar. <em>Use for choosing colors visually.</em></td>
+</tr>
+<tr class="odd">
+<td><code>ColorButton</code></td>
+<td>A button displaying a single color swatch. <em>Use as a color indicator or to open a color editor.</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Layout</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SeparatorText</code></td>
+<td>A separator line with a centered label. <em>Use to title a section and separate it from the preceding content.</em></td>
+</tr>
+<tr class="even">
+<td><code>Separator</code></td>
+<td>A horizontal separator line. <em>Use to divide layout sections.</em></td>
+</tr>
+<tr class="odd">
+<td><code>HelpMarker</code></td>
+<td>A “(?)” marker with a tooltip on hover. <em>Use to explain a nearby control without expanding the layout.</em></td>
+</tr>
+<tr class="even">
+<td><code>Panel</code></td>
+<td>A bordered, scrollable region containing other widgets. <em>Use for sidebars, settings blocks, and widget groups.</em></td>
+</tr>
+<tr class="odd">
+<td><code>Group</code></td>
+<td>An invisible container that groups child widgets into one block. <em>Use when several widgets should be treated as a single item.</em></td>
+</tr>
+<tr class="even">
+<td><code>StyleRegion</code></td>
+<td>An invisible region with style overrides for colors, rounding, alignment, and fonts. <em>Use to style a group of widgets independently of the rest of the layout.</em></td>
+</tr>
+<tr class="odd">
+<td><code>CollapsingHeader</code></td>
+<td>A full-width header that collapses its contents. <em>Use for optional or advanced settings.</em></td>
+</tr>
+<tr class="even">
+<td><code>TreeNode</code></td>
+<td>An expandable node with indented children. <em>Use for hierarchies such as folders, tracks, or nested settings.</em></td>
+</tr>
+<tr class="odd">
+<td><code>TabBar</code></td>
+<td>A tab strip that switches between content pages. <em>Use to organize a panel into pages such as Main / FX / MIDI.</em></td>
+</tr>
+<tr class="even">
+<td><code>Table</code></td>
+<td>A grid of rows and columns containing other widgets. <em>Use for aligned layouts, matrices, and row-based data.</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="catalog-notes">Catalog notes</h3>
+<p><strong>Slider, Drag, and Input.</strong> Slider has a visible track and defined bounds. Drag has no track; horizontal dragging changes the value, making it useful for unbounded values and fine adjustments. Input provides direct numeric entry with step buttons. All three families use the same set of numeric inspector fields.</p>
+<p><strong>Families with an N suffix</strong> (SliderN, DragN, InputN) export a <code>reaper.new_array</code> with the number of elements specified in <em>array size</em>, controlled through a single call. Standard families instead use <em>components</em>, from 1 to 4, to generate calls such as <code>SliderDouble2</code> or <code>DragInt3</code> with separate scalar variables.</p>
+<p><strong>HelpMarker.</strong> Exports a disabled <code>(?)</code> symbol. The tooltip text comes from <em>tooltip</em>, not from the label.</p>
+<p><strong>Combo and ListBox.</strong> The export includes five placeholder items: <code>item_0…item_4</code> and <code>Item 1…Item 5</code>, respectively. Item lists cannot be edited in this release; replace them in the generated code.</p>
+<p><strong>RadioButtonEx.</strong> Buttons with the same <em>group</em> value share a state variable. Each button has its own <em>radio value</em>. This makes the options mutually exclusive in the exported interface.</p>
+<hr />
+<h2 id="07-containers">07. Containers</h2>
+<p>See <a href="#4-6-containers-and-nesting">§4.6</a> for shared container behavior: a 24 px editor strip, position-based nesting, adjustment of child positions during resizing, and deletion of all children when a container is deleted. The sections below describe the differences between container types.</p>
+<h3 id="7-1-panel">7.1 · Panel</h3>
+<p>Panel is an ImGui child window: a bordered region that can scroll when needed. Use it for sidebars, settings blocks, and groups of widgets with a visible boundary.</p>
+<ul>
+<li><strong>border.</strong> Shows a border; enabled by default. When disabled, the region has no visible border but still clips and scrolls its contents.</li>
+<li><strong>h-scroll.</strong> Enables a horizontal scrollbar. Without it, content wider than the panel is clipped.</li>
+</ul>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode lua"><code class="sourceCode lua"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">reaper</span><span class="op">.</span>ImGui_BeginChild<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&quot;Output##Panel_6&quot;</span><span class="op">,</span> <span class="dv">220</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> ChildFlags_Borders<span class="op">(),</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">-- Child widgets; set SetCursorScreenPos for each one</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="va">reaper</span><span class="op">.</span>ImGui_EndChild<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span></code></pre></div>
+<p>When the project uses a theme other than Default, Builder applies the panel background with <code>PushStyleColor</code> before <code>BeginChild</code> and removes the override after <code>EndChild</code>. Nested panels can therefore use their own background colors.</p>
+<h3 id="7-2-group">7.2 · Group</h3>
+<p>Group has no border or background and draws nothing of its own. It exports <code>BeginGroup</code> and <code>EndGroup</code> calls, so ImGui treats the child widgets as a single item for layout and hit testing.</p>
+<p>Use Group when several widgets should move together in Builder and form one logical block in the exported code. Use Panel if the block needs a visible boundary.</p>
+<p>In Preview mode, Group is shown with a hatched fill.</p>
+<h3 id="7-3-styleregion">7.3 · StyleRegion</h3>
+<p>StyleRegion applies style overrides to its child widgets without affecting the rest of the layout. It is the mechanism for styling individual widgets within a region.</p>
+<blockquote>
+<p>The StyleRegion inspector provides a checkbox for each override. An unchecked property is inherited unchanged. For example, a region can override only the button color while inheriting every other style setting.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Override</th>
+<th>Export</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>text color</td>
+<td><code>PushStyleColor(Col_Text)</code></td>
+</tr>
+<tr class="even">
+<td>frame bg</td>
+<td><code>PushStyleColor(Col_FrameBg)</code></td>
+</tr>
+<tr class="odd">
+<td>button color</td>
+<td><code>PushStyleColor(Col_Button)</code></td>
+</tr>
+<tr class="even">
+<td>rounding</td>
+<td><code>PushStyleVar(StyleVar_FrameRounding)</code></td>
+</tr>
+<tr class="odd">
+<td>selectable align</td>
+<td><code>PushStyleVar(StyleVar_SelectableTextAlign, x, y)</code>, with both values from 0 to 1</td>
+</tr>
+<tr class="even">
+<td>font</td>
+<td><code>CreateFont(family, flags)</code> at startup, followed by <code>PushFont(ctx, font, size)</code> around the child widgets</td>
+</tr>
+</tbody>
+</table>
+<p>Builder creates each unique font family and style combination with one <code>CreateFont</code> call and attaches the font to the context before the first frame. It calls <code>PushFont</code> after applying the style overrides and the matching <code>PopFont</code> before removing them. The font therefore applies only to widgets inside the StyleRegion.</p>
+<blockquote>
+<p><strong>Note.</strong> In Editor mode, StyleRegion remains an editing aid. In Preview mode, its text color, frame background, button color, rounding, and font overrides apply to child widgets. Labels drawn separately through the draw list are an exception: their explicit color is unaffected by <code>Col_Text</code>. An <code>Aa</code> marker in the region's header indicates that a font override is enabled.</p>
+</blockquote>
+<h3 id="7-4-collapsingheader-and-treenode">7.4 · CollapsingHeader and TreeNode</h3>
+<p>Both containers can collapse their contents in the running interface. CollapsingHeader uses a full-width bar; TreeNode uses an indented node with an arrow. TreeNode exports with <code>TreeNodeFlags_DefaultOpen</code>, so it starts expanded.</p>
+<p>TreeNode also has an <strong>hdr color</strong> setting. With <em>default</em>, the color is unchanged. For a custom color, Builder applies <code>PushStyleColor(Col_Text)</code> to the node label.</p>
+<p>Both containers are always shown expanded in Builder.</p>
+<h3 id="7-5-tabbar">7.5 · TabBar</h3>
+<blockquote>
+<p>The TabBar inspector's <strong>tabs</strong> list manages its TabItem elements. Edit a tab name in its row, click × to delete it, or use the add button to create a tab. Each tab is a container.</p>
+</blockquote>
+<p>A new TabBar starts with two tabs. Click a tab on the canvas to switch pages. Only the active page's contents are displayed and handled. Widgets placed on a page belong to its TabItem.</p>
+<p>In the export, <code>BeginTabItem</code> / <code>EndTabItem</code> pairs are nested inside <code>BeginTabBar</code> / <code>EndTabBar</code>, with each page's widgets inside the corresponding tab item.</p>
+<h3 id="7-6-table">7.6 · Table</h3>
+<blockquote>
+<p>The Table inspector provides row and column counts, a label and width mode for each column, a header-row checkbox, four table flags, and an overall sizing policy.</p>
+</blockquote>
+<p>Table is a grid of cells, each of which is a container. Changing the number of rows or columns creates or deletes cells; deleting a cell also deletes its contents.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>columns / rows</td>
+<td>Number of columns and rows. Changing these rebuilds the grid, creating or deleting cells.</td>
+</tr>
+<tr class="even">
+<td>Column width</td>
+<td>Three modes are available. <em>Auto</em> sets no width flag. <em>Fix</em> sets <code>WidthFixed</code> with a width in pixels. <em>Str</em> sets <code>WidthStretch</code> with a weighting factor.</td>
+</tr>
+<tr class="odd">
+<td>header row</td>
+<td>Adds a <code>TableHeadersRow</code> call and reserves an 18 px strip for column labels on the canvas.</td>
+</tr>
+<tr class="even">
+<td>Borders</td>
+<td>Cell borders.</td>
+</tr>
+<tr class="odd">
+<td>RowBg</td>
+<td>Alternating row backgrounds.</td>
+</tr>
+<tr class="even">
+<td>Resizable</td>
+<td>Allows users to resize columns in the running interface.</td>
+</tr>
+<tr class="odd">
+<td>ScrollY</td>
+<td>Enables vertical scrolling. The table height is passed to ImGui only when ScrollY is enabled.</td>
+</tr>
+<tr class="even">
+<td>sizing</td>
+<td>Sizing policy for columns set to <em>Auto</em>: <code>SizingFixedFit</code> or <code>SizingStretchSame</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Builder calculates row height from the table geometry. It subtracts the 24 px container strip and the column-label strip from the table height, divides the remainder by the row count, and passes the result to <code>TableNextRow</code> as the minimum row height. Cell contents are emitted in reading order, from left to right and then top to bottom, because ImGui uses flow layout inside cells rather than absolute positioning.</p>
+<blockquote>
+<p><strong>Note.</strong> A widget placed in a cell is centered and reduced in size if needed. A widget placed over the table but outside its cells is moved beyond the table to the nearest available side.</p>
+</blockquote>
+<hr />
+<h2 id="08-inspector-reference">08. Inspector reference</h2>
+<blockquote>
+<p>The inspector shows the widget type, variant selector, name, label, contract-specific properties, position and size, and a delete button.</p>
+</blockquote>
+<p><strong>Identification</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>variant</td>
+<td>The selected type within a family: Int / Double or RGB / RGBA. Choose it before placement; for an existing widget, this field is read-only.</td>
+</tr>
+<tr class="even">
+<td>name</td>
+<td>Object identifier. Determines Lua variable names and the ImGui ID. Use a unique name containing only <code>[A-Za-z0-9_]</code>.</td>
+</tr>
+<tr class="odd">
+<td>parent</td>
+<td>The widget's container hierarchy. Read-only.</td>
+</tr>
+<tr class="even">
+<td>label / text</td>
+<td>Visible text. For Text-family widgets, this is the content itself; for other widgets, it is the label above or inside the control.</td>
+</tr>
+<tr class="odd">
+<td>hint</td>
+<td>InputTextWithHint only. Placeholder text shown while the field is empty.</td>
+</tr>
+<tr class="even">
+<td>value</td>
+<td>LabelText only. The read-only value displayed to the right of the label.</td>
+</tr>
+<tr class="odd">
+<td>url</td>
+<td>TextLink only. The URL opened when the link is clicked.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Numeric properties</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>components</td>
+<td>From 1 to 4. Generates a multicomponent call such as <code>SliderDouble3</code>, with a separate variable for each component.</td>
+</tr>
+<tr class="even">
+<td>array size</td>
+<td>N-suffix families only. The size of the <code>reaper.new_array</code>, from 2 to 64.</td>
+</tr>
+<tr class="odd">
+<td>min / max</td>
+<td>Range bounds. Empty fields use the defaults for the widget type.</td>
+</tr>
+<tr class="even">
+<td>speed</td>
+<td>Drag families only. The change in value per pixel of mouse movement.</td>
+</tr>
+<tr class="odd">
+<td>step / step fast</td>
+<td>Input families only. Step sizes for the ± buttons and Ctrl + click.</td>
+</tr>
+<tr class="even">
+<td>format</td>
+<td>A printf-style format, such as <code>%.2f</code> or <code>%d dB</code>. Also controls how the value appears in the widget.</td>
+</tr>
+<tr class="odd">
+<td>format min / max</td>
+<td>DragRange only. Separate formats for the lower and upper bounds, such as <code>Min: %d</code> and <code>Max: %d</code>.</td>
+</tr>
+<tr class="even">
+<td>numeric flags</td>
+<td>Clamp, Log, NoInput, Wrap. See <a href="#09-flags">§9</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Empty numeric fields show their default values in gray. Entering a value makes it explicit and includes it in the export. Clear the field to restore the default.</p>
+<p><strong>Appearance and behavior</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tooltip</td>
+<td>Text shown on hover. Adds a <code>SetItemTooltip</code> call to the export. Not applied to widgets rendered only through the draw list: Text, Separator, LabelText, and BulletText.</td>
+</tr>
+<tr class="even">
+<td>bullet</td>
+<td>Adds a <code>Bullet()</code> call before the widget.</td>
+</tr>
+<tr class="odd">
+<td>color</td>
+<td>TextColored and color widgets only. The color value.</td>
+</tr>
+<tr class="even">
+<td>alpha</td>
+<td>From 0 to 255, for RGBA variants and ColorButton.</td>
+</tr>
+<tr class="odd">
+<td>direction</td>
+<td>ArrowButton only. Arrow direction: Left, Right, Up, or Down.</td>
+</tr>
+<tr class="even">
+<td>overlay</td>
+<td>ProgressBar only. Text over the bar. If empty, ImGui displays the percentage.</td>
+</tr>
+<tr class="odd">
+<td>indeterminate</td>
+<td>ProgressBar only. Displays an animation instead of a progress value.</td>
+</tr>
+<tr class="even">
+<td>group / radio value</td>
+<td>RadioButtonEx only. The shared state variable and this button's value.</td>
+</tr>
+<tr class="odd">
+<td>hdr color</td>
+<td>TreeNode only. The node label color: default or custom.</td>
+</tr>
+<tr class="even">
+<td>border / h-scroll</td>
+<td>Panel only. Border and horizontal scrolling.</td>
+</tr>
+<tr class="odd">
+<td>EEL2 callback</td>
+<td>Text input widgets only. See below.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Geometry</strong></p>
+<p>The <strong>position</strong> (X, Y) and <strong>size</strong> (W, H) fields use absolute layout coordinates in pixels. H is disabled for widgets with a fixed height.</p>
+<p>Drawings also have a <strong>primitive order</strong> row with back, backward, forward, and front buttons. These change the order within the drawing layer only; drawings always remain below widgets.</p>
+<p><strong>EEL2 callbacks</strong></p>
+<blockquote>
+<p>The text input inspector shows basic flags first, followed by callback events and an EEL2 code field.</p>
+</blockquote>
+<p>To define a callback, enable one or more events (OnEdit, Always, CharFilter, OnTab, OnUp/Down), then enter EEL2 code in the field below. On export, the code is compiled with <code>ImGui_CreateFunctionFromEEL</code>, attached to the context, and passed to the input widget call. A hint below the field indicates whether the selected flags will cause the code to run.</p>
+<hr />
+<h2 id="09-flags">09. Flags</h2>
+<h3 id="numeric-flags">Numeric flags</h3>
+<p>These flags apply to the Slider and Drag families. The export combines them using bitwise OR.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>ImGui flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Clamp</td>
+<td><code>SliderFlags_AlwaysClamp</code></td>
+<td>Clamps manually entered values to the range as well as values set by dragging.</td>
+</tr>
+<tr class="even">
+<td>Log</td>
+<td><code>SliderFlags_Logarithmic</code></td>
+<td>Uses a logarithmic response. Useful for frequency and volume controls.</td>
+</tr>
+<tr class="odd">
+<td>NoInput</td>
+<td><code>SliderFlags_NoInput</code></td>
+<td>Disables direct value entry through Ctrl + click.</td>
+</tr>
+<tr class="even">
+<td>Wrap</td>
+<td><code>SliderFlags_WrapAround</code></td>
+<td>Drag families only. Wraps the value when it passes a range boundary.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="text-input-flags">Text input flags</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Button</th>
+<th>ImGui flag</th>
+<th>Applies to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>basic</td>
+<td><code>ReadOnly</code></td>
+<td><code>InputTextFlags_ReadOnly</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>,
+<code>InputTextMultiline</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>Pass</code></td>
+<td><code>InputTextFlags_Password</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>Dec</code></td>
+<td><code>InputTextFlags_CharsDecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>Hex</code></td>
+<td><code>InputTextFlags_CharsHexadecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>Enter</code></td>
+<td><code>InputTextFlags_EnterReturnsTrue</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>,
+<code>InputTextMultiline</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>Tab</code></td>
+<td><code>InputTextFlags_AllowTabInput</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>Ctrl+Enter</code></td>
+<td><code>InputTextFlags_CtrlEnterForNewLine</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr class="even">
+<td>callback</td>
+<td><code>OnEdit</code></td>
+<td><code>InputTextFlags_CallbackEdit</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>,
+<code>InputTextMultiline</code></td>
+</tr>
+<tr class="odd">
+<td>callback</td>
+<td><code>Always</code></td>
+<td><code>InputTextFlags_CallbackAlways</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>,
+<code>InputTextMultiline</code></td>
+</tr>
+<tr class="even">
+<td>callback</td>
+<td><code>CharFilter</code></td>
+<td><code>InputTextFlags_CallbackCharFilter</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>,
+<code>InputTextMultiline</code></td>
+</tr>
+<tr class="odd">
+<td>callback</td>
+<td><code>OnTab</code></td>
+<td><code>InputTextFlags_CallbackCompletion</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr class="even">
+<td>callback</td>
+<td><code>OnUp/Down</code></td>
+<td><code>InputTextFlags_CallbackHistory</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="color-flags">Color flags</h3>
+<blockquote>
+<p>The color flags inspector places independent toggles at the top, followed by four single-choice groups: display, data type, input, and picker style. Alpha-channel options appear last.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note.</strong> Only one option can be active in each display, data type, input, or picker group. For example, enabling <em>HSV</em> disables <em>RGB</em>. These options look like ordinary buttons in this release, but switching between them is intentional.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Button</th>
+<th>ImGui flag</th>
+<th>Applies to</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>basic</td>
+<td><code>NoAlpha</code></td>
+<td><code>ColorEditFlags_NoAlpha</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code>,
+<code>ColorButton</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>NoPicker</code></td>
+<td><code>ColorEditFlags_NoPicker</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>NoInputs</code></td>
+<td><code>ColorEditFlags_NoInputs</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>NoTip</code></td>
+<td><code>ColorEditFlags_NoTooltip</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code>,
+<code>ColorButton</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>NoLabel</code></td>
+<td><code>ColorEditFlags_NoLabel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>NoSidePrev</code></td>
+<td><code>ColorEditFlags_NoSidePreview</code></td>
+<td><code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>NoSmallPrev</code></td>
+<td><code>ColorEditFlags_NoSmallPreview</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>NoOptions</code></td>
+<td><code>ColorEditFlags_NoOptions</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>basic</td>
+<td><code>NoDragDrop</code></td>
+<td><code>ColorEditFlags_NoDragDrop</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorButton</code></td>
+</tr>
+<tr class="even">
+<td>basic</td>
+<td><code>NoBorder</code></td>
+<td><code>ColorEditFlags_NoBorder</code></td>
+<td><code>ColorButton</code></td>
+</tr>
+<tr class="odd">
+<td>display</td>
+<td><code>RGB</code></td>
+<td><code>ColorEditFlags_DisplayRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>display</td>
+<td><code>HSV</code></td>
+<td><code>ColorEditFlags_DisplayHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>display</td>
+<td><code>Hex</code></td>
+<td><code>ColorEditFlags_DisplayHex</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>data type</td>
+<td><code>0..255</code></td>
+<td><code>ColorEditFlags_Uint8</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>data type</td>
+<td><code>0..1</code></td>
+<td><code>ColorEditFlags_Float</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>input</td>
+<td><code>InputRGB</code></td>
+<td><code>ColorEditFlags_InputRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>input</td>
+<td><code>InputHSV</code></td>
+<td><code>ColorEditFlags_InputHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>picker</td>
+<td><code>HueBar</code></td>
+<td><code>ColorEditFlags_PickerHueBar</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>picker</td>
+<td><code>HueWheel</code></td>
+<td><code>ColorEditFlags_PickerHueWheel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>,
+<code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="even">
+<td>alpha</td>
+<td><code>AlphaBar</code></td>
+<td><code>ColorEditFlags_AlphaBar</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr class="odd">
+<td>alpha</td>
+<td><code>HalfPrev</code></td>
+<td><code>ColorEditFlags_AlphaPreviewHalf</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>,
+<code>ColorButton</code></td>
+</tr>
+<tr class="even">
+<td>alpha</td>
+<td><code>NoBg</code></td>
+<td><code>ColorEditFlags_AlphaNoBg</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>,
+<code>ColorButton</code></td>
+</tr>
+<tr class="odd">
+<td>alpha</td>
+<td><code>Opaque</code></td>
+<td><code>ColorEditFlags_AlphaOpaque</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>,
+<code>ColorButton</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="10-drawing-primitives">10. Drawing primitives</h2>
+<blockquote>
+<p>Drawings on the canvas include rectangles, circles, triangles, lines, text, and arcs. All primitives export as draw list calls and appear below the widget layer.</p>
+</blockquote>
+<p>To draw a shape, select its tool from the palette and drag on the canvas. For a polygon, click to place each vertex instead. Close it by clicking the first point again, double-clicking, or pressing <code>Enter</code>. Press <code>Esc</code> to cancel an unfinished polygon.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Primitive</th>
+<th>Properties</th>
+<th>Export</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Rectangle</td>
+<td>fill, stroke, rounding, thickness, opacity</td>
+<td><code>AddRectFilled</code> and <code>AddRect</code></td>
+</tr>
+<tr class="even">
+<td>Circle</td>
+<td>fill, stroke, thickness, opacity</td>
+<td><code>AddCircle(Filled)</code>; creates an ellipse path when W ≠ H</td>
+</tr>
+<tr class="odd">
+<td>Triangle</td>
+<td>fill, stroke, thickness, orient (four directions)</td>
+<td><code>AddTriangle(Filled)</code></td>
+</tr>
+<tr class="even">
+<td>Line</td>
+<td>stroke, thickness</td>
+<td><code>AddLine</code></td>
+</tr>
+<tr class="odd">
+<td>Polygon</td>
+<td>fill, stroke, thickness, list of points</td>
+<td><code>PathFillConvex</code>; a triangle fan for non-convex shapes</td>
+</tr>
+<tr class="even">
+<td>Arc</td>
+<td><code>ring</code>: stroke, thickness, start and end angles; <code>pie</code>: the same properties plus fill</td>
+<td><code>PathArcTo</code> and <code>PathStroke</code>; <code>pie</code> also uses <code>PathFillConvex</code></td>
+</tr>
+<tr class="odd">
+<td>Text</td>
+<td>text, color, size, horizontal and vertical alignment</td>
+<td><code>AddText</code>, with <code>CalcTextSize</code> where needed</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The arc inspector uses angles in degrees following ImGui conventions: 0° points right, and angles increase clockwise. A 270° sweep starting at 135° gives a conventional rotary knob scale.</p>
+</blockquote>
+<p>Exported drawings are clipped to the layout. A drawing is included if any part of it intersects the layout: for example, a rectangle extending past an edge is exported, and ImGui clips the portion outside. Widgets follow a stricter rule: a widget must be entirely inside the frame to be exported.</p>
+<h3 id="fill-stroke-and-linked-colors">Fill, stroke, and linked colors</h3>
+<p>For primitives, the inspector's <strong>fill &amp; stroke</strong> section contains two color swatches, a <strong>none</strong> checkbox for each, and a linking bracket on the left.</p>
+<p>The two <strong>none</strong> checkboxes are mutually exclusive. A shape can have no fill or no stroke, but it cannot have neither. Both boxes may be unchecked, but only one may be checked. When one is checked, the other is dimmed. Clicking the dimmed box transfers <strong>none</strong> to that property in a single undo step.</p>
+<p>The stroke's <strong>none</strong> option is available only for closed shapes that support a fill: rectangle, circle, triangle, polygon, and arc in <code>pie</code> mode. A line has only a stroke, and the stroke defines the entire shape of a <code>ring</code> arc, so neither shows this checkbox.</p>
+<p>The <strong>link</strong> is the bracket to the left of the two rows. When linked, changing either color updates both in one undo step. Enabling the link does not change existing colors; it controls subsequent edits. The link is hidden for lines and <code>ring</code> arcs, which have no second color.</p>
+<blockquote>
+<p><strong>Note.</strong> ImGui fills only convex paths. A non-convex polygon is triangulated on export and rendered with multiple <code>AddTriangleFilled</code> calls. Its outline remains a single closed path.</p>
+</blockquote>
+<hr />
+<h2 id="11-canvas-and-project-settings">11. Canvas and project settings</h2>
+<h3 id="window-title">Window title</h3>
+<p>The title used when the layout opens in REAPER appears in the blue header above the canvas. Click it to edit. Press <code>Enter</code> to apply the title or <code>Esc</code> to cancel.</p>
+<p>The title is used in the generated script (<code>CreateContext</code> and <code>ImGui_Begin</code>), saved in the project file, and used as the download filename: <em>Track Tools</em> → <code>Track_Tools.lua</code>. Apostrophes are escaped so they do not break the script.</p>
+<h3 id="size">Size</h3>
+<p>The Canvas tab's W and H fields set the window's content size. They are exported as <code>W, H</code>. Press <code>Enter</code> or leave the field to apply a change. Dragging the ⇲ handle has the same effect.</p>
+<h3 id="background">Background</h3>
+<ul>
+<li><strong>Default.</strong> The canvas follows the active theme, while the export retains ImGui's native window background. If the selected theme is not Default, Builder also applies its background color to the canvas child window through <code>PushStyleColor</code>.</li>
+<li><strong>Custom.</strong> Set a color and opacity. The color picker provides a saturation/brightness square, a hue bar, a screen eyedropper, and recent swatches. In the exported code, the selected color is applied as <code>Col_WindowBg</code>.</li>
+</ul>
+<h3 id="color-picker">Color picker</h3>
+<p>All color fields in Builder—including primitive fills and strokes, text colors, StyleRegion colors, and theme editor fields—open the same custom picker rather than the browser's native color dialog. It opens to the right of the swatch and extends upward, leaving the source field visible.</p>
+<p>The picker contains a saturation/brightness square, hue bar, <strong>HEX</strong> field, screen eyedropper, and recent swatches. The HEX field receives focus when the picker opens, so you can type a color immediately; both six-digit and three-digit notation are accepted. Dragging in the square updates the color live, with the entire drag recorded as one undo step. <code>Esc</code> closes the picker and returns focus to the swatch. <code>Enter</code> applies the color and closes the picker.</p>
+<p>Recent swatches are shared across all color fields and retained until the page is reloaded.</p>
+<h3 id="grid">Grid</h3>
+<p><strong>Show grid</strong> controls the fine grid. Its visibility is stored separately for Editor and Preview modes. <strong>Step</strong> sets the spacing to 2, 5, or 10 px and also controls the snapping interval.</p>
+<h3 id="audit-grid">Audit grid</h3>
+<p><em>View → Reference grid in export</em> enables a magenta measurement grid with 50 px spacing. Unlike the regular grid, the audit grid is exported: the generated code draws the same grid in the REAPER window. Use it to compare coordinates between Builder and REAPER. Disable it before releasing your script.</p>
+<h3 id="zoom-and-pan">Zoom and pan</h3>
+<p>Zoom ranges from 75% to 250%. Choose a preset in the status bar, use <code>Cmd/Ctrl</code> + mouse wheel to zoom around the pointer, or click ⤢ to fit the layout in the view. Pan with the Hand tool or by holding <code>Space</code>. Zoom affects the view only; object coordinates do not change.</p>
+<hr />
+<h2 id="12-themes">12. Themes</h2>
+<blockquote>
+<p>The theme selector lists built-in and custom themes, with <strong>+ Add</strong> and <strong>Edit</strong> controls below. The active theme is saved with the project.</p>
+</blockquote>
+<p>A theme defines fifteen ImGui color slots, including text, frame backgrounds and their hovered/active states, buttons, headers, checkmarks, and slider grabs. Three themes are included: <strong>Default</strong> (no ImGui color overrides; uses ImGui's standard dark style), <strong>Slate (dark)</strong>, and <strong>Light</strong>.</p>
+<p>Themes affect both Preview mode and the export. For a theme other than Default, the export applies its colors with <code>PushStyleColor</code> immediately after opening the canvas child window and removes them before closing it.</p>
+<blockquote>
+<p>With Slate selected, Preview approximates how the layout will appear in REAPER using that palette.</p>
+</blockquote>
+<h3 id="custom-themes">Custom themes</h3>
+<blockquote>
+<p>In the New Theme dialog, four colors define the palette. The swatch strip shows the derived color slots.</p>
+</blockquote>
+<p>To create a theme, choose colors for the background, text, controls, and accent. The remaining eleven slots are calculated automatically. Hovered and active states are derived from the control color: lighter on dark backgrounds and darker on light backgrounds. Header colors blend the background and accent. The accent is also used for checkmarks and the active slider grab.</p>
+<ul>
+<li>Custom themes are stored in the browser's localStorage and are available only in that browser on that computer.</li>
+<li>The active theme's definition is included in the project file. Loading the project on another computer registers the theme automatically.</li>
+<li><strong>Edit</strong> opens custom theme management. Use the pencil button to edit a theme, or delete a theme you no longer need. Built-in themes cannot be edited or deleted.</li>
+</ul>
+<hr />
+<h2 id="13-preview-mode">13. Preview mode</h2>
+<blockquote>
+<p>Preview hides name tags, container editor strips, and selection controls. It approximates the widgets' ImGui appearance using the active theme.</p>
+</blockquote>
+<p>Use the Editor / Preview switch above the canvas to change modes. Preview is for inspection: you can click a widget to select it and view its properties, but you cannot move, resize, or create objects. Return to Editor mode to make changes.</p>
+<p>Some widgets appear as labeled, hatched placeholders: <strong>Group</strong>, <strong>Table</strong>, <strong>ColorPicker3/4</strong>, and <strong>TextWrapped</strong>. A banner appears at the bottom when the canvas contains these widgets.</p>
+<blockquote>
+<p><strong>Note.</strong> Version 1.0.3 has one notable preview limitation:</p>
+<ul>
+<li>ColorEdit does not reflect display flags. It always shows R/G/B fields and a color swatch, regardless of <em>DisplayHSV</em>, <em>Hex</em>, or <em>NoInputs</em> settings.</li>
+</ul>
+<p>In Preview, StyleRegion applies colors, rounding, and fonts to child widgets. Labels drawn separately retain their own explicit colors.</p>
+</blockquote>
+<hr />
+<h2 id="14-exporting">14. Exporting</h2>
+<h3 id="export-preflight">Export preflight</h3>
+<p>The preflight panel at the top of the <em>Export</em> window runs whenever you open the window. It reports findings at three levels.</p>
+<ul>
+<li><strong>Error.</strong> The generated script would be invalid or fail to run. Examples include duplicate or missing IDs, ambiguous parents, cyclic nesting, invalid geometry, unknown widget types, orphaned tabs or table cells, and nonnumeric ranges. The <em>copy</em> and <em>download</em> buttons remain disabled until all errors are resolved. This check cannot be bypassed.</li>
+<li><strong>Warning.</strong> The Lua code is valid, but the result may differ from the canvas. Examples include objects outside the layout, objects inside an omitted container, clipped drawings, names that become identical after normalization, duplicate radio values within a group, an empty <code>TabBar</code>, or missing table cells.</li>
+<li><strong>Information.</strong> A single summary line reports how many elements have no visible label.</li>
+</ul>
+<p>The panel header reports how many objects will be <strong>omitted</strong> and how many will be exported out of the total. Review this summary to identify omissions that would not be apparent from the code alone.</p>
+<p>Click a finding to select the corresponding object on the canvas.</p>
+<blockquote>
+<p>The Export window's ReaImGui tab contains the generated script: context creation, position constants, state variables, a drawing function, and a defer loop. Click <strong>copy</strong> to copy the code to the clipboard.</p>
+</blockquote>
+<h3 id="generated-file-structure">Generated file structure</h3>
+<p>The generated code follows a consistent structure:</p>
+<ol type="1">
+<li><strong>Header comments.</strong> Canvas dimensions and positioning rules.</li>
+<li><strong>Context and dimensions.</strong> The <code>CreateContext</code> call and <code>W, H</code> and <code>OUTER_H</code> values. <code>OUTER_H</code> adds the title bar height so the content area matches the layout dimensions.</li>
+<li><strong>Position constants.</strong> One line per object, for example <code>local SLIDER_4_X, SLIDER_4_Y, SLIDER_4_W = 20, 150, 120</code>. Edit these constants to adjust the layout in the generated code.</li>
+<li><strong>State variables.</strong> State for interactive widgets, one shared variable per radio group, and <code>reaper.new_array</code> arrays for N-suffix families.</li>
+<li><strong>Fonts and EEL2 callbacks.</strong> Created and attached once, before the loop, if a StyleRegion or input field uses them.</li>
+<li><strong>The <code>draw()</code> function.</strong> Sets padding and spacing to zero, opens the window, obtains the draw list and coordinate origin, opens the canvas child window, applies the theme, draws primitives, and then emits widgets in tree order.</li>
+<li><strong>The <code>defer</code> loop.</strong></li>
+</ol>
+<h3 id="positioning-in-code">Positioning in code</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode lua"><code class="sourceCode lua"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>PushStyleVar<span class="op">(</span><span class="va">StyleVar_WindowPadding</span><span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>PushStyleVar<span class="op">(</span><span class="va">StyleVar_ItemSpacing</span><span class="op">,</span>   <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>…</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">wx</span><span class="op">,</span> <span class="va">wy</span> <span class="op">=</span> GetWindowPos<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">cx</span><span class="op">,</span> <span class="va">cy</span> <span class="op">=</span> GetCursorStartPos<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">ox</span><span class="op">,</span> <span class="va">oy</span> <span class="op">=</span> <span class="va">wx</span> <span class="op">+</span> <span class="va">cx</span><span class="op">,</span> <span class="va">wy</span> <span class="op">+</span> <span class="va">cy</span>   <span class="co">-- origin for all coordinates</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>…</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>SetCursorScreenPos<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">ox</span> <span class="op">+</span> <span class="cn">SLIDER_4_X</span><span class="op">,</span> <span class="va">oy</span> <span class="op">+</span> <span class="cn">SLIDER_4_Y</span><span class="op">)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>SetNextItemWidth<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="cn">SLIDER_4_W</span><span class="op">)</span></span></code></pre></div>
+<p>Widgets and draw list geometry use the same origin, <code>ox, oy</code>. A rectangle placed behind a button therefore stays aligned with it in the running interface.</p>
+<blockquote>
+<p><strong>Note.</strong> Zero padding and spacing are fundamental to the layout. If you add ordinary flow-layout widgets without setting the cursor position, they will appear without spacing. Position the cursor explicitly or restore the style variables around the code you add.</p>
+</blockquote>
+<h3 id="what-is-included">What is included</h3>
+<ul>
+<li>A widget is exported only if its full footprint lies inside the layout bounds. A widget extending past an edge is omitted.</li>
+<li>A drawing is exported if it intersects the layout area.</li>
+<li>A background image is not exported. It serves only as a layout reference.</li>
+<li>The audit grid is exported when enabled.</li>
+</ul>
+<hr />
+<h2 id="15-saving-and-loading">15. Saving and loading</h2>
+<h3 id="autosave-and-recovery">Autosave and recovery</h3>
+<p>Builder automatically stores a draft of the current layout in browser storage. It saves 0.8 seconds after a change and also checks twice per second for changes that were not recorded in the undo history.</p>
+<p>The status bar shows <em>No unsaved changes</em>, <em>Unsaved changes</em>, <em>Saving…</em>, or <em>Autosaved HH:MM</em>.</p>
+<p>If the previous session ended unexpectedly, Builder offers to restore the draft the next time it opens. The recovery prompt shows the draft's time, object count, and build version. Check the version before restoring: when local <code>file://</code> Builder files share browser storage, an older build may also see a draft created by a newer build.</p>
+<p>A successful save, a successful load, or a confirmed <em>New Project</em> command removes the draft. Canceling the file picker or encountering a load error does not. A restored draft is treated as unsaved until you save the project.</p>
+<p>Autosave is a recovery aid, not a project file. It is tied to one browser and is lost when its site data is cleared.</p>
+<p><em>File → Save Project</em> saves <code>reaper-ui-project.json</code>. The file includes the canvas size, background, theme and any custom theme definition, grid and snapping settings, name counters, and all objects with their properties.</p>
+<p><em>File → Load Project</em> replaces the current layout. If the current project has unsaved changes, Builder asks for confirmation before opening the file picker; otherwise, the picker opens immediately. A successful load clears undo history and resets zoom to 100%. Loaded data is normalized using the same rules as startup data, so projects from older builds may be updated to the current structure automatically.</p>
+<p>A file with missing or duplicate object IDs is rejected before the current layout is replaced. The open project remains unchanged.</p>
+<p><em>File → New Project</em> removes all objects and resets the canvas to 600 × 400 px. It retains the current window title, background, theme, grid, and snapping settings.</p>
+<blockquote>
+<p><strong>Note.</strong> The project file is the only format that preserves all editable project data. Exported Lua code cannot be imported back into Builder. Keep the <code>.json</code> file with your script.</p>
+</blockquote>
+<hr />
+<h2 id="16-keyboard-and-mouse-reference">16. Keyboard and mouse reference</h2>
+<blockquote>
+<p>Choose <strong>Help → Keyboard Shortcuts</strong> to open the built-in shortcut reference.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Arrow keys</td>
+<td>Move the selection by one grid interval, or by 1 px when snapping is off</td>
+</tr>
+<tr class="odd">
+<td><code>Shift</code> + arrow keys</td>
+<td>Move by ten increments</td>
+</tr>
+<tr class="odd">
+<td><code>Cmd/Ctrl</code> + <code>C</code></td>
+<td>Copy the selection, including container subtrees</td>
+</tr>
+<tr class="even">
+<td><code>Cmd/Ctrl</code> + <code>V</code></td>
+<td>Paste the copied selection</td>
+</tr>
+<tr class="even">
+<td><code>Cmd/Ctrl</code> + <code>D</code></td>
+<td>Duplicate</td>
+</tr>
+<tr class="odd">
+<td><code>Cmd/Ctrl</code> + <code>Z</code></td>
+<td>Undo</td>
+</tr>
+<tr class="even">
+<td><code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Z</code> ·
+<code>Cmd/Ctrl</code> + <code>Y</code></td>
+<td>Redo</td>
+</tr>
+<tr class="odd">
+<td><code>Cmd/Ctrl</code> + <code>A</code></td>
+<td>Select all objects</td>
+</tr>
+<tr class="even">
+<td><code>Del</code> · <code>Backspace</code></td>
+<td>Delete the selection, including all children of selected containers</td>
+</tr>
+<tr class="odd">
+<td><code>Esc</code></td>
+<td>Clear the selection, cancel the tool or unfinished polygon, or close a dialog or context menu</td>
+</tr>
+<tr class="even">
+<td><code>Enter</code> while drawing a polygon</td>
+<td>Close the polygon</td>
+</tr>
+<tr class="odd">
+<td><code>Shift</code> + click</td>
+<td>Extend the selection across the area from the anchor object</td>
+</tr>
+<tr class="even">
+<td><code>Cmd/Ctrl</code> + click</td>
+<td>Add an object to the selection or remove it</td>
+</tr>
+<tr class="odd">
+<td><code>Shift</code> + marquee</td>
+<td>Add objects intersecting the marquee to the selection</td>
+</tr>
+<tr class="even">
+<td><code>Cmd/Ctrl</code> + marquee</td>
+<td>Toggle the selection state of objects intersecting the marquee</td>
+</tr>
+<tr class="odd">
+<td><code>Alt</code> + drag an object</td>
+<td>Drag a copy</td>
+</tr>
+<tr class="even">
+<td><code>Space</code> + drag the canvas</td>
+<td>Pan the workspace</td>
+</tr>
+<tr class="odd">
+<td><code>Cmd/Ctrl</code> + mouse wheel</td>
+<td>Zoom around the pointer</td>
+</tr>
+<tr class="even">
+<td>Right-click the canvas</td>
+<td>Open the widget menu and place a widget at the click location</td>
+</tr>
+<tr class="odd">
+<td><code>Shift</code> + click Rectangle, Circle, Line, Triangle, or Arc</td>
+<td>Keep the selected tool active for repeated drawing</td>
+</tr>
+<tr class="even">
+<td>Double-click or click the first point while drawing a polygon</td>
+<td>Close the polygon</td>
+</tr>
+</tbody>
+</table>
+<p>Arrow keys and <code>Cmd/Ctrl</code> shortcuts are not intercepted while a text field, text area, or list has focus. <code>Esc</code> still closes an open dialog or menu and cancels the current action.</p>
+<hr />
+<h2 id="17-release-limitations">17. Release limitations</h2>
+<p>This section describes features that are unavailable or may behave differently than expected in version 1.0.3.</p>
+<h3 id="not-implemented">Not implemented</h3>
+<ul>
+<li><strong>Editing Combo and ListBox items.</strong> The export uses five placeholder items. The widgets themselves work: their selection variables are declared and updated. Replace only the item strings. The generated code marks the relevant location with <code>-- TODO: replace the placeholder items …</code>.</li>
+<li><strong>Importing or exporting a theme as a separate file.</strong> Themes are stored in the project file and localStorage.</li>
+<li><strong>Background images.</strong> This feature is unavailable in the interface, although state handling and rendering remain in the code.</li>
+</ul>
+<h3 id="reaper-validation-status">REAPER validation status</h3>
+<p>The project records describe a seven-check manual validation session covering key export paths in REAPER with ReaImGui <strong>0.10.0.5</strong>. Before version 1.0 was released, validation was repeated on the release line: <code>reaui_coord_stress_v1_0.json</code> (Panel → Group → Button, an adjacent object inside the panel, and a top-level widget) ran without coordinate discrepancies, and no new errors were found during normal use. Versions 1.0.1–1.0.3 received automated and static checks, but no further manual REAPER run.</p>
+<p>The separate seven-check file has not been rerun since version 3.364. The following are therefore priority checks if a generated script behaves unexpectedly; they are not a list of known defects:</p>
+<ul>
+<li>Default theme behavior: a new project does not override the child window background.</li>
+<li><code>PushFont(ctx, font, size)</code> — the three-argument signature introduced in 0.10. It fails in version 0.9.</li>
+<li><code>CreateFont(family, flags)</code> with generic font family names and font style flags.</li>
+<li>Renamed alpha flags: <code>AlphaOpaque</code>, <code>AlphaNoBg</code>, and <code>AlphaPreviewHalf</code>. These are unavailable in earlier builds.</li>
+<li>EEL2 callback execution for each <code>Callback*</code> flag.</li>
+<li>The custom theme's thirteen <code>PushStyleColor</code> calls and its child window background override.</li>
+<li>Arc angle direction in REAPER's actual draw list.</li>
+</ul>
+<p>All of these checks assume ReaImGui 0.10 or later.</p>
+<h3 id="behavior-to-be-aware-of">Behavior to be aware of</h3>
+<ul>
+<li><strong>Widget settings before placement.</strong> The form shows <code>min</code>, <code>max</code>, <code>format</code>, numeric flags, <code>components</code>, <code>tooltip</code>, and <code>bullet</code>, but version 1.0.3 does not transfer these values to the created widget. Set them after placement. See §5.1.</li>
+<li>A widget extending outside the layout is not exported. The preflight panel in <em>Export</em> identifies these objects by name; see §14. If a container is omitted, all of its contents are omitted too, even if the children themselves lie inside the layout.</li>
+<li>Labels for sliders, input fields, and similar controls appear above the widget, outside its bounds. Without vertical spacing, they overlap objects above them.</li>
+<li>The <code>.lua</code> filename is derived from the window title. Spaces and punctuation are replaced with underscores.</li>
+<li>The toolbar's second row is empty when no widget category is open. The <strong>Display</strong> category is open at startup.</li>
+<li>In a narrow window, the theme panel may cover part of the layout. Click outside the panel to close it.</li>
+<li>Custom themes are stored in one browser's localStorage and removed when its site data is cleared. Save the project file to keep a permanent copy of the active theme.</li>
+</ul>
+<hr />
+<h2 id="appendix-a-widget-contracts">Appendix A · Widget contracts</h2>
+<p>The table lists every widget type, its family, default size, and width and height modes. <strong>H</strong> indicates a height fixed by ImGui.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Family · variant</th>
+<th>Size</th>
+<th>Width</th>
+<th>Height</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Button</code></td>
+<td><code>Button</code></td>
+<td>100×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A button that triggers an action when clicked.</td>
+</tr>
+<tr class="even">
+<td><code>SmallButton</code></td>
+<td><code>SmallButton</code></td>
+<td>50×20 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-fixed</code></td>
+<td>A button with reduced padding and the same behavior as Button.</td>
+</tr>
+<tr class="odd">
+<td><code>ArrowButton</code></td>
+<td><code>ArrowButton</code></td>
+<td>17×17 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A square button with an arrow.</td>
+</tr>
+<tr class="even">
+<td><code>Checkbox</code></td>
+<td><code>Checkbox</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>A labeled Boolean control that displays a checkmark when enabled.</td>
+</tr>
+<tr class="odd">
+<td><code>RadioButtonEx</code></td>
+<td><code>RadioButtonEx</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>A radio button that belongs to a mutually exclusive group; only one option in the group is active.</td>
+</tr>
+<tr class="even">
+<td><code>Selectable</code></td>
+<td><code>Selectable</code></td>
+<td>140×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A selectable, full-width row.</td>
+</tr>
+<tr class="odd">
+<td><code>Text</code></td>
+<td><code>Text</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>A static, single-line label.</td>
+</tr>
+<tr class="even">
+<td><code>TextColored</code></td>
+<td><code>TextColored</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Text in a specified color.</td>
+</tr>
+<tr class="odd">
+<td><code>TextDisabled</code></td>
+<td><code>TextDisabled</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Text in the disabled style.</td>
+</tr>
+<tr class="even">
+<td><code>TextWrapped</code></td>
+<td><code>TextWrapped</code></td>
+<td>200×60</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Text that wraps to the available width.</td>
+</tr>
+<tr class="odd">
+<td><code>BulletText</code></td>
+<td><code>BulletText</code></td>
+<td>160×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A line of text preceded by a bullet.</td>
+</tr>
+<tr class="even">
+<td><code>LabelText</code></td>
+<td><code>LabelText</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A label with a read-only value on its right.</td>
+</tr>
+<tr class="odd">
+<td><code>TextLinkOpenURL</code></td>
+<td><code>TextLinkOpenURL</code></td>
+<td>120×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>An underlined link that opens a URL in the browser.</td>
+</tr>
+<tr class="even">
+<td><code>SeparatorText</code></td>
+<td><code>SeparatorText</code></td>
+<td>200×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A separator line with a centered label.</td>
+</tr>
+<tr class="odd">
+<td><code>Separator</code></td>
+<td><code>Separator</code></td>
+<td>200×10 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A horizontal separator line.</td>
+</tr>
+<tr class="even">
+<td><code>HelpMarker</code></td>
+<td><code>HelpMarker</code></td>
+<td>24×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>A “(?)” marker with a tooltip on hover.</td>
+</tr>
+<tr class="odd">
+<td><code>ProgressBar</code></td>
+<td><code>ProgressBar</code></td>
+<td>120×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A horizontal progress indicator from 0 to 100%.</td>
+</tr>
+<tr class="even">
+<td><code>SliderInt</code></td>
+<td><code>Slider</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A horizontal track and thumb for a single numeric value.</td>
+</tr>
+<tr class="odd">
+<td><code>SliderDouble</code></td>
+<td><code>Slider</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A horizontal track and thumb for a single numeric value.</td>
+</tr>
+<tr class="even">
+<td><code>SliderDoubleN</code></td>
+<td><code>SliderN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple sliders forming one multicomponent value.</td>
+</tr>
+<tr class="odd">
+<td><code>VSliderInt</code></td>
+<td><code>VSlider</code> · <code>Int</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A vertical slider for a single numeric value.</td>
+</tr>
+<tr class="even">
+<td><code>VSliderDouble</code></td>
+<td><code>VSlider</code> · <code>Double</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A vertical slider for a single numeric value.</td>
+</tr>
+<tr class="odd">
+<td><code>SliderAngle</code></td>
+<td><code>SliderAngle</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A slider for entering an angle in degrees.</td>
+</tr>
+<tr class="even">
+<td><code>DragInt</code></td>
+<td><code>Drag</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric field adjusted by dragging horizontally.</td>
+</tr>
+<tr class="odd">
+<td><code>DragDouble</code></td>
+<td><code>Drag</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric field adjusted by dragging horizontally.</td>
+</tr>
+<tr class="even">
+<td><code>DragDoubleN</code></td>
+<td><code>DragN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple Drag fields forming one multicomponent value.</td>
+</tr>
+<tr class="odd">
+<td><code>DragIntRange2</code></td>
+<td><code>DragRange</code> · <code>Int</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Two linked Drag fields that define a lower and upper bound.</td>
+</tr>
+<tr class="even">
+<td><code>DragFloatRange2</code></td>
+<td><code>DragRange</code> · <code>Double</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Two linked Drag fields that define a lower and upper bound.</td>
+</tr>
+<tr class="odd">
+<td><code>InputInt</code></td>
+<td><code>Input</code> · <code>Int</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric input field with step buttons.</td>
+</tr>
+<tr class="even">
+<td><code>InputDouble</code></td>
+<td><code>Input</code> · <code>Double</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric input field with step buttons.</td>
+</tr>
+<tr class="odd">
+<td><code>InputDoubleN</code></td>
+<td><code>InputN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple numeric input fields in one widget.</td>
+</tr>
+<tr class="even">
+<td><code>InputText</code></td>
+<td><code>InputText</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A single-line text input.</td>
+</tr>
+<tr class="odd">
+<td><code>InputTextWithHint</code></td>
+<td><code>InputTextWithHint</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>InputTextMultiline</code></td>
+<td><code>InputTextMultiline</code></td>
+<td>200×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A multiline text input.</td>
+</tr>
+<tr class="odd">
+<td><code>Combo</code></td>
+<td><code>Combo</code></td>
+<td>100×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A drop-down list that displays the selected item.</td>
+</tr>
+<tr class="even">
+<td><code>ListBox</code></td>
+<td><code>ListBox</code></td>
+<td>160×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A scrollable list with several visible rows.</td>
+</tr>
+<tr class="odd">
+<td><code>ColorEdit3</code></td>
+<td><code>ColorEdit</code> · <code>RGB</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A compact color editor with channel fields and a swatch.</td>
+</tr>
+<tr class="even">
+<td><code>ColorEdit4</code></td>
+<td><code>ColorEdit</code> · <code>RGBA</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A compact color editor with channel fields and a swatch.</td>
+</tr>
+<tr class="odd">
+<td><code>ColorPicker3</code></td>
+<td><code>ColorPicker</code> · <code>RGB</code></td>
+<td>200×200</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A full color picker with a saturation area and hue bar.</td>
+</tr>
+<tr class="even">
+<td><code>ColorPicker4</code></td>
+<td><code>ColorPicker</code> · <code>RGBA</code></td>
+<td>200×200</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A full color picker with a saturation area and hue bar.</td>
+</tr>
+<tr class="odd">
+<td><code>ColorButton</code></td>
+<td><code>ColorButton</code></td>
+<td>40×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A button displaying a single color swatch.</td>
+</tr>
+<tr class="even">
+<td><code>Panel</code></td>
+<td><code>Panel</code></td>
+<td>220×140</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A bordered, scrollable region containing other widgets.</td>
+</tr>
+<tr class="odd">
+<td><code>Group</code></td>
+<td><code>Group</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>An invisible container that groups child widgets into one block.</td>
+</tr>
+<tr class="even">
+<td><code>StyleRegion</code></td>
+<td><code>StyleRegion</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>An invisible region with style overrides for colors, rounding, alignment, and fonts.</td>
+</tr>
+<tr class="odd">
+<td><code>CollapsingHeader</code></td>
+<td><code>CollapsingHeader</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A full-width header that collapses its contents.</td>
+</tr>
+<tr class="even">
+<td><code>TreeNode</code></td>
+<td><code>TreeNode</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>An expandable node with indented children.</td>
+</tr>
+<tr class="odd">
+<td><code>TabBar</code></td>
+<td><code>TabBar</code></td>
+<td>280×180</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A tab strip that switches between content pages.</td>
+</tr>
+<tr class="even">
+<td><code>TabItem</code></td>
+<td><code>TabItem</code></td>
+<td>280×156</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><code>Table</code></td>
+<td><code>Table</code></td>
+<td>320×200</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A grid of rows and columns containing other widgets.</td>
+</tr>
+<tr class="even">
+<td><code>TableCell</code></td>
+<td><code>TableCell</code></td>
+<td>100×50</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-b-inspector-matrix">Appendix B · Inspector matrix</h2>
+<p>The table lists the inspector rows available for each widget type, using the labels shown in the interface. The <strong>name</strong> field is available for every user-created object and is omitted here to avoid repetition.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Inspector rows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Button</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>SmallButton</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>ArrowButton</code></td>
+<td>direction, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>Checkbox</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>RadioButtonEx</code></td>
+<td>label / text, tooltip, bullet, group, radio value, position,
+size</td>
+</tr>
+<tr class="even">
+<td><code>Selectable</code></td>
+<td>label / text, tooltip, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>Text</code></td>
+<td>label / text, position, size</td>
+</tr>
+<tr class="even">
+<td><code>TextColored</code></td>
+<td>label / text, tooltip, bullet, alpha, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>TextDisabled</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>TextWrapped</code></td>
+<td>label / text, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>BulletText</code></td>
+<td>label / text, position, size</td>
+</tr>
+<tr class="even">
+<td><code>LabelText</code></td>
+<td>label / text, value, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>TextLinkOpenURL</code></td>
+<td>label / text, url, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>SeparatorText</code></td>
+<td>label / text, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>Separator</code></td>
+<td>position, size</td>
+</tr>
+<tr class="even">
+<td><code>HelpMarker</code></td>
+<td>tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>ProgressBar</code></td>
+<td>label / text, tooltip, bullet, overlay, indeterminate, position,
+size</td>
+</tr>
+<tr class="even">
+<td><code>SliderInt</code></td>
+<td>variant, label / text, components, min, max, format, numeric flags,
+tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>SliderDouble</code></td>
+<td>variant, label / text, components, min, max, format, numeric flags,
+tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>SliderDoubleN</code></td>
+<td>label / text, array size, min, max, format, numeric flags, tooltip,
+bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>VSliderInt</code></td>
+<td>variant, label / text, min, max, format, numeric flags, tooltip,
+bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>VSliderDouble</code></td>
+<td>variant, label / text, min, max, format, numeric flags, tooltip,
+bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>SliderAngle</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>DragInt</code></td>
+<td>variant, label / text, components, min, max, speed, format, numeric
+flags, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>DragDouble</code></td>
+<td>variant, label / text, components, min, max, speed, format, numeric
+flags, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>DragDoubleN</code></td>
+<td>label / text, array size, min, max, speed, format, numeric flags,
+tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>DragIntRange2</code></td>
+<td>variant, label / text, min, max, speed, format min, format max,
+numeric flags, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>DragFloatRange2</code></td>
+<td>variant, label / text, min, max, speed, format min, format max,
+numeric flags, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>InputInt</code></td>
+<td>variant, label / text, components, step, step fast, tooltip, bullet,
+position, size</td>
+</tr>
+<tr class="even">
+<td><code>InputDouble</code></td>
+<td>variant, label / text, components, step, step fast, format, tooltip,
+bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>InputDoubleN</code></td>
+<td>label / text, array size, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>InputText</code></td>
+<td>label / text, tooltip, bullet, input flags, EEL2 callback, position,
+size</td>
+</tr>
+<tr class="odd">
+<td><code>InputTextWithHint</code></td>
+<td>label / text, hint, tooltip, bullet, input flags, EEL2 callback,
+position, size</td>
+</tr>
+<tr class="even">
+<td><code>InputTextMultiline</code></td>
+<td>label / text, tooltip, bullet, input flags, EEL2 callback, position,
+size</td>
+</tr>
+<tr class="odd">
+<td><code>Combo</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>ListBox</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>ColorEdit3</code></td>
+<td>variant, label / text, tooltip, bullet, color flags, position,
+size</td>
+</tr>
+<tr class="even">
+<td><code>ColorEdit4</code></td>
+<td>variant, label / text, tooltip, bullet, alpha, color flags,
+position, size</td>
+</tr>
+<tr class="odd">
+<td><code>ColorPicker3</code></td>
+<td>variant, label / text, tooltip, bullet, color flags, position,
+size</td>
+</tr>
+<tr class="even">
+<td><code>ColorPicker4</code></td>
+<td>variant, label / text, tooltip, bullet, alpha, color flags,
+position, size</td>
+</tr>
+<tr class="odd">
+<td><code>ColorButton</code></td>
+<td>tooltip, alpha, color flags, position, size</td>
+</tr>
+<tr class="even">
+<td><code>Panel</code></td>
+<td>label / text, tooltip, bullet, border, h-scroll, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>Group</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>StyleRegion</code></td>
+<td>label / text, tooltip, bullet, text color, frame bg, button color,
+rounding, selectable align, font, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>CollapsingHeader</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>TreeNode</code></td>
+<td>label / text, tooltip, bullet, hdr color, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>TabBar</code></td>
+<td>parent, label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>TabItem</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="odd">
+<td><code>Table</code></td>
+<td>table grid, label / text, tooltip, bullet, position, size</td>
+</tr>
+<tr class="even">
+<td><code>TableCell</code></td>
+<td>label / text, tooltip, bullet, position, size</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="appendix-c-generated-file-structure">Appendix C · Generated file structure</h2>
+<p>The example layout used in this guide—a separator, button, checkbox, slider, combo, panel with two child widgets, tab bar, and table on a 700 × 520 canvas—produces about 200 lines of code. An abbreviated outline follows.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode lua"><code class="sourceCode lua"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- ReaImGui layout  (700×520)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">ctx</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_CreateContext<span class="op">(</span><span class="st">&#39;MyPlugin&#39;</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="cn">W</span><span class="op">,</span> <span class="cn">H</span> <span class="op">=</span> <span class="dv">700</span><span class="op">,</span> <span class="dv">520</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="cn">OUTER_H</span> <span class="op">=</span> <span class="cn">H</span> <span class="op">+</span> <span class="fu">math.floor</span><span class="op">(</span><span class="va">reaper</span><span class="op">.</span>ImGui_GetFrameHeight<span class="op">(</span><span class="va">ctx</span><span class="op">)</span> <span class="op">+</span> <span class="dv">0.5</span><span class="op">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="cn">BG</span>   <span class="op">=</span> <span class="dv">0xFFFFFFFF</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Positions</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="cn">BUTTON_2_X</span><span class="op">,</span> <span class="cn">BUTTON_2_Y</span><span class="op">,</span> <span class="cn">BUTTON_2_W</span> <span class="op">=</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">100</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="cn">SLIDER_4_X</span><span class="op">,</span> <span class="cn">SLIDER_4_Y</span><span class="op">,</span> <span class="cn">SLIDER_4_W</span> <span class="op">=</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">150</span><span class="op">,</span> <span class="dv">120</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>…</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- Widget state</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">Checkbox_3_checked</span> <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">Slider_4_val</span> <span class="op">=</span> <span class="dv">0.0</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="va">Combo_5_item</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="kw">function</span> draw<span class="op">()</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_PushStyleVar<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">reaper</span><span class="op">.</span>ImGui_StyleVar_WindowPadding<span class="op">(),</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_PushStyleVar<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">reaper</span><span class="op">.</span>ImGui_StyleVar_ItemSpacing<span class="op">(),</span>   <span class="dv">0</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_PushStyleColor<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">reaper</span><span class="op">.</span>ImGui_Col_WindowBg<span class="op">(),</span> <span class="cn">BG</span><span class="op">)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_SetNextWindowSize<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="cn">W</span><span class="op">,</span> <span class="cn">OUTER_H</span><span class="op">,</span> <span class="va">reaper</span><span class="op">.</span>ImGui_Cond_Always<span class="op">())</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="kw">local</span> <span class="va">flags</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_WindowFlags_NoResize<span class="op">()</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>               <span class="op">|</span> <span class="va">reaper</span><span class="op">.</span>ImGui_WindowFlags_NoScrollbar<span class="op">()</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">local</span> <span class="va">visible</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="va">visible</span><span class="op">,</span> <span class="va">open</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_Begin<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&#39;MyPlugin&#39;</span><span class="op">,</span> <span class="va">open</span><span class="op">,</span> <span class="va">flags</span><span class="op">)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_PopStyleColor<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="va">reaper</span><span class="op">.</span>ImGui_PopStyleVar<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="va">visible</span> <span class="cf">then</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">dl</span>     <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_GetWindowDrawList<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">wx</span><span class="op">,</span> <span class="va">wy</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_GetWindowPos<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">cx</span><span class="op">,</span> <span class="va">cy</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_GetCursorStartPos<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">local</span> <span class="va">ox</span><span class="op">,</span> <span class="va">oy</span> <span class="op">=</span> <span class="va">wx</span> <span class="op">+</span> <span class="va">cx</span><span class="op">,</span> <span class="va">wy</span> <span class="op">+</span> <span class="va">cy</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_BeginChild<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&#39;##Canvas&#39;</span><span class="op">,</span> <span class="cn">W</span><span class="op">,</span> <span class="cn">H</span><span class="op">,</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Button_2 [Button]</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_SetCursorScreenPos<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">ox</span> <span class="op">+</span> <span class="cn">BUTTON_2_X</span><span class="op">,</span> <span class="va">oy</span> <span class="op">+</span> <span class="cn">BUTTON_2_Y</span><span class="op">)</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">reaper</span><span class="op">.</span>ImGui_Button<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&quot;Play##Button_2&quot;</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">20</span><span class="op">)</span> <span class="cf">then</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- </span><span class="al">TODO</span><span class="co">: Button_2 pressed</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Slider_4 [SliderDouble] — label drawn through the draw list; widget uses a hidden ID</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_SetCursorScreenPos<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">ox</span> <span class="op">+</span> <span class="cn">SLIDER_4_X</span><span class="op">,</span> <span class="va">oy</span> <span class="op">+</span> <span class="cn">SLIDER_4_Y</span><span class="op">)</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_SetNextItemWidth<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="cn">SLIDER_4_W</span><span class="op">)</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">do</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>      <span class="kw">local</span> <span class="va">_label</span> <span class="op">=</span> <span class="st">&quot;Gain&quot;</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> <span class="va">_label</span> <span class="op">~=</span> <span class="st">&quot;&quot;</span> <span class="cf">then</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        <span class="kw">local</span> <span class="va">_tw</span><span class="op">,</span> <span class="va">_th</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_CalcTextSize<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">_label</span><span class="op">)</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="va">reaper</span><span class="op">.</span>ImGui_DrawList_AddText<span class="op">(</span><span class="va">dl</span><span class="op">,</span> <span class="va">ox</span><span class="op">+</span><span class="dv">20</span><span class="op">,</span> <span class="va">oy</span><span class="op">+</span><span class="dv">148</span><span class="op">-</span><span class="va">_th</span><span class="op">,</span> <span class="dv">0x884422FF</span><span class="op">,</span> <span class="va">_label</span><span class="op">)</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>      <span class="cf">end</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>      <span class="kw">local</span> <span class="va">_rv</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>      <span class="va">_rv</span><span class="op">,</span> <span class="va">Slider_4_val</span> <span class="op">=</span> <span class="va">reaper</span><span class="op">.</span>ImGui_SliderDouble<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&quot;##Slider_4&quot;</span><span class="op">,</span> <span class="va">Slider_4_val</span><span class="op">,</span> <span class="dv">0.0</span><span class="op">,</span> <span class="dv">1.0</span><span class="op">)</span></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Panel_6 [Panel] — child widgets inside the child window</span></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_SetCursorScreenPos<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="va">ox</span> <span class="op">+</span> <span class="cn">PANEL_6_X</span><span class="op">,</span> <span class="va">oy</span> <span class="op">+</span> <span class="cn">PANEL_6_Y</span><span class="op">)</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_BeginChild<span class="op">(</span><span class="va">ctx</span><span class="op">,</span> <span class="st">&quot;Output##Panel_6&quot;</span><span class="op">,</span> <span class="dv">220</span><span class="op">,</span> <span class="dv">140</span><span class="op">,</span> <span class="va">reaper</span><span class="op">.</span>ImGui_ChildFlags_Borders<span class="op">(),</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>      <span class="co">-- Button_7, Checkbox_8 …</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_EndChild<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_EndChild<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="va">reaper</span><span class="op">.</span>ImGui_End<span class="op">(</span><span class="va">ctx</span><span class="op">)</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>  <span class="cf">end</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="kw">local</span> <span class="kw">function</span> loop<span class="op">()</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a>  draw<span class="op">()</span></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="va">open</span> <span class="cf">then</span> <span class="va">reaper</span><span class="op">.</span>defer<span class="op">(</span><span class="va">loop</span><span class="op">)</span> <span class="cf">end</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a><span class="va">reaper</span><span class="op">.</span>defer<span class="op">(</span><span class="va">loop</span><span class="op">)</span></span></code></pre></div>
+<p>Keep these three points in mind when editing the generated code.</p>
+<ul>
+<li>Every widget is preceded by <code>SetCursorScreenPos</code>. To move a widget, edit its position constant at the top of the file rather than moving the call.</li>
+<li>Widgets with external labels are enclosed in a <code>do … end</code> block. The label is drawn through the draw list, and the widget uses a hidden ID such as <code>##Name</code>.</li>
+<li>Containers are nested in the same order as on the canvas, and each has a matching <code>End…</code> call. The outermost <code>EndChild</code> closes the canvas.</li>
+</ul>
+<hr />
+<p><em>ReaUI Builder — User Guide for Version 1.0.3. Based on the release source code and project documentation.</em></p>
+</div>
+</body>
+</html>

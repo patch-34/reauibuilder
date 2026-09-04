@@ -161,8 +161,8 @@ Check the exported interface in REAPER before distributing your script. The manu
 
 ## Documentation and feedback
 
-- [English user guide — version 1.0.3](REAPER_UI_Builder_Manual_en_v1_0_3.html)
-- [Русское руководство — версия 1.0.3](REAPER_UI_Builder_Manual_ru_v1_0_3.html)
+- [English user guide — version 1.0.3](ReaUI_Builder_Manual_en_v1_0_3.html)
+- [Русское руководство — версия 1.0.3](ReaUI_Builder_Manual_ru_v1_0_3.html)
 
 Download the HTML manuals and open them in a browser to use their formatted contents and navigation. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples.
 

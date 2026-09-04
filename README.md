@@ -8,7 +8,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](reaui-builder-logo.svg)
 
-**Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](ReaUI_Builder_Manual_en_v1_0_3.md) · [Русское руководство](ReaUI_Builder_Manual_ru_v1_0_3.md)
+**Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](manuals/ReaUI_Builder_Manual_en_v1_0_3.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru_v1_0_3.md)
 
 ## Contents
 
@@ -161,8 +161,8 @@ Check the exported interface in REAPER before distributing your script. The manu
 
 ## Documentation and feedback
 
-- [English user guide — version 1.0.3](ReaUI_Builder_Manual_en_v1_0_3.md)
-- [Русское руководство — версия 1.0.3](ReaUI_Builder_Manual_ru_v1_0_3.md)
+- [English user guide — version 1.0.3](manuals/ReaUI_Builder_Manual_en_v1_0_3.md)
+- [Русское руководство — версия 1.0.3](manuals/ReaUI_Builder_Manual_ru_v1_0_3.md)
 
 Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. For offline reading with the original formatting, download the [English HTML manual](ReaUI_Builder_Manual_en_v1_0_3.html) or [Russian HTML manual](ReaUI_Builder_Manual_ru_v1_0_3.html) and open it in a browser.
 

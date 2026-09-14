@@ -1,5 +1,9 @@
 # ReaUI Builder
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-16B8A6?style=flat-square&labelColor=252A31)](LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/patch-34/reaui-builder?style=flat-square&label=version&color=3B82F6&labelColor=252A31)](https://github.com/patch-34/reaui-builder/releases)
+![ReaImGui](https://img.shields.io/badge/ReaImGui-v0.10%2B-65707D?style=flat-square&labelColor=252A31)
+
 A visual layout editor for [ReaImGui](https://github.com/cfillion/reaimgui) interfaces in [REAPER](https://www.reaper.fm/).
 
 ReaUI Builder generates Lua code from a canvas layout. Arrange controls, nest them in panels, tabs, or tables, and set their properties in the inspector. The export includes widget calls, drawing primitives, styles, and widget state. Add your script's behavior at the generated `-- TODO` comments.

@@ -1,0 +1,2527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ReaUI Builder 1.0.40 user guide. Current workflows, 50 widget contracts, inspector fields, containers, drawing tools, project saving and Lua export.">
+<title>ReaUI Builder — User Guide, Version 1.0.40</title>
+<style>
+:root{--ink:#171a1d;--muted:#5d6871;--rule:#d9dee3;--bg:#fff;--code:#f3f5f7;--accent:#2f5f72}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.62}
+main,.container{max-width:920px;margin:0 auto;padding:40px 24px 96px}
+h1,h2,h3,h4{line-height:1.25;color:#253744;scroll-margin-top:20px}
+h1{font-size:2rem;margin:0 0 1rem}
+h2{font-size:1.45rem;margin:3rem 0 1rem;padding-top:.9rem;border-top:2px solid #344d5b}
+h3{font-size:1.15rem;margin:2rem 0 .65rem}
+h4{font-size:1rem;margin:1.5rem 0 .5rem}
+p{margin:.7rem 0 1rem}
+ul,ol{padding-left:1.5rem}
+li{margin:.3rem 0}
+a{color:#275f75}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);border-radius:4px;padding:.08em .32em;font-size:.9em}
+pre{background:#1f2930;color:#eef4f7;border-radius:8px;padding:16px;overflow:auto;font-size:.9rem;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{margin:1.2rem 0;padding:.75rem 1rem;border-left:4px solid #678899;background:#f3f7f9;color:#27343c}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-weight:650;background:#f7f8f9}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+#TOC{margin:0 0 2.2rem;padding:1rem 1.2rem;background:#f7f8f9;border:1px solid var(--rule);border-radius:8px}
+#TOC ul{margin:.3rem 0}
+@media(max-width:640px){body{font-size:16px}.container{padding:24px 16px 72px}h1{font-size:1.7rem}h2{font-size:1.3rem}table{font-size:.86rem;display:block;overflow-x:auto}}
+@media print{body{font-size:11pt}.container{max-width:none;padding:0}#TOC{break-after:page}}
+
+
+html{scroll-behavior:auto}
+main{max-width:1040px}
+main>h1:first-child{font-size:2.25rem;letter-spacing:-.025em;max-width:840px;margin-bottom:1.25rem}
+main>h1:not(:first-child){font-size:1.65rem;margin-top:2rem}
+details{border:1px solid var(--rule);border-radius:8px;background:#f7f8f9;padding:1rem 1.2rem;margin:1.5rem 0 2.2rem}
+summary{font-weight:650;cursor:pointer;color:#253744}
+details>ul{margin-bottom:.3rem;font-size:.95rem}
+a:hover{text-decoration-thickness:2px}
+.section-anchor{display:block;scroll-margin-top:24px}
+.table-scroll{max-width:100%;overflow-x:auto;margin:1rem 0 1.5rem}
+.table-scroll table{margin:0;min-width:600px}
+th{border-top:1px solid var(--rule)}
+td code{overflow-wrap:normal}
+td:first-child code{white-space:nowrap}
+th:first-child,td:first-child{min-width:130px}
+pre code{white-space:pre}
+.back-to-contents{position:fixed;right:18px;bottom:16px;background:white;border:1px solid #b9c5cc;border-radius:7px;padding:7px 12px;font-size:13px;text-decoration:none;box-shadow:0 2px 8px #00000012}
+@media(max-width:640px){main{padding:24px 16px 72px}main>h1:first-child{font-size:1.85rem}table{display:table}.table-scroll{font-size:.86rem}details{padding:.85rem}pre{font-size:.8rem}.back-to-contents{right:10px;bottom:10px}}
+@media print{main{max-width:none;padding:0}details{display:none}.back-to-contents{display:none}pre{white-space:pre-wrap}pre code{white-space:pre-wrap;overflow-wrap:anywhere}.table-scroll{overflow:visible}table,.table-scroll table{min-width:0;font-size:9pt}h2,h3,h4{break-after:avoid}tr{break-inside:avoid}}
+</style>
+</head>
+<body><main><h1>ReaUI Builder — User Guide, Version 1.0.40</h1>
+<p><a href="ReaUI_Builder_Manual_en_v1_0_39.md">Markdown source</a></p>
+<details id="contents">
+<summary>Contents</summary>
+
+<ul>
+<li><a href="#manual-reaui-builder">ReaUI Builder</a><ul>
+<li><a href="#manual-01-overview">01. Overview</a><ul>
+<li><a href="#manual-absolute-positioning">Absolute positioning</a></li>
+<li><a href="#manual-widget-contracts">Widget contracts</a></li>
+</ul>
+</li>
+<li><a href="#manual-02-quick-start">02. Quick start</a></li>
+<li><a href="#manual-03-workspace">03. Workspace</a><ul>
+<li><a href="#manual-3-1-top-toolbar-and-menus">3.1 · Top toolbar and menus</a></li>
+<li><a href="#manual-3-2-widget-panel">3.2 · Widget panel</a></li>
+<li><a href="#manual-3-3-left-palette">3.3 · Left palette</a></li>
+<li><a href="#manual-3-4-canvas-area">3.4 · Canvas area</a></li>
+<li><a href="#manual-3-5-right-sidebar">3.5 · Right sidebar</a></li>
+<li><a href="#manual-3-6-status-bar">3.6 · Status bar</a></li>
+</ul>
+</li>
+<li><a href="#manual-04-core-concepts">04. Core concepts</a><ul>
+<li><a href="#manual-4-1-widgets-and-drawings">4.1 · Widgets and drawings</a></li>
+<li><a href="#manual-4-2-families-and-variants">4.2 · Families and variants</a></li>
+<li><a href="#manual-4-3-coordinates-and-snapping">4.3 · Coordinates and snapping</a></li>
+<li><a href="#manual-4-4-sizing-contracts">4.4 · Sizing contracts</a></li>
+<li><a href="#manual-4-5-labels">4.5 · Labels</a></li>
+<li><a href="#manual-4-6-containers-and-nesting">4.6 · Containers and nesting</a></li>
+<li><a href="#manual-4-7-overlap-prevention">4.7 · Overlap prevention</a></li>
+<li><a href="#manual-4-8-object-names">4.8 · Object names</a></li>
+</ul>
+</li>
+<li><a href="#manual-05-working-with-objects">05. Working with objects</a><ul>
+<li><a href="#manual-5-1-placing-widgets">5.1 · Placing widgets</a></li>
+<li><a href="#manual-5-2-selecting-objects">5.2 · Selecting objects</a></li>
+<li><a href="#manual-5-3-moving-and-resizing">5.3 · Moving and resizing</a></li>
+<li><a href="#manual-5-4-copying-duplicating-and-deleting">5.4 · Copying, duplicating, and deleting</a></li>
+<li><a href="#manual-5-5-undo-history">5.5 · Undo history</a></li>
+<li><a href="#manual-5-6-batch-editing">5.6 · Batch editing</a></li>
+<li><a href="#manual-5-7-editor-groups">5.7 · Editor groups</a></li>
+</ul>
+</li>
+<li><a href="#manual-06-widget-catalog">06. Widget catalog</a><ul>
+<li><a href="#manual-catalog-notes">Catalog notes</a></li>
+</ul>
+</li>
+<li><a href="#manual-07-containers">07. Containers</a><ul>
+<li><a href="#manual-7-1-panel">7.1 · Panel</a></li>
+<li><a href="#manual-7-2-group">7.2 · Group</a></li>
+<li><a href="#manual-7-3-styleregion">7.3 · StyleRegion</a></li>
+<li><a href="#manual-7-4-collapsingheader-and-treenode">7.4 · CollapsingHeader and TreeNode</a></li>
+<li><a href="#manual-7-5-tabbar">7.5 · TabBar</a></li>
+<li><a href="#manual-7-6-table">7.6 · Table</a></li>
+</ul>
+</li>
+<li><a href="#manual-08-inspector-reference">08. Inspector reference</a></li>
+<li><a href="#manual-09-flags">09. Flags</a><ul>
+<li><a href="#manual-numeric-flags">Numeric flags</a></li>
+<li><a href="#manual-text-input-flags">Text input flags</a></li>
+<li><a href="#manual-color-flags">Color flags</a></li>
+</ul>
+</li>
+<li><a href="#manual-10-drawing-primitives">10. Drawing primitives</a><ul>
+<li><a href="#manual-fill-stroke-and-linked-colors">Fill and stroke</a></li>
+</ul>
+</li>
+<li><a href="#manual-11-canvas-and-project-settings">11. Canvas and project settings</a><ul>
+<li><a href="#manual-window-title">Window title</a></li>
+<li><a href="#manual-size">Size</a></li>
+<li><a href="#manual-background">Background</a></li>
+<li><a href="#manual-color-picker">Color picker</a></li>
+<li><a href="#manual-grid">Grid</a></li>
+<li><a href="#manual-audit-grid">Audit grid</a></li>
+<li><a href="#manual-zoom-and-pan">Zoom and pan</a></li>
+</ul>
+</li>
+<li><a href="#manual-12-themes">12. Themes</a><ul>
+<li><a href="#manual-custom-themes">Custom themes</a></li>
+</ul>
+</li>
+<li><a href="#manual-13-preview-mode">13. Preview mode</a></li>
+<li><a href="#manual-14-exporting">14. Exporting</a><ul>
+<li><a href="#manual-export-preflight">Export preflight</a></li>
+<li><a href="#manual-generated-file-structure">Generated file structure</a></li>
+<li><a href="#manual-positioning-in-code">Positioning in code</a></li>
+<li><a href="#manual-what-is-included">What is included</a></li>
+</ul>
+</li>
+<li><a href="#manual-15-saving-and-loading">15. Saving and loading</a><ul>
+<li><a href="#manual-autosave-and-recovery">Autosave and recovery</a></li>
+</ul>
+</li>
+<li><a href="#manual-16-keyboard-and-mouse-reference">16. Keyboard and mouse reference</a></li>
+<li><a href="#manual-17-release-limitations">17. Release limitations</a><ul>
+<li><a href="#manual-not-implemented">Not implemented</a></li>
+<li><a href="#manual-behavior-to-be-aware-of">Behavior to be aware of</a></li>
+</ul>
+</li>
+<li><a href="#manual-appendix-a-widget-contracts">Appendix A · Widget contracts</a></li>
+<li><a href="#manual-appendix-b-inspector-matrix">Appendix B · Inspector matrix</a></li>
+<li><a href="#manual-appendix-c-generated-file-structure">Appendix C · Reading the generated file</a></li>
+</ul>
+</li>
+</ul>
+</details>
+
+<p><a id="manual-reaui-builder" class="section-anchor" aria-hidden="true"></a></p>
+<h1>ReaUI Builder</h1>
+<p>A visual layout editor for ReaImGui interfaces.</p>
+<p>Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.</p>
+<p>This guide describes <strong>1.0.40</strong>, incorporating the changes made since <strong>1.0.0</strong>. It explains the current workflow; older workarounds are included only where they still apply.</p>
+<hr>
+<p><a id="manual-01-overview" class="section-anchor" aria-hidden="true"></a></p>
+<h2>01. Overview</h2>
+<p>ReaUI Builder runs from a local HTML file. No installation, server, or build process is required. Styles, icons, widget contracts, and code generation logic are included in the file. The editor uses locally available fonts. Editing layouts and generating code work offline.</p>
+<p>Use Builder to design the <strong>interface layout</strong> for your script. Set widget positions, sizes, labels, and basic properties, then export the window structure as Lua code.</p>
+<p>Builder does not generate DSP, project logic, or event handling. In the exported code, <code>-- TODO</code> comments mark where to add your own logic for interactive widgets.</p>
+<ul>
+<li><strong>Output:</strong> Lua code for ReaImGui 0.10</li>
+<li><strong>Widgets:</strong> 48 placeable types in 41 families, plus the automatically managed TabItem and TableCell types</li>
+<li><strong>Drawing primitives:</strong> 7 — rectangle, circle, polygon, line, text, triangle, and arc</li>
+<li><strong>Project format:</strong> versioned JSON</li>
+</ul>
+<p>Builder is based on two principles.</p>
+<p><a id="manual-absolute-positioning" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Absolute positioning</h3>
+<p>ImGui normally lays out widgets in sequence. Builder uses absolute positioning: it sets <code>WindowPadding</code> and <code>ItemSpacing</code> to zero and explicitly positions the cursor before each widget.</p>
+<p>This preserves the intended layout coordinates. Native font metrics and control heights can still differ from the browser approximation; inspect the exported interface in REAPER before finishing a layout.</p>
+<p><a id="manual-widget-contracts" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Widget contracts</h3>
+<p>Each widget type has a <strong>contract</strong>: a set of rules that defines its default size, resizing constraints, how its width is applied, and where its label appears.</p>
+<p>The canvas, inspector, and code generator share the contract definitions, with additional rules for specific types. A Checkbox has fixed dimensions; a Slider has fixed height and an external label; ColorPicker height is derived. The sections below explain differences between the editing box and exported sizing.</p>
+<hr>
+<p><a id="manual-02-quick-start" class="section-anchor" aria-hidden="true"></a></p>
+<h2>02. Quick start</h2>
+<p>Open the HTML file in a modern browser. Builder runs locally through <code>file://</code>; editing layouts and generating code do not require a network connection. To run the exported Lua script, use REAPER with ReaImGui 0.10 installed.</p>
+<ol>
+<li>Open the <strong>Canvas</strong> tab in the right sidebar and set the window size. The default is <strong>600 × 400 px</strong>.</li>
+<li>Choose a widget from a category in the top toolbar: <strong>Buttons &amp; Toggles, Display, Input, Selection, Color,</strong> or <strong>Layout</strong>. The <strong>Group, Style, Table, Header, Tree,</strong> and <strong>Tabs</strong> containers are also available as permanent shortcuts in the left palette.</li>
+<li>Click the canvas to place the widget. Its top-left corner is positioned at the click location, adjusted for grid snapping.</li>
+<li>Use the <strong>Selection</strong> inspector to set the widget&#39;s label, value range, flags, position, and size.</li>
+<li>Click <strong>Export</strong>, resolve any errors in the preflight panel, and click <strong>download .lua</strong>. Alternatively, use <strong>copy</strong> and save the code in a <code>.lua</code> file. Load the file through REAPER’s Actions window and run it.</li>
+</ol>
+<blockquote>
+<p><strong>Workspace at startup.</strong> The tool palette is on the left. The canvas, window layout, and rulers occupy the center. On the right are the <strong>Canvas / Elements / Info</strong> tabs and the <strong>Selection</strong> inspector. The status bar runs along the bottom.</p>
+</blockquote>
+<blockquote>
+<p><strong>Save the editable project.</strong> Choose <strong>File → Save Project</strong> (<code>Cmd/Ctrl + S</code>) and keep the JSON file with your script. Browser recovery drafts are available through <strong>File → Restore projects…</strong>; they do not replace a project file.</p>
+</blockquote>
+<hr>
+<p><a id="manual-03-workspace" class="section-anchor" aria-hidden="true"></a></p>
+<h2>03. Workspace</h2>
+<p>In <strong>Editor</strong> mode, a gray name tag appears above each widget.</p>
+<p><strong>Panel, TabBar,</strong> and <strong>Table</strong> containers also display a header strip. Click this strip to select the container itself instead of an element inside it.</p>
+<blockquote>
+<p><strong>Layout in Editor mode.</strong> Name tags and container strips help you edit the layout structure. They are editor aids and are not included in the exported interface.</p>
+</blockquote>
+<p><a id="manual-3-1-top-toolbar-and-menus" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.1 · Top toolbar and menus</h3>
+<p>The top toolbar contains four menus, global commands, and widget categories.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Menu</th>
+<th>Commands</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>File</strong></td>
+<td>New Project · Save Project · Save As… · Restore projects… · Load Project</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td>Undo · Redo · Copy · Paste · Delete · Duplicate · Group selection · Ungroup selection · Select All · Deselect All · Clear All</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Dark mode · Grid · Snap to grid · Reference grid in export · Hide widget names · Hide draw objects names · Widget footprints · Panels · Zoom to fit · Actual size (100%)</td>
+</tr>
+<tr>
+<td><strong>Help</strong></td>
+<td>Keyboard Shortcuts · Report a Bug… · About</td>
+</tr>
+</tbody></table></div>
+<p><strong>Undo</strong> and <strong>Redo</strong> are unavailable when there are no actions to undo or redo.</p>
+<p><strong>Reference grid in export</strong> adds a magenta measurement grid with 50 px spacing. Unlike the regular editor grid, it is included in the export. The same setting appears as <strong>Audit grid</strong> on the Canvas tab.</p>
+<p><strong>Snap to grid</strong> toggles grid snapping. Enabled options in the <strong>View</strong> menu are marked with a checkmark.</p>
+<p><strong>Hide widget names</strong> and <strong>Hide draw objects names</strong> independently hide editor name tags. They do not hide the visible text of the interface. <strong>Panels</strong> can show or hide Canvas, Elements, Info, Selection, and Tools. Restore hidden panels through this menu. Panel visibility is remembered in this browser, separately from the project.</p>
+<p><strong>Clear All</strong> removes every element from the canvas after you confirm the action.</p>
+<p><strong>Export</strong> opens a window containing the generated code.</p>
+<p>The six widget categories appear on the right side of the toolbar. Click a category to show its widgets. Click it again to close the panel.</p>
+<p><a id="manual-3-2-widget-panel" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.2 · Widget panel</h3>
+<p>The widget panel contains the full set of widgets, organized into six categories.</p>
+<p>To add a widget, open its category, select the widget, and click the canvas.</p>
+<p>If a category is wider than the panel, use the mouse wheel to scroll it horizontally.</p>
+<p>The <strong>Display</strong> category is open at startup. Click its button again to close it. When no category is open, the panel is empty; this is expected behavior.</p>
+<p><a id="manual-3-3-left-palette" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.3 · Left palette</h3>
+<p>The left palette provides permanent access to:</p>
+<ul>
+<li>The <strong>Select</strong>, <strong>Hand</strong>, and <strong>Zoom</strong> tools.</li>
+<li>Seven drawing tools.</li>
+<li>Shortcuts for six containers: Group, StyleRegion, Table, CollapsingHeader, TreeNode, and TabBar.</li>
+</ul>
+<p><strong>Select</strong> is the default tool. Builder returns to it automatically after you place an object.</p>
+<p>Use <strong>Hand</strong> to pan the workspace. Hold <code>Space</code> before dragging for temporary Hand, then release it to return to your previous tool. Space does not start a second gesture while an object is already being moved, resized, or drawn.</p>
+<p>With <strong>Zoom</strong>, click to zoom in around the clicked point; <code>Alt/Option + click</code> zooms out. <code>Esc</code> returns to Select.</p>
+<p>Drawing tools are single-use by default: after you create a shape, Builder switches back to <strong>Select</strong>.</p>
+<p>To draw several rectangles, circles, lines, triangles, or arcs, hold <code>Shift</code> while selecting the tool, then release it before drawing. The tool stays active until you choose another tool or press <code>Esc</code>. The status bar shows <code>[sticky]</code>. Polygon, Text, and widget placement return to Select after completion.</p>
+<p><a id="manual-3-4-canvas-area" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.4 · Canvas area</h3>
+<p>The center of the workspace shows the script window layout: the <strong>MyPlugin</strong> title, the interface area, and the surrounding workspace.</p>
+<p>The layout area matches the exported content size. The title bar represents ImGui&#39;s native title bar, whose height is added in the exported code:</p>
+<p><code>OUTER_H = H + title bar height</code></p>
+<p>The canvas area also includes these controls and indicators:</p>
+<ul>
+<li><strong>Editor / Preview</strong> — the display mode switch above the center of the canvas. See §13.</li>
+<li><strong>Theme</strong> — the theme selector above the canvas on the right. See §12.</li>
+<li><strong>Rulers</strong> — along the top and left edges, showing layout coordinates at the current zoom level.</li>
+<li><strong>Resize handle ⇲</strong> — at the bottom-right corner of the layout. Drag it to resize the canvas. This is equivalent to changing <code>W</code> and <code>H</code> on the <strong>Canvas</strong> tab.</li>
+<li><strong>Preview banner</strong> — appears in Preview mode when the layout contains widgets that Builder can only approximate.</li>
+</ul>
+<p><a id="manual-3-5-right-sidebar" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.5 · Right sidebar</h3>
+<p>The right sidebar has two parts: the <strong>Canvas / Elements / Info</strong> tabs and the <strong>Selection</strong> inspector. Use the header arrow to collapse or expand the upper panel; its tab headings stay in place. Selecting an object collapses Canvas to make room for Selection. Clicking a tab opens it again. The arrow below Elements expands the list by reducing Selection’s height. View → Panels controls which panels are visible.</p>
+<p><a id="manual-info" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Info</h4>
+<p>When a widget is selected, or its placement tool is active, the <strong>Info</strong> tab shows an approximation of its ImGui appearance and a brief description of its purpose.</p>
+<p>Choosing a widget from the widget panel or left palette opens <strong>Info</strong> automatically. The tab stays open after placement, updating to show the newly created object.</p>
+<p>Info shows a preview and description for one selected widget or drawing, or for an active placement tool. With no single-object or tool context, it shows the project summary.</p>
+<p><a id="manual-elements" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Elements</h4>
+<p>The <strong>Elements</strong> tab lists drawings, widgets, containers, and editor groups in a tree. Child widgets are indented beneath their containers.</p>
+<ul>
+<li>Click an object row to select that object. For a member of an editor group, this selects the individual member and shows its own properties.</li>
+<li>Click a group heading to select the whole group. <strong>Select group</strong> in Selection also returns from an individual member to the group.</li>
+<li><code>Cmd/Ctrl + click</code> adds or removes individual rows; <code>Shift + click</code> selects a range of rows.</li>
+<li>With the list focused, <code>↑/↓</code> selects adjacent rows and <code>Home/End</code> selects the first or last row. Hold Shift to extend the selection. These keys navigate the list without moving objects.</li>
+<li>Press <code>Enter</code> to give the canvas focus while keeping the selection. Arrow keys then move the selected objects.</li>
+</ul>
+<p>Drag rows to change stacking order: <strong>higher in the list means closer to the front</strong>. Reordering is limited to siblings with the same parent and the same layer. Drawings remain below widgets; a group moves as a block. Table’s structural cells cannot be reordered this way. Reordering supports Undo.</p>
+<p>Right-click a row for object commands, including Rename, Copy, Cut, Delete, Group/Ungroup, and <strong>Color → Select color / Surprise me</strong>. A member row targets the member; a group heading targets the group.</p>
+<p><a id="manual-canvas" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Canvas</h4>
+<p>The <strong>Canvas</strong> tab contains layout settings: window size, background mode, grid visibility, and grid spacing.</p>
+<p>It also provides a background color picker with an eyedropper, recent swatches, and opacity control. The color value on the bottom line updates as you choose a color. In <em>Custom</em> mode, you can enter it directly. In <em>Default</em> mode, this line shows the name of the theme that supplies the canvas background.</p>
+<p>To edit the window title, click the title on the canvas itself. See §11.</p>
+<p><a id="manual-selection" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Selection</h4>
+<p>The <strong>Selection</strong> inspector uses the selected widget&#39;s contract to show only the properties supported by that type.</p>
+<p>The available fields therefore change with the selection. Simple widgets have only a few basic properties; widgets with ranges, formatting, or additional flags have more extensive controls.</p>
+<p>Inspector fields are organized into sections: <strong>Main</strong> for labels, names, values, and ranges; <strong>Structure</strong> for tabs and tables; <strong>Appearance</strong> for colors, rounding, and thickness; and <strong>Advanced</strong> for formats and flags. Geometry fields follow the property sections. For drawings, Primitive order precedes Size, and Position is the last property block before Delete. Empty sections are hidden.</p>
+<p>Selecting multiple objects switches the inspector to batch editing. See §5.6.</p>
+<p>Section 8 describes all inspector properties. Appendix B lists the properties available for each widget type.</p>
+<p><a id="manual-3-6-status-bar" class="section-anchor" aria-hidden="true"></a></p>
+<h3>3.6 · Status bar</h3>
+<p>The status bar shows:</p>
+<ul>
+<li>The current zoom level and a button to fit the layout in the view.</li>
+<li>The active tool and a usage hint.</li>
+<li>The cursor coordinates.</li>
+<li>The current selection&#39;s <code>X</code>, <code>Y</code>, <code>W</code>, and <code>H</code>.</li>
+<li>Whether grid snapping is enabled.</li>
+<li>The element count.</li>
+</ul>
+<p>This area also displays status messages.</p>
+<p>When Builder rejects a placement, it briefly shows the reason in the status bar instead of opening a dialog. For example:</p>
+<p><code>blocked: overlaps existing widget</code></p>
+<p>or</p>
+<p><code>blocked: container too large for target</code></p>
+<hr>
+<p><a id="manual-04-core-concepts" class="section-anchor" aria-hidden="true"></a></p>
+<h2>04. Core concepts</h2>
+<p><a id="manual-4-1-widgets-and-drawings" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.1 · Widgets and drawings</h3>
+<p>Canvas objects fall into two categories: <strong>widgets</strong> and <strong>drawings</strong>. They differ in interactivity, nesting, overlap rules, drawing order, and export behavior.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th></th>
+<th>Widgets</th>
+<th>Drawings</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Definition</strong></td>
+<td>ImGui widgets: buttons, sliders, tables, and other interactive elements</td>
+<td>Geometry in the window&#39;s draw list</td>
+</tr>
+<tr>
+<td><strong>Interactivity</strong></td>
+<td>Native controls can be interactive; display widgets are visual only</td>
+<td>Non-interactive; used for decoration</td>
+</tr>
+<tr>
+<td><strong>Export</strong></td>
+<td><code>ImGui_Button</code>, <code>ImGui_SliderDouble</code>, …</td>
+<td><code>DrawList_AddRect</code>, <code>AddCircle</code>, …</td>
+</tr>
+<tr>
+<td><strong>Overlap</strong></td>
+<td>Prevented by placement checks; see §4.7 for exceptions</td>
+<td>Allowed; stacking order applies</td>
+</tr>
+<tr>
+<td><strong>Nesting</strong></td>
+<td>Supported inside containers</td>
+<td>Not supported</td>
+</tr>
+<tr>
+<td><strong>Drawing order</strong></td>
+<td>Above drawings</td>
+<td>Below all widgets</td>
+</tr>
+</tbody></table></div>
+<p>Use drawings for visual elements without a dedicated ImGui widget, such as a meter housing, a section border, a scale arc, or a logo.</p>
+<p>Use widgets for controls that the user interacts with.</p>
+<p><a id="manual-4-2-families-and-variants" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.2 · Families and variants</h3>
+<p>Builder&#39;s palette is organized by <strong>family</strong>, while the exported code uses specific <strong>widget types</strong>.</p>
+<p>A family groups variants of the same control. For example:</p>
+<ul>
+<li><code>Slider</code> → <code>SliderInt</code> / <code>SliderDouble</code> — default: Double</li>
+<li><code>Drag</code> → <code>DragInt</code> / <code>DragDouble</code> — default: Double</li>
+<li><code>Input</code> → <code>InputInt</code> / <code>InputDouble</code> — default: Double</li>
+<li><code>VSlider</code> → <code>VSliderInt</code> / <code>VSliderDouble</code> — default: Double</li>
+<li><code>DragRange</code> → <code>DragIntRange2</code> / <code>DragFloatRange2</code> — default: Double</li>
+<li><code>ColorEdit</code> → <code>ColorEdit3</code> / <code>ColorEdit4</code> — default: RGB</li>
+<li><code>ColorPicker</code> → <code>ColorPicker3</code> / <code>ColorPicker4</code> — default: RGB</li>
+</ul>
+<p>For families with multiple variants, a <strong>variant</strong> row appears at the top of the inspector.</p>
+<p>Choose the variant before placement, while the placement tool is active. After placement, the row shows the current variant but cannot be edited. To use another variant, delete the widget and place it again.</p>
+<p>Keep the palette&#39;s family name distinct from the concrete type used in code. For example, <strong>Slider</strong> is the family name in Builder, while <strong>SliderDouble</strong> identifies a specific widget type in the generated code.</p>
+<p>Some palette labels are shorter than the contract names used in this guide: <strong>Hint</strong> = HelpMarker, <strong>RadioButton</strong> = RadioButtonEx, <strong>TextLink</strong> = TextLinkOpenURL, <strong>Multiline</strong> = InputTextMultiline, <strong>Style</strong> = StyleRegion, <strong>Header</strong> = CollapsingHeader, <strong>Tree</strong> = TreeNode, and <strong>Tabs</strong> = TabBar.</p>
+<p><a id="manual-4-3-coordinates-and-snapping" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.3 · Coordinates and snapping</h3>
+<p>Each nested object&#39;s <code>x</code> and <code>y</code> coordinates are stored <strong>relative to its parent</strong>.</p>
+<p>For example, a button near the top-left corner of a panel may store the coordinates <code>(4, 28)</code>, even though the panel&#39;s position puts the button at <code>(24, 278)</code> in the overall layout.</p>
+<p>Moving the panel also moves the button. The button&#39;s own coordinates, <code>(4, 28)</code>, remain unchanged.</p>
+<p>The inspector displays <strong>absolute layout coordinates</strong>. Builder converts them to the stored parent-relative coordinates automatically. The exporter reproduces this placement using absolute positions where suitable and a local origin inside runtime containers such as table cells.</p>
+<p><a id="manual-grid-snapping" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Grid snapping</h4>
+<p>When snapping is enabled, coordinates are rounded to the selected grid interval.</p>
+<p>Set the interval on the <strong>Canvas</strong> tab:</p>
+<ul>
+<li>2 px</li>
+<li>5 px</li>
+<li>10 px — default</li>
+</ul>
+<p>Snapping applies when placing, moving, and resizing objects.</p>
+<p>Choose <strong>View → Snap to grid</strong> to turn snapping off. Its current state appears in the status bar.</p>
+<blockquote>
+<p><strong>Note: Grid spacing and major grid lines.</strong> The selected interval controls snapping and the spacing of the thin grid lines. Thick lines always appear at 50 px intervals as a visual reference; objects do not snap to them independently. At low zoom levels, Builder may display a coarser grid, but snapping still uses the interval selected on the <strong>Canvas</strong> tab.</p>
+</blockquote>
+<p><a id="manual-4-4-sizing-contracts" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.4 · Sizing contracts</h3>
+<p>ImGui does not allow independent width and height settings for every widget type. Builder applies the same constraints on the canvas so the layout can be reproduced correctly in code.</p>
+<p>There are four height modes:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>explicit-size</code></td>
+<td>The contract has an explicit layout box. Button, Panel, and similar controls pass dimensions to ImGui; some types use a derived height or a row-count conversion instead.</td>
+</tr>
+<tr>
+<td><code>native-fixed</code></td>
+<td>ImGui determines the height, usually one frame height, approximately 20 px. Most input widgets use this mode.</td>
+</tr>
+<tr>
+<td><code>native-content</code></td>
+<td>Content, such as text, determines the height.</td>
+</tr>
+<tr>
+<td><code>native-line</code></td>
+<td>Height matches a single separator line.</td>
+</tr>
+</tbody></table></div>
+<p>For a widget with fixed height, only horizontal resize handles remain where width is editable, and <strong>H</strong> is read-only. Checkbox, ArrowButton, SmallButton, and RadioButtonEx have no resize handles; SmallButton and RadioButtonEx widths follow their labels. ColorPicker has horizontal handles only, with height derived from width and flags.</p>
+<p><code>↑ height fixed by ImGui</code> or <code>↑ size fixed by ImGui</code>, depending on the widget.</p>
+<p>You can still change the widget&#39;s width where its contract allows it.</p>
+<p><strong>ColorPicker.</strong> A new picker is 200 px wide with <strong>NoSidePrev</strong> enabled; Builder reserves 246 px of height. H is read-only and changes with width and flags. Enabling the side preview adds 60 px to the reserved width while keeping the picker width unchanged. The export passes the picker width, not the full reserved width, to <code>SetNextItemWidth</code>.</p>
+<p><strong>ListBox.</strong> The exporter converts H to a visible-row count: <code>max(2, round(H / 18))</code>. H is not passed as a pixel height. TextWrapped also uses a layout box in Builder, while ImGui determines the height of its text.</p>
+<p>The contracts use four width modes:</p>
+<ul>
+<li><code>explicit-size</code> — width is passed directly to the widget call.</li>
+<li><code>next-item-width</code> — <code>SetNextItemWidth</code> is called before the widget.</li>
+<li><code>content-or-widget-box</code> — the canvas box reserves space for the content; ImGui determines the actual size.</li>
+<li><code>widget-box-preview</code> — the stored box reserves space in Builder; Checkbox and RadioButtonEx use native sizing in the exported interface.</li>
+</ul>
+<p><a id="manual-4-5-labels" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.5 · Labels</h3>
+<p>By default, ImGui renders a widget&#39;s label beside the control as part of the same call. With absolute positioning, this can place text outside the area reserved in Builder.</p>
+<p>Builder primarily uses the two label placement methods below. Display widgets draw their text as content; LabelText places its label to the right of its value.</p>
+<p><a id="manual-inline-labels" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Inline labels</h4>
+<p>Used by <strong>Button, SmallButton, Selectable, RadioButtonEx,</strong> and native container headers or tabs. <strong>Group</strong> has a separately drawn visible label; <strong>StyleRegion</strong> has no visible exported header.</p>
+<p>The text is passed directly to the ImGui call and rendered as part of the widget.</p>
+<p><a id="manual-external-labels" class="section-anchor" aria-hidden="true"></a></p>
+<h4>External labels</h4>
+<p>Used by sliders, input fields, Combo, Checkbox, color controls, and some other widgets.</p>
+<p>The widget itself receives a hidden ID, for example:</p>
+<p><code>&quot;##Slider_4&quot;</code></p>
+<p>The visible label is drawn separately through the draw list, above the widget&#39;s top edge. Builder shows it in the same position on the canvas.</p>
+<p>An external label needs approximately <strong>14 px</strong> of additional vertical space. This space is outside the widget&#39;s own bounds.</p>
+<p>Leave room for this label as well as the control body. Footprint checks include the above-label area, so the available gap can be smaller than the distance between the two control boxes suggests.</p>
+<p><a id="manual-4-6-containers-and-nesting" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.6 · Containers and nesting</h3>
+<p>Builder supports seven container types:</p>
+<ul>
+<li>Panel</li>
+<li>Group</li>
+<li>StyleRegion</li>
+<li>CollapsingHeader</li>
+<li>TreeNode</li>
+<li>TabBar</li>
+<li>Table</li>
+</ul>
+<p>Builder also uses <strong>TabItem</strong> and <strong>TableCell</strong>. These are created automatically and cannot be placed manually.</p>
+<p>Nesting is determined by the positions of objects on the canvas.</p>
+<p>Placing a widget inside a container&#39;s content area makes it a child of that container. Moving it outside returns it to the layout&#39;s top level or makes it a child of another suitable container.</p>
+<p>There is no separate command for adding an object to a container. Moving a container can also capture eligible widgets fully enclosed by its content area. Click the lock badge to unlock the container for its next move: its existing children are left in place and capture is skipped. Hold <strong>U before starting to drag a container</strong> to leave its current children in place and skip capture during that move.</p>
+<p>Do not confuse container nesting with <strong>Edit → Group selection</strong>: editor grouping is a selection and movement aid and does not create a parent container. See §5.7.</p>
+<p>Each of the seven placeable containers reserves a <strong>24 px</strong> strip at the top for editing and placement. TabItem and TableCell are structural children and do not reserve another such strip.</p>
+<p>The editing strip itself is not exported. Child coordinates still include the reserved space; native headers and tab strips are drawn by ImGui.</p>
+<p>Resizing a container adjusts child positions toward its content area. Table cells and tab pages follow their parent’s size. Keep enough room for the contents: repositioning children does not reduce their dimensions, and the resize checks differ between canvas handles and inspector fields.</p>
+<p>Containers can be nested. For example:</p>
+<p><code>TabBar → TabItem → Panel → Button</code></p>
+<p>The corresponding ImGui calls are nested in the same order in the exported code.</p>
+<p>The inspector&#39;s <strong>parent</strong> row shows the selected widget&#39;s parent hierarchy.</p>
+<p><a id="manual-4-7-overlap-prevention" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.7 · Overlap prevention</h3>
+<p>Builder uses widget <strong>footprints</strong> to check placement and movement. A footprint can extend beyond the inspector’s W/H box: it includes external labels, LabelText’s right-hand label, natural text width, and the extra reservation used by ColorPicker. SmallButton and RadioButtonEx follow the width of their text instead of stretching or squeezing it to a stored width.</p>
+<p>Choose <strong>View → Widget footprints</strong> to inspect this reserved space. A position that looks empty beside a small control may still belong to its label or native control area.</p>
+<p>Inside a TabBar, overlap checks follow the active tab path. Widgets on inactive sibling tabs do not block placing, moving, resizing, drag previews, or paste validation at the same coordinates in the visible tab. Widgets on the same active tab still collide, and visible content from separate overlapping TabBars remains an obstacle.</p>
+<ul>
+<li>Placing a new widget in occupied space is rejected with a status message.</li>
+<li>Moving a widget may use a nearby free grid position.</li>
+<li>A move or resize that cannot satisfy the applicable layout checks is rejected or restored.</li>
+<li>Copying a selection seeks a shared displacement, preserving the relative positions of its members rather than spreading them independently.</li>
+</ul>
+<p>Checks vary with the operation and nesting context; they are not a native ImGui collision test. Drawings may overlap freely. Use Preview and inspect the exported interface to verify tight layouts.</p>
+<p><a id="manual-4-8-object-names" class="section-anchor" aria-hidden="true"></a></p>
+<h3>4.8 · Object names</h3>
+<p>Every new object receives an automatically numbered name:</p>
+<p><code>Button_2</code><br> <code>Slider_4</code><br> <code>Panel_6</code></p>
+<p>The name appears on the <strong>Elements</strong> tab and is used to generate Lua code.</p>
+<p>For example, <code>Slider_4</code> produces:</p>
+<ul>
+<li>The position entry <code>pos.SLIDER_4</code>.</li>
+<li>The state field <code>state.Slider_4_val</code>.</li>
+<li>The ImGui ID <code>&quot;##Slider_4&quot;</code>.</li>
+</ul>
+<p>You can rename objects.</p>
+<p>Use Latin letters, digits, and underscores (<code>_</code>). Other characters are replaced with <code>_</code> during export. The visible label is independent of this code identifier.</p>
+<p>Use unique names wherever possible. If two names become identical after normalization, the preflight panel shows a warning. The exporter resolves duplicates consistently by adding suffixes such as <code>_2</code> and <code>_3</code>, keeping ImGui IDs unique.</p>
+<hr>
+<p><a id="manual-05-working-with-objects" class="section-anchor" aria-hidden="true"></a></p>
+<h2>05. Working with objects</h2>
+<p><a id="manual-5-1-placing-widgets" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.1 · Placing widgets</h3>
+<p>Select a widget, then place it on the canvas using either method below.</p>
+<p><strong>Click</strong> to create a widget at the default size defined by its contract.</p>
+<p>Movement of less than <strong>5 screen pixels</strong> counts as a click, even near a grid boundary.</p>
+<p><strong>Click and drag</strong> beyond that threshold to set the size during placement. On each axis, a drag extent of at least <strong>10 layout px</strong>, after snapping, replaces the default dimension. Smaller extents use the default. Fixed or derived dimensions follow the widget’s sizing rules.</p>
+<p>For example, you can draw a Button at 200 × 70 px. Dragging a Slider can set its width to 300 px, but its height remains fixed.</p>
+<p>After placement, Builder returns to <strong>Select</strong> and keeps the new widget selected, ready for editing in the inspector.</p>
+<p><a id="manual-settings-before-placement" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Settings before placement</h4>
+<p>While a placement tool is active, Selection shows the properties supported by that type. Set its variant, label, range, format, flags, value components, hint, bullet, or other available properties before placing it. Applicable placement settings are copied into the new widget; object names are assigned automatically.</p>
+<p>For example, choose Slider → Double, set min/max to 0/100 and a format of <code>%.1f</code>, then click to create it with those settings. You can continue editing them after placement.</p>
+<p><strong>Reset</strong> restores the placement settings to their defaults. Click the active tool again to cancel it.</p>
+<p><a id="manual-placing-widgets-from-the-context-menu" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Placing widgets from the context menu</h4>
+<p>You can also add widgets without opening the widget panel.</p>
+<p>Right-click the canvas to open a context menu listing all widget types by category.</p>
+<p>The widget you choose is placed at the right-click location.</p>
+<p>This is useful when you already know the widget type you need and want to place it directly.</p>
+<p><a id="manual-5-2-selecting-objects" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.2 · Selecting objects</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Click</strong></td>
+<td>Select one object</td>
+</tr>
+<tr>
+<td><strong>Shift + click</strong></td>
+<td>Add objects that intersect the rectangular area between the anchor object and the clicked object</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + click</strong></td>
+<td>Add an object to the selection or remove it</td>
+</tr>
+<tr>
+<td><strong>Drag on empty canvas</strong></td>
+<td>Draw a selection marquee</td>
+</tr>
+<tr>
+<td><strong>Shift + marquee</strong></td>
+<td>Add objects to the current selection</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + marquee</strong></td>
+<td>Toggle the selection state of objects within the marquee</td>
+</tr>
+<tr>
+<td><strong>Click an Elements row</strong></td>
+<td>Select the corresponding object on the canvas</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + A</strong></td>
+<td>Select all objects</td>
+</tr>
+<tr>
+<td><strong>Esc</strong></td>
+<td>Clear the selection or cancel the active tool</td>
+</tr>
+</tbody></table></div>
+<p>Holding <code>Shift</code> temporarily activates <strong>Select</strong> while a drawing or widget placement tool is active, except during polygon creation.</p>
+<p>This lets you change the selection without canceling the current tool.</p>
+<p>A multiple selection has a dashed bounding box with resize handles, subject to the selected objects’ sizing rules.</p>
+<p>For drawings, clicking tests the visible geometry: empty corners, the unfilled interior of an outline, and the gap of an arc pass the click to objects underneath. Thin strokes have a small screen-space click tolerance. Visible text accepts clicks; editor name tags do not enlarge the shape’s hit area. The selection outline follows the drawing’s shape. Marquee selection still uses object bounds. Select a fully invisible drawing through Elements.</p>
+<p>An individual group member selected through Elements stays individually selected when you click or drag that selected shape on the canvas, including where other drawings overlap it. Clicking a different, unselected member selects its whole group. Several members selected through Elements move together in exactly that selection.</p>
+<p><a id="manual-5-3-moving-and-resizing" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.3 · Moving and resizing</h3>
+<p>Drag a selected object to move it.</p>
+<p>Drag a selection handle to resize it.</p>
+<p>Both operations use grid snapping when enabled.</p>
+<p>The widget&#39;s contract determines which resize handles are available:</p>
+<ul>
+<li>Eight handles when both width and height can be changed freely.</li>
+<li>Two side handles when height is fixed but width is adjustable.</li>
+<li>No handles when ImGui determines the entire size.</li>
+</ul>
+<p>For precise placement, use the inspector&#39;s <strong>position</strong> and <strong>size</strong> fields.</p>
+<p>These fields use absolute layout coordinates and follow <strong>Snap to grid</strong>. Turn snapping off to enter coordinates in 1 px increments. Values are parsed as integers. The workspace extends beyond the exported frame; drawings can be moved into the surrounding space, including negative coordinates. Pan with Hand to reach them. Moving an object outside the artboard does not enlarge the exported window.</p>
+<p>With the canvas focused, arrow keys move the selection by one grid interval, or by 1 px when snapping is off. Hold <code>Shift</code> to move it ten times as far. In Elements, press Enter first to transfer focus to the canvas.</p>
+<p>Hold <strong>Shift while resizing drawings</strong> to preserve proportions. A corner handle keeps the opposite corner fixed; a side handle keeps the opposite side and changes the other axis symmetrically. This also works for a selection containing only drawings. Widgets retain their own sizing contracts.</p>
+<p>Resizing a drawing Text object also scales its font size, using the smaller of the width/height scale factors, with a minimum of 6 px. Letters are not stretched independently on each axis. Undo restores both the box and the font size.</p>
+<p><a id="manual-5-4-copying-duplicating-and-deleting" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.4 · Copying, duplicating, and deleting</h3>
+<p><a id="manual-copy-paste" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Copy / Paste</h4>
+<p><code>Cmd/Ctrl + C</code> and <code>Cmd/Ctrl + V</code></p>
+<p>Copying a container includes its subtree. Pasting assigns fresh object and editor-group IDs, preserves copied nesting, and keeps relative positions—including line endpoints and polygon vertices. Builder starts with an offset and looks for a shared valid displacement when needed.</p>
+<p>You can copy between projects or Builder tabs, including after closing the source tab. Keyboard shortcuts and menu commands use the same clipboard format. A local copy is also retained for reopening the same Builder file. Browser clipboard access can be restricted; if a menu command cannot access it, use the keyboard shortcut and follow the status message.</p>
+<p>An existing parent can be reused only within the same source project. Pasting into another project does not attach objects to unrelated containers just because their IDs happen to match.</p>
+<p><a id="manual-duplicate" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Duplicate</h4>
+<p><code>Cmd/Ctrl + D</code></p>
+<p>Creates and places a copy in one step, equivalent to Copy followed by Paste.</p>
+<p><a id="manual-alt-drag" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Alt + drag</h4>
+<p>Hold <code>Alt</code> as you start dragging to move a copy while leaving the original in place.</p>
+<p>This also works with multiple selected objects.</p>
+<p><a id="manual-delete" class="section-anchor" aria-hidden="true"></a></p>
+<h4>Delete</h4>
+<p><code>Del</code> or <code>Backspace</code></p>
+<p>Deleting a container with user content opens a choice:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Choice</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cancel</td>
+<td>Keep the container and its contents.</td>
+</tr>
+<tr>
+<td>Keep inner widgets</td>
+<td>Remove the container and preserve its user content at its layout positions; internal tab/cell wrappers are removed as needed.</td>
+</tr>
+<tr>
+<td>Delete with children</td>
+<td>Remove the container and its content subtree.</td>
+</tr>
+</tbody></table></div>
+<p>An empty container or ordinary object can be deleted directly. Use <strong>Undo</strong> to restore the deletion.</p>
+<p><a id="manual-5-5-undo-history" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.5 · Undo history</h3>
+<p>Builder stores <strong>50 history steps</strong>.</p>
+<p>Successive edits to the same property within <strong>600 ms</strong> are combined into one step. For example, several quick changes to <code>max</code> do not create a separate history entry for every intermediate value.</p>
+<p><strong>Undo</strong> restores both the objects and the selection that was active at that step.</p>
+<p>Loading a project clears the history. You cannot undo changes made before the load.</p>
+<p><a id="manual-5-6-batch-editing" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.6 · Batch editing</h3>
+<p>When multiple objects are selected, the inspector shows their total count and a breakdown by type. It offers only properties shared by <strong>all</strong> selected objects. For example, a button and a checkbox share label, tooltip, and bullet properties.</p>
+<p>If selected objects have different values for a property, its field shows <strong>Mixed</strong>. No object&#39;s value changes until you enter a new value.</p>
+<p>The <code>ΔX / ΔY</code> fields move the entire selection by the specified offset, subject to workspace-boundary and overlap checks. The workspace extends beyond the exported layout, so a move can leave a widget outside the export frame. If both a container and its child are selected, the child moves with the container once.</p>
+<p>Each batch edit is a single history step. One <strong>Undo</strong> restores the original values for every object in the selection.</p>
+<hr>
+<p><a id="manual-5-7-editor-groups" class="section-anchor" aria-hidden="true"></a></p>
+<h3>5.7 · Editor groups</h3>
+<p>Select two or more objects and choose <strong>Edit → Group selection</strong> (<code>Cmd/Ctrl + G</code>). A group can contain drawings and widgets. Name it in Selection or through Rename on its Elements heading. <code>Cmd/Ctrl + Shift + G</code> ungroups the selection.</p>
+<p>Editor groups make selection and movement convenient. They are saved in the project, copied with their members, and included in Undo/Redo. They do <strong>not</strong> add <code>BeginGroup</code> to Lua, change container parents, or allow a drawing to move above the widget layer. Use the <strong>Group widget</strong> in the Layout category when you need an exported ImGui group.</p>
+<p>Click the group heading to work on the whole group. Click a member row in Elements to edit just that member; <strong>Select group</strong> returns to the whole group. Grouping a selection that includes existing groups combines their full membership.</p>
+<p>Right-click within a multiple selection, including a gap inside its bounding box, to open commands for that selection. <strong>Color → Select color</strong> applies a chosen color; <strong>Surprise me</strong> chooses a color. The result depends on the selected object type; widget colors use the appropriate control style slots, including tab colors.</p>
+<hr>
+<p><a id="manual-06-widget-catalog" class="section-anchor" aria-hidden="true"></a></p>
+<h2>06. Widget catalog</h2>
+<p>This catalog lists the <strong>41 widget families</strong> in the toolbar categories. For base dimensions and sizing modes, see <a href="#manual-appendix-a-widget-contracts">Appendix A</a>.</p>
+<p><strong>Buttons &amp; Toggles</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td>A button that triggers an action when clicked. <em>Use for commands such as render, apply, reset, or running a script step.</em></td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td>A button with reduced padding and the same behavior as Button. <em>Use for secondary actions or compact layouts.</em></td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td>A Boolean control with a checkmark and an external label above it. <em>Use for on/off settings such as enable, mute, loop, or bypass.</em></td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td>A radio button that belongs to a mutually exclusive group; only one option in the group is active. <em>Use to choose a mode from a short, fixed list.</em></td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td>A square button with an arrow. <em>Use for steppers, counters, and expand/collapse controls.</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Display</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Text</code></td>
+<td>A static, single-line label. <em>Use for field headings and short status messages.</em></td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td>A line of text preceded by a bullet. <em>Use for simple lists.</em></td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td>Text that wraps to the available width. <em>Use for longer descriptions and help text.</em></td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td>Text in a specified color. <em>Use for warnings, status messages, and category labels.</em></td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td>Text in the disabled style. <em>Use for hints, placeholders, and labels for unavailable options.</em></td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td>A read-only value on the left and its label on the right. <em>Use for named values such as tempo or status.</em></td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td>An underlined link that opens a URL in the browser. <em>Use for documentation, website, and support links.</em></td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td>A horizontal progress indicator from 0 to 100%. <em>Use to show progress during rendering, scanning, or other lengthy operations.</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Input</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Slider</code></td>
+<td>A horizontal track and thumb for a single numeric value. <em>Use for bounded continuous parameters such as gain, mix, or threshold.</em></td>
+</tr>
+<tr>
+<td><code>VSlider</code></td>
+<td>A vertical slider for a single numeric value. <em>Use for faders and level controls.</em></td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td>A slider for entering an angle in degrees. <em>Use for rotation, panning, and phase.</em></td>
+</tr>
+<tr>
+<td><code>Drag</code></td>
+<td>A numeric field adjusted by dragging horizontally. <em>Use for fine adjustments and values without fixed bounds.</em></td>
+</tr>
+<tr>
+<td><code>DragRange</code></td>
+<td>Two linked Drag fields that define a lower and upper bound. <em>Use for ranges such as low/high cutoff or interval start and end.</em></td>
+</tr>
+<tr>
+<td><code>Input</code></td>
+<td>A numeric input field with step buttons. <em>Use to enter exact integer or decimal values.</em></td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td>A single-line text input. <em>Use for names, paths, and other short text.</em></td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td>A single-line input with placeholder text displayed while the field is empty. <em>Use to provide a brief example or explain the expected input.</em></td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td>A multiline text input. <em>Use for notes, descriptions, or pasted blocks of text.</em></td>
+</tr>
+<tr>
+<td><code>SliderN</code></td>
+<td>Multiple sliders forming one multicomponent value. <em>Use for vectors or color channels edited together.</em></td>
+</tr>
+<tr>
+<td><code>DragN</code></td>
+<td>Multiple Drag fields forming one multicomponent value. <em>Use for coordinates and vectors such as X/Y/Z.</em></td>
+</tr>
+<tr>
+<td><code>InputN</code></td>
+<td>Multiple numeric input fields in one widget. <em>Use to enter exact multicomponent values.</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Selection</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Combo</code></td>
+<td>A drop-down list that displays the selected item. <em>Use to choose one value from a long list when space is limited.</em></td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td>A scrollable list with several visible rows. <em>Use when the available options should remain visible.</em></td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td>A selectable, full-width row. <em>Use for lists, menus, and selectable items.</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Color</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ColorEdit</code></td>
+<td>A compact color editor with channel fields and a swatch. <em>Use for editing color directly in the layout.</em></td>
+</tr>
+<tr>
+<td><code>ColorPicker</code></td>
+<td>A full color picker with a saturation area and hue bar. <em>Use for choosing colors visually.</em></td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td>A button displaying a single color swatch. <em>Use as a color indicator or to open a color editor.</em></td>
+</tr>
+</tbody></table></div>
+<p><strong>Layout</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SeparatorText</code></td>
+<td>A separator line with a label near the left edge. <em>Use to title a section.</em></td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td>A horizontal separator line. <em>Use to divide layout sections.</em></td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td>A “(?)” marker with a tooltip on hover. <em>Use to explain a nearby control without expanding the layout.</em></td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td>A bordered, scrollable region containing other widgets. <em>Use for sidebars, settings blocks, and widget groups.</em></td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>A borderless exported group with an optional visible label. <em>Use when several widgets should form one ImGui group.</em></td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td>An invisible region with style overrides for colors, rounding, alignment, and fonts. <em>Use to style a group of widgets independently of the rest of the layout.</em></td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td>A full-width header that collapses its contents. <em>Use for optional or advanced settings.</em></td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td>An expandable node with indented children. <em>Use for hierarchies such as folders, tracks, or nested settings.</em></td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td>A tab strip that switches between content pages. <em>Use to organize a panel into pages such as Main / FX / MIDI.</em></td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td>A grid of rows and columns containing other widgets. <em>Use for aligned layouts, matrices, and row-based data.</em></td>
+</tr>
+</tbody></table></div>
+<p><a id="manual-catalog-notes" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Catalog notes</h3>
+<p><strong>Slider, Drag, and Input.</strong> Slider has a track and range bounds; Drag adjusts values by horizontal dragging; Input supports direct numeric entry. Their inspector fields differ: Slider exposes bounds and flags, Drag adds speed, and scalar Input exposes step settings. SliderAngle and N-suffix families have their own field sets; see Appendix B.</p>
+<p><strong>Families with an N suffix</strong> (SliderN, DragN, InputN) export a <code>reaper.new_array</code> with the number of elements specified in <em>array size</em>, controlled through a single call. Standard families instead use <em>value components</em>, from 1 to 4, to generate calls such as <code>SliderDouble2</code> or <code>DragInt3</code> with separate scalar state fields.</p>
+<p><strong>HelpMarker.</strong> Exports a disabled <code>(?)</code> symbol. The tooltip text comes from <em>tooltip</em>, not from the label.</p>
+<p><strong>Combo and ListBox.</strong> The export includes five placeholder items: <code>item_0…item_4</code> and <code>Item 1…Item 5</code>, respectively. Item lists cannot be edited in this release; replace them in the generated code.</p>
+<p><strong>TextColored.</strong> The initial color defaults to black. Preview and Lua use the chosen text color; Editor uses neutral selection/diagnostic styling rather than treating the text color as a frame color.</p>
+<p><strong>RadioButtonEx.</strong> Buttons with the same <em>group</em> value share a state field. Each button has its own <em>radio value</em>. This makes the options mutually exclusive in the exported interface.</p>
+<hr>
+<p><a id="manual-07-containers" class="section-anchor" aria-hidden="true"></a></p>
+<h2>07. Containers</h2>
+<p>See <a href="#manual-4-6-containers-and-nesting">§4.6</a> for shared container behavior: a 24 px editor strip, position-based nesting, adjustment of child positions during resizing, and the choice of retaining or deleting content when a filled container is removed. The sections below describe the differences between container types.</p>
+<p><a id="manual-7-1-panel" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.1 · Panel</h3>
+<p>Panel is an ImGui child window: a bordered region that can scroll when needed. Use it for sidebars, settings blocks, and groups of widgets with a visible boundary.</p>
+<ul>
+<li><strong>border.</strong> Shows a border; enabled by default. When disabled, the region has no visible border but still clips and scrolls its contents.</li>
+<li><strong>h-scroll.</strong> Enables a horizontal scrollbar. Without it, content wider than the panel is clipped.</li>
+</ul>
+<pre><code class="language-lua">reaper.ImGui_BeginChild(ctx, &quot;Output##Panel_6&quot;, 220, 140, reaper.ImGui_ChildFlags_Borders(), 0)
+  -- Child widgets; set SetCursorScreenPos for each one
+reaper.ImGui_EndChild(ctx)
+</code></pre>
+<p>When the theme is not Default, every Panel uses that theme’s child-background color. Builder pushes the color before <code>BeginChild</code> and pops it immediately afterward, before emitting the contents. There is no separate per-panel background-color field.</p>
+<p><a id="manual-7-2-group" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.2 · Group</h3>
+<p>Group has no border or background. It exports <code>BeginGroup</code> / <code>EndGroup</code>, with a visible label drawn above its child area when the label is nonempty. ImGui treats the enclosed widgets as a group.</p>
+<p>Use this container when you need an exported group; use <strong>Edit → Group selection</strong> for an editor-only group. Use Panel if the block needs a border, clipping, or scrolling.</p>
+<p>Preview currently represents Group with a hatched placeholder; this fill is an editing aid and is not exported.</p>
+<p><a id="manual-7-3-styleregion" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.3 · StyleRegion</h3>
+<p>StyleRegion applies style overrides to its child widgets without affecting the rest of the layout. Use it to style a region with shared overrides. For a quick color change to selected objects, the object context menu also provides Color commands.</p>
+<blockquote>
+<p>The StyleRegion inspector provides a checkbox for each override. An unchecked property is inherited unchanged. For example, a region can override only the button color while inheriting every other style setting.</p>
+</blockquote>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Override</th>
+<th>Export</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text color</td>
+<td><code>PushStyleColor(Col_Text)</code></td>
+</tr>
+<tr>
+<td>frame bg</td>
+<td><code>PushStyleColor(Col_FrameBg)</code></td>
+</tr>
+<tr>
+<td>button color</td>
+<td><code>PushStyleColor(Col_Button)</code></td>
+</tr>
+<tr>
+<td>rounding</td>
+<td><code>PushStyleVar(StyleVar_FrameRounding)</code></td>
+</tr>
+<tr>
+<td>selectable align</td>
+<td><code>PushStyleVar(StyleVar_SelectableTextAlign, x, y)</code>, with both values from 0 to 1</td>
+</tr>
+<tr>
+<td>font</td>
+<td><code>CreateFont(family, flags)</code> at startup, followed by <code>PushFont(ctx, font, size)</code> around the child widgets</td>
+</tr>
+</tbody></table></div>
+<p>Builder creates each unique font family and style combination with one <code>CreateFont</code> call and attaches the font to the context before the first frame. It calls <code>PushFont</code> after applying the style overrides and the matching <code>PopFont</code> before removing them. The font therefore applies only to widgets inside the StyleRegion.</p>
+<blockquote>
+<p><strong>Note.</strong> In Preview, StyleRegion applies supported color, rounding, and font overrides to its children. Its text-color override also reaches external labels and draw-list Text, Separator, SeparatorText, LabelText, and BulletText: Builder resolves their colors when generating Lua. An <code>Aa</code> marker in the editor header indicates a font override.</p>
+</blockquote>
+<p><a id="manual-7-4-collapsingheader-and-treenode" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.4 · CollapsingHeader and TreeNode</h3>
+<p>Both containers can collapse their contents in the running interface. CollapsingHeader uses a full-width bar; TreeNode uses an indented node with an arrow. Both export with <code>TreeNodeFlags_DefaultOpen</code>, so they start expanded.</p>
+<p>TreeNode has a <strong>hdr color</strong> setting. <em>default</em> chooses black or white text for contrast with the canvas; <em>custom</em> uses the selected color. The exporter applies this color to the node label in both modes.</p>
+<p>Both containers are always shown expanded in Builder.</p>
+<p><strong>bullet instead of arrow</strong> replaces the disclosure arrow with a bullet using ReaImGui’s <code>TreeNodeFlags_Bullet</code>. The node can still expand and collapse; this does not turn it into a leaf. It is a native tree/header flag, distinct from the decorative prefix bullet offered on some leaf widgets.</p>
+<p><a id="manual-7-5-tabbar" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.5 · TabBar</h3>
+<blockquote>
+<p>Select the <strong>Tabs</strong> container header to access its <strong>tabs</strong> list. Edit names in the rows, use × to delete a page and its contents, or add a new page. The × control cannot remove the last remaining page.</p>
+</blockquote>
+<p>A new TabBar starts with two tabs. Click a tab on the canvas to switch pages. Only the active page&#39;s contents are displayed, handled, and considered by widget overlap checks. Widgets placed on a page belong to its TabItem.</p>
+<p>In the export, <code>BeginTabItem</code> / <code>EndTabItem</code> pairs are nested inside <code>BeginTabBar</code> / <code>EndTabBar</code>, with each page&#39;s widgets inside the corresponding tab item.</p>
+<p>The tab bar is enclosed in a transparent child region using its layout width and height, with zero padding and no scrolling. This bounds the native tab underline to the Tabs area instead of extending it to the right edge of the parent window. Content is clipped to the region. The selected, ordinary, and hovered tab colors follow the active theme; a manual Tabs color is also exported.</p>
+<p><a id="manual-7-6-table" class="section-anchor" aria-hidden="true"></a></p>
+<h3>7.6 · Table</h3>
+<blockquote>
+<p>The Table inspector provides row and column counts, a label and width mode for each column, individual row heights, a header-row checkbox, four table flags, and an overall sizing policy.</p>
+</blockquote>
+<p>Table is a grid of cells, each a container. Row and column counts range from 1 to 16; a new table starts with 3 × 3 cells. When shrinking removes populated cells, the confirmation offers <strong>OK</strong> to delete their contents or <strong>Cancel</strong> to keep those widgets at the top level. Cancel keeps the contents; it does not cancel the table resize.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>columns / rows</td>
+<td>From 1 to 16 per axis. Growing creates cells; shrinking removes cells and asks how to handle their contents.</td>
+</tr>
+<tr>
+<td>Column width</td>
+<td>Three modes are available. <em>Auto</em> sets no width flag. <em>Fix</em> sets <code>WidthFixed</code> with a width in pixels. <em>Str</em> sets <code>WidthStretch</code> with a weighting factor.</td>
+</tr>
+<tr>
+<td>Row height</td>
+<td>Requests a row height in pixels. Unspecified rows share remaining space. Oversized requests are reduced to fit the body; if every row is set, the last receives any remainder. The resolved height is a minimum for <code>TableNextRow</code>.</td>
+</tr>
+<tr>
+<td>header row</td>
+<td>Adds a <code>TableHeadersRow</code> call and reserves an 18 px strip for column labels on the canvas.</td>
+</tr>
+<tr>
+<td>Borders</td>
+<td>Cell borders.</td>
+</tr>
+<tr>
+<td>RowBg</td>
+<td>Alternating row backgrounds.</td>
+</tr>
+<tr>
+<td>Resizable</td>
+<td>Allows users to resize columns in the running interface.</td>
+</tr>
+<tr>
+<td>ScrollY</td>
+<td>Enables vertical scrolling. The table height is passed to ImGui only when ScrollY is enabled.</td>
+</tr>
+<tr>
+<td>sizing</td>
+<td>Sizing policy for columns set to <em>Auto</em>: <code>SizingFixedFit</code> or <code>SizingStretchSame</code>.</td>
+</tr>
+</tbody></table></div>
+<p>Builder subtracts the 24 px editor strip and the 18 px column-label strip, when enabled, before resolving row heights. Cells are emitted row by row. Children keep their local placement within the cell; the exporter rebases their positions on the cell’s actual runtime cursor origin and obtains the current draw list. Labels and other draw-list content therefore use the table’s current clipping and scrolling context. This preserves designed offsets while allowing the native table to scroll and its columns to resize; it is not automatic flow layout.</p>
+<blockquote>
+<p><strong>Note.</strong> Placement in a cell keeps the drop position where possible, clamps it to the cell’s interior with a 4 px inset, and reduces overflowing dimensions if needed. It does not center the widget. If the widget’s center misses the cells but its box intersects the table, placement moves it beyond the nearest table edge.</p>
+</blockquote>
+<hr>
+<p><a id="manual-08-inspector-reference" class="section-anchor" aria-hidden="true"></a></p>
+<h2>08. Inspector reference</h2>
+<blockquote>
+<p>The inspector shows the widget type, variant selector, name, label, contract-specific properties, position and size, and a delete button.</p>
+</blockquote>
+<p><strong>Identification</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>variant</td>
+<td>The selected type within a family: Int / Double or RGB / RGBA. Choose it before placement; for an existing widget, this field is read-only.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Object identifier. Determines Lua variable names and the ImGui ID. Use a unique name containing only <code>[A-Za-z0-9_]</code>.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>The widget&#39;s container hierarchy. Read-only.</td>
+</tr>
+<tr>
+<td>label / text</td>
+<td>Visible text. For Text-family widgets, this is the content itself; for other widgets, it is the label above or inside the control.</td>
+</tr>
+<tr>
+<td>hint</td>
+<td>InputTextWithHint only. The field is labeled <strong>placeholder</strong>; its text appears when the input is empty.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>LabelText only. The read-only value displayed on the left; the label appears on the right.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>TextLinkOpenURL only. The URL opened by the exported link. An empty URL exports <code>https://example.com</code>.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Numeric properties</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value components</td>
+<td>From 1 to 4. Generates a multicomponent call such as <code>SliderDouble3</code>, with a separate state field for each component.</td>
+</tr>
+<tr>
+<td>array size</td>
+<td>N-suffix families only. The size of the <code>reaper.new_array</code>, from 2 to 64.</td>
+</tr>
+<tr>
+<td>min / max</td>
+<td>Range bounds. Empty fields use the defaults for the widget type.</td>
+</tr>
+<tr>
+<td>speed</td>
+<td>Drag families only. The change in value per pixel of mouse movement.</td>
+</tr>
+<tr>
+<td>step / step fast</td>
+<td>Scalar InputInt/InputDouble. Explicit step sizes for the step controls. InputInt with 2–4 components omits these arguments in export.</td>
+</tr>
+<tr>
+<td>format</td>
+<td>A printf-style format, such as <code>%.2f</code> or <code>%d dB</code>. Also controls how the value appears in the widget.</td>
+</tr>
+<tr>
+<td>format min / max</td>
+<td>DragRange only. Separate formats for the lower and upper bounds, such as <code>Min: %d</code> and <code>Max: %d</code>.</td>
+</tr>
+<tr>
+<td>numeric flags</td>
+<td>Clamp, Log, NoInput, Wrap. See <a href="#manual-09-flags">§9</a>.</td>
+</tr>
+</tbody></table></div>
+<p>Empty numeric fields use the type’s defaults; clearing a field removes its explicit override. Slider/Drag integer ranges default to 0–100 and double ranges to 0–1. Drag speed defaults to <strong>1</strong>, including when a custom format is present. Enter explicit values when your control needs a different range, step, speed, or format.</p>
+<p><strong>Appearance and behavior</strong></p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tooltip</td>
+<td>The field is labeled <strong>hint</strong>. It adds <code>SetItemTooltip</code> for supported leaf widgets. Text, Separator, SeparatorText, LabelText, BulletText, and TextWrapped do not offer it. Container inspectors show the field, but container export does not emit it.</td>
+</tr>
+<tr>
+<td>bullet</td>
+<td><strong>prefix bullet</strong> draws a decorative dot to the left of supported leaf widgets. <strong>bullet instead of arrow</strong> on TreeNode and CollapsingHeader sets the native tree flag. See the bullet guide below.</td>
+</tr>
+<tr>
+<td>color</td>
+<td>Initial color for TextColored, ColorEdit3/4, ColorPicker3/4, and ColorButton. Available for a single object and applicable batch selections.</td>
+</tr>
+<tr>
+<td>alpha</td>
+<td>From 0 to 255, for RGBA variants, ColorButton, and TextColored. For ColorEdit4 and ColorPicker4, the exporter uses this alpha only when the object also has an explicit color.</td>
+</tr>
+<tr>
+<td>text tone</td>
+<td>TextWrapped only: Auto, Dark, or Light. Auto follows the resolved theme/style text color; explicit tones help control contrast.</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>ArrowButton only. Arrow direction: Left, Right, Up, or Down.</td>
+</tr>
+<tr>
+<td>overlay</td>
+<td>ProgressBar only. Text over the bar. An empty field exports an empty overlay string, so no automatic percentage is requested.</td>
+</tr>
+<tr>
+<td>indeterminate</td>
+<td>ProgressBar only. Displays an animation instead of a progress value.</td>
+</tr>
+<tr>
+<td>group / radio value</td>
+<td>RadioButtonEx only. The shared state variable and this button&#39;s value.</td>
+</tr>
+<tr>
+<td>hdr color</td>
+<td>TreeNode only. The node label color: default or custom.</td>
+</tr>
+<tr>
+<td>border / h-scroll</td>
+<td>Panel only. Border and horizontal scrolling.</td>
+</tr>
+<tr>
+<td>EEL2 callback</td>
+<td>Text input widgets only. See below.</td>
+</tr>
+</tbody></table></div>
+<p><strong>Bullet guide</strong></p>
+<p>Prefix bullet is a Builder decoration, not a universal widget option in ReaImGui. On supported leaf widgets, it is drawn in Editor, Preview, and Lua at <strong>8 px to the left</strong> of the widget’s start. It uses the resolved theme/StyleRegion color and does not move the control or its label. Leave room to its left: a parent’s clip boundary can cut the dot off.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Control</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A dot before a supported leaf control</td>
+<td><strong>prefix bullet</strong>; the exact type list is in Appendix B.</td>
+</tr>
+<tr>
+<td>A bullet in place of a tree/header disclosure arrow</td>
+<td><strong>bullet instead of arrow</strong> on TreeNode or CollapsingHeader; expansion still works.</td>
+</tr>
+<tr>
+<td>An ordinary line of bulleted text</td>
+<td><strong>BulletText</strong> widget.</td>
+</tr>
+<tr>
+<td>Panel, Group, StyleRegion, TabBar, TabItem, Table, TableCell</td>
+<td>No bullet control. Old stored bullet values on these types are ignored.</td>
+</tr>
+</tbody></table></div>
+<p>ColorButton, Selectable, TextWrapped, Text, Separator, SeparatorText, LabelText, and BulletText do not offer an additional prefix bullet. BulletText already supplies its own marker.</p>
+<p><strong>Geometry</strong></p>
+<p>The <strong>position</strong> (X, Y) and <strong>size</strong> (W, H) fields use integer layout pixels and follow Snap to grid. Fixed dimensions are read-only. ColorPicker’s H is calculated from its picker width and flags.</p>
+<p>Drawings also have a <strong>primitive order</strong> row with back, backward, forward, and front buttons. These change the order within the drawing layer only; drawings always remain below widgets.</p>
+<p><strong>EEL2 callbacks</strong></p>
+<blockquote>
+<p>The text input inspector shows basic flags first, followed by callback events and an EEL2 code field.</p>
+</blockquote>
+<p>Select a placed text input and enter EEL2 code in <strong>EEL2 callback</strong>. If no callback event is selected, entering the first nonempty callback automatically enables <strong>OnEdit</strong>. Choose the required events in the flags section; OnTab and OnUp/Down are available only for single-line inputs. The generated script compiles and attaches the callback at startup. The hint below the field warns when code has no selected event. Callback flags without nonempty callback code are an export-preflight error; supply code or turn those events off.</p>
+<hr>
+<p><a id="manual-09-flags" class="section-anchor" aria-hidden="true"></a></p>
+<h2>09. Flags</h2>
+<p><a id="manual-numeric-flags" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Numeric flags</h3>
+<p>These flags apply to the Slider and Drag families. The export combines them using bitwise OR.</p>
+<p><strong>Wrap</strong> is exported for Drag controls only. The SliderN inspector also allows it to be toggled, but the exporter removes it from SliderN calls.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>ImGui flag</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clamp</td>
+<td><code>SliderFlags_AlwaysClamp</code></td>
+<td>Clamps manually entered values to the range as well as values set by dragging.</td>
+</tr>
+<tr>
+<td>Log</td>
+<td><code>SliderFlags_Logarithmic</code></td>
+<td>Uses a logarithmic response. Useful for frequency and volume controls.</td>
+</tr>
+<tr>
+<td>NoInput</td>
+<td><code>SliderFlags_NoInput</code></td>
+<td>Disables direct value entry through Ctrl + click.</td>
+</tr>
+<tr>
+<td>Wrap</td>
+<td><code>SliderFlags_WrapAround</code></td>
+<td>Drag families only. Wraps the value when it passes a range boundary.</td>
+</tr>
+</tbody></table></div>
+<p><a id="manual-text-input-flags" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Text input flags</h3>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Button</th>
+<th>ImGui flag</th>
+<th>Applies to</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>basic</td>
+<td><code>ReadOnly</code></td>
+<td><code>InputTextFlags_ReadOnly</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Pass</code></td>
+<td><code>InputTextFlags_Password</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Dec</code></td>
+<td><code>InputTextFlags_CharsDecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Hex</code></td>
+<td><code>InputTextFlags_CharsHexadecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Enter</code></td>
+<td><code>InputTextFlags_EnterReturnsTrue</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Tab</code></td>
+<td><code>InputTextFlags_AllowTabInput</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Ctrl+Enter</code></td>
+<td><code>InputTextFlags_CtrlEnterForNewLine</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnEdit</code></td>
+<td><code>InputTextFlags_CallbackEdit</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>Always</code></td>
+<td><code>InputTextFlags_CallbackAlways</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>CharFilter</code></td>
+<td><code>InputTextFlags_CallbackCharFilter</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnTab</code></td>
+<td><code>InputTextFlags_CallbackCompletion</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnUp/Down</code></td>
+<td><code>InputTextFlags_CallbackHistory</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+</tbody></table></div>
+<p><a id="manual-color-flags" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Color flags</h3>
+<blockquote>
+<p>The color flags inspector places independent toggles at the top, followed by four single-choice groups: display, data type, input, and picker style. Alpha-channel options appear last.</p>
+</blockquote>
+<blockquote>
+<p><strong>Note.</strong> Display, data type, input, and picker options appear as segmented single-choice controls. Selecting an option clears the other flags in that group; clicking the active option clears it.</p>
+</blockquote>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Button</th>
+<th>ImGui flag</th>
+<th>Applies to</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>basic</td>
+<td><code>NoAlpha</code></td>
+<td><code>ColorEditFlags_NoAlpha</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoPicker</code></td>
+<td><code>ColorEditFlags_NoPicker</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoInputs</code></td>
+<td><code>ColorEditFlags_NoInputs</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoTip</code></td>
+<td><code>ColorEditFlags_NoTooltip</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoLabel</code></td>
+<td><code>ColorEditFlags_NoLabel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoSidePrev</code></td>
+<td><code>ColorEditFlags_NoSidePreview</code></td>
+<td><code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoSmallPrev</code></td>
+<td><code>ColorEditFlags_NoSmallPreview</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoOptions</code></td>
+<td><code>ColorEditFlags_NoOptions</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoDragDrop</code></td>
+<td><code>ColorEditFlags_NoDragDrop</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>NoBorder</code></td>
+<td><code>ColorEditFlags_NoBorder</code></td>
+<td><code>ColorButton</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>RGB</code></td>
+<td><code>ColorEditFlags_DisplayRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>HSV</code></td>
+<td><code>ColorEditFlags_DisplayHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>Hex</code></td>
+<td><code>ColorEditFlags_DisplayHex</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>data type</td>
+<td><code>0..255</code></td>
+<td><code>ColorEditFlags_Uint8</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>data type</td>
+<td><code>0..1</code></td>
+<td><code>ColorEditFlags_Float</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>input</td>
+<td><code>InputRGB</code></td>
+<td><code>ColorEditFlags_InputRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>input</td>
+<td><code>InputHSV</code></td>
+<td><code>ColorEditFlags_InputHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>picker</td>
+<td><code>HueBar</code></td>
+<td><code>ColorEditFlags_PickerHueBar</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>picker</td>
+<td><code>HueWheel</code></td>
+<td><code>ColorEditFlags_PickerHueWheel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>AlphaBar</code></td>
+<td><code>ColorEditFlags_AlphaBar</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>HalfPrev</code></td>
+<td><code>ColorEditFlags_AlphaPreviewHalf</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>NoBg</code></td>
+<td><code>ColorEditFlags_AlphaNoBg</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>Opaque</code></td>
+<td><code>ColorEditFlags_AlphaOpaque</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+</tbody></table></div>
+<hr>
+<p><a id="manual-10-drawing-primitives" class="section-anchor" aria-hidden="true"></a></p>
+<h2>10. Drawing primitives</h2>
+<blockquote>
+<p>Drawings on the canvas include rectangles, circles, triangles, lines, text, and arcs. All primitives export as draw list calls and appear below the widget layer.</p>
+</blockquote>
+<p>To draw a shape, select its tool from the palette and drag on the canvas. For a polygon, click to place each vertex instead. Close it by clicking the first point again, double-clicking, or pressing <code>Enter</code>. Press <code>Esc</code> to cancel an unfinished polygon.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Properties</th>
+<th>Export</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Rectangle</td>
+<td>fill, stroke, rounding, thickness, opacity</td>
+<td><code>AddRectFilled</code> and <code>AddRect</code></td>
+</tr>
+<tr>
+<td>Circle</td>
+<td>fill, stroke, thickness, opacity</td>
+<td><code>AddCircle(Filled)</code>; <code>AddEllipse(Filled)</code> when W ≠ H</td>
+</tr>
+<tr>
+<td>Triangle</td>
+<td>fill, stroke, thickness, orient (four directions)</td>
+<td><code>AddTriangle(Filled)</code></td>
+</tr>
+<tr>
+<td>Line</td>
+<td>stroke, thickness</td>
+<td><code>AddLine</code></td>
+</tr>
+<tr>
+<td>Polygon</td>
+<td>fill, stroke, thickness, list of points</td>
+<td><code>PathFillConvex</code> for convex polygons; triangulation with <code>AddTriangleFilled</code> for concave polygons</td>
+</tr>
+<tr>
+<td>Arc</td>
+<td><code>ring</code>: stroke, thickness, start and end angles; <code>pie</code>: the same properties plus fill</td>
+<td><code>PathArcTo</code> and <code>PathStroke</code>; <code>pie</code> also uses <code>PathFillConvex</code></td>
+</tr>
+<tr>
+<td>Text</td>
+<td>text, color, size, horizontal and vertical alignment</td>
+<td><code>AddTextEx</code> with explicit font size; text measurement for alignment</td>
+</tr>
+</tbody></table></div>
+<blockquote>
+<p>The arc inspector uses angles in degrees following ImGui conventions: 0° points right, and angles increase clockwise. A 270° sweep starting at 135° gives a conventional rotary knob scale.</p>
+</blockquote>
+<p>Exported drawings are clipped to the layout. A drawing is included if any part of it intersects the layout: for example, a rectangle extending past an edge is exported, and ImGui clips the portion outside. Widgets follow a stricter rule: a widget must be entirely inside the frame to be exported.</p>
+<p><strong>Drawing text size and color.</strong> The <em>text size</em> value is exported explicitly. Resizing the object scales the font as described in §5.3. New drawing text follows the project’s resolved text color automatically; choosing a color in the picker fixes a manual color. The canvas and Lua use the same choice. Text is not squeezed to fit an arbitrary width.</p>
+<p><strong>Linked arc angles.</strong> Enable <strong>Link angles</strong> to preserve the sweep: changing Start by an amount changes End by the same amount, and vice versa. The arc updates during input. This setting is saved and also works in batch editing of arcs. It links angles, not fill and stroke colors.</p>
+<p><a id="manual-fill-stroke-and-linked-colors" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Fill and stroke</h3>
+<p>Each available fill/stroke row has its own <strong>disable</strong> checkbox. Check it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.</p>
+<p>Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing is still in the project; select it through Elements. Fill and stroke colors are edited independently; there is no color-link control in 1.0.40.</p>
+<p>If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.</p>
+<p>ImGui fills convex paths directly. Builder triangulates a non-convex polygon for export using multiple <code>AddTriangleFilled</code> calls; its outline remains a single closed path.</p>
+<hr>
+<p><a id="manual-11-canvas-and-project-settings" class="section-anchor" aria-hidden="true"></a></p>
+<h2>11. Canvas and project settings</h2>
+<p><a id="manual-window-title" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Window title</h3>
+<p>The title used when the layout opens in REAPER appears in the blue header above the canvas. Click it to edit. Press <code>Enter</code> to apply the title or <code>Esc</code> to cancel.</p>
+<p>The title is used in the generated script (<code>CreateContext</code> and <code>ImGui_Begin</code>), saved in the project file, and used as the download filename: <em>Track Tools</em> → <code>Track_Tools.lua</code>. Apostrophes are escaped so they do not break the script.</p>
+<p><a id="manual-size" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Size</h3>
+<p>The Canvas tab&#39;s W and H fields set the window&#39;s content size. They are exported as <code>W, H</code>. Press <code>Enter</code> or leave the field to apply a change. Dragging the ⇲ handle has the same effect.</p>
+<p><a id="manual-background" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Background</h3>
+<ul>
+<li><strong>Default.</strong> The canvas follows the active theme, while the export retains ImGui&#39;s native window background. If the selected theme is not Default, Builder also applies its background color to the canvas child window through <code>PushStyleColor</code>.</li>
+<li><strong>Custom.</strong> Choose a color and opacity in the Canvas picker. Opacity blends the color toward white; the export writes the resulting opaque color as <code>Col_WindowBg</code>. It does not make the REAPER window transparent.</li>
+</ul>
+<p><a id="manual-color-picker" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Color picker</h3>
+<p>Color swatches for drawings, supported widget colors, StyleRegion overrides, batch editing, and the theme editor open Builder’s popover picker. It normally opens to the right and upward; near a window edge it moves left or downward. The Canvas tab has its own embedded background picker.</p>
+<p>The popover has a saturation/brightness square, hue bar, <strong>HEX</strong> field, and recent swatches. The screen eyedropper appears only if the browser supports it. The HEX field is focused on opening and accepts <code>#RRGGBB</code> and <code>#RGB</code>. Color changes apply live. <code>Enter</code> closes the picker; <code>Esc</code> closes it and restores focus without reverting changes. Undo grouping follows the edited field’s history behavior.</p>
+<p>Recent swatches are shared across all color fields and retained until the page is reloaded.</p>
+<p><a id="manual-grid" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Grid</h3>
+<p><strong>Show grid</strong> controls the fine grid. Its visibility is stored separately for Editor and Preview modes. <strong>Step</strong> sets the spacing to 2, 5, or 10 px and also controls the snapping interval.</p>
+<p><a id="manual-audit-grid" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Audit grid</h3>
+<p><em>View → Reference grid in export</em> enables a magenta measurement grid with 50 px spacing. Unlike the regular grid, the audit grid is exported: the generated code draws the same grid in the REAPER window. Use it to compare coordinates between Builder and REAPER. Disable it before releasing your script.</p>
+<p><a id="manual-zoom-and-pan" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Zoom and pan</h3>
+<p>Zoom ranges from <strong>50% to 250%</strong>. Choose a preset in the status bar, use <code>Cmd/Ctrl</code> + mouse wheel to zoom around the pointer, or click ⤢ to fit the layout in the view. The Zoom tool provides click to enlarge and Alt/Option + click to reduce. Pan with Hand or hold Space before dragging. The surrounding workspace expands to accommodate drawings moved beyond it. Zoom and pan affect the view only; object coordinates do not change.</p>
+<hr>
+<p><a id="manual-12-themes" class="section-anchor" aria-hidden="true"></a></p>
+<h2>12. Themes</h2>
+<blockquote>
+<p>The theme selector lists built-in and custom themes, with <strong>+ Add</strong> and <strong>Edit</strong> controls below. The active theme is saved with the project.</p>
+</blockquote>
+<p>A theme defines fifteen color values: thirteen ImGui style colors, a child-window background, and a color for labels drawn through the draw list. Three themes are included: <strong>Default</strong> (no theme color overrides), <strong>Slate (dark)</strong>, and <strong>Light</strong>.</p>
+<p>Themes affect both Preview mode and the export. For a theme other than Default, the export applies its colors with <code>PushStyleColor</code> immediately after opening the canvas child window and removes them before closing it.</p>
+<blockquote>
+<p>With Slate selected, Preview approximates how the layout will appear in REAPER using that palette.</p>
+</blockquote>
+<p><a id="manual-custom-themes" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Custom themes</h3>
+<blockquote>
+<p>In the New Theme dialog, four colors define the palette. The swatch strip shows the derived color slots.</p>
+</blockquote>
+<p>To create a theme, choose colors for the background, text, controls, and accent. The remaining eleven slots are calculated automatically. Hovered and active states are derived from the control color: lighter on dark backgrounds and darker on light backgrounds. Header colors blend the background and accent. The accent is also used for checkmarks and the active slider grab.</p>
+<ul>
+<li>Custom themes are stored in the browser&#39;s localStorage and are available only in that browser on that computer.</li>
+<li>The active custom theme’s definition is included in the project file. Loading that project makes the theme available for the current session; it does not automatically save it to the browser’s permanent theme library.</li>
+<li><strong>Edit</strong> opens custom theme management. Use the pencil button to edit a theme, or delete a theme you no longer need. Built-in themes cannot be edited or deleted.</li>
+</ul>
+<hr>
+<p><a id="manual-13-preview-mode" class="section-anchor" aria-hidden="true"></a></p>
+<h2>13. Preview mode</h2>
+<blockquote>
+<p>Preview hides name tags, container editor strips, and selection controls. It approximates the widgets&#39; ImGui appearance using the active theme.</p>
+</blockquote>
+<p>Use the Editor / Preview switch above the canvas. Preview prevents direct canvas dragging, resizing, and placement, but it does not lock the project: inspector edits and editing commands remain active. Widgets are drawn as visual approximations; clicking them selects them rather than operating the exported control. Switch tabs in Editor mode.</p>
+<p>Some widgets appear as labeled, hatched placeholders: <strong>Group</strong>, <strong>Table</strong>, and <strong>ColorPicker3/4</strong>. <strong>TextWrapped</strong> renders wrapped text, including long strings without spaces, with its text tone and applicable style/font settings. A banner appears at the bottom when the canvas contains these widgets.</p>
+<blockquote>
+<p><strong>Preview limitations:</strong></p>
+<ul>
+<li>ColorEdit and other native controls may not reflect every flag or interaction. Preview is a layout approximation, not a running ReaImGui window.</li>
+</ul>
+<p>In Preview and export, StyleRegion’s text-color override also applies to external labels. Other widget properties may be represented schematically: Preview does not run ReaImGui or execute the generated Lua.</p>
+<p>ProgressBar Preview uses a fixed fill of about 45%; it does not show the exported animation or overlay. Numeric controls likewise use representative values rather than running the generated script.</p>
+</blockquote>
+<hr>
+<p><a id="manual-14-exporting" class="section-anchor" aria-hidden="true"></a></p>
+<h2>14. Exporting</h2>
+<p><a id="manual-export-preflight" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Export preflight</h3>
+<p>The preflight panel at the top of the <em>Export</em> window runs whenever you open the window. It reports findings at three levels.</p>
+<ul>
+<li><strong>Error.</strong> Preflight has found a condition that blocks export, such as invalid IDs, parent relationships, geometry, widget types, invalid supported numeric fields, or callback events without code. The <em>copy</em> and <em>download</em> buttons remain disabled until these errors are resolved. Preflight validates project data; it does not execute Lua or validate every native argument. See §17 for the remaining numeric format and range limits.</li>
+<li><strong>Warning.</strong> Export remains available, but a setting or omission needs attention. Examples include objects outside the layout, children of omitted containers, clipped drawings, colliding names, duplicate radio values, an empty TabBar, or missing table cells.</li>
+<li><strong>Information.</strong> A single summary line reports how many elements have no visible label.</li>
+</ul>
+<p>The panel header reports how many objects will be <strong>omitted</strong> and how many will be exported out of the total. Review this summary to identify omissions that would not be apparent from the code alone.</p>
+<p>Click a finding to select the corresponding object on the canvas.</p>
+<blockquote>
+<p>The Export window&#39;s ReaImGui tab contains the generated script: context creation, position and state tables, a drawing function, and a defer loop. Click <strong>copy</strong> to copy the code to the clipboard.</p>
+</blockquote>
+<p><a id="manual-generated-file-structure" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Generated file structure</h3>
+<p>The generated code follows a consistent structure:</p>
+<ol>
+<li><strong>Header comments.</strong> Canvas dimensions and positioning rules.</li>
+<li><strong>Context and dimensions.</strong> The <code>CreateContext</code> call and <code>W, H</code> and <code>OUTER_H</code> values. <code>OUTER_H</code> adds the title bar height so the content area matches the layout dimensions.</li>
+<li><strong>Position table.</strong> Widget X/Y coordinates and widths are listed in <code>local pos = { … }</code> near the top. The exporter also embeds coordinates and sizes directly in many draw-list and widget calls. For consistent layout changes, edit the Builder project and export again.</li>
+<li><strong>State table.</strong> <code>local state = { radioGroups = {} }</code> holds interactive values, a separate namespace for shared radio groups, and <code>reaper.new_array</code> arrays for N-suffix families. Keeping values in tables avoids a top-level local variable for every widget.</li>
+<li><strong>Fonts and EEL2 callbacks.</strong> Created and attached once, before the loop, if a StyleRegion or input field uses them.</li>
+<li><strong>The <code>draw()</code> function.</strong> Sets the layout style, opens the window and canvas child, obtains the current child’s draw list and coordinate origin, applies the theme, draws primitives, and emits widgets in tree order. Nested child windows and table cells establish their own drawing context where needed.</li>
+<li><strong>The <code>defer</code> loop.</strong></li>
+</ol>
+<p><a id="manual-positioning-in-code" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Positioning in code</h3>
+<p>A typical leaf widget uses a position-table entry:</p>
+<pre><code class="language-lua">reaper.ImGui_SetCursorScreenPos(ctx,
+  ox + pos.SLIDER_2.x, oy + pos.SLIDER_2.y)
+reaper.ImGui_SetNextItemWidth(ctx, pos.SLIDER_2.w)
+</code></pre>
+<p>The origin and draw list must belong to the active drawing region. The root canvas obtains them after opening its child window; nested regions and table cells use their current runtime context. This keeps widget bodies, external labels, and draw-list content aligned while respecting clipping and scrolling.</p>
+<p>Coordinates and dimensions also occur directly in drawing and widget calls. Editing a position-table entry alone is not a complete layout edit; update the project and export again when possible.</p>
+<p>Zero layout padding and spacing are intentional. If you add ordinary flow-layout widgets in Lua, choose suitable spacing or continue setting positions explicitly.</p>
+<p><a id="manual-what-is-included" class="section-anchor" aria-hidden="true"></a></p>
+<h3>What is included</h3>
+<ul>
+<li>A widget is exported only if its full footprint lies inside the layout bounds. A widget extending past an edge is omitted.</li>
+<li>A drawing is exported if it intersects the layout area.</li>
+<li>The audit grid is exported when enabled.</li>
+</ul>
+<hr>
+<p><a id="manual-15-saving-and-loading" class="section-anchor" aria-hidden="true"></a></p>
+<h2>15. Saving and loading</h2>
+<p>The <strong>JSON project</strong> preserves the editable layout. Lua is an output format and cannot be imported back into Builder.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Save Project</strong> · <code>Cmd/Ctrl + S</code></td>
+<td>Saves to the selected project file. The first save asks for a location where direct file access is available.</td>
+</tr>
+<tr>
+<td><strong>Save As…</strong> · <code>Cmd/Ctrl + Shift + S</code></td>
+<td>Chooses a new project filename/location.</td>
+</tr>
+<tr>
+<td><strong>Load Project</strong></td>
+<td>Opens a JSON project. With supported direct file access, later Save writes back to that file during the current session.</td>
+</tr>
+<tr>
+<td><strong>New Project</strong></td>
+<td>Starts an empty 600 × 400 layout, retaining current title, background, theme, grid, and snapping settings.</td>
+</tr>
+<tr>
+<td><strong>Restore projects…</strong></td>
+<td>Opens the list of recoverable drafts from closed sessions.</td>
+</tr>
+</tbody></table></div>
+<p>Direct writing uses the browser’s file-access support and permissions. After a file is chosen, repeated Save reuses it in the current session, although the browser may still ask for write permission. The browser controls the appearance and wording of these system prompts.</p>
+<p>If direct file access is unavailable, Builder downloads a JSON copy. It cannot overwrite the original file through that fallback or confirm that a download completed. Use the status message to distinguish a direct save from a downloaded copy.</p>
+<p>Canceling Save As or encountering a write error keeps the open project and its recovery data. Changes made while a save is in progress remain unsaved if they were not part of the written snapshot.</p>
+<p>Before New, Load, or Restore replaces a dirty project, Builder offers <strong>Save / Discard / Cancel</strong>. A canceled or failed load does not replace the current layout. Incoming project data is validated before replacement; invalid IDs, references, or other malformed data are rejected. Older project data is normalized into the current structure on a successful load. Loading clears Undo history.</p>
+<p>Project files include the objects and their nesting, editor groups and names, layer order, linked arc angles, widget settings, title, dimensions, background, active theme and its custom definition, audit grid, snapping, and grid step. Zoom, undo history, Editor/Preview mode, ordinary-grid visibility, and panel visibility are not portable project settings.</p>
+<p><a id="manual-autosave-and-recovery" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Autosave and recovery</h3>
+<p>Builder keeps recovery drafts in this browser’s storage. Use <strong>File → Restore projects…</strong> to inspect and restore drafts from closed sessions; there is no automatic restore question on startup. Projects still open in another active tab are excluded from the list.</p>
+<p>A successful direct save clears the completed draft. If new edits arrive during writing, their draft remains. The download fallback retains recovery data because the browser does not tell Builder whether the download was completed or canceled. A restored draft remains something you should save to a project file.</p>
+<p>When leaving with unsaved changes, the browser may show its standard leave-page confirmation. Its availability and text depend on the browser. This is separate from Builder’s Save/Discard/Cancel dialog.</p>
+<p>Recovery and custom theme storage are tied to a browser and can be lost when site data is cleared. Local-file storage behavior also varies between browsers. Keep a JSON project as your durable, portable copy.</p>
+<hr>
+<p><a id="manual-16-keyboard-and-mouse-reference" class="section-anchor" aria-hidden="true"></a></p>
+<h2>16. Keyboard and mouse reference</h2>
+<p>Use Cmd on macOS and Ctrl on Windows/Linux unless an action names another modifier.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Cmd/Ctrl + S</code></td>
+<td>Save Project</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Shift + S</code></td>
+<td>Save As</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + C</code> / <code>V</code></td>
+<td>Copy / paste selected objects and included container subtrees</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + D</code></td>
+<td>Duplicate</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + G</code></td>
+<td>Group selection in the editor</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Shift + G</code></td>
+<td>Ungroup selection</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Z</code></td>
+<td>Undo</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Shift + Z</code> or <code>Cmd/Ctrl + Y</code></td>
+<td>Redo</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + A</code></td>
+<td>Select all objects</td>
+</tr>
+<tr>
+<td><code>Del</code> / <code>Backspace</code></td>
+<td>Delete; filled containers offer content choices</td>
+</tr>
+<tr>
+<td>Arrow keys with canvas focused</td>
+<td>Move by one grid step, or 1 px with snapping off</td>
+</tr>
+<tr>
+<td><code>Shift + arrow keys</code> with canvas focused</td>
+<td>Move by ten increments</td>
+</tr>
+<tr>
+<td><code>↑/↓</code>, <code>Home/End</code> in Elements</td>
+<td>Navigate rows; Shift extends the row selection</td>
+</tr>
+<tr>
+<td><code>Enter</code> in Elements</td>
+<td>Give the canvas focus, preserving selection and view</td>
+</tr>
+<tr>
+<td><code>Shift + click</code> on canvas</td>
+<td>Extend selection across the anchor-to-click area</td>
+</tr>
+<tr>
+<td><code>Shift + click</code> in Elements</td>
+<td>Select a range of rows</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + click</code></td>
+<td>Add an object to selection or remove it</td>
+</tr>
+<tr>
+<td>Drag on empty canvas</td>
+<td>Marquee selection; Shift adds, Cmd/Ctrl toggles</td>
+</tr>
+<tr>
+<td><code>Alt/Option + drag</code> an object</td>
+<td>Drag a copy</td>
+</tr>
+<tr>
+<td><code>Shift + resize</code> drawings</td>
+<td>Preserve aspect ratio; also works with draw-only selections</td>
+</tr>
+<tr>
+<td>Hold <code>U</code> before dragging a container</td>
+<td>Leave current children in place and skip capture</td>
+</tr>
+<tr>
+<td><code>Space + drag</code></td>
+<td>Temporary Hand; start Space before the gesture</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + mouse wheel</code></td>
+<td>Zoom around the pointer</td>
+</tr>
+<tr>
+<td>Zoom tool: click / <code>Alt/Option + click</code></td>
+<td>Zoom in / out around that point</td>
+</tr>
+<tr>
+<td>Right-click empty canvas</td>
+<td>Widget placement menu</td>
+</tr>
+<tr>
+<td>Right-click an object/selection or Elements row</td>
+<td>Object commands</td>
+</tr>
+<tr>
+<td><code>Shift + click</code> Rectangle, Circle, Line, Triangle, or Arc tool</td>
+<td>Keep the tool active for repeated drawing</td>
+</tr>
+<tr>
+<td>Polygon: <code>Enter</code>, double-click, or click first point</td>
+<td>Close the polygon</td>
+</tr>
+<tr>
+<td><code>Esc</code></td>
+<td>Cancel the current tool/polygon, clear selection, or close the active dialog/menu</td>
+</tr>
+</tbody></table></div>
+<p>Text fields keep their normal typing, clipboard, and navigation behavior. Save/Save As remain available while editing a field. In Elements, arrow keys navigate until focus returns to the canvas. See Help → Keyboard Shortcuts for the built-in reference.</p>
+<hr>
+<p><a id="manual-17-release-limitations" class="section-anchor" aria-hidden="true"></a></p>
+<h2>17. Release limitations</h2>
+<p>The following boundaries still apply to <strong>1.0.40</strong>.</p>
+<p><a id="manual-not-implemented" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Not implemented</h3>
+<ul>
+<li>Editing Combo/ListBox item lists in Builder: the export contains five placeholder items. Replace their strings in Lua; selection state and widget calls are already generated.</li>
+<li>Importing generated Lua back into Builder. Save JSON to preserve an editable project.</li>
+<li>DSP, application logic, and finished event handlers. Fill in the generated TODOs in your script.</li>
+<li>General rotation handles or a rotation property for drawings. Arc angles and Triangle orientation are separate, supported properties.</li>
+<li>A separate theme-file import/export workflow. The active theme is included in project JSON.</li>
+</ul>
+<p><a id="manual-behavior-to-be-aware-of" class="section-anchor" aria-hidden="true"></a></p>
+<h3>Behavior to be aware of</h3>
+<ul>
+<li>Preview does not execute ReaImGui. Group, Table, and ColorPicker remain schematic; native fonts, interaction, and some flags require checking in REAPER.</li>
+<li>Widgets outside the export frame are omitted. Omitting a container also omits its contents. Drawings that intersect the frame are exported with clipping; inspect the preflight findings.</li>
+<li>Body dimensions do not always describe a widget’s full footprint. External labels, natural text, and picker reservations need space. Prefix bullets can be clipped at a parent’s left edge.</li>
+<li>Container inspectors still show <strong>hint</strong>, but their exporter does not emit a container tooltip. For hover help, use a supported leaf widget or HelpMarker.</li>
+<li>SliderN can show Wrap in its numeric flags, but Wrap is removed from Slider export; use it on Drag controls.</li>
+<li>For ColorEdit4/ColorPicker4, explicitly set a color as well as alpha if you need a specific initial transparency.</li>
+<li>Numeric format strings and extreme Double-slider bounds are not fully checked against native API requirements. Use a single compatible numeric conversion (for example, <code>%d</code> for Int or <code>%.2f</code> for Double) and ranges appropriate for the parameter. A clean preflight is not proof that every format or extreme bound is valid in ReaImGui.</li>
+<li>Drawings stay below widgets. Reordering within a layer does not override native child-window clipping or create a global overlay.</li>
+<li>Browser file-access and clipboard permissions affect saving and copying. Recovery and custom themes are browser storage, not substitutes for a portable project file.</li>
+<li>The Lua filename is derived from the window title; unsupported filename characters become underscores, with <code>MyPlugin.lua</code> as a fallback.</li>
+</ul>
+<hr>
+<p><a id="manual-appendix-a-widget-contracts" class="section-anchor" aria-hidden="true"></a></p>
+<h2>Appendix A · Widget contracts</h2>
+<p>The table lists all 50 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. <strong>H</strong> marks a fixed height; <strong>D</strong> marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Family · variant</th>
+<th>Size</th>
+<th>Width</th>
+<th>Height</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td><code>Button</code></td>
+<td>100×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A button that triggers an action when clicked.</td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td><code>SmallButton</code></td>
+<td>50×20 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-fixed</code></td>
+<td>A button with reduced padding and the same behavior as Button.</td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td><code>ArrowButton</code></td>
+<td>17×17 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A square button with an arrow.</td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td><code>Checkbox</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>A Boolean control with a checkmark and an external label above it. <em>Use for on/off settings such as enable, mute, loop, or bypass.</em></td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td><code>RadioButtonEx</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>A radio button that belongs to a mutually exclusive group; only one option in the group is active.</td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td><code>Selectable</code></td>
+<td>140×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A selectable, full-width row.</td>
+</tr>
+<tr>
+<td><code>Text</code></td>
+<td><code>Text</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>A static, single-line label.</td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td><code>TextColored</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Text in a specified color.</td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td><code>TextDisabled</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Text in the disabled style.</td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td><code>TextWrapped</code></td>
+<td>200×60</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Text that wraps to the available width.</td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td><code>BulletText</code></td>
+<td>160×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A line of text preceded by a bullet.</td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td><code>LabelText</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A read-only value on the left and its label on the right. <em>Use for named values such as tempo or status.</em></td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td><code>TextLinkOpenURL</code></td>
+<td>120×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>An underlined link that opens a URL in the browser.</td>
+</tr>
+<tr>
+<td><code>SeparatorText</code></td>
+<td><code>SeparatorText</code></td>
+<td>200×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A separator line with a label near the left edge. <em>Use to title a section.</em></td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td><code>Separator</code></td>
+<td>200×10 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>A horizontal separator line.</td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td><code>HelpMarker</code></td>
+<td>24×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>A “(?)” marker with a tooltip on hover.</td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td><code>ProgressBar</code></td>
+<td>120×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A horizontal progress indicator from 0 to 100%.</td>
+</tr>
+<tr>
+<td><code>SliderInt</code></td>
+<td><code>Slider</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A horizontal track and thumb for a single numeric value.</td>
+</tr>
+<tr>
+<td><code>SliderDouble</code></td>
+<td><code>Slider</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A horizontal track and thumb for a single numeric value.</td>
+</tr>
+<tr>
+<td><code>SliderDoubleN</code></td>
+<td><code>SliderN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple sliders forming one multicomponent value.</td>
+</tr>
+<tr>
+<td><code>VSliderInt</code></td>
+<td><code>VSlider</code> · <code>Int</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A vertical slider for a single numeric value.</td>
+</tr>
+<tr>
+<td><code>VSliderDouble</code></td>
+<td><code>VSlider</code> · <code>Double</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A vertical slider for a single numeric value.</td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td><code>SliderAngle</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A slider for entering an angle in degrees.</td>
+</tr>
+<tr>
+<td><code>DragInt</code></td>
+<td><code>Drag</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric field adjusted by dragging horizontally.</td>
+</tr>
+<tr>
+<td><code>DragDouble</code></td>
+<td><code>Drag</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric field adjusted by dragging horizontally.</td>
+</tr>
+<tr>
+<td><code>DragDoubleN</code></td>
+<td><code>DragN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple Drag fields forming one multicomponent value.</td>
+</tr>
+<tr>
+<td><code>DragIntRange2</code></td>
+<td><code>DragRange</code> · <code>Int</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Two linked Drag fields that define a lower and upper bound.</td>
+</tr>
+<tr>
+<td><code>DragFloatRange2</code></td>
+<td><code>DragRange</code> · <code>Double</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Two linked Drag fields that define a lower and upper bound.</td>
+</tr>
+<tr>
+<td><code>InputInt</code></td>
+<td><code>Input</code> · <code>Int</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric input field with step buttons.</td>
+</tr>
+<tr>
+<td><code>InputDouble</code></td>
+<td><code>Input</code> · <code>Double</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A numeric input field with step buttons.</td>
+</tr>
+<tr>
+<td><code>InputDoubleN</code></td>
+<td><code>InputN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Multiple numeric input fields in one widget.</td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td><code>InputText</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A single-line text input.</td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td><code>InputTextWithHint</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A single-line input with placeholder text while empty.</td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td><code>InputTextMultiline</code></td>
+<td>200×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A multiline text input.</td>
+</tr>
+<tr>
+<td><code>Combo</code></td>
+<td><code>Combo</code></td>
+<td>100×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A drop-down list that displays the selected item.</td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td><code>ListBox</code></td>
+<td>160×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A scrollable list with several visible rows.</td>
+</tr>
+<tr>
+<td><code>ColorEdit3</code></td>
+<td><code>ColorEdit</code> · <code>RGB</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A compact color editor with channel fields and a swatch.</td>
+</tr>
+<tr>
+<td><code>ColorEdit4</code></td>
+<td><code>ColorEdit</code> · <code>RGBA</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>A compact color editor with channel fields and a swatch.</td>
+</tr>
+<tr>
+<td><code>ColorPicker3</code></td>
+<td><code>ColorPicker</code> · <code>RGB</code></td>
+<td>200×246 <strong>D</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A full color picker with a saturation area and hue bar.</td>
+</tr>
+<tr>
+<td><code>ColorPicker4</code></td>
+<td><code>ColorPicker</code> · <code>RGBA</code></td>
+<td>200×246 <strong>D</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>A full color picker with a saturation area and hue bar.</td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td><code>ColorButton</code></td>
+<td>40×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A button displaying a single color swatch.</td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td><code>Panel</code></td>
+<td>220×140</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A bordered, scrollable region containing other widgets.</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td><code>Group</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A borderless container that groups child widgets; a nonempty label is drawn separately.</td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td><code>StyleRegion</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>An invisible region with style overrides for colors, rounding, alignment, and fonts.</td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td><code>CollapsingHeader</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A full-width header that collapses its contents.</td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td><code>TreeNode</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>An expandable node with indented children.</td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td><code>TabBar</code></td>
+<td>280×180</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A tab strip that switches between content pages.</td>
+</tr>
+<tr>
+<td><code>TabItem</code></td>
+<td><code>TabItem</code></td>
+<td>280×156</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A tab page managed by TabBar; not placed independently.</td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td><code>Table</code></td>
+<td>320×200</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A grid of rows and columns containing other widgets.</td>
+</tr>
+<tr>
+<td><code>TableCell</code></td>
+<td><code>TableCell</code></td>
+<td>100×50</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A cell managed by Table; its size follows the resolved row and column.</td>
+</tr>
+</tbody></table></div>
+<hr>
+<p><a id="manual-appendix-b-inspector-matrix" class="section-anchor" aria-hidden="true"></a></p>
+<h2>Appendix B · Inspector matrix</h2>
+<p>This table follows the fields available for each of the <strong>50 types</strong> in 1.0.40. Names use the inspector’s labels: <strong>hint</strong> is a hover tooltip, while <strong>placeholder</strong> belongs to InputTextWithHint. Main <strong>name</strong> and conditional <strong>parent</strong> information are not repeated. Variant is chosen before placement; fixed size axes remain read-only.</p>
+<p>TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. The hint row on containers is shown by the inspector but not emitted in Lua.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Reference table"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Inspector rows</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td>direction, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td>label / text, hint, prefix bullet, group, radio value, size, position</td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td>label / text, hint, size, position</td>
+</tr>
+<tr>
+<td><code>Text</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td>label / text, hint, prefix bullet, color, alpha, size, position</td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td>label / text, text tone, size, position</td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td>label / text, value, size, position</td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td>label / text, url, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SeparatorText</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td>size, position</td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td>hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td>label / text, hint, prefix bullet, overlay, indeterminate, size, position</td>
+</tr>
+<tr>
+<td><code>SliderInt</code></td>
+<td>variant (placement only), label / text, value components, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderDouble</code></td>
+<td>variant (placement only), label / text, value components, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderDoubleN</code></td>
+<td>label / text, array size, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>VSliderInt</code></td>
+<td>variant (placement only), label / text, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>VSliderDouble</code></td>
+<td>variant (placement only), label / text, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragInt</code></td>
+<td>variant (placement only), label / text, value components, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragDouble</code></td>
+<td>variant (placement only), label / text, value components, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragDoubleN</code></td>
+<td>label / text, array size, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragIntRange2</code></td>
+<td>variant (placement only), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragFloatRange2</code></td>
+<td>variant (placement only), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputInt</code></td>
+<td>variant (placement only), label / text, value components, step, step fast, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputDouble</code></td>
+<td>variant (placement only), label / text, value components, step, step fast, format, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputDoubleN</code></td>
+<td>label / text, array size, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td>label / text, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td>label / text, placeholder, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td>label / text, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>Combo</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ColorEdit3</code></td>
+<td>variant (placement only), label / text, hint, prefix bullet, color, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorEdit4</code></td>
+<td>variant (placement only), label / text, hint, prefix bullet, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorPicker3</code></td>
+<td>variant (placement only), label / text, hint, prefix bullet, color, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorPicker4</code></td>
+<td>variant (placement only), label / text, hint, prefix bullet, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td>hint, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td>label / text, hint (not exported), border, h-scroll, size, position</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>label / text, hint (not exported), size, position</td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td>label / text, hint (not exported), text color, frame bg, button color, rounding, selectable align, font, size, position</td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td>label / text, hint (not exported), bullet instead of arrow, size, position</td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td>label / text, hint (not exported), bullet instead of arrow, hdr color, size, position</td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td>tabs, label / text, hint (not exported), size, position</td>
+</tr>
+<tr>
+<td><code>TabItem</code></td>
+<td>label / text, hint (not exported), size, position</td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td>table grid / columns / row heights / table flags, label / text, hint (not exported), size, position</td>
+</tr>
+<tr>
+<td><code>TableCell</code></td>
+<td>label / text, hint (not exported), size, position</td>
+</tr>
+</tbody></table></div>
+<hr>
+<p><a id="manual-appendix-c-generated-file-structure" class="section-anchor" aria-hidden="true"></a></p>
+<h2>Appendix C · Reading the generated file</h2>
+<p>These excerpts come from a 1.0.40 export of a <strong>600 × 400</strong> layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the current position/state structure. They are excerpts, not a complete runnable script; use Export to obtain the complete file.</p>
+<pre><code class="language-lua">-- Positions
+local pos = {
+  BUTTON_1 = { x=40, y=60, w=100 },
+  SLIDER_2 = { x=40, y=130, w=120 },
+}
+
+local state = { radioGroups = {} }
+-- Widget state
+state.Slider_2_val = 0.0
+</code></pre>
+<p>The drawing function opens the canvas child before obtaining its draw list and origin. Widget emission then uses those values:</p>
+<pre><code class="language-lua">    -- Button_1 [Button]
+    reaper.ImGui_SetCursorScreenPos(ctx, ox + pos.BUTTON_1.x, oy + pos.BUTTON_1.y)
+    if reaper.ImGui_Button(ctx, &quot;Play##Button_1&quot;, 100, 20) then
+      -- TODO: Button_1 pressed
+    end
+
+    -- Slider_2 [SliderDouble]
+    reaper.ImGui_SetCursorScreenPos(ctx, ox + pos.SLIDER_2.x, oy + pos.SLIDER_2.y)
+    reaper.ImGui_SetNextItemWidth(ctx, pos.SLIDER_2.w)
+    do
+      local _label = &quot;Gain&quot;
+      if _label ~= &quot;&quot; then
+        local _tw, _th = reaper.ImGui_CalcTextSize(ctx, _label)
+        reaper.ImGui_DrawList_AddText(dl, ox+40, oy+128-_th, 0x000000FF, _label)
+      end
+      local _rv
+      _rv, state.Slider_2_val = reaper.ImGui_SliderDouble(ctx, &quot;##Slider_2&quot;, state.Slider_2_val, 0.0, 1.0)
+    end
+</code></pre>
+<p>For each interactive control, add your application behavior where the generated code marks a TODO. State such as <code>state.Slider_2_val</code> persists between frames. Radio groups live under <code>state.radioGroups</code>, separately from ordinary widget state.</p>
+<p>The full export also contains context creation, window dimensions, applicable colors/fonts/callbacks, the main drawing function, and a <code>reaper.defer</code> loop. Nested containers establish their corresponding ImGui scopes. Do not move a draw-list call across a child-window boundary without using the appropriate draw list and origin.</p>
+<p>For layout revisions, edit the JSON project and export again: some dimensions and drawing coordinates appear inline, as well as in <code>pos</code>.</p>
+<hr>
+<p><em>ReaUI Builder — User Guide for Version 1.0.40. Updated from the English 1.0.3 guide against the current release source and project change records covering development since 1.0.0. Updated 14 September 2026.</em></p>
+</main><a class="back-to-contents" href="#contents">Contents ↑</a></body>
+</html>

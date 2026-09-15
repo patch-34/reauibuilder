@@ -1,0 +1,2588 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>ReaUI Builder — руководство пользователя, версия 1.0.40</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <style>
+:root{--ink:#171a1d;--muted:#5d6871;--rule:#d9dee3;--bg:#fff;--code:#f3f5f7;--accent:#2f5f72}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:17px;line-height:1.62}
+main,.container{max-width:920px;margin:0 auto;padding:40px 24px 96px}
+h1,h2,h3,h4{line-height:1.25;color:#253744;scroll-margin-top:20px}
+h1{font-size:2rem;margin:0 0 1rem}
+h2{font-size:1.45rem;margin:3rem 0 1rem;padding-top:.9rem;border-top:2px solid #344d5b}
+h3{font-size:1.15rem;margin:2rem 0 .65rem}
+h4{font-size:1rem;margin:1.5rem 0 .5rem}
+p{margin:.7rem 0 1rem}
+ul,ol{padding-left:1.5rem}
+li{margin:.3rem 0}
+a{color:#275f75}
+code,kbd{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--code);border-radius:4px;padding:.08em .32em;font-size:.9em}
+pre{background:#1f2930;color:#eef4f7;border-radius:8px;padding:16px;overflow:auto;font-size:.9rem;line-height:1.5}
+pre code{background:none;padding:0;color:inherit}
+blockquote{margin:1.2rem 0;padding:.75rem 1rem;border-left:4px solid #678899;background:#f3f7f9;color:#27343c}
+table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--rule)}
+th{font-weight:650;background:#f7f8f9}
+hr{border:0;border-top:1px solid var(--rule);margin:2rem 0}
+#TOC{margin:0 0 2.2rem;padding:1rem 1.2rem;background:#f7f8f9;border:1px solid var(--rule);border-radius:8px}
+#TOC ul{margin:.3rem 0}
+@media(max-width:640px){body{font-size:16px}.container{padding:24px 16px 72px}h1{font-size:1.7rem}h2{font-size:1.3rem}table{font-size:.86rem;display:block;overflow-x:auto}}
+@media print{body{font-size:11pt}.container{max-width:none;padding:0}#TOC{break-after:page}}
+
+</style>
+</head>
+<body>
+<div class="container">
+<h1>ReaUI Builder — руководство пользователя, версия 1.0.40</h1>
+<p><a href="ReaUI_Builder_Manual_en_v1_0_39.md">English version</a> · <a href="ReaUI_Builder_Manual_ru_v1_0_39.html">HTML-версия — открыть локально</a></p>
+<details id="TOC">
+<summary>Оглавление</summary>
+
+<ul>
+<li><a href="#manual-reaper-ui-builder">ReaUI Builder</a><ul>
+<li><a href="#manual-01-%D0%BD%D0%B0%D0%B7%D0%BD%D0%B0%D1%87%D0%B5%D0%BD%D0%B8%D0%B5">01. Назначение</a><ul>
+<li><a href="#manual-%D0%B0%D0%B1%D1%81%D0%BE%D0%BB%D1%8E%D1%82%D0%BD%D0%BE%D0%B5-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B5">Абсолютное размещение</a></li>
+<li><a href="#manual-%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D1%8B-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">Контракты виджетов</a></li>
+</ul>
+</li>
+<li><a href="#manual-02-%D0%B1%D1%8B%D1%81%D1%82%D1%80%D1%8B%D0%B9-%D1%81%D1%82%D0%B0%D1%80%D1%82">02. Быстрый старт</a></li>
+<li><a href="#manual-03-%D1%80%D0%B0%D0%B1%D0%BE%D1%87%D0%B5%D0%B5-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%BE">03. Рабочее пространство</a><ul>
+<li><a href="#manual-31--%D0%B2%D0%B5%D1%80%D1%85%D0%BD%D1%8F%D1%8F-%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C-%D0%B8-%D0%BC%D0%B5%D0%BD%D1%8E">3.1 · Верхняя панель и меню</a></li>
+<li><a href="#manual-32--%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">3.2 · Панель виджетов</a></li>
+<li><a href="#manual-33--%D0%BB%D0%B5%D0%B2%D0%B0%D1%8F-%D0%BF%D0%B0%D0%BB%D0%B8%D1%82%D1%80%D0%B0">3.3 · Левая палитра</a></li>
+<li><a href="#manual-34--%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C-%D1%85%D0%BE%D0%BB%D1%81%D1%82%D0%B0">3.4 · Область холста</a></li>
+<li><a href="#manual-35--%D0%BF%D1%80%D0%B0%D0%B2%D0%B0%D1%8F-%D0%BF%D0%B0%D0%BD%D0%B5%D0%BB%D1%8C">3.5 · Правая панель</a></li>
+<li><a href="#manual-36--%D1%81%D1%82%D0%B0%D1%82%D1%83%D1%81%D0%BD%D0%B0%D1%8F-%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0">3.6 · Статусная строка</a></li>
+</ul>
+</li>
+<li><a href="#manual-04-%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D1%8B%D0%B5-%D0%BF%D0%BE%D0%BD%D1%8F%D1%82%D0%B8%D1%8F">04. Основные понятия</a><ul>
+<li><a href="#manual-41--%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D1%8B-%D0%B8-%D1%80%D0%B8%D1%81%D1%83%D0%BD%D0%BA%D0%B8">4.1 · Виджеты и рисунки</a></li>
+<li><a href="#manual-42--%D1%81%D0%B5%D0%BC%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B0-%D0%B8-%D0%B2%D0%B0%D1%80%D0%B8%D0%B0%D0%BD%D1%82%D1%8B">4.2 · Семейства и варианты</a></li>
+<li><a href="#manual-43--%D0%BA%D0%BE%D0%BE%D1%80%D0%B4%D0%B8%D0%BD%D0%B0%D1%82%D1%8B-%D0%B8-%D0%BF%D1%80%D0%B8%D0%B2%D1%8F%D0%B7%D0%BA%D0%B0">4.3 · Координаты и привязка</a></li>
+<li><a href="#manual-44--%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D1%8B-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80%D0%BE%D0%B2">4.4 · Контракты размеров</a></li>
+<li><a href="#manual-45--%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%B8">4.5 · Подписи</a></li>
+<li><a href="#manual-46--%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B9%D0%BD%D0%B5%D1%80%D1%8B-%D0%B8-%D0%B2%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C">4.6 · Контейнеры и вложенность</a></li>
+<li><a href="#manual-47--%D0%B7%D0%B0%D0%BF%D1%80%D0%B5%D1%82-%D0%BF%D0%B5%D1%80%D0%B5%D0%BA%D1%80%D1%8B%D1%82%D0%B8%D1%8F">4.7 · Запрет перекрытия</a></li>
+<li><a href="#manual-48--%D0%B8%D0%BC%D0%B5%D0%BD%D0%B0-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2">4.8 · Имена объектов</a></li>
+</ul>
+</li>
+<li><a href="#manual-05-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0-%D1%81-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%B0%D0%BC%D0%B8">05. Работа с объектами</a><ul>
+<li><a href="#manual-51--%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">5.1 · Размещение виджетов</a></li>
+<li><a href="#manual-52--%D0%B2%D1%8B%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5">5.2 · Выделение</a></li>
+<li><a href="#manual-53--%D0%BF%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80%D0%B0">5.3 · Перемещение и изменение размера</a></li>
+<li><a href="#manual-54--%D0%BA%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B4%D1%83%D0%B1%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B8-%D1%83%D0%B4%D0%B0%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5">5.4 · Копирование, дублирование и удаление</a></li>
+<li><a href="#manual-55--%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B9">5.5 · История изменений</a></li>
+<li><a href="#manual-56--%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%BD%D0%BE%D0%B5-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">5.6 · Пакетное редактирование</a></li>
+<li><a href="#manual-57--%D0%B3%D1%80%D1%83%D0%BF%D0%BF%D1%8B-%D1%80%D0%B5%D0%B4%D0%B0%D0%BA%D1%82%D0%BE%D1%80%D0%B0">5.7 · Группы редактора</a></li>
+</ul>
+</li>
+<li><a href="#manual-06-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">06. Каталог виджетов</a><ul>
+<li><a href="#manual-%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%87%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BA-%D0%BA%D0%B0%D1%82%D0%B0%D0%BB%D0%BE%D0%B3%D1%83">Примечания к каталогу</a></li>
+</ul>
+</li>
+<li><a href="#manual-07-%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B9%D0%BD%D0%B5%D1%80%D1%8B">07. Контейнеры</a><ul>
+<li><a href="#manual-71--panel">7.1 · Panel</a></li>
+<li><a href="#manual-72--group">7.2 · Group</a></li>
+<li><a href="#manual-73--styleregion">7.3 · StyleRegion</a></li>
+<li><a href="#manual-74--collapsingheader-%D0%B8-treenode">7.4 · CollapsingHeader и TreeNode</a></li>
+<li><a href="#manual-75--tabbar">7.5 · TabBar</a></li>
+<li><a href="#manual-76--table">7.6 · Table</a></li>
+</ul>
+</li>
+<li><a href="#manual-08-%D1%81%D0%BF%D1%80%D0%B0%D0%B2%D0%BE%D1%87%D0%BD%D0%B8%D0%BA-%D0%B8%D0%BD%D1%81%D0%BF%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0">08. Справочник инспектора</a></li>
+<li><a href="#manual-09-%D1%84%D0%BB%D0%B0%D0%B3%D0%B8">09. Флаги</a><ul>
+<li><a href="#manual-%D1%87%D0%B8%D1%81%D0%BB%D0%BE%D0%B2%D1%8B%D0%B5-%D1%84%D0%BB%D0%B0%D0%B3%D0%B8">Числовые флаги</a></li>
+<li><a href="#manual-%D1%84%D0%BB%D0%B0%D0%B3%D0%B8-%D1%82%D0%B5%D0%BA%D1%81%D1%82%D0%BE%D0%B2%D0%BE%D0%B3%D0%BE-%D0%B2%D0%B2%D0%BE%D0%B4%D0%B0">Флаги текстового ввода</a></li>
+<li><a href="#manual-%D1%86%D0%B2%D0%B5%D1%82%D0%BE%D0%B2%D1%8B%D0%B5-%D1%84%D0%BB%D0%B0%D0%B3%D0%B8">Цветовые флаги</a></li>
+</ul>
+</li>
+<li><a href="#manual-10-%D0%BF%D1%80%D0%B8%D0%BC%D0%B8%D1%82%D0%B8%D0%B2%D1%8B-%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F">10. Примитивы рисования</a><ul>
+<li><a href="#manual-%D0%B7%D0%B0%D0%BB%D0%B8%D0%B2%D0%BA%D0%B0-%D0%B8-%D0%BE%D0%B1%D0%B2%D0%BE%D0%B4%D0%BA%D0%B0">Заливка и обводка</a></li>
+</ul>
+</li>
+<li><a href="#manual-11-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8-%D1%85%D0%BE%D0%BB%D1%81%D1%82%D0%B0-%D0%B8-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D0%B0">11. Настройки холста и проекта</a><ul>
+<li><a href="#manual-%D0%B7%D0%B0%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BE%D0%BA-%D0%BE%D0%BA%D0%BD%D0%B0">Заголовок окна</a></li>
+<li><a href="#manual-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%80">Размер</a></li>
+<li><a href="#manual-%D1%84%D0%BE%D0%BD">Фон</a></li>
+<li><a href="#manual-%D0%B2%D1%8B%D0%B1%D0%BE%D1%80-%D1%86%D0%B2%D0%B5%D1%82%D0%B0">Выбор цвета</a></li>
+<li><a href="#manual-%D1%81%D0%B5%D1%82%D0%BA%D0%B0">Сетка</a></li>
+<li><a href="#manual-audit-grid">Audit grid</a></li>
+<li><a href="#manual-%D0%BC%D0%B0%D1%81%D1%88%D1%82%D0%B0%D0%B1-%D0%B8-%D0%BF%D0%B0%D0%BD%D0%BE%D1%80%D0%B0%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">Масштаб и панорамирование</a></li>
+</ul>
+</li>
+<li><a href="#manual-12-%D1%82%D0%B5%D0%BC%D1%8B">12. Темы</a><ul>
+<li><a href="#manual-%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D1%81%D0%BA%D0%B8%D0%B5-%D1%82%D0%B5%D0%BC%D1%8B">Пользовательские темы</a></li>
+</ul>
+</li>
+<li><a href="#manual-13-%D1%80%D0%B5%D0%B6%D0%B8%D0%BC-preview">13. Режим Preview</a></li>
+<li><a href="#manual-14-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82">14. Экспорт</a><ul>
+<li><a href="#manual-%D0%BF%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B0-%D0%BF%D0%B5%D1%80%D0%B5%D0%B4-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%BE%D0%BC">Проверка перед экспортом</a></li>
+<li><a href="#manual-%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D1%83%D0%B5%D0%BC%D0%BE%D0%B3%D0%BE-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0">Структура генерируемого файла</a></li>
+<li><a href="#manual-%D0%BF%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0-%D1%80%D0%B0%D0%B7%D0%BC%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2-%D0%BA%D0%BE%D0%B4%D0%B5">Правила размещения в коде</a></li>
+<li><a href="#manual-%D1%81%D0%BE%D1%81%D1%82%D0%B0%D0%B2-%D1%8D%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%D0%B0">Состав экспорта</a></li>
+</ul>
+</li>
+<li><a href="#manual-15-%D1%81%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B0">15. Сохранение и загрузка</a><ul>
+<li><a href="#manual-%D0%B0%D0%B2%D1%82%D0%BE%D1%81%D0%BE%D1%85%D1%80%D0%B0%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B8-%D0%B2%D0%BE%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5">Автосохранение и восстановление</a></li>
+</ul>
+</li>
+<li><a href="#manual-16-%D0%BA%D0%BB%D0%B0%D0%B2%D0%B8%D0%B0%D1%82%D1%83%D1%80%D0%B0-%D0%B8-%D0%BC%D1%8B%D1%88%D1%8C">16. Клавиатура и мышь</a></li>
+<li><a href="#manual-17-%D0%BE%D0%B3%D1%80%D0%B0%D0%BD%D0%B8%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B8">17. Ограничения сборки</a><ul>
+<li><a href="#manual-%D0%BD%D0%B5-%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE">Не реализовано</a></li>
+<li><a href="#manual-%D0%BE%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8-%D0%BF%D0%BE%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F">Особенности поведения</a></li>
+</ul>
+</li>
+<li><a href="#manual-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-a--%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D1%8B-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">Приложение A · Контракты виджетов</a></li>
+<li><a href="#manual-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-b--%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0-%D0%B8%D0%BD%D1%81%D0%BF%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0">Приложение B · Матрица инспектора</a></li>
+<li><a href="#manual-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-c--%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0-%D0%B3%D0%B5%D0%BD%D0%B5%D1%80%D0%B8%D1%80%D1%83%D0%B5%D0%BC%D0%BE%D0%B3%D0%BE-%D1%84%D0%B0%D0%B9%D0%BB%D0%B0">Приложение C · Как читать сгенерированный файл</a></li>
+</ul>
+</li>
+</ul>
+</details>
+
+<p><a name="manual-reaper-ui-builder"></a></p>
+<h1>ReaUI Builder</h1>
+<p>Визуальный редактор макетов для интерфейсов ReaImGui.</p>
+<p>Создайте макет окна на холсте, а Builder сгенерирует Lua-код для ReaImGui: вызовы виджетов, геометрию draw list и настройки стилей. Координаты на холсте соответствуют координатам в REAPER: один пиксель в Builder соответствует одному пикселю интерфейса.</p>
+<p>Это руководство описывает версию <strong>1.0.40</strong> и учитывает изменения, внесённые с версии <strong>1.0.0</strong>. Здесь изложен актуальный рабочий процесс; старые обходные решения упоминаются только там, где они всё ещё необходимы.</p>
+<hr>
+<p><a name="manual-01-назначение"></a></p>
+<h2>01. Назначение</h2>
+<p>ReaUI Builder работает как локальный HTML-файл и не требует установки, сервера или сборки. Все необходимые стили, иконки, контракты виджетов и генератор кода находятся внутри файла. Редактирование макетов и генерация кода работают офлайн.</p>
+<p>Builder предназначен для создания <strong>макета интерфейса</strong>, а не логики скрипта. В нём можно задать положение и размер виджетов, их подписи и основные параметры, а затем экспортировать структуру окна в Lua.</p>
+<p>Builder не создаёт DSP, логику проекта и обработку событий. Для интерактивных виджетов в экспортируемом коде оставляются места для пользовательской логики, отмеченные комментариями <code>-- TODO</code>.</p>
+<ul>
+<li><strong>Результат работы:</strong> Lua-код для ReaImGui 0.10</li>
+<li><strong>Виджеты:</strong> 50 типов, объединённых в 40 семейств</li>
+<li><strong>Примитивы рисования:</strong> 7 — прямоугольник, круг, полигон, линия, текст, треугольник и дуга</li>
+<li><strong>Формат проекта:</strong> JSON с номером версии</li>
+</ul>
+<p>В основе Builder лежат два принципа.</p>
+<p><a name="manual-абсолютное-размещение"></a></p>
+<h3>Абсолютное размещение</h3>
+<p>ImGui по умолчанию располагает виджеты последовательно. Builder использует абсолютное позиционирование: <code>WindowPadding</code> и <code>ItemSpacing</code> устанавливаются в ноль, а перед каждым виджетом задаётся явная позиция курсора.</p>
+<p>Так сохраняются заданные координаты макета. Нативные метрики шрифтов и высота элементов управления могут отличаться от браузерного приближения, поэтому перед завершением макета проверьте экспортированный интерфейс в REAPER.</p>
+<p><a name="manual-контракты-виджетов"></a></p>
+<h3>Контракты виджетов</h3>
+<p>Для каждого типа виджета задан <strong>контракт</strong> — набор правил, определяющих его размер по умолчанию, допустимые изменения размеров, способ применения ширины и положение подписи.</p>
+<p>Холст, инспектор и генератор кода используют общие контракты, дополненные правилами для отдельных типов. У Checkbox фиксированы размеры, у Slider фиксирована высота и подпись находится снаружи, а высота ColorPicker вычисляется. Далее объясняются различия между рамкой редактирования и экспортируемым размером.</p>
+<hr>
+<p><a name="manual-02-быстрый-старт"></a></p>
+<h2>02. Быстрый старт</h2>
+<p>Откройте HTML-файл в современном браузере. Builder работает локально через <code>file://</code>; для редактирования и генерации кода сеть не нужна. Для запуска экспортированного Lua-скрипта требуется REAPER с ReaImGui 0.10.</p>
+<ol>
+<li>Откройте вкладку <strong>Canvas</strong> в правой панели и задайте размер создаваемого окна. По умолчанию используется размер <strong>600 × 400 px</strong>.</li>
+<li>Выберите виджет в одной из категорий верхней панели. Контейнеры <strong>Group, Style, Table, Header, Tree</strong> и <strong>Tabs</strong> также доступны постоянными ярлыками в левой палитре. Категории: <strong>Buttons &amp; Toggles, Display, Input, Selection, Color, Layout</strong>.</li>
+<li>Щёлкните по холсту. Левый верхний угол виджета будет установлен в точку щелчка с учётом привязки к сетке.</li>
+<li>Настройте выбранный виджет в панели <strong>Selection</strong>: измените подпись, диапазон значений, флаги, координаты и размер.</li>
+<li>Нажмите <strong>Export</strong>, устраните ошибки проверки и выберите <strong>download .lua</strong>. Либо нажмите <strong>copy</strong> и сохраните код в файл <code>.lua</code>. Загрузите файл через окно Actions в REAPER и запустите его.</li>
+</ol>
+<blockquote>
+<p><strong>Иллюстрация. Рабочее пространство при запуске.</strong> Слева находится палитра инструментов. В центре — холст с макетом окна и линейками. Справа — контекстная панель <strong>Canvas / Elements / Info</strong> и инспектор <strong>Selection</strong>. Внизу расположена статусная строка.</p>
+</blockquote>
+<blockquote>
+<p><strong>Сохраняйте редактируемый проект.</strong> Выберите <strong>File → Save Project</strong> (<code>Cmd/Ctrl + S</code>) и храните JSON-файл вместе со скриптом. Черновики браузера доступны через <strong>File → Restore projects…</strong>, но не заменяют файл проекта.</p>
+</blockquote>
+<hr>
+<p><a name="manual-03-рабочее-пространство"></a></p>
+<h2>03. Рабочее пространство</h2>
+<p>В режиме <strong>Editor</strong> над каждым виджетом отображается серая метка с его именем.</p>
+<p>Контейнеры <strong>Panel, TabBar</strong> и <strong>Table</strong> дополнительно отображают полосу заголовка. Щёлкните по этой полосе, чтобы выбрать сам контейнер, а не расположенный внутри него элемент.</p>
+<blockquote>
+<p><strong>Иллюстрация. Макет в режиме Editor.</strong> Служебные подписи и полосы контейнеров помогают редактировать структуру макета и не являются частью экспортируемого интерфейса.</p>
+</blockquote>
+<p><a name="manual-31--верхняя-панель-и-меню"></a></p>
+<h3>3.1 · Верхняя панель и меню</h3>
+<p>В верхней панели находятся четыре меню, глобальные команды и категории виджетов.</p>
+<table>
+<thead>
+<tr>
+<th>Меню</th>
+<th>Команды</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>File</strong></td>
+<td>New Project · Save Project · Save As… · Restore projects… · Load Project</td>
+</tr>
+<tr>
+<td><strong>Edit</strong></td>
+<td>Undo · Redo · Copy · Paste · Delete · Duplicate · Group selection · Ungroup selection · Select All · Deselect All · Clear All</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>Dark mode · Grid · Snap to grid · Reference grid in export · Hide widget names · Hide draw objects names · Widget footprints · Panels · Zoom to fit · Actual size (100%)</td>
+</tr>
+<tr>
+<td><strong>Help</strong></td>
+<td>Keyboard Shortcuts · Report a Bug… · About</td>
+</tr>
+</tbody></table>
+<p><strong>Undo</strong> и <strong>Redo</strong> недоступны, если соответствующая история действий пуста.</p>
+<p><strong>Reference grid in export</strong> включает пурпурную измерительную сетку с шагом 50 px. В отличие от обычной сетки, она также попадает в экспорт. На вкладке Canvas эта же настройка называется <strong>Audit grid</strong>.</p>
+<p><strong>Snap to grid</strong> включает и отключает привязку к сетке. Активные пункты меню <strong>View</strong> отмечены галочкой.</p>
+<p><strong>Hide widget names</strong> и <strong>Hide draw objects names</strong> независимо скрывают служебные метки имён, но не видимый текст интерфейса. Подменю <strong>Panels</strong> управляет панелями Canvas, Elements, Info, Selection и Tools и позволяет вернуть скрытую панель. Их видимость запоминается в текущем браузере отдельно от проекта.</p>
+<p>Команда <strong>Clear All</strong> удаляет все элементы с холста после подтверждения.</p>
+<p>Кнопка <strong>Export</strong> открывает окно со сгенерированным кодом.</p>
+<p>Справа расположены шесть категорий виджетов. Щёлкните по категории, чтобы открыть панель с входящими в неё виджетами. Повторный щелчок закрывает панель.</p>
+<p><a name="manual-32--панель-виджетов"></a></p>
+<h3>3.2 · Панель виджетов</h3>
+<p>Панель содержит полный список виджетов, разделённый на шесть категорий.</p>
+<p>Чтобы добавить виджет, откройте нужную категорию, выберите его, а затем щёлкните по холсту.</p>
+<p>Если содержимое категории не помещается по ширине, панель можно прокручивать горизонтально колесом мыши.</p>
+<p>При запуске открыта категория <strong>Display</strong>. Повторный щелчок по кнопке закрывает её. Если ни одна категория не открыта, панель остаётся пустой — это штатное поведение.</p>
+<p><a name="manual-33--левая-палитра"></a></p>
+<h3>3.3 · Левая палитра</h3>
+<p>В левой палитре находятся постоянные инструменты:</p>
+<ul>
+<li><strong>Select</strong>, <strong>Hand</strong> и <strong>Zoom</strong>;</li>
+<li>семь инструментов рисования;</li>
+<li>ярлыки шести контейнеров: Group, StyleRegion, Table, CollapsingHeader, TreeNode и TabBar.</li>
+</ul>
+<p><strong>Select</strong> — инструмент по умолчанию. После размещения объекта Builder автоматически возвращается к нему.</p>
+<p><strong>Hand</strong> используется для панорамирования рабочей области. Для временного включения Hand удерживайте <code>Space</code> до начала перетаскивания, затем отпустите клавишу, чтобы вернуться к прежнему инструменту. Если объект уже перемещается, изменяет размер или рисуется, Space не запускает второй жест.</p>
+<p>Инструмент <strong>Zoom</strong> увеличивает масштаб щелчком вокруг выбранной точки; <code>Alt/Option + щелчок</code> уменьшает масштаб. <code>Esc</code> возвращает Select.</p>
+<p>Инструменты рисования по умолчанию работают однократно: после создания фигуры снова включается <strong>Select</strong>.</p>
+<p>Чтобы нарисовать несколько прямоугольников, окружностей, линий, треугольников или дуг, выберите инструмент с удержанием <code>Shift</code>, а перед рисованием отпустите клавишу. Инструмент остаётся активным до выбора другого инструмента или нажатия <code>Esc</code>; в статусной строке появляется <code>[sticky]</code>. Polygon, Text и размещение виджетов после завершения возвращают Select.</p>
+<p><a name="manual-34--область-холста"></a></p>
+<h3>3.4 · Область холста</h3>
+<p>В центральной части рабочего пространства отображается макет окна скрипта: заголовок <strong>MyPlugin</strong>, область будущего интерфейса и рабочее пространство вокруг неё.</p>
+<p>Размер области макета соответствует размеру экспорта. Заголовок служит напоминанием о собственной полосе заголовка ImGui; её высота учитывается в экспортируемом коде:</p>
+<p><code>OUTER_H = H + высота заголовка</code></p>
+<p>Над холстом и вокруг него расположены дополнительные элементы управления:</p>
+<ul>
+<li><strong>Editor / Preview</strong> — переключатель режима отображения в верхней центральной части. Подробнее см. §13.</li>
+<li><strong>Theme</strong> — выбор темы справа над холстом. Подробнее см. §12.</li>
+<li><strong>Линейки</strong> — расположены сверху и слева и показывают координаты макета с учётом текущего масштаба.</li>
+<li><strong>Маркер изменения размера ⇲</strong> — расположен в правом нижнем углу макета. Перетащите его, чтобы изменить размер холста. Это эквивалентно изменению <code>W</code> и <code>H</code> на вкладке <strong>Canvas</strong>.</li>
+<li><strong>Баннер Preview</strong> — появляется в режиме Preview, если макет содержит виджеты, которые Builder может показать только схематично.</li>
+</ul>
+<p><a name="manual-35--правая-панель"></a></p>
+<h3>3.5 · Правая панель</h3>
+<p>Правая панель состоит из двух частей: контекстной панели <strong>Canvas / Elements / Info</strong> и инспектора <strong>Selection</strong>. Стрелка в заголовке сворачивает или разворачивает верхнюю панель, оставляя вкладки на месте. При выборе объекта Canvas сворачивается, освобождая место для Selection; щелчок по вкладке снова раскрывает её. Стрелка под Elements увеличивает список за счёт высоты Selection. Видимость панелей настраивается через <strong>View → Panels</strong>.</p>
+<p><a name="manual-info"></a></p>
+<h4>Info</h4>
+<p>Когда выбран виджет или активирован инструмент его размещения, вкладка <strong>Info</strong> показывает приблизительный внешний вид виджета в ImGui и краткое описание его назначения. Выбор виджета в панели или левой палитре автоматически открывает Info; после размещения вкладка остаётся открытой и показывает созданный объект.</p>
+<p>Info показывает один выбранный виджет или рисунок либо активный инструмент. Если такого контекста нет, здесь отображается сводная информация о проекте.</p>
+<p><a name="manual-elements"></a></p>
+<h4>Elements</h4>
+<p>Вкладка <strong>Elements</strong> показывает рисунки, виджеты, контейнеры и группы редактора в виде дерева. Дочерние виджеты отображаются с отступом под контейнерами.</p>
+<ul>
+<li>Щелчок по строке объекта выбирает его. Для участника группы это индивидуальное выделение с его собственными свойствами.</li>
+<li>Щелчок по заголовку группы выбирает всю группу. Кнопка <strong>Select group</strong> в Selection также возвращает от отдельного участника к группе.</li>
+<li><code>Cmd/Ctrl + щелчок</code> добавляет или убирает отдельную строку, <code>Shift + щелчок</code> выбирает диапазон.</li>
+<li>Когда список в фокусе, <code>↑/↓</code> выбирают соседние строки, а <code>Home/End</code> — первую или последнюю; Shift расширяет выделение. Эти клавиши перемещаются по списку и не двигают объекты.</li>
+<li><code>Enter</code> переносит фокус на холст, сохраняя выделение. После этого стрелки перемещают выбранные объекты.</li>
+</ul>
+<p>Перетаскивание строк меняет порядок наложения: <strong>чем выше строка, тем ближе объект к переднему плану</strong>. Менять порядок можно только среди объектов одного родителя и одного слоя. Рисунки остаются ниже виджетов, группа перемещается единым блоком, а структурные ячейки Table таким способом не переставляются. Изменение порядка поддерживает Undo.</p>
+<p>Щелчок правой кнопкой открывает команды Rename, Copy, Cut, Delete, Group/Ungroup и <strong>Color → Select color / Surprise me</strong>. Строка участника относится к нему, заголовок группы — ко всей группе.</p>
+<p><a name="manual-canvas"></a></p>
+<h4>Canvas</h4>
+<p>На вкладке <strong>Canvas</strong> находятся параметры самого макета: размер окна, режим фона, видимость сетки и её шаг.</p>
+<p>Здесь же расположен выбор цвета фона с пипеткой, недавними образцами и настройкой прозрачности. Код цвета показан в нижней строке вкладки и меняется прямо во время выбора; в режиме <em>Custom</em> его можно ввести вручную, а в режиме <em>Default</em> там показано название темы, за которой следует холст.</p>
+<p>Заголовок окна редактируется не здесь, а на самом макете: щёлкните по названию в шапке холста — см. §11.</p>
+<p><a name="manual-selection"></a></p>
+<h4>Selection</h4>
+<p>Инспектор <strong>Selection</strong> формируется по контракту выбранного виджета. В нём отображаются только те параметры, которые применимы к этому типу.</p>
+<p>Поэтому набор полей меняется при выборе разных виджетов: у простых элементов отображается только несколько основных параметров, а у виджетов с диапазонами, форматированием или дополнительными флагами инспектор заметно больше.</p>
+<p>Поля инспектора сгруппированы в разделы: <strong>Main</strong> — подпись, имя, значения и диапазоны; <strong>Structure</strong> — вкладки и таблицы; <strong>Appearance</strong> — цвета, скругления и толщина; <strong>Advanced</strong> — форматы и флаги. Затем идут геометрические поля. Для рисунков <strong>Primitive order</strong> предшествует <strong>Size</strong>, а <strong>Position</strong> становится последним блоком свойств перед Delete. Пустые разделы скрыты.</p>
+<p>Если выделено несколько объектов, инспектор переключается в режим пакетного редактирования — см. §5.6.</p>
+<p>Все параметры инспектора описаны в §8. Полный список параметров для каждого типа виджета приведён в приложении B.</p>
+<p><a name="manual-36--статусная-строка"></a></p>
+<h3>3.6 · Статусная строка</h3>
+<p>В статусной строке отображаются:</p>
+<ul>
+<li>текущий масштаб и кнопка вписывания макета в окно;</li>
+<li>активный инструмент и подсказка по его использованию;</li>
+<li>координаты курсора;</li>
+<li><code>X</code>, <code>Y</code>, <code>W</code> и <code>H</code> текущего выделения;</li>
+<li>состояние привязки к сетке;</li>
+<li>количество элементов.</li>
+</ul>
+<p>Эта же область используется для служебных сообщений.</p>
+<p>Если Builder отклоняет размещение, вместо отдельного диалогового окна в статусной строке ненадолго появляется сообщение, например:</p>
+<p><code>blocked: overlaps existing widget</code></p>
+<p>или</p>
+<p><code>blocked: container too large for target</code></p>
+<hr>
+<p><a name="manual-04-основные-понятия"></a></p>
+<h2>04. Основные понятия</h2>
+<p><a name="manual-41--виджеты-и-рисунки"></a></p>
+<h3>4.1 · Виджеты и рисунки</h3>
+<p>Объекты на холсте делятся на два типа: <strong>виджеты</strong> и <strong>рисунки</strong>. Они различаются по интерактивности, вложенности, правилам перекрытия, порядку отрисовки и способу экспорта.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Виджеты</th>
+<th>Рисунки</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Что это</strong></td>
+<td>Виджеты ImGui: кнопки, слайдеры, таблицы и другие интерактивные элементы</td>
+<td>Геометрия в draw list окна</td>
+</tr>
+<tr>
+<td><strong>Интерактивность</strong></td>
+<td>Есть</td>
+<td>Нет; используются для оформления</td>
+</tr>
+<tr>
+<td><strong>Экспорт</strong></td>
+<td><code>ImGui_Button</code>, <code>ImGui_SliderDouble</code>, …</td>
+<td><code>DrawList_AddRect</code>, <code>AddCircle</code>, …</td>
+</tr>
+<tr>
+<td><strong>Перекрытие</strong></td>
+<td>Запрещено</td>
+<td>Допускается; учитывается порядок наложения</td>
+</tr>
+<tr>
+<td><strong>Вложенность</strong></td>
+<td>Допускается внутри контейнеров</td>
+<td>Не поддерживается</td>
+</tr>
+<tr>
+<td><strong>Отрисовка</strong></td>
+<td>Поверх рисунков</td>
+<td>Под всеми виджетами</td>
+</tr>
+</tbody></table>
+<p>Рисунки используются для элементов, которым не соответствует отдельный виджет ImGui: например, корпуса индикатора, рамки вокруг секции, дуги шкалы или логотипа.</p>
+<p>Виджеты используются для элементов, с которыми взаимодействует пользователь.</p>
+<p><a name="manual-42--семейства-и-варианты"></a></p>
+<h3>4.2 · Семейства и варианты</h3>
+<p>Палитра Builder организована по <strong>семействам</strong>, а экспортируемый код — по конкретным <strong>типам виджетов</strong>.</p>
+<p>Семейство объединяет варианты одного элемента управления. Например:</p>
+<ul>
+<li><code>Slider</code> → <code>SliderInt</code> / <code>SliderDouble</code> — по умолчанию Double</li>
+<li><code>Drag</code> → <code>DragInt</code> / <code>DragDouble</code> — по умолчанию Double</li>
+<li><code>Input</code> → <code>InputInt</code> / <code>InputDouble</code> — по умолчанию Double</li>
+<li><code>VSlider</code> → <code>VSliderInt</code> / <code>VSliderDouble</code> — по умолчанию Double</li>
+<li><code>DragRange</code> → <code>DragIntRange2</code> / <code>DragFloatRange2</code> — по умолчанию Double</li>
+<li><code>ColorEdit</code> → <code>ColorEdit3</code> / <code>ColorEdit4</code> — по умолчанию RGB</li>
+<li><code>ColorPicker</code> → <code>ColorPicker3</code> / <code>ColorPicker4</code> — по умолчанию RGB</li>
+</ul>
+<p>Если у семейства есть несколько вариантов, в верхней части инспектора появляется строка <strong>variant</strong>. Выберите вариант до размещения, пока активен инструмент. У уже созданного виджета строка показывает текущий вариант, но недоступна для изменения. Для другого варианта удалите виджет и разместите его заново.</p>
+<p>Не смешивайте имя семейства в палитре и конкретный тип в коде: например, <strong>Slider</strong> — семейство в Builder, а <strong>SliderDouble</strong> — тип в экспортированном коде.</p>
+<p>Некоторые подписи палитры короче названий контрактов: <strong>Hint</strong> = HelpMarker, <strong>RadioButton</strong> = RadioButtonEx, <strong>TextLink</strong> = TextLinkOpenURL, <strong>Multiline</strong> = InputTextMultiline, <strong>Style</strong> = StyleRegion, <strong>Header</strong> = CollapsingHeader, <strong>Tree</strong> = TreeNode, <strong>Tabs</strong> = TabBar.</p>
+<p><a name="manual-43--координаты-и-привязка"></a></p>
+<h3>4.3 · Координаты и привязка</h3>
+<p>Координаты <code>x</code> и <code>y</code> каждого вложенного объекта хранятся <strong>относительно его родителя</strong>.</p>
+<p>Например, кнопка в левом верхнем углу панели может хранить координаты <code>(4, 28)</code>, хотя сама панель расположена так, что абсолютная позиция кнопки на макете равна <code>(24, 278)</code>.</p>
+<p>При перемещении панели кнопка перемещается вместе с ней, а её собственные координаты <code>(4, 28)</code> не изменяются.</p>
+<p>Инспектор показывает <strong>абсолютные координаты макета</strong> и автоматически переводит их в хранимые координаты относительно родителя. Экспортёр воспроизводит размещение абсолютными координатами там, где это уместно, и локальной точкой отсчёта внутри исполняемых контейнеров, например ячеек таблицы.</p>
+<p><a name="manual-привязка-к-сетке"></a></p>
+<h4>Привязка к сетке</h4>
+<p>При включённой привязке координаты округляются до выбранного шага сетки.</p>
+<p>Шаг задаётся на вкладке <strong>Canvas</strong>:</p>
+<ul>
+<li>2 px</li>
+<li>5 px</li>
+<li>10 px — значение по умолчанию</li>
+</ul>
+<p>Привязка действует при размещении, перемещении и изменении размера объектов.</p>
+<p>Чтобы отключить её, выберите <strong>View → Snap to grid</strong>. Текущее состояние отображается в статусной строке.</p>
+<blockquote>
+<p><strong>Примечание — шаг сетки и крупная сетка.</strong> Выбранный шаг определяет привязку и расстояние между тонкими линиями сетки. Толстые линии с шагом 50 px постоянны и служат только визуальным ориентиром. Привязка к ним не выполняется. При сильном уменьшении масштаба Builder может отображать сетку с более крупным визуальным шагом, но координаты по-прежнему привязываются к значению, выбранному в <strong>Canvas</strong>.</p>
+</blockquote>
+<p><a name="manual-44--контракты-размеров"></a></p>
+<h3>4.4 · Контракты размеров</h3>
+<p>ImGui не позволяет независимо задавать ширину и высоту для всех типов виджетов. Builder воспроизводит эти ограничения на холсте, чтобы макет можно было корректно перенести в код.</p>
+<p>Для высоты используются четыре режима:</p>
+<table>
+<thead>
+<tr>
+<th>Режим</th>
+<th>Поведение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>explicit-size</code></td>
+<td>Контракт имеет явную рамку макета. Button, Panel и подобные элементы передают размеры в ImGui; некоторые типы вместо этого используют вычисляемую высоту или пересчёт в число строк.</td>
+</tr>
+<tr>
+<td><code>native-fixed</code></td>
+<td>Высоту определяет ImGui: обычно это одна высота фрейма, около 20 px. Так работает большинство виджетов ввода.</td>
+</tr>
+<tr>
+<td><code>native-content</code></td>
+<td>Высота определяется содержимым, например текстом.</td>
+</tr>
+<tr>
+<td><code>native-line</code></td>
+<td>Высота соответствует одной разделительной линии.</td>
+</tr>
+</tbody></table>
+<p>Для виджета с фиксированной высотой остаются только боковые маркеры, если ширину можно менять, а <strong>H</strong> недоступно. Checkbox, ArrowButton, SmallButton и RadioButtonEx не имеют маркеров размера; ширина SmallButton и RadioButtonEx следует за подписью. У ColorPicker есть только боковые маркеры, а высота вычисляется из ширины и флагов.</p>
+<p>Под полем появляется <code>↑ height fixed by ImGui</code> или <code>↑ size fixed by ImGui</code>. Там, где контракт разрешает, ширину всё равно можно менять.</p>
+<p><strong>ColorPicker.</strong> Новый элемент имеет ширину 200 px и включённый <strong>NoSidePrev</strong>; Builder резервирует высоту 246 px. Поле H доступно только для чтения и меняется вместе с шириной и флагами. Включение бокового предпросмотра добавляет 60 px к занимаемой ширине, не меняя ширину самого picker. Экспорт передаёт в <code>SetNextItemWidth</code> ширину picker, а не всю зарезервированную область.</p>
+<p><strong>ListBox.</strong> Экспортёр превращает H в число видимых строк: <code>max(2, round(H / 18))</code>; пиксельная высота напрямую не передаётся. TextWrapped также имеет рамку макета в Builder, но итоговую высоту текста определяет ImGui.</p>
+<p>Для ширины используются три режима:</p>
+<ul>
+<li><code>explicit-size</code> — ширина передаётся непосредственно в вызов виджета;</li>
+<li><code>next-item-width</code> — перед вызовом используется <code>SetNextItemWidth</code>;</li>
+<li><code>content-or-widget-box</code> — область на холсте резервирует место под содержимое, а фактический размер рассчитывает ImGui.</li>
+<li><code>widget-box-preview</code> — сохранённая рамка резервирует место в Builder; Checkbox и RadioButtonEx используют нативный размер в экспортированном интерфейсе.</li>
+</ul>
+<p><a name="manual-45--подписи"></a></p>
+<h3>4.5 · Подписи</h3>
+<p>По умолчанию ImGui выводит подпись рядом с виджетом в рамках того же вызова. При абсолютном размещении это может приводить к тому, что текст оказывается за пределами области, заданной в Builder.</p>
+<p>Builder в основном использует два описанных ниже способа. Виджеты Display рисуют текст как содержимое, а LabelText размещает подпись справа от значения.</p>
+<p><a name="manual-встроенная-подпись"></a></p>
+<h4>Встроенная подпись</h4>
+<p>Используется у <strong>Button, SmallButton, Selectable, RadioButtonEx</strong> и нативных заголовков контейнеров или вкладок. <strong>Group</strong> имеет отдельно нарисованную видимую подпись, а <strong>StyleRegion</strong> не имеет видимого заголовка в экспорте.</p>
+<p>Текст передаётся непосредственно в вызов ImGui и отображается как часть виджета.</p>
+<p><a name="manual-внешняя-подпись"></a></p>
+<h4>Внешняя подпись</h4>
+<p>Используется у слайдеров, полей ввода, Combo, Checkbox, цветовых и некоторых других виджетов.</p>
+<p>Сам виджет получает скрытый идентификатор, например:</p>
+<p><code>&quot;##Slider_4&quot;</code></p>
+<p>Видимая подпись выводится отдельно через draw list над верхней границей виджета. На холсте Builder показывает её в том же положении.</p>
+<p>Для такой подписи требуется около <strong>14 px</strong> дополнительного пространства по вертикали. Оно не входит в собственную область виджета.</p>
+<p>Оставляйте место и для подписи, и для корпуса элемента. Проверка footprint учитывает область подписи сверху, поэтому доступный зазор может быть меньше расстояния между рамками двух элементов.</p>
+<p><a name="manual-46--контейнеры-и-вложенность"></a></p>
+<h3>4.6 · Контейнеры и вложенность</h3>
+<p>Builder поддерживает семь типов контейнеров:</p>
+<ul>
+<li>Panel</li>
+<li>Group</li>
+<li>StyleRegion</li>
+<li>CollapsingHeader</li>
+<li>TreeNode</li>
+<li>TabBar</li>
+<li>Table</li>
+</ul>
+<p>Кроме того, используются <strong>TabItem</strong> и <strong>TableCell</strong>. Builder создаёт их автоматически; вручную разместить эти элементы нельзя.</p>
+<p>Вложенность определяется положением элементов на холсте.</p>
+<p>Если разместить виджет внутри рабочей области контейнера, он становится его дочерним элементом. Если вынести его за пределы контейнера, он возвращается на уровень макета или становится дочерним элементом другого подходящего контейнера.</p>
+<p>Отдельной команды «добавить в контейнер» нет. Перемещение контейнера также может захватить подходящие виджеты, полностью попавшие в его рабочую область. Щёлкните по значку замка, чтобы разблокировать контейнер на следующее перемещение: существующие дочерние элементы останутся на месте, а захват не выполняется. То же действие можно вызвать, удерживая <strong>U до начала перетаскивания контейнера</strong>.</p>
+<p>Не путайте вложенность с <strong>Edit → Group selection</strong>: группа редактора помогает выбирать и перемещать объекты, но не создаёт родительский контейнер. См. §5.7.</p>
+<p>Каждый из семи размещаемых контейнеров резервирует сверху служебную полосу высотой <strong>24 px</strong>. TabItem и TableCell — структурные дочерние элементы и дополнительную полосу не резервируют.</p>
+<p>Эта полоса существует только в редакторе и в экспорт не попадает. Координаты дочерних элементов всё равно учитывают зарезервированное пространство; нативные заголовки и полосы вкладок рисует ImGui.</p>
+<p>При изменении размера контейнера Builder сдвигает дочерние элементы к его рабочей области. Ячейки таблицы и страницы вкладок следуют за размером родителя. Оставляйте достаточно места: перемещение содержимого не уменьшает его размеры, а проверки ручек холста и полей инспектора могут отличаться.</p>
+<p>Контейнеры можно вкладывать друг в друга. Например:</p>
+<p><code>TabBar → TabItem → Panel → Button</code></p>
+<p>В экспортируемом коде соответствующие вызовы ImGui будут вложены в том же порядке.</p>
+<p>Цепочка родителей выбранного виджета отображается в строке <strong>parent</strong> инспектора.</p>
+<p><a name="manual-47--запрет-перекрытия"></a></p>
+<h3>4.7 · Запрет перекрытия</h3>
+<p>Builder проверяет размещение и перемещение по полной занятой области — <strong>footprint</strong>. Она может выходить за рамку W/H в инспекторе: сюда входят внешние подписи, правая подпись LabelText, естественная ширина текста и дополнительная область ColorPicker. SmallButton и RadioButtonEx следуют за шириной текста, а не растягиваются до сохранённой ширины.</p>
+<p>Включите <strong>View → Widget footprints</strong>, чтобы увидеть зарезервированное место. Область рядом с небольшим элементом может принадлежать его подписи или нативному контролу.</p>
+<p>Внутри TabBar проверки перекрытия следуют активному пути вкладок. Виджеты в неактивных соседних вкладках не мешают размещению, перемещению, изменению размера, drag preview и проверке paste на тех же координатах видимой вкладки. Виджеты в той же активной вкладке по-прежнему конфликтуют; видимое содержимое отдельных перекрывающихся TabBar тоже остаётся препятствием.</p>
+<ul>
+<li>Новый виджет в занятом месте отклоняется с сообщением в статусной строке.</li>
+<li>При перемещении Builder может подобрать ближайшую свободную позицию на сетке.</li>
+<li>Недопустимое перемещение или изменение размера отклоняется либо откатывается.</li>
+<li>При копировании выделения ищется общее смещение, сохраняющее взаимное положение объектов.</li>
+</ul>
+<p>Проверки зависят от операции и контекста вложенности и не являются нативным тестом пересечений ImGui. Рисунки могут свободно перекрываться. Тесные макеты проверяйте в Preview и в экспортированном интерфейсе.</p>
+<p><a name="manual-48--имена-объектов"></a></p>
+<h3>4.8 · Имена объектов</h3>
+<p>При создании каждый объект автоматически получает имя с номером:</p>
+<p><code>Button_2</code><br> <code>Slider_4</code><br> <code>Panel_6</code></p>
+<p>Имя отображается на вкладке <strong>Elements</strong> и используется при генерации Lua-кода.</p>
+<p>Например, из имени <code>Slider_4</code> формируются:</p>
+<ul>
+<li>запись позиции <code>pos.SLIDER_4</code>;</li>
+<li>поле состояния <code>state.Slider_4_val</code>;</li>
+<li>идентификатор ImGui <code>&quot;##Slider_4&quot;</code>.</li>
+</ul>
+<p>Объекты можно переименовывать.</p>
+<p>Используйте латинские буквы, цифры и символ <code>_</code>. Другие символы при экспорте заменяются на <code>_</code>; видимая подпись не зависит от идентификатора в коде.</p>
+<p>По возможности используйте уникальные имена. Если после нормализации два имени совпадут, проверка перед экспортом покажет предупреждение, а экспортёр добавит суффиксы <code>_2</code>, <code>_3</code> и т. п., сохраняя уникальные ImGui ID.</p>
+<hr>
+<p><a name="manual-05-работа-с-объектами"></a></p>
+<h2>05. Работа с объектами</h2>
+<p><a name="manual-51--размещение-виджетов"></a></p>
+<h3>5.1 · Размещение виджетов</h3>
+<p>Выберите виджет, затем разместите его на холсте одним из двух способов.</p>
+<p><strong>Щелчок</strong> создаёт виджет стандартного размера, заданного его контрактом.</p>
+<p>Перемещение менее чем на <strong>5 экранных пикселей</strong> считается щелчком даже рядом с границей сетки.</p>
+<p><strong>Протягивание</strong> за этот порог позволяет сразу задать размер. По каждой оси протяжённость не менее <strong>10 пикселей макета</strong> после привязки заменяет стандартный размер. Меньшая протяжённость оставляет значение по умолчанию; фиксированные и вычисляемые размеры следуют контракту виджета.</p>
+<p>Например, Button можно сразу разместить размером 200 × 70 px. У Slider протягивание может задать ширину 300 px, но его высота останется фиксированной.</p>
+<p>После размещения снова включается <strong>Select</strong>, а созданный виджет остаётся выделенным. Его параметры можно сразу изменить в инспекторе.</p>
+<p><a name="manual-предварительная-настройка"></a></p>
+<h4>Предварительная настройка</h4>
+<p>Пока активен инструмент размещения, <strong>Selection</strong> показывает поддерживаемые свойства. До создания можно задать вариант, подпись, диапазон, формат, флаги, число компонентов, hint, bullet и другие доступные параметры. Применимые значения копируются в новый виджет; имя объекта присваивается автоматически.</p>
+<p>Например, выберите Slider → Double, задайте min/max 0/100 и формат <code>%.1f</code>, затем щёлкните — виджет будет создан с этими значениями. После размещения их можно редактировать дальше.</p>
+<p><strong>Reset</strong> возвращает значения по умолчанию. Повторный щелчок по активному инструменту отменяет его.</p>
+<p><a name="manual-размещение-через-контекстное-меню"></a></p>
+<h4>Размещение через контекстное меню</h4>
+<p>Виджет можно добавить и без панели виджетов.</p>
+<p>Щёлкните правой кнопкой мыши по холсту. В контекстном меню отображаются все типы виджетов, сгруппированные по категориям.</p>
+<p>Выбранный виджет будет размещён в точке щелчка.</p>
+<p>Этот способ удобен, если вы уже знаете название нужного типа и не хотите открывать соответствующую категорию в верхней панели.</p>
+<p><a name="manual-52--выделение"></a></p>
+<h3>5.2 · Выделение</h3>
+<table>
+<thead>
+<tr>
+<th>Действие</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Щелчок</strong></td>
+<td>Выбрать один объект</td>
+</tr>
+<tr>
+<td><strong>Shift + щелчок</strong></td>
+<td>Добавить объекты, которые пересекают прямоугольную область между опорным и выбранным объектами</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + щелчок</strong></td>
+<td>Добавить объект к выделению или исключить его</td>
+</tr>
+<tr>
+<td><strong>Протягивание по пустому холсту</strong></td>
+<td>Выделить объекты рамкой</td>
+</tr>
+<tr>
+<td><strong>Shift + рамка</strong></td>
+<td>Добавить объекты к текущему выделению</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + рамка</strong></td>
+<td>Переключить состояние объектов в области рамки</td>
+</tr>
+<tr>
+<td><strong>Щелчок по строке Elements</strong></td>
+<td>Выбрать соответствующий объект на холсте</td>
+</tr>
+<tr>
+<td><strong>Cmd/Ctrl + A</strong></td>
+<td>Выбрать все объекты</td>
+</tr>
+<tr>
+<td><strong>Esc</strong></td>
+<td>Снять выделение или отменить активный инструмент</td>
+</tr>
+</tbody></table>
+<p>Удержание <code>Shift</code> временно включает <strong>Select</strong>, когда активен инструмент рисования или размещения виджета, кроме процесса создания полигона.</p>
+<p>Это позволяет изменить выделение, не отменяя текущий инструмент.</p>
+<p>При множественном выделении появляется пунктирная рамка с маркерами, состав которых зависит от правил изменения размера выбранных объектов.</p>
+<p>Для рисунков щелчок проверяет видимую геометрию: пустые углы, незалитая внутренняя область контура и промежуток дуги пропускают щелчок к объектам ниже. Тонкие линии имеют небольшой допуск в экранных пикселях. Видимый текст принимается во внимание, а служебная метка имени не увеличивает область попадания. Рамочное выделение по-прежнему использует габариты объекта. Полностью невидимый рисунок выбирайте через Elements.</p>
+<p>Отдельный участник группы, выбранный через Elements, остаётся выбранным при щелчке или перетаскивании этой фигуры на холсте. Щелчок по другому, невыбранному участнику выбирает всю группу. Несколько участников, выбранных в Elements, перемещаются именно этим составом.</p>
+<p><a name="manual-53--перемещение-и-изменение-размера"></a></p>
+<h3>5.3 · Перемещение и изменение размера</h3>
+<p>Чтобы переместить выбранный объект, перетащите его.</p>
+<p>Чтобы изменить размер, перетащите один из маркеров выделения.</p>
+<p>Обе операции учитывают привязку к сетке.</p>
+<p>Количество доступных маркеров определяется контрактом виджета:</p>
+<ul>
+<li>восемь — если ширину и высоту можно изменять свободно;</li>
+<li>два боковых — если высота фиксирована, а ширину изменять можно;</li>
+<li>маркеры отсутствуют — если размер полностью определяет ImGui.</li>
+</ul>
+<p>Для точного размещения используйте поля <strong>position</strong> и <strong>size</strong> в инспекторе.</p>
+<p>Поля используют абсолютные координаты макета и следуют настройке <strong>Snap to grid</strong>. Отключите привязку для шага в 1 px. Значения разбираются как целые числа. Рабочая область продолжается за рамкой экспорта: рисунки можно перемещать наружу, в том числе к отрицательным координатам, используя Hand. Это не увеличивает экспортируемое окно.</p>
+<p>Когда холст в фокусе, стрелки сдвигают выделение на один шаг сетки либо на 1 px при выключенной привязке. С <code>Shift</code> сдвиг увеличивается в десять раз. В Elements сначала нажмите Enter, чтобы передать фокус холсту.</p>
+<p>Удерживайте <strong>Shift при изменении размера рисунка</strong>, чтобы сохранить пропорции. Угловой маркер оставляет противоположный угол на месте; боковой сохраняет противоположную сторону и симметрично меняет другую ось. Это работает и для выделения, состоящего только из рисунков. Виджеты сохраняют собственные контракты.</p>
+<p>Изменение размера рисунка Text также масштабирует шрифт по меньшему коэффициенту ширины/высоты, но не ниже 6 px. Буквы не растягиваются независимо по осям. Undo восстанавливает и рамку, и размер шрифта.</p>
+<p><a name="manual-54--копирование-дублирование-и-удаление"></a></p>
+<h3>5.4 · Копирование, дублирование и удаление</h3>
+<p><a name="manual-copy--paste"></a></p>
+<h4>Copy / Paste</h4>
+<p><code>Cmd/Ctrl + C</code> и <code>Cmd/Ctrl + V</code></p>
+<p>Копирование контейнера включает всё поддерево. Вставка назначает новые ID объектов и групп редактора, сохраняет вложенность и взаимное расположение, включая концы линий и вершины полигонов. Builder начинает со смещения и при необходимости ищет общее допустимое смещение.</p>
+<p>Копировать можно между проектами или вкладками Builder, даже после закрытия исходной вкладки. Горячие клавиши и меню используют один формат буфера; локальная копия также сохраняется для повторного открытия того же файла Builder. Доступ браузера к буферу может быть ограничен: если команда меню не сработала, используйте горячую клавишу и следуйте сообщению в статусной строке.</p>
+<p>Существующий родитель переиспользуется только в исходном проекте. Вставка в другой проект не прикрепляет объекты к случайным контейнерам с совпавшими ID.</p>
+<p><a name="manual-duplicate"></a></p>
+<h4>Duplicate</h4>
+<p><code>Cmd/Ctrl + D</code></p>
+<p>Создаёт копию и сразу размещает её — эквивалент последовательных команд Copy и Paste.</p>
+<p><a name="manual-alt--перетаскивание"></a></p>
+<h4>Alt + перетаскивание</h4>
+<p>Начните перетаскивание с удержанием <code>Alt</code>, чтобы перемещать копию объекта, оставив оригинал на месте.</p>
+<p>Этот способ работает и для множественного выделения.</p>
+<p><a name="manual-delete"></a></p>
+<h4>Delete</h4>
+<p><code>Del</code> или <code>Backspace</code></p>
+<p>При удалении контейнера с пользовательским содержимым Builder предлагает выбор:</p>
+<table>
+<thead>
+<tr>
+<th>Вариант</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cancel</td>
+<td>Сохранить контейнер и содержимое.</td>
+</tr>
+<tr>
+<td>Keep inner widgets</td>
+<td>Удалить контейнер, сохранив пользовательское содержимое на его позициях; внутренние обёртки вкладок и ячеек при необходимости удаляются.</td>
+</tr>
+<tr>
+<td>Delete with children</td>
+<td>Удалить контейнер вместе со всем поддеревом.</td>
+</tr>
+</tbody></table>
+<p>Пустой контейнер или обычный объект удаляется сразу. Вернуть удалённое можно через <strong>Undo</strong>.</p>
+<p><a name="manual-55--история-изменений"></a></p>
+<h3>5.5 · История изменений</h3>
+<p>Builder хранит <strong>50 шагов</strong> истории.</p>
+<p>Последовательные изменения одного и того же свойства, выполненные в пределах <strong>600 мс</strong>, объединяются в один шаг. Например, несколько быстрых изменений значения <code>max</code> не создают отдельную запись истории для каждого промежуточного значения.</p>
+<p>Команда <strong>Undo</strong> восстанавливает не только состояние объектов, но и выделение, которое было активно на соответствующем шаге.</p>
+<p>При загрузке проекта история очищается. Отменить изменения, выполненные до загрузки, после этого нельзя.</p>
+<p><a name="manual-56--пакетное-редактирование"></a></p>
+<h3>5.6 · Пакетное редактирование</h3>
+<p>Когда выделено больше одного объекта, инспектор показывает их количество и состав по типам, а из свойств — только те, которые есть у <strong>всех</strong> выделенных объектов. Например, для кнопки и флажка это подпись, всплывающая подсказка и маркер списка.</p>
+<p>Если значение свойства у выделенных объектов различается, поле показывает <strong>Mixed</strong>. Пока вы не введёте значение, свойство не изменяется ни у одного объекта.</p>
+<p>Поля <code>ΔX / ΔY</code> сдвигают всё выделение с учётом границ рабочей области и проверок перекрытия. Рабочая область продолжается за экспортируемой рамкой, поэтому виджет может оказаться вне экспорта. Если вместе с контейнером выделен дочерний объект, он перемещается с контейнером только один раз.</p>
+<p>Любое пакетное изменение — одно действие в истории: один <strong>Undo</strong> возвращает исходные значения всем объектам выборки.</p>
+<hr>
+<p><a name="manual-57--группы-редактора"></a></p>
+<h3>5.7 · Группы редактора</h3>
+<p>Выберите два или больше объектов и вызовите <strong>Edit → Group selection</strong> (<code>Cmd/Ctrl + G</code>). Группа может включать рисунки и виджеты. Имя редактируется в Selection или командой Rename на заголовке группы в Elements. <code>Cmd/Ctrl + Shift + G</code> разгруппировывает выделение.</p>
+<p>Группы редактора упрощают выбор и перемещение. Они сохраняются в проекте, копируются вместе с участниками и входят в Undo/Redo. Они <strong>не</strong> добавляют <code>BeginGroup</code> в Lua, не меняют родителей-контейнеров и не позволяют поднять рисунок выше слоя виджетов. Если в экспорте нужна группа ImGui, используйте виджет <strong>Group</strong> из категории Layout.</p>
+<p>Щёлкните по заголовку группы, чтобы работать со всей группой. Строка участника в Elements выбирает только его; <strong>Select group</strong> возвращает к группе. Если в новое выделение входят существующие группы, Group selection объединяет их полный состав.</p>
+<p>Щелчок правой кнопкой внутри множественного выделения, включая пустое место его рамки, открывает команды для всего выделения. <strong>Color → Select color</strong> применяет выбранный цвет, а <strong>Surprise me</strong> выбирает случайный. Конкретное свойство зависит от типа объекта; для виджетов используются подходящие слоты стиля, включая цвета вкладок.</p>
+<hr>
+<p><a name="manual-06-каталог-виджетов"></a></p>
+<h2>06. Каталог виджетов</h2>
+<p>В каталоге перечислено <strong>41 семейство виджетов</strong> в тех же категориях, что и на верхней панели. Базовые размеры и режимы изменения размера приведены в <a href="#manual-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5-a--%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D1%8B-%D0%B2%D0%B8%D0%B4%D0%B6%D0%B5%D1%82%D0%BE%D0%B2">приложении A</a>.</p>
+<p><strong>Кнопки и переключатели</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td>Кнопка, выполняющая действие по нажатию. — <em>Применяется для команд: render, apply, reset, запуск шага скрипта.</em></td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td>Кнопка с уменьшенными отступами. Поведение то же, что у Button. — <em>Применяется для второстепенных действий и при ограниченном месте.</em></td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td>Логический переключатель с подписью. Во включённом состоянии выводится галочка. — <em>Применяется для параметров вкл/выкл: enable, mute, loop, bypass.</em></td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td>Набор взаимоисключающих переключателей. Активен только один. — <em>Применяется для выбора режима из короткого фиксированного списка.</em></td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td>Квадратная кнопка со стрелкой. — <em>Применяется для степперов, счётчиков, раскрытия и сворачивания.</em></td>
+</tr>
+</tbody></table>
+<p><strong>Отображение</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Text</code></td>
+<td>Статическая однострочная подпись. — <em>Применяется для заголовков полей и коротких статусных строк.</em></td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td>Строка текста с маркером. — <em>Применяется для перечислений и простых списков.</em></td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td>Текст с переносом по доступной ширине. — <em>Применяется для длинных описаний и справочных абзацев.</em></td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td>Текст заданного цвета. — <em>Применяется для предупреждений, статусов и категорийных подписей.</em></td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td>Текст в неактивном стиле. — <em>Применяется для подсказок, заполнителей и недоступных подписей.</em></td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td>Подпись и значение справа от неё, только для чтения. — <em>Применяется для вывода именованных значений, например «Tempo: 120».</em></td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td>Подчёркнутая ссылка, открывающая URL в браузере. — <em>Применяется для ссылок на документацию, сайт и поддержку.</em></td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td>Горизонтальная полоса выполнения со значением от 0 до 100%. — <em>Применяется для отображения хода рендера, сканирования и длительных операций.</em></td>
+</tr>
+</tbody></table>
+<p><strong>Ввод</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Slider</code></td>
+<td>Горизонтальный трек с ползунком для одного числового значения. — <em>Применяется для ограниченных непрерывных величин: gain, mix, threshold.</em></td>
+</tr>
+<tr>
+<td><code>VSlider</code></td>
+<td>Вертикальный слайдер для одного числового значения. — <em>Применяется для фейдеров и индикаторов уровня.</em></td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td>Слайдер для ввода угла в градусах. — <em>Применяется для поворота, панорамы и фазы.</em></td>
+</tr>
+<tr>
+<td><code>Drag</code></td>
+<td>Числовое поле, значение которого изменяется горизонтальным перетаскиванием. — <em>Применяется для точной подстройки и для величин без жёстких границ.</em></td>
+</tr>
+<tr>
+<td><code>DragRange</code></td>
+<td>Два связанных поля Drag, задающих нижнюю и верхнюю границу. — <em>Применяется для диапазонов: low/high cutoff, начало и конец интервала.</em></td>
+</tr>
+<tr>
+<td><code>Input</code></td>
+<td>Числовое поле ввода с кнопками шага. — <em>Применяется для точных целых и дробных значений.</em></td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td>Однострочное поле ввода текста. — <em>Применяется для имён, путей и короткого произвольного текста.</em></td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td>Однострочное поле с текстом-заполнителем, пока оно пусто. — <em>Применяется для короткого примера или пояснения ожидаемого ввода.</em></td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td>Многострочное поле ввода текста. — <em>Применяется для заметок, описаний и вставки блоков текста.</em></td>
+</tr>
+<tr>
+<td><code>SliderN</code></td>
+<td>Несколько слайдеров, образующих одно многокомпонентное значение. — <em>Применяется для векторов и цветовых каналов, редактируемых вместе.</em></td>
+</tr>
+<tr>
+<td><code>DragN</code></td>
+<td>Несколько полей Drag, образующих одно многокомпонентное значение. — <em>Применяется для координат и векторов вида X/Y/Z.</em></td>
+</tr>
+<tr>
+<td><code>InputN</code></td>
+<td>Несколько числовых полей ввода в одном виджете. — <em>Применяется для ввода точных многокомпонентных значений.</em></td>
+</tr>
+</tbody></table>
+<p><strong>Выбор</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Combo</code></td>
+<td>Выпадающий список с отображением выбранного элемента. — <em>Применяется для выбора одного значения из длинного списка при ограниченном месте.</em></td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td>Прокручиваемый список с несколькими видимыми строками. — <em>Применяется, когда варианты должны оставаться на виду.</em></td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td>Выделяемая строка во всю ширину. — <em>Применяется для списков, меню и выбираемых элементов.</em></td>
+</tr>
+</tbody></table>
+<p><strong>Цвет</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ColorEdit</code></td>
+<td>Компактный редактор цвета: поля каналов и образец. — <em>Применяется для правки цвета непосредственно в макете.</em></td>
+</tr>
+<tr>
+<td><code>ColorPicker</code></td>
+<td>Полный редактор цвета: поле насыщенности и полоса оттенка. — <em>Применяется, когда цвет выбирается визуально.</em></td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td>Кнопка-образец с одним цветом. — <em>Применяется как индикатор цвета или как вызов редактора цвета.</em></td>
+</tr>
+</tbody></table>
+<p><strong>Компоновка</strong></p>
+<table>
+<thead>
+<tr>
+<th>Семейство</th>
+<th>Назначение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>SeparatorText</code></td>
+<td>Разделительная линия с подписью у левого края. — <em>Применяется для заголовка секции.</em></td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td>Горизонтальная разделительная линия. — <em>Применяется для разделения секций макета.</em></td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td>Маркер «(?)» с подсказкой при наведении. — <em>Применяется для пояснения соседнего виджета без увеличения макета.</em></td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td>Область с рамкой и прокруткой, содержащая другие виджеты. — <em>Применяется для боковых панелей, блоков настроек и групп виджетов.</em></td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>Экспортируемая группа без рамки с необязательной видимой подписью. — <em>Применяется, когда несколько виджетов должны образовать одну группу ImGui.</em></td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td>Невидимая область со стилевыми переопределениями: цвета, скругление, выравнивание, шрифт. — <em>Применяется для изменения оформления группы виджетов без изменения остального макета.</em></td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td>Заголовок во всю ширину, сворачивающий содержимое. — <em>Применяется для необязательных и расширенных настроек.</em></td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td>Раскрываемый узел с отступом для вложенных элементов. — <em>Применяется для иерархий: папки, треки, вложенные настройки.</em></td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td>Полоса вкладок с переключением страниц содержимого. — <em>Применяется для разделения панели на страницы вида Main / FX / MIDI.</em></td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td>Сетка строк и столбцов, содержащая другие виджеты. — <em>Применяется для выровненных макетов, матриц и построчных данных.</em></td>
+</tr>
+</tbody></table>
+<p><a name="manual-примечания-к-каталогу"></a></p>
+<h3>Примечания к каталогу</h3>
+<p><strong>Slider, Drag и Input.</strong> Slider имеет трек и границы; Drag меняет значение горизонтальным перетаскиванием; Input поддерживает прямой числовой ввод. Набор полей отличается: Slider предлагает границы и флаги, Drag добавляет скорость, а скалярный Input — параметры шага. SliderAngle и семейства с суффиксом N имеют собственные наборы полей; см. приложение B.</p>
+<p><strong>Семейства с суффиксом N</strong> (SliderN, DragN, InputN). В экспорте создаётся <code>reaper.new_array</code> на количество элементов, заданное в поле <em>array size</em>, и управление выполняется одним вызовом. Обычные семейства вместо этого используют поле <em>components</em> со значением от 1 до 4: генерируются вызовы вида <code>SliderDouble2</code> или <code>DragInt3</code> с отдельными скалярными переменными.</p>
+<p><strong>HelpMarker.</strong> В экспорте выводится как неактивный символ <code>(?)</code>. Текст подсказки берётся из поля <em>tooltip</em>, а не из подписи.</p>
+<p><strong>Combo и ListBox.</strong> В экспорт добавляются пять элементов-заглушек: <code>item_0…item_4</code> и <code>Item 1…Item 5</code>. Списки элементов в этой сборке не редактируются, задайте их в готовом коде.</p>
+<p><strong>TextColored.</strong> Начальный цвет по умолчанию — чёрный. Preview и Lua используют выбранный цвет текста; Editor сохраняет нейтральное оформление выделения и диагностики, не используя цвет текста как цвет рамки.</p>
+<p><strong>RadioButtonEx.</strong> Кнопки с одинаковым значением в поле <em>group</em> используют общую переменную состояния, каждой кнопке задаётся собственное значение в поле <em>radio value</em>. Так в экспорте реализуется взаимное исключение.</p>
+<hr>
+<p><a name="manual-07-контейнеры"></a></p>
+<h2>07. Контейнеры</h2>
+<p>Общие свойства контейнеров описаны в <a href="#manual-46--%D0%BA%D0%BE%D0%BD%D1%82%D0%B5%D0%B9%D0%BD%D0%B5%D1%80%D1%8B-%D0%B8-%D0%B2%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D1%8C">§4.6</a>: служебная полоса 24 px, геометрическая вложенность и поведение при изменении размера. Ниже описаны различия между типами.</p>
+<p><a name="manual-71--panel"></a></p>
+<h3>7.1 · Panel</h3>
+<p>Panel — это дочернее окно ImGui: область с рамкой, при необходимости прокручиваемая. Применяется для боковых панелей, блоков настроек и групп виджетов с видимой границей.</p>
+<ul>
+<li><strong>border.</strong> Отображает рамку. Включён по умолчанию. При выключенном параметре область остаётся невидимой, но по-прежнему обрезает и прокручивает содержимое.</li>
+<li><strong>h-scroll.</strong> Добавляет горизонтальную полосу прокрутки. Без неё содержимое шире панели обрезается.</li>
+</ul>
+<pre><code class="language-lua">reaper.ImGui_BeginChild(ctx, &quot;Output##Panel_6&quot;, 220, 140, ChildFlags_Borders(), 0)
+  -- дочерние виджеты, для каждого задаётся SetCursorScreenPos
+reaper.ImGui_EndChild(ctx)
+</code></pre>
+<p>Если в проекте выбрана тема, отличная от Default, Builder применяет цвет фона панели через <code>PushStyleColor</code> перед <code>BeginChild</code> и снимает переопределение после <code>EndChild</code>. Благодаря этому вложенные панели могут задавать собственный фон.</p>
+<p><a name="manual-72--group"></a></p>
+<h3>7.2 · Group</h3>
+<p>Group не имеет рамки и фона. В экспорте выводятся <code>BeginGroup</code> и <code>EndGroup</code>, поэтому ImGui обрабатывает вложенные виджеты как один блок. Если у Group есть непустая подпись, Builder отдельно рисует её над группой; само содержимое не сдвигается.</p>
+<p>Используйте Group, когда несколько виджетов должны перемещаться вместе в Builder и составлять один логический блок в экспортируемом коде. Если границу блока нужно видеть, используйте Panel.</p>
+<p>В режиме Preview Group отображается штриховкой.</p>
+<p><a name="manual-73--styleregion"></a></p>
+<h3>7.3 · StyleRegion</h3>
+<p>StyleRegion — это область, которая применяет стилевые переопределения к вложенным виджетам. Остальной макет переопределения не затрагивают. Это единственный способ управлять внешним видом отдельных виджетов.</p>
+<blockquote>
+<p>Иллюстрация. Инспектор StyleRegion. У каждого переопределения есть флажок. Снятый флажок означает, что параметр не изменяется, поэтому область может переопределить только цвет кнопок и унаследовать остальные параметры.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Переопределение</th>
+<th>Экспорт</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>text color</td>
+<td><code>PushStyleColor(Col_Text)</code></td>
+</tr>
+<tr>
+<td>frame bg</td>
+<td><code>PushStyleColor(Col_FrameBg)</code></td>
+</tr>
+<tr>
+<td>button color</td>
+<td><code>PushStyleColor(Col_Button)</code></td>
+</tr>
+<tr>
+<td>rounding</td>
+<td><code>PushStyleVar(StyleVar_FrameRounding)</code></td>
+</tr>
+<tr>
+<td>selectable align</td>
+<td><code>PushStyleVar(StyleVar_SelectableTextAlign, x, y)</code>, оба значения от 0 до 1</td>
+</tr>
+<tr>
+<td>font</td>
+<td><code>CreateFont(family, flags)</code> при запуске, затем <code>PushFont(ctx, font, size)</code> вокруг дочерних виджетов</td>
+</tr>
+</tbody></table>
+<p>Builder создаёт каждое уникальное сочетание семейства и начертания одним вызовом <code>CreateFont</code> и прикрепляет шрифт к контексту до первого кадра. <code>PushFont</code> выполняется после стилевых переопределений, а соответствующий <code>PopFont</code> — перед их снятием, поэтому шрифт применяется только к виджетам внутри StyleRegion.</p>
+<blockquote>
+<p><strong>Примечание.</strong> В Preview StyleRegion применяет к дочерним элементам поддерживаемые цвета, скругление и шрифт. Переопределение цвета текста распространяется и на внешние подписи, а также на Text, Separator, SeparatorText, LabelText и BulletText, которые рисуются через draw list: Builder разрешает их цвета при генерации Lua. Маркер <code>Aa</code> в служебном заголовке показывает, что включено переопределение шрифта.</p>
+</blockquote>
+<p><a name="manual-74--collapsingheader-и-treenode"></a></p>
+<h3>7.4 · CollapsingHeader и TreeNode</h3>
+<p>Оба контейнера могут сворачивать содержимое во время работы интерфейса. CollapsingHeader — полоса во всю ширину, TreeNode — узел с отступом и стрелкой. Оба экспортируются с <code>TreeNodeFlags_DefaultOpen</code> и при запуске раскрыты.</p>
+<p>У TreeNode есть параметр <strong>hdr color</strong>. Значение <em>default</em> выбирает чёрный или белый текст для контраста с холстом, <em>custom</em> использует выбранный цвет. Экспортёр применяет этот цвет к подписи в обоих режимах.</p>
+<p>В Builder оба контейнера всегда отображаются раскрытыми.</p>
+<p><strong>bullet instead of arrow</strong> заменяет стрелку раскрытия на маркер через <code>TreeNodeFlags_Bullet</code>. Узел всё равно можно раскрывать и сворачивать: он не становится листом. Это нативный флаг дерева/заголовка, не связанный с декоративным <strong>prefix bullet</strong> у некоторых обычных виджетов.</p>
+<p><a name="manual-75--tabbar"></a></p>
+<h3>7.5 · TabBar</h3>
+<blockquote>
+<p>Выберите служебный заголовок контейнера <strong>Tabs</strong>, чтобы открыть список <strong>tabs</strong>. Имена редактируются в строках, × удаляет страницу вместе с содержимым, кнопка добавления создаёт новую. Последнюю вкладку удалить нельзя.</p>
+</blockquote>
+<p>При размещении TabBar создаётся с двумя вкладками. Щелчок по вкладке на холсте переключает активную страницу; только её содержимое отображается, обрабатывается и учитывается проверками перекрытия. Виджеты, размещённые на странице, принадлежат соответствующему элементу TabItem.</p>
+<p>В экспорте вызовы <code>BeginTabItem</code> и <code>EndTabItem</code> вкладываются в <code>BeginTabBar</code> и <code>EndTabBar</code>, а виджеты каждой страницы — внутрь своего элемента.</p>
+<p>Полоса вкладок заключена в прозрачную дочернюю область заданной ширины и высоты, с нулевыми отступами и без прокрутки. Благодаря этому нативное подчёркивание вкладки ограничено областью Tabs, а не тянется до правого края родительского окна. Содержимое обрезается по этой области. Цвета выбранной, обычной и наведённой вкладки следуют активной теме; пользовательский цвет Tabs также попадает в экспорт.</p>
+<p><a name="manual-76--table"></a></p>
+<h3>7.6 · Table</h3>
+<blockquote>
+<p>Иллюстрация. Инспектор Table. Счётчики строк и столбцов, подпись и режим ширины для каждого столбца, флажок строки заголовков, четыре флага таблицы и общая политика размеров.</p>
+</blockquote>
+<p>Table — это сетка ячеек-контейнеров. Число строк и столбцов — от 1 до 16; новая таблица содержит 3 × 3 ячейки. Если уменьшение сетки удаляет заполненные ячейки, диалог предлагает <strong>OK</strong> для удаления их содержимого или <strong>Cancel</strong>, чтобы сохранить виджеты на верхнем уровне. Cancel сохраняет содержимое, а не отменяет изменение размера таблицы.</p>
+<table>
+<thead>
+<tr>
+<th>Параметр</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>columns / rows</td>
+<td>От 1 до 16 по каждой оси. Увеличение создаёт ячейки, уменьшение удаляет их и спрашивает, что делать с содержимым.</td>
+</tr>
+<tr>
+<td>Ширина столбца</td>
+<td>Имеет три значения. При значении <em>Auto</em> флаг не задаётся. При значении <em>Fix</em> задаётся <code>WidthFixed</code> и ширина в пикселях. При значении <em>Str</em> задаётся <code>WidthStretch</code> и весовой коэффициент.</td>
+</tr>
+<tr>
+<td>Высота строки</td>
+<td>Запрашивает минимальную высоту в пикселях. Строки без значения делят оставшееся место; слишком большие запросы уменьшаются до области таблицы, а если заданы все строки, последняя получает остаток. Разрешённая высота передаётся как минимум в <code>TableNextRow</code>.</td>
+</tr>
+<tr>
+<td>header row</td>
+<td>Добавляет вызов <code>TableHeadersRow</code> и резервирует на холсте полосу подписей высотой 18 px.</td>
+</tr>
+<tr>
+<td>Borders</td>
+<td>Границы ячеек.</td>
+</tr>
+<tr>
+<td>RowBg</td>
+<td>Чередующийся фон строк.</td>
+</tr>
+<tr>
+<td>Resizable</td>
+<td>Разрешает изменять ширину столбцов во время работы плагина.</td>
+</tr>
+<tr>
+<td>ScrollY</td>
+<td>Включает вертикальную прокрутку. Только при включённом ScrollY высота таблицы передаётся в ImGui.</td>
+</tr>
+<tr>
+<td>sizing</td>
+<td>Политика размеров для столбцов со значением <em>Auto</em>: <code>SizingFixedFit</code> или <code>SizingStretchSame</code>.</td>
+</tr>
+</tbody></table>
+<p>Builder вычитает служебную полосу 24 px и, если включена, полосу подписей 18 px, затем разрешает высоты строк. Ячейки выводятся по строкам. Дочерние элементы сохраняют локальное положение в ячейке; экспортёр пересчитывает координаты от фактической точки отсчёта ячейки и получает текущий draw list. Подписи и другая draw-list геометрия используют обрезку и прокрутку таблицы. Это сохраняет заданные смещения при нативной прокрутке и изменении ширины столбцов; автоматической потоковой раскладки здесь нет.</p>
+<blockquote>
+<p><strong>Обратите внимание.</strong> При помещении в ячейку Builder старается сохранить точку отпускания, ограничивает положение внутренней областью с отступом 4 px и при необходимости уменьшает выходящие за границу размеры. Центрирования нет. Если центр виджета не попал в ячейку, но рамка пересекает таблицу, объект переносится за ближайший край таблицы.</p>
+</blockquote>
+<hr>
+<p><a name="manual-08-справочник-инспектора"></a></p>
+<h2>08. Справочник инспектора</h2>
+<blockquote>
+<p>Инспектор показывает тип виджета, вариант, имя, подпись, свойства по контракту, позицию, размер и кнопку удаления.</p>
+</blockquote>
+<p><strong>Идентификация</strong></p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>variant</td>
+<td>Выбранный тип семейства: Int / Double или RGB / RGBA. Его можно выбрать до размещения; у существующего виджета поле доступно только для чтения.</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Идентификатор объекта. Определяет имена переменных в коде и идентификатор ImGui. Должен быть уникальным, допустимы символы <code>[A-Za-z0-9_]</code>.</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>Цепочка контейнеров, в которых находится виджет. Только для чтения.</td>
+</tr>
+<tr>
+<td>label / text</td>
+<td>Видимый текст. Для виджетов семейства Text — само содержимое, для виджетов — подпись над виджетом или внутри него.</td>
+</tr>
+<tr>
+<td>hint</td>
+<td>Только InputTextWithHint. В инспекторе поле называется <strong>placeholder</strong>; текст выводится, пока поле пустое.</td>
+</tr>
+<tr>
+<td>value</td>
+<td>Только LabelText. Значение слева, доступное только для чтения; подпись находится справа.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>Только TextLinkOpenURL. Адрес, открываемый экспортированной ссылкой. Пустое значение экспортирует <code>https://example.com</code>.</td>
+</tr>
+</tbody></table>
+<p><strong>Числовые параметры</strong></p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>value components</td>
+<td>Значение от 1 до 4. Генерируется многокомпонентный вызов, например <code>SliderDouble3</code>, с отдельным полем состояния для каждого компонента.</td>
+</tr>
+<tr>
+<td>array size</td>
+<td>Только семейства с суффиксом N. Размер массива <code>reaper.new_array</code>, от 2 до 64.</td>
+</tr>
+<tr>
+<td>min / max</td>
+<td>Границы диапазона. Если поля пустые, применяются значения по умолчанию для типа.</td>
+</tr>
+<tr>
+<td>speed</td>
+<td>Только семейства Drag. Изменение значения на один пиксель перемещения мыши.</td>
+</tr>
+<tr>
+<td>step / step fast</td>
+<td>Скалярные InputInt/InputDouble. Явные шаги управления. Для InputInt с 2–4 компонентами эти аргументы в экспорт не передаются.</td>
+</tr>
+<tr>
+<td>format</td>
+<td>Формат в стиле printf, например <code>%.2f</code> или <code>%d dB</code>. Определяет и отображение значения в виджете.</td>
+</tr>
+<tr>
+<td>format min / max</td>
+<td>Только DragRange. Отдельные форматы для нижней и верхней границы, например <code>Min: %d</code> и <code>Max: %d</code>.</td>
+</tr>
+<tr>
+<td>numeric flags</td>
+<td>Clamp, Log, NoInput, Wrap. См. <a href="#manual-09-%D1%84%D0%BB%D0%B0%D0%B3%D0%B8">§9</a>.</td>
+</tr>
+</tbody></table>
+<p>Пустые числовые поля используют значения по умолчанию; очистка удаляет явное переопределение. Диапазон Slider/Drag для Int по умолчанию 0–100, для Double — 0–1. Скорость Drag по умолчанию равна <strong>1</strong>, в том числе при собственном формате. Для иных диапазонов, шага, скорости или формата задайте значения явно.</p>
+<p><strong>Внешний вид и поведение</strong></p>
+<table>
+<thead>
+<tr>
+<th>Поле</th>
+<th>Описание</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tooltip</td>
+<td>В инспекторе поле называется <strong>hint</strong>. Добавляет <code>SetItemTooltip</code> для поддерживаемых обычных виджетов. Text, Separator, SeparatorText, LabelText, BulletText и TextWrapped его не предлагают. В инспекторах контейнеров поле видно, но в Lua не выводится.</td>
+</tr>
+<tr>
+<td>bullet</td>
+<td><strong>prefix bullet</strong> рисует декоративную точку слева от поддерживаемых обычных виджетов. <strong>bullet instead of arrow</strong> у TreeNode и CollapsingHeader включает нативный флаг дерева. См. памятку ниже.</td>
+</tr>
+<tr>
+<td>color</td>
+<td>Начальный цвет TextColored, ColorEdit3/4, ColorPicker3/4 и ColorButton. Доступен для одного объекта и подходящего пакетного выделения.</td>
+</tr>
+<tr>
+<td>alpha</td>
+<td>Значение 0–255 для вариантов RGBA, ColorButton и TextColored. Для ColorEdit4/ColorPicker4 альфа применяется только вместе с явно заданным цветом.</td>
+</tr>
+<tr>
+<td>text tone</td>
+<td>Только TextWrapped: Auto, Dark или Light. Auto следует разрешённому цвету текста темы/стиля, явный тон помогает управлять контрастом.</td>
+</tr>
+<tr>
+<td>direction</td>
+<td>Только ArrowButton. Направление стрелки: Left, Right, Up, Down.</td>
+</tr>
+<tr>
+<td>overlay</td>
+<td>Только ProgressBar. Текст поверх полосы. Пустое поле экспортирует пустую строку, поэтому автоматический процент не запрашивается.</td>
+</tr>
+<tr>
+<td>indeterminate</td>
+<td>Только ProgressBar. Анимация вместо отображения значения.</td>
+</tr>
+<tr>
+<td>group / radio value</td>
+<td>Только RadioButtonEx. Общая переменная состояния и значение этой кнопки.</td>
+</tr>
+<tr>
+<td>hdr color</td>
+<td>Только TreeNode. Цвет подписи узла: default или собственный.</td>
+</tr>
+<tr>
+<td>border / h-scroll</td>
+<td>Только Panel. Рамка и горизонтальная прокрутка.</td>
+</tr>
+<tr>
+<td>EEL2 callback</td>
+<td>Только текстовые поля ввода. См. ниже.</td>
+</tr>
+</tbody></table>
+<p><strong>Памятка по bullet</strong></p>
+<p>Prefix bullet — оформление Builder, а не универсальная опция ReaImGui. У поддерживаемых обычных виджетов точка рисуется в Editor, Preview и Lua на <strong>8 px левее</strong> начала элемента. Цвет разрешается из темы/StyleRegion; позиция самого элемента и его подписи не меняется. Оставляйте место слева: граница родительского контейнера может обрезать точку.</p>
+<table>
+<thead>
+<tr>
+<th>Сценарий</th>
+<th>Управление</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Точка перед поддерживаемым обычным элементом</td>
+<td><strong>prefix bullet</strong>; точный список типов — в приложении B.</td>
+</tr>
+<tr>
+<td>Маркер вместо стрелки раскрытия</td>
+<td><strong>bullet instead of arrow</strong> у TreeNode/CollapsingHeader; раскрытие продолжает работать.</td>
+</tr>
+<tr>
+<td>Обычная строка маркированного текста</td>
+<td>Виджет <strong>BulletText</strong>.</td>
+</tr>
+<tr>
+<td>Panel, Group, StyleRegion, TabBar, TabItem, Table, TableCell</td>
+<td>Управления bullet нет; старые сохранённые значения игнорируются.</td>
+</tr>
+</tbody></table>
+<p>ColorButton, Selectable, TextWrapped, Text, Separator, SeparatorText, LabelText и BulletText не имеют дополнительного prefix bullet. BulletText уже рисует собственный маркер.</p>
+<p><strong>Геометрия</strong></p>
+<p>Поля <strong>position</strong> (X, Y) и <strong>size</strong> (W, H) используют целые пиксели макета и учитывают Snap to grid. Фиксированные размеры доступны только для чтения. H у ColorPicker вычисляется из ширины picker и флагов.</p>
+<p>Для рисунков дополнительно выводится строка <strong>primitive order</strong> с кнопками back, backward, forward и front. Порядок изменяется только внутри слоя рисунков: рисунки не отображаются поверх виджетов.</p>
+<p><strong>Колбэки EEL2</strong></p>
+<blockquote>
+<p>Иллюстрация. Инспектор текстового поля. Сверху — базовые флаги, ниже — события колбэков, затем поле с кодом EEL2.</p>
+</blockquote>
+<p>Выберите размещённое текстовое поле и введите код в <strong>EEL2 callback</strong>. Если событие не выбрано, первый непустой ввод автоматически включает <strong>OnEdit</strong>. Выберите нужные события во флагах; OnTab и OnUp/Down доступны только однострочным полям. Скрипт компилирует и прикрепляет колбэк при запуске. Подсказка предупреждает, если у кода нет события. Флаги колбэка без непустого кода считаются ошибкой проверки перед экспортом: добавьте код или отключите события.</p>
+<hr>
+<p><a name="manual-09-флаги"></a></p>
+<h2>09. Флаги</h2>
+<p><a name="manual-числовые-флаги"></a></p>
+<h3>Числовые флаги</h3>
+<p>Применяются к семействам Slider и Drag. В экспорте объединяются побитовой операцией «или».</p>
+<p><strong>Wrap</strong> экспортируется только для Drag. Инспектор SliderN позволяет включить его, но экспортёр удаляет этот флаг из вызовов SliderN.</p>
+<table>
+<thead>
+<tr>
+<th>Флажок</th>
+<th>Флаг ImGui</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clamp</td>
+<td><code>SliderFlags_AlwaysClamp</code></td>
+<td>Ограничивает диапазоном и значения, введённые вручную, а не только полученные перетаскиванием.</td>
+</tr>
+<tr>
+<td>Log</td>
+<td><code>SliderFlags_Logarithmic</code></td>
+<td>Логарифмическая характеристика. Применяется для частоты и громкости.</td>
+</tr>
+<tr>
+<td>NoInput</td>
+<td><code>SliderFlags_NoInput</code></td>
+<td>Отключает ввод значения по Ctrl + щелчку.</td>
+</tr>
+<tr>
+<td>Wrap</td>
+<td><code>SliderFlags_WrapAround</code></td>
+<td>Только для семейств Drag. Значение заворачивается при выходе за границы.</td>
+</tr>
+</tbody></table>
+<p><a name="manual-флаги-текстового-ввода"></a></p>
+<h3>Флаги текстового ввода</h3>
+<table>
+<thead>
+<tr>
+<th>Секция</th>
+<th>Кнопка</th>
+<th>Флаг ImGui</th>
+<th>Применяется к</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>basic</td>
+<td><code>ReadOnly</code></td>
+<td><code>InputTextFlags_ReadOnly</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Pass</code></td>
+<td><code>InputTextFlags_Password</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Dec</code></td>
+<td><code>InputTextFlags_CharsDecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Hex</code></td>
+<td><code>InputTextFlags_CharsHexadecimal</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Enter</code></td>
+<td><code>InputTextFlags_EnterReturnsTrue</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Tab</code></td>
+<td><code>InputTextFlags_AllowTabInput</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>basic</td>
+<td><code>Ctrl+Enter</code></td>
+<td><code>InputTextFlags_CtrlEnterForNewLine</code></td>
+<td><code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnEdit</code></td>
+<td><code>InputTextFlags_CallbackEdit</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>Always</code></td>
+<td><code>InputTextFlags_CallbackAlways</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>CharFilter</code></td>
+<td><code>InputTextFlags_CallbackCharFilter</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code>, <code>InputTextMultiline</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnTab</code></td>
+<td><code>InputTextFlags_CallbackCompletion</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+<tr>
+<td>callback</td>
+<td><code>OnUp/Down</code></td>
+<td><code>InputTextFlags_CallbackHistory</code></td>
+<td><code>InputText</code>, <code>InputTextWithHint</code></td>
+</tr>
+</tbody></table>
+<p><a name="manual-цветовые-флаги"></a></p>
+<h3>Цветовые флаги</h3>
+<blockquote>
+<p>Иллюстрация. Цветовые флаги. Сверху — независимые переключатели. Ниже — четыре группы с выбором одного значения: display, data type, input и стиль пикера. В конце — параметры альфа-канала.</p>
+</blockquote>
+<blockquote>
+<p><strong>Примечание.</strong> Display, data type, input и picker оформлены как сегментированные группы с единственным выбором. Включение варианта снимает остальные флаги группы; щелчок по активному варианту очищает его.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Секция</th>
+<th>Кнопка</th>
+<th>Флаг ImGui</th>
+<th>Применяется к</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>базовые</td>
+<td><code>NoAlpha</code></td>
+<td><code>ColorEditFlags_NoAlpha</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoPicker</code></td>
+<td><code>ColorEditFlags_NoPicker</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoInputs</code></td>
+<td><code>ColorEditFlags_NoInputs</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoTip</code></td>
+<td><code>ColorEditFlags_NoTooltip</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoLabel</code></td>
+<td><code>ColorEditFlags_NoLabel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoSidePrev</code></td>
+<td><code>ColorEditFlags_NoSidePreview</code></td>
+<td><code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoSmallPrev</code></td>
+<td><code>ColorEditFlags_NoSmallPreview</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoOptions</code></td>
+<td><code>ColorEditFlags_NoOptions</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoDragDrop</code></td>
+<td><code>ColorEditFlags_NoDragDrop</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>базовые</td>
+<td><code>NoBorder</code></td>
+<td><code>ColorEditFlags_NoBorder</code></td>
+<td><code>ColorButton</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>RGB</code></td>
+<td><code>ColorEditFlags_DisplayRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>HSV</code></td>
+<td><code>ColorEditFlags_DisplayHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>display</td>
+<td><code>Hex</code></td>
+<td><code>ColorEditFlags_DisplayHex</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>data type</td>
+<td><code>0..255</code></td>
+<td><code>ColorEditFlags_Uint8</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>data type</td>
+<td><code>0..1</code></td>
+<td><code>ColorEditFlags_Float</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>input</td>
+<td><code>InputRGB</code></td>
+<td><code>ColorEditFlags_InputRGB</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>input</td>
+<td><code>InputHSV</code></td>
+<td><code>ColorEditFlags_InputHSV</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>picker</td>
+<td><code>HueBar</code></td>
+<td><code>ColorEditFlags_PickerHueBar</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>picker</td>
+<td><code>HueWheel</code></td>
+<td><code>ColorEditFlags_PickerHueWheel</code></td>
+<td><code>ColorEdit3</code>, <code>ColorEdit4</code>, <code>ColorPicker3</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>AlphaBar</code></td>
+<td><code>ColorEditFlags_AlphaBar</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>HalfPrev</code></td>
+<td><code>ColorEditFlags_AlphaPreviewHalf</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>NoBg</code></td>
+<td><code>ColorEditFlags_AlphaNoBg</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+<tr>
+<td>alpha</td>
+<td><code>Opaque</code></td>
+<td><code>ColorEditFlags_AlphaOpaque</code></td>
+<td><code>ColorEdit4</code>, <code>ColorPicker4</code>, <code>ColorButton</code></td>
+</tr>
+</tbody></table>
+<hr>
+<p><a name="manual-10-примитивы-рисования"></a></p>
+<h2>10. Примитивы рисования</h2>
+<blockquote>
+<p>Иллюстрация. Примитивы на холсте. Прямоугольник, круг, треугольник, линия, текст и дуга. Все примитивы экспортируются вызовами draw list и располагаются под слоем виджетов.</p>
+</blockquote>
+<p>Чтобы нарисовать фигуру, выберите инструмент в палитре и протяните указатель по холсту. Полигон строится иначе: задавайте вершины щелчками. Замкните фигуру повторным щелчком по первой точке, двойным щелчком или клавишей <code>Enter</code>. Клавиша <code>Esc</code> отменяет незавершённый полигон.</p>
+<table>
+<thead>
+<tr>
+<th>Примитив</th>
+<th>Параметры</th>
+<th>Экспорт</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Прямоугольник</td>
+<td>fill, stroke, rounding, thickness, opacity</td>
+<td><code>AddRectFilled</code> и <code>AddRect</code></td>
+</tr>
+<tr>
+<td>Круг</td>
+<td>fill, stroke, thickness, opacity</td>
+<td><code>AddCircle(Filled)</code>; при W ≠ H — <code>AddEllipse(Filled)</code></td>
+</tr>
+<tr>
+<td>Треугольник</td>
+<td>fill, stroke, thickness, orient (четыре направления)</td>
+<td><code>AddTriangle(Filled)</code></td>
+</tr>
+<tr>
+<td>Линия</td>
+<td>stroke, thickness</td>
+<td><code>AddLine</code></td>
+</tr>
+<tr>
+<td>Полигон</td>
+<td>fill, stroke, thickness, список точек</td>
+<td><code>PathFillConvex</code> для выпуклых фигур; триангуляция через <code>AddTriangleFilled</code> для невыпуклых</td>
+</tr>
+<tr>
+<td>Дуга</td>
+<td><code>ring</code>: stroke, thickness, начальный и конечный угол; <code>pie</code>: те же свойства плюс fill</td>
+<td><code>PathArcTo</code> и <code>PathStroke</code>; в режиме <code>pie</code> также <code>PathFillConvex</code></td>
+</tr>
+<tr>
+<td>Текст</td>
+<td>текст, цвет, размер, выравнивание по горизонтали и вертикали</td>
+<td><code>AddTextEx</code> с явным размером шрифта; измерение текста для выравнивания</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Иллюстрация. Инспектор дуги. Углы задаются в градусах по правилам ImGui: 0° соответствует направлению вправо, значения растут по часовой стрелке. Развёртка 270° с началом в 135° соответствует стандартной шкале поворотной ручки.</p>
+</blockquote>
+<p>Рисунки при экспорте обрезаются по макету и попадают в код, если хотя бы пересекают его: прямоугольник, частично выходящий за край, будет выведен, а выходящую часть обрежет ImGui. Для виджетов правило строже — виджет должен целиком находиться внутри фрейма, иначе он не экспортируется.</p>
+<p><strong>Размер и цвет текста рисунка.</strong> Значение <em>text size</em> экспортируется явно. Изменение рамки масштабирует шрифт по правилам §5.3. Новый Text автоматически следует разрешённому цвету текста проекта; выбор цвета в picker фиксирует пользовательский цвет. Холст и Lua используют один выбор. Текст не сжимается под произвольную ширину.</p>
+<p><strong>Связанные углы дуги.</strong> Включите <strong>Link angles</strong>, чтобы сохранять развёртку: изменение Start на величину сдвигает End на ту же величину, и наоборот. Дуга обновляется во время ввода. Настройка сохраняется и работает при пакетном редактировании дуг. Она связывает углы, а не цвета заливки и обводки.</p>
+<p><a name="manual-заливка-и-обводка"></a></p>
+<h3>Заливка и обводка</h3>
+<p>У каждой доступной строки fill/stroke есть собственный флажок <strong>disable</strong>. Он отключает компонент, не стирая выбранный цвет. Элементы независимы: фигура может иметь заливку, обводку, оба компонента или ни одного.</p>
+<p>Stroke можно отключить также у Line и дуги в режиме ring. Полностью отключённый или прозрачный рисунок остаётся в проекте; выбирайте его через Elements. Цвета fill и stroke редактируются независимо, связи между цветами в версии 1.0.40 нет.</p>
+<p>Если поле opacity оставить пустым и убрать фокус, прежнее значение восстанавливается. То же правило действует в пакетном редактировании.</p>
+<p>ImGui напрямую заливает только выпуклые пути. Невыпуклый полигон Builder триангулирует и экспортирует несколькими вызовами <code>AddTriangleFilled</code>; контур остаётся одним замкнутым путём.</p>
+<hr>
+<p><a name="manual-11-настройки-холста-и-проекта"></a></p>
+<h2>11. Настройки холста и проекта</h2>
+<p><a name="manual-заголовок-окна"></a></p>
+<h3>Заголовок окна</h3>
+<p>Название, под которым макет откроется в REAPER, показано в синей шапке над холстом. Щёлкните по нему — строка станет полем ввода. <code>Enter</code> применяет название, <code>Esc</code> отменяет правку.</p>
+<p>Заголовок попадает в сгенерированный скрипт (<code>CreateContext</code> и <code>ImGui_Begin</code>), сохраняется в файле проекта и задаёт имя скачиваемого файла: <em>Track Tools</em> → <code>Track_Tools.lua</code>. Апостроф в названии экранируется, поэтому скрипт остаётся работоспособным.</p>
+<p><a name="manual-размер"></a></p>
+<h3>Размер</h3>
+<p>Поля W и H на вкладке Canvas задают размер содержимого окна плагина. Эти значения передаются в экспорт как <code>W, H</code>. Чтобы применить их, нажмите <code>Enter</code> или уберите фокус с поля. Тот же результат даёт перетаскивание маркера ⇲.</p>
+<p><a name="manual-фон"></a></p>
+<h3>Фон</h3>
+<ul>
+<li><strong>Default.</strong> Холст отображается в цветах активной темы, а в экспорте сохраняется собственный фон окна ImGui. Если выбрана тема, отличная от Default, Builder дополнительно применяет её цвет фона к дочернему окну холста через <code>PushStyleColor</code>.</li>
+<li><strong>Custom.</strong> Выберите цвет и opacity во встроенном picker вкладки Canvas. Opacity смешивает цвет с белым; экспорт записывает получившийся непрозрачный цвет как <code>Col_WindowBg</code>. Прозрачным окно REAPER от этого не становится.</li>
+</ul>
+<p><a name="manual-выбор-цвета"></a></p>
+<h3>Выбор цвета</h3>
+<p>Образцы цветов рисунков, поддерживаемых виджетов, StyleRegion, пакетного редактирования и редактора темы открывают всплывающий picker Builder. Обычно он появляется справа и сверху, а у края окна перемещается влево или вниз. На вкладке Canvas используется отдельный встроенный picker фона.</p>
+<p>Во всплывающем окне есть поле насыщенности/яркости, полоса оттенка, поле <strong>HEX</strong> и недавние образцы. Экранная пипетка отображается только в браузерах, которые её поддерживают. При открытии фокус получает HEX; допустимы <code>#RRGGBB</code> и <code>#RGB</code>. Изменения применяются сразу. <code>Enter</code> закрывает окно, <code>Esc</code> закрывает его и возвращает фокус, но не отменяет уже применённый цвет. Группировка Undo следует поведению истории редактируемого поля.</p>
+<p>Недавние образцы общие для всех цветовых полей и сохраняются до перезагрузки страницы.</p>
+<p><a name="manual-сетка"></a></p>
+<h3>Сетка</h3>
+<p>Флажок <strong>Show grid</strong> включает отображение тонкой сетки; настройка сохраняется отдельно для режимов Editor и Preview. Параметр <strong>Step</strong> задаёт шаг сетки — 2, 5 или 10 px. Этот же шаг используется для привязки.</p>
+<p><a name="manual-audit-grid"></a></p>
+<h3>Audit grid</h3>
+<p>Команда <em>View → Reference grid in export</em> включает пурпурную измерительную сетку с шагом 50 px. В отличие от обычной сетки, audit grid попадает в экспорт: в генерируемый код добавляется блок, который рисует ту же сетку в окне REAPER. Так можно проверить соответствие координат в Builder и в окне REAPER. Перед выпуском скрипта отключите эту команду.</p>
+<p><a name="manual-масштаб-и-панорамирование"></a></p>
+<h3>Масштаб и панорамирование</h3>
+<p>Масштаб изменяется от <strong>50% до 250%</strong>. Готовые значения доступны в статусной строке, <code>Cmd/Ctrl</code> + колесо мыши масштабирует относительно курсора, а кнопка ⤢ вписывает макет. Инструмент Zoom увеличивает щелчком и уменьшает через <code>Alt/Option + щелчок</code>. Для панорамирования выберите Hand или удерживайте Space до начала перетаскивания. Рабочая область расширяется для рисунков, вынесенных за пределы макета. Масштаб и панорамирование меняют только вид, а не координаты объектов.</p>
+<hr>
+<p><a name="manual-12-темы"></a></p>
+<h2>12. Темы</h2>
+<blockquote>
+<p>Иллюстрация. Выбор темы. Встроенные и пользовательские темы, ниже — кнопки + Add и Edit . Активная тема сохраняется в проекте.</p>
+</blockquote>
+<p>Тема задаёт пятнадцать цветов: тринадцать слотов стиля ImGui, фон дочернего окна и цвет подписей, нарисованных через draw list. В комплект входят <strong>Default</strong> (без цветовых переопределений темы), <strong>Slate (dark)</strong> и <strong>Light</strong>.</p>
+<p>Тема действует в двух местах: на отрисовку холста в режиме Preview и на экспорт. Тема, отличная от Default, выводит свои цвета вызовами <code>PushStyleColor</code> сразу после открытия дочернего окна-холста и снимает их перед его закрытием.</p>
+<blockquote>
+<p>Иллюстрация. Тема Slate в режиме Preview. Предпросмотр приближённо показывает вид макета в REAPER с палитрой этой темы.</p>
+</blockquote>
+<p><a name="manual-пользовательские-темы"></a></p>
+<h3>Пользовательские темы</h3>
+<blockquote>
+<p>Иллюстрация. Окно New Theme. Четыре цвета задают всю палитру; полоса образцов показывает производные слоты.</p>
+</blockquote>
+<p>Чтобы создать тему, задайте четыре цвета: фон, текст, элементы управления и акцент. Остальные одиннадцать слотов вычисляются автоматически. Состояния hovered и active получаются сдвигом от цвета элементов управления — светлее на тёмном фоне и темнее на светлом. Цвета заголовков смешиваются из фона и акцента. Акцентный цвет используется для галочек и активного ползунка.</p>
+<ul>
+<li>Пользовательские темы хранятся в localStorage браузера и доступны только на этом компьютере и в этом браузере.</li>
+<li>Определение активной пользовательской темы сохраняется в файле проекта. При загрузке она становится доступной в текущем сеансе, но не добавляется автоматически в постоянную библиотеку тем браузера.</li>
+<li>Кнопка <strong>Edit</strong> включает режим управления пользовательскими темами: тему можно открыть для изменения кнопкой с карандашом или удалить. Встроенные темы изменять и удалять нельзя.</li>
+</ul>
+<hr>
+<p><a name="manual-13-режим-preview"></a></p>
+<h2>13. Режим Preview</h2>
+<blockquote>
+<p>Иллюстрация. Режим Preview. Метки имён, заголовки контейнеров и элементы выделения не выводятся. Виджеты отображаются приближённо к своему виду в ImGui с учётом активной темы.</p>
+</blockquote>
+<p>Переключатель Editor / Preview над холстом меняет режим отображения. В Preview нельзя перетаскивать, менять размер или размещать объекты прямо на холсте, но проект не блокируется: инспектор и команды редактирования продолжают работать. Щелчок выбирает виджет, а не запускает экспортированное управление. Переключайте вкладки в режиме Editor.</p>
+<p>Штрихованными заглушками отображаются <strong>Group</strong>, <strong>Table</strong> и <strong>ColorPicker3/4</strong>. <strong>TextWrapped</strong> показывает перенос текста, включая длинные строки без пробелов, с учётом tone, стиля и шрифта. При наличии схематичных объектов внизу появляется баннер.</p>
+<blockquote>
+<p><strong>Ограничения Preview:</strong></p>
+<ul>
+<li>ColorEdit и другие нативные элементы могут показывать не все флаги и взаимодействия. Preview — приближение макета, а не исполняемое окно ReaImGui.</li>
+</ul>
+<p>В Preview и экспорте цвет текста StyleRegion распространяется и на внешние подписи. Остальные свойства могут быть показаны схематично: Preview не запускает ReaImGui и не выполняет Lua.</p>
+<p>Preview ProgressBar использует фиксированное заполнение около 45% и не показывает экспортируемую анимацию или overlay. Числовые элементы также выводят условные значения, а не исполняют сгенерированный скрипт.</p>
+</blockquote>
+<hr>
+<p><a name="manual-14-экспорт"></a></p>
+<h2>14. Экспорт</h2>
+<p><a name="manual-проверка-перед-экспортом"></a></p>
+<h3>Проверка перед экспортом</h3>
+<p>В верхней части окна <em>Export</em> расположена панель проверки. Она запускается при каждом открытии окна и делит найденное на три уровня.</p>
+<ul>
+<li><strong>Ошибка.</strong> Проверка нашла условие, блокирующее экспорт: недопустимые ID, связи родителей, геометрия, типы виджетов, поддерживаемые числовые поля или события колбэка без кода. <em>copy</em> и <em>download</em> остаются недоступны до исправления. Проверяется структура проекта, но Lua не исполняется и не все нативные аргументы валидируются; оставшиеся ограничения форматов и диапазонов указаны в §17.</li>
+<li><strong>Предупреждение.</strong> Экспорт доступен, но настройка или пропуск требуют внимания: объекты вне макета, дочерние элементы исключённого контейнера, обрезанные рисунки, совпадающие имена, повторяющиеся значения radio, пустой TabBar или отсутствующие ячейки Table.</li>
+<li><strong>Информация.</strong> Одна строка со счётчиком: сколько элементов не имеют видимой подписи.</li>
+</ul>
+<p>Заголовок панели сообщает главное — сколько объектов <strong>не</strong> попадёт в экспорт, и сколько попадёт из общего числа. Именно этого сам экспорт никогда не показывает.</p>
+<p>Щелчок по строке проверки выделяет соответствующий объект на холсте.</p>
+<blockquote>
+<p>Вкладка ReaImGui окна Export содержит сгенерированный скрипт: создание контекста, таблицы позиций и состояния, функцию отрисовки и цикл defer. Кнопка <strong>copy</strong> копирует код в буфер обмена.</p>
+</blockquote>
+<p><a name="manual-структура-генерируемого-файла"></a></p>
+<h3>Структура генерируемого файла</h3>
+<p>Код всегда имеет одинаковую структуру:</p>
+<ol>
+<li><strong>Заголовочные комментарии.</strong> Размер холста и правила размещения.</li>
+<li><strong>Контекст и размеры.</strong> Вызов <code>CreateContext</code>, значения <code>W, H</code> и <code>OUTER_H</code>. Последнее добавляет высоту полосы заголовка, чтобы область содержимого совпадала с размерами макета.</li>
+<li><strong>Таблица позиций.</strong> Координаты X/Y и ширина виджетов перечислены в <code>local pos = { … }</code> в начале файла. Многие координаты и размеры также встроены прямо в вызовы виджетов и draw list. Для согласованного изменения правьте проект Builder и экспортируйте заново.</li>
+<li><strong>Таблица состояния.</strong> <code>local state = { radioGroups = {} }</code> содержит интерактивные значения, отдельное пространство общих radio-групп и массивы <code>reaper.new_array</code> для семейств N. Таблицы не создают отдельную локальную переменную верхнего уровня для каждого виджета.</li>
+<li><strong>Шрифты и колбэки EEL2.</strong> Создаются и прикрепляются один раз, до цикла, если их использует хотя бы одна StyleRegion или поле ввода.</li>
+<li><strong>Функция <code>draw()</code>.</strong> Задаёт стиль макета, открывает окно и дочерний холст, получает draw list и точку отсчёта текущей области, применяет тему, рисует примитивы и выводит виджеты в порядке дерева. Вложенные дочерние окна и ячейки Table при необходимости создают собственный контекст рисования.</li>
+<li><strong>Цикл <code>defer</code>.</strong></li>
+</ol>
+<p><a name="manual-правила-размещения-в-коде"></a></p>
+<h3>Правила размещения в коде</h3>
+<p>Обычный виджет использует запись таблицы позиций:</p>
+<pre><code class="language-lua">reaper.ImGui_SetCursorScreenPos(ctx,
+  ox + pos.SLIDER_2.x, oy + pos.SLIDER_2.y)
+reaper.ImGui_SetNextItemWidth(ctx, pos.SLIDER_2.w)
+</code></pre>
+<p>Точка отсчёта и draw list должны принадлежать активной области рисования. Корневой холст получает их после открытия дочернего окна; вложенные области и ячейки таблицы используют текущий исполняемый контекст. Так корпуса виджетов, внешние подписи и draw-list геометрия остаются выровненными с учётом обрезки и прокрутки.</p>
+<p>Координаты и размеры встречаются также прямо в вызовах. Изменение одной записи <code>pos</code> не является полной правкой макета; по возможности обновите проект и экспортируйте снова.</p>
+<p>Нулевые padding и spacing заданы намеренно. Добавляя в Lua потоковые виджеты, настройте подходящие отступы или продолжайте явно задавать позицию.</p>
+<p><a name="manual-состав-экспорта"></a></p>
+<h3>Состав экспорта</h3>
+<ul>
+<li>Виджет экспортируется, только если целиком находится внутри границ макета. Проверка выполняется по полной занятой области виджета. Виджет, выходящий за край, в код не попадает.</li>
+<li>Рисунок экспортируется, если пересекает границы макета.</li>
+<li>Audit grid экспортируется, если включена.</li>
+</ul>
+<hr>
+<p><a name="manual-15-сохранение-и-загрузка"></a></p>
+<h2>15. Сохранение и загрузка</h2>
+<p><strong>JSON-проект</strong> сохраняет редактируемый макет. Lua — выходной формат, его нельзя импортировать обратно в Builder.</p>
+<table>
+<thead>
+<tr>
+<th>Команда</th>
+<th>Поведение</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Save Project</strong> · <code>Cmd/Ctrl + S</code></td>
+<td>Сохраняет в выбранный файл проекта. При первой записи браузер с прямым доступом к файлам предлагает выбрать расположение.</td>
+</tr>
+<tr>
+<td><strong>Save As…</strong> · <code>Cmd/Ctrl + Shift + S</code></td>
+<td>Выбирает новое имя или расположение проекта.</td>
+</tr>
+<tr>
+<td><strong>Load Project</strong></td>
+<td>Открывает JSON-проект. При поддержке прямого доступа последующие Save в текущем сеансе записывают в этот файл.</td>
+</tr>
+<tr>
+<td><strong>New Project</strong></td>
+<td>Создаёт пустой макет 600 × 400, сохраняя текущие заголовок, фон, тему, сетку и привязку.</td>
+</tr>
+<tr>
+<td><strong>Restore projects…</strong></td>
+<td>Открывает список черновиков закрытых сеансов, которые можно восстановить.</td>
+</tr>
+</tbody></table>
+<p>Прямая запись зависит от поддержки и разрешений браузера. После выбора файла повторный Save использует его в текущем сеансе, хотя браузер может снова запросить разрешение. Вид и текст системных запросов определяет браузер.</p>
+<p>Если прямой доступ недоступен, Builder скачивает JSON-копию. В таком режиме он не может перезаписать исходный файл или подтвердить завершение загрузки. Сообщение в статусной строке различает прямое сохранение и скачанную копию.</p>
+<p>Отмена Save As или ошибка записи сохраняют открытый проект и данные восстановления. Правки, внесённые во время записи и не попавшие в снимок, остаются несохранёнными.</p>
+<p>Перед заменой изменённого проекта через New, Load или Restore Builder предлагает <strong>Save / Discard / Cancel</strong>. Отменённая или неудачная загрузка не заменяет текущий макет. Входные данные проверяются заранее; некорректные ID, ссылки и другие повреждения отклоняются. Старые проекты при успешной загрузке нормализуются под актуальную структуру. История Undo очищается.</p>
+<p>Файл проекта включает объекты и их вложенность, группы редактора и имена, порядок слоёв, связанные углы дуг, свойства виджетов, заголовок, размеры, фон, активную тему с пользовательским определением, audit grid, привязку и шаг сетки. Масштаб, история Undo, режим Editor/Preview, видимость обычной сетки и панелей не являются переносимыми настройками проекта.</p>
+<p><a name="manual-автосохранение-и-восстановление"></a></p>
+<h3>Автосохранение и восстановление</h3>
+<p>Builder хранит черновики восстановления в памяти этого браузера. Команда <strong>File → Restore projects…</strong> показывает и восстанавливает черновики закрытых сеансов; автоматического вопроса при запуске больше нет. Проекты, всё ещё открытые в активной вкладке, в список не попадают.</p>
+<p>Успешная прямая запись удаляет завершённый черновик. Если во время записи появились новые правки, их черновик остаётся. При скачивании файла данные восстановления сохраняются, поскольку браузер не сообщает Builder, завершилась или была отменена загрузка. Восстановленный черновик следует сохранить как файл проекта.</p>
+<p>При выходе с несохранёнными изменениями браузер может показать стандартное подтверждение закрытия страницы. Его наличие и текст зависят от браузера и не связаны с диалогом Builder Save/Discard/Cancel.</p>
+<p>Хранилище восстановления и пользовательских тем связано с браузером и может исчезнуть при очистке данных сайта; поведение для локальных файлов также различается. Надёжной переносимой копией остаётся JSON-проект.</p>
+<hr>
+<p><a name="manual-16-клавиатура-и-мышь"></a></p>
+<h2>16. Клавиатура и мышь</h2>
+<p>На macOS используйте Cmd, на Windows/Linux — Ctrl, если для действия не указан другой модификатор.</p>
+<table>
+<thead>
+<tr>
+<th>Действие</th>
+<th>Результат</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Cmd/Ctrl + S</code></td>
+<td>Save Project</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Shift + S</code></td>
+<td>Save As</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + <code>C</code> / <code>V</code></td>
+<td>Копирование и вставка, включая поддерево контейнера</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + <code>D</code></td>
+<td>Дублирование</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + G</code></td>
+<td>Сгруппировать выделение в редакторе</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl + Shift + G</code></td>
+<td>Разгруппировать выделение</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + <code>Z</code></td>
+<td>Отмена действия</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Z</code> · <code>Cmd/Ctrl</code> + <code>Y</code></td>
+<td>Повтор действия</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + <code>A</code></td>
+<td>Выделение всех объектов</td>
+</tr>
+<tr>
+<td><code>Del</code> · <code>Backspace</code></td>
+<td>Удаление; заполненный контейнер предлагает варианты для содержимого</td>
+</tr>
+<tr>
+<td>Стрелки при фокусе на холсте</td>
+<td>Сдвиг на шаг сетки, при выключенной привязке — на 1 px</td>
+</tr>
+<tr>
+<td><code>Shift</code> + стрелки при фокусе на холсте</td>
+<td>Сдвиг на десять шагов</td>
+</tr>
+<tr>
+<td><code>↑/↓</code>, <code>Home/End</code> в Elements</td>
+<td>Переход по строкам; Shift расширяет выделение строк</td>
+</tr>
+<tr>
+<td><code>Enter</code> в Elements</td>
+<td>Передать фокус холсту, сохранив выделение и вид</td>
+</tr>
+<tr>
+<td><code>Shift</code> + щелчок на холсте</td>
+<td>Расширить выделение по области между опорным и выбранным объектами</td>
+</tr>
+<tr>
+<td><code>Shift</code> + щелчок в Elements</td>
+<td>Выбрать диапазон строк</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + щелчок</td>
+<td>Добавление объекта в выделение или исключение из него</td>
+</tr>
+<tr>
+<td>Протягивание по пустому холсту</td>
+<td>Рамочное выделение; Shift добавляет, Cmd/Ctrl переключает</td>
+</tr>
+<tr>
+<td><code>Alt/Option</code> + перетаскивание объекта</td>
+<td>Перетаскивание копии</td>
+</tr>
+<tr>
+<td><code>Shift</code> + изменение размера рисунка</td>
+<td>Сохранение пропорций; работает и для выделения только из рисунков</td>
+</tr>
+<tr>
+<td>Удерживать <code>U</code> до перетаскивания контейнера</td>
+<td>Оставить текущих детей на месте и не захватывать новые</td>
+</tr>
+<tr>
+<td><code>Space</code> + перетаскивание</td>
+<td>Временный Hand; нажмите Space до начала жеста</td>
+</tr>
+<tr>
+<td><code>Cmd/Ctrl</code> + колесо мыши</td>
+<td>Масштабирование относительно курсора</td>
+</tr>
+<tr>
+<td>Zoom: щелчок / <code>Alt/Option + щелчок</code></td>
+<td>Увеличение / уменьшение вокруг точки</td>
+</tr>
+<tr>
+<td>Правая кнопка на пустом холсте</td>
+<td>Меню размещения виджетов</td>
+</tr>
+<tr>
+<td>Правая кнопка на объекте, выделении или строке Elements</td>
+<td>Команды объекта/выделения</td>
+</tr>
+<tr>
+<td><code>Shift</code> + выбор Rectangle, Circle, Line, Triangle или Arc</td>
+<td>Оставить инструмент активным для повторного рисования</td>
+</tr>
+<tr>
+<td>Polygon: <code>Enter</code>, двойной щелчок или щелчок по первой точке</td>
+<td>Замкнуть полигон</td>
+</tr>
+<tr>
+<td><code>Esc</code></td>
+<td>Отменить инструмент/полигон, снять выделение или закрыть активный диалог/меню</td>
+</tr>
+</tbody></table>
+<p>Текстовые поля сохраняют обычное поведение ввода, буфера обмена и навигации. Save/Save As работают и во время редактирования поля. В Elements стрелки перемещаются по списку, пока фокус не вернётся на холст. Полный встроенный список открыт через <strong>Help → Keyboard Shortcuts</strong>.</p>
+<hr>
+<p><a name="manual-17-ограничения-сборки"></a></p>
+<h2>17. Ограничения сборки</h2>
+<p>Ниже перечислены ограничения, актуальные для версии <strong>1.0.40</strong>.</p>
+<p><a name="manual-не-реализовано"></a></p>
+<h3>Не реализовано</h3>
+<ul>
+<li>Редактирование списков Combo/ListBox в Builder: экспорт содержит пять элементов-заглушек. Замените строки в Lua; состояние выбора и вызовы уже сгенерированы.</li>
+<li>Импорт сгенерированного Lua обратно в Builder. Для редактируемого макета сохраняйте JSON.</li>
+<li>DSP, логика приложения и готовые обработчики событий. Заполните сгенерированные TODO в своём скрипте.</li>
+<li>Универсальные ручки или свойство поворота рисунков. Углы Arc и orient Triangle поддерживаются отдельно.</li>
+<li>Отдельный импорт/экспорт файла темы. Активная тема входит в JSON проекта.</li>
+</ul>
+<p><a name="manual-особенности-поведения"></a></p>
+<h3>Особенности поведения</h3>
+<ul>
+<li>Preview не исполняет ReaImGui. Group, Table и ColorPicker остаются схематичными; нативные шрифты, взаимодействия и часть флагов проверяйте в REAPER.</li>
+<li>Виджеты вне рамки экспорта исключаются. Вместе с контейнером исключается содержимое. Пересекающие рамку рисунки экспортируются с обрезкой; проверяйте результаты preflight.</li>
+<li>W/H корпуса не всегда описывают полный footprint. Внешним подписям, естественной ширине текста и области picker нужно дополнительное место; prefix bullet может обрезаться левым краем родителя.</li>
+<li>Инспекторы контейнеров показывают <strong>hint</strong>, но экспортёр не создаёт tooltip для контейнера. Используйте поддерживаемый обычный виджет или HelpMarker.</li>
+<li>SliderN может показывать Wrap среди числовых флагов, но экспортёр удаляет Wrap из вызова Slider; используйте его с Drag.</li>
+<li>Для ColorEdit4/ColorPicker4 явно задайте и color, и alpha, если требуется конкретная начальная прозрачность.</li>
+<li>Форматы чисел и экстремальные границы Double-slider проверяются не полностью. Используйте один совместимый спецификатор (например <code>%d</code> для Int или <code>%.2f</code> для Double) и разумный диапазон. Чистый preflight не доказывает корректность любого формата или предельного значения в ReaImGui.</li>
+<li>Рисунки остаются ниже виджетов. Порядок внутри слоя не отменяет обрезку нативными дочерними окнами и не создаёт глобальный overlay.</li>
+<li>Разрешения браузера на файлы и буфер обмена влияют на сохранение и копирование. Черновики и пользовательские темы в браузере не заменяют переносимый проект.</li>
+<li>Имя Lua-файла выводится из заголовка окна; неподдерживаемые символы заменяются подчёркиванием, запасное имя — <code>MyPlugin.lua</code>.</li>
+</ul>
+<hr>
+<p><a name="manual-приложение-a--контракты-виджетов"></a></p>
+<h2>Приложение A · Контракты виджетов</h2>
+<p>Таблица содержит все <strong>50 типов контрактов</strong>, включая автоматически управляемые TabItem и TableCell. Размеры указаны до привязки при размещении и поправок конкретного типа. <strong>H</strong> означает фиксированную высоту, <strong>D</strong> — высоту, вычисляемую из ширины и флагов. Ширина SmallButton и RadioButtonEx следует за подписью; Checkbox и ArrowButton не изменяют размер. Для контентных типов ширина в таблице — начальная, а не предел текста.</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Семейство · вариант</th>
+<th>Размер</th>
+<th>Ширина</th>
+<th>Высота</th>
+<th>Что это</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td><code>Button</code></td>
+<td>100×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Кнопка, выполняющая действие по нажатию.</td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td><code>SmallButton</code></td>
+<td>50×20 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-fixed</code></td>
+<td>Кнопка с уменьшенными отступами. Поведение то же, что у Button.</td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td><code>ArrowButton</code></td>
+<td>17×17 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Квадратная кнопка со стрелкой.</td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td><code>Checkbox</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>Логический переключатель с подписью. Во включённом состоянии выводится галочка.</td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td><code>RadioButtonEx</code></td>
+<td>20×20 <strong>H</strong></td>
+<td><code>widget-box-preview</code></td>
+<td><code>native-fixed</code></td>
+<td>Набор взаимоисключающих переключателей. Активен только один.</td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td><code>Selectable</code></td>
+<td>140×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Выделяемая строка во всю ширину.</td>
+</tr>
+<tr>
+<td><code>Text</code></td>
+<td><code>Text</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Статическая однострочная подпись.</td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td><code>TextColored</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Текст заданного цвета.</td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td><code>TextDisabled</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Текст в неактивном стиле.</td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td><code>TextWrapped</code></td>
+<td>200×60</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Текст с переносом по доступной ширине.</td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td><code>BulletText</code></td>
+<td>160×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>Строка текста с маркером.</td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td><code>LabelText</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Подпись и значение справа от неё, только для чтения.</td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td><code>TextLinkOpenURL</code></td>
+<td>120×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>Подчёркнутая ссылка, открывающая URL в браузере.</td>
+</tr>
+<tr>
+<td><code>SeparatorText</code></td>
+<td><code>SeparatorText</code></td>
+<td>200×14 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>Разделительная линия с подписью по центру.</td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td><code>Separator</code></td>
+<td>200×10 <strong>H</strong></td>
+<td><code>explicit-size</code></td>
+<td><code>native-line</code></td>
+<td>Горизонтальная разделительная линия.</td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td><code>HelpMarker</code></td>
+<td>24×20 <strong>H</strong></td>
+<td><code>content-or-widget-box</code></td>
+<td><code>native-content</code></td>
+<td>Маркер «(?)» с подсказкой при наведении.</td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td><code>ProgressBar</code></td>
+<td>120×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Горизонтальная полоса выполнения со значением от 0 до 100%.</td>
+</tr>
+<tr>
+<td><code>SliderInt</code></td>
+<td><code>Slider</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Горизонтальный трек с ползунком для одного числового значения.</td>
+</tr>
+<tr>
+<td><code>SliderDouble</code></td>
+<td><code>Slider</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Горизонтальный трек с ползунком для одного числового значения.</td>
+</tr>
+<tr>
+<td><code>SliderDoubleN</code></td>
+<td><code>SliderN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Несколько слайдеров, образующих одно многокомпонентное значение.</td>
+</tr>
+<tr>
+<td><code>VSliderInt</code></td>
+<td><code>VSlider</code> · <code>Int</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Вертикальный слайдер для одного числового значения.</td>
+</tr>
+<tr>
+<td><code>VSliderDouble</code></td>
+<td><code>VSlider</code> · <code>Double</code></td>
+<td>18×160</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Вертикальный слайдер для одного числового значения.</td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td><code>SliderAngle</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Слайдер для ввода угла в градусах.</td>
+</tr>
+<tr>
+<td><code>DragInt</code></td>
+<td><code>Drag</code> · <code>Int</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Числовое поле, значение которого изменяется горизонтальным перетаскиванием.</td>
+</tr>
+<tr>
+<td><code>DragDouble</code></td>
+<td><code>Drag</code> · <code>Double</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Числовое поле, значение которого изменяется горизонтальным перетаскиванием.</td>
+</tr>
+<tr>
+<td><code>DragDoubleN</code></td>
+<td><code>DragN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Несколько полей Drag, образующих одно многокомпонентное значение.</td>
+</tr>
+<tr>
+<td><code>DragIntRange2</code></td>
+<td><code>DragRange</code> · <code>Int</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Два связанных поля Drag, задающих нижнюю и верхнюю границу.</td>
+</tr>
+<tr>
+<td><code>DragFloatRange2</code></td>
+<td><code>DragRange</code> · <code>Double</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Два связанных поля Drag, задающих нижнюю и верхнюю границу.</td>
+</tr>
+<tr>
+<td><code>InputInt</code></td>
+<td><code>Input</code> · <code>Int</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Числовое поле ввода с кнопками шага.</td>
+</tr>
+<tr>
+<td><code>InputDouble</code></td>
+<td><code>Input</code> · <code>Double</code></td>
+<td>80×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Числовое поле ввода с кнопками шага.</td>
+</tr>
+<tr>
+<td><code>InputDoubleN</code></td>
+<td><code>InputN</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Несколько числовых полей ввода в одном виджете.</td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td><code>InputText</code></td>
+<td>120×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Однострочное поле ввода текста.</td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td><code>InputTextWithHint</code></td>
+<td>140×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Однострочное поле с текстом-заполнителем, пока оно пусто.</td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td><code>InputTextMultiline</code></td>
+<td>200×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>Многострочное поле ввода текста.</td>
+</tr>
+<tr>
+<td><code>Combo</code></td>
+<td><code>Combo</code></td>
+<td>100×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Выпадающий список с отображением выбранного элемента.</td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td><code>ListBox</code></td>
+<td>160×80</td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>Прокручиваемый список с несколькими видимыми строками.</td>
+</tr>
+<tr>
+<td><code>ColorEdit3</code></td>
+<td><code>ColorEdit</code> · <code>RGB</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Компактный редактор цвета: поля каналов и образец.</td>
+</tr>
+<tr>
+<td><code>ColorEdit4</code></td>
+<td><code>ColorEdit</code> · <code>RGBA</code></td>
+<td>160×20 <strong>H</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>native-fixed</code></td>
+<td>Компактный редактор цвета: поля каналов и образец.</td>
+</tr>
+<tr>
+<td><code>ColorPicker3</code></td>
+<td><code>ColorPicker</code> · <code>RGB</code></td>
+<td>200×246 <strong>D</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>Полный редактор цвета: поле насыщенности и полоса оттенка.</td>
+</tr>
+<tr>
+<td><code>ColorPicker4</code></td>
+<td><code>ColorPicker</code> · <code>RGBA</code></td>
+<td>200×246 <strong>D</strong></td>
+<td><code>next-item-width</code></td>
+<td><code>explicit-size</code></td>
+<td>Полный редактор цвета: поле насыщенности и полоса оттенка.</td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td><code>ColorButton</code></td>
+<td>40×20</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Кнопка-образец с одним цветом.</td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td><code>Panel</code></td>
+<td>220×140</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Область с рамкой и прокруткой, содержащая другие виджеты.</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td><code>Group</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Контейнер без рамки; непустая подпись рисуется отдельно.</td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td><code>StyleRegion</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Невидимая область со стилевыми переопределениями: цвета, скругление, выравнивание, шрифт.</td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td><code>CollapsingHeader</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Заголовок во всю ширину, сворачивающий содержимое.</td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td><code>TreeNode</code></td>
+<td>200×120</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Раскрываемый узел с отступом для вложенных элементов.</td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td><code>TabBar</code></td>
+<td>280×180</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Полоса вкладок с переключением страниц содержимого.</td>
+</tr>
+<tr>
+<td><code>TabItem</code></td>
+<td><code>TabItem</code></td>
+<td>280×156</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Страница, управляемая TabBar; отдельно не размещается.</td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td><code>Table</code></td>
+<td>320×200</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Сетка строк и столбцов, содержащая другие виджеты.</td>
+</tr>
+<tr>
+<td><code>TableCell</code></td>
+<td><code>TableCell</code></td>
+<td>100×50</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>Ячейка, управляемая Table; размер следует за разрешёнными строкой и столбцом.</td>
+</tr>
+</tbody></table>
+<hr>
+<p><a name="manual-приложение-b--матрица-инспектора"></a></p>
+<h2>Приложение B · Матрица инспектора</h2>
+<p>Таблица отражает поля для каждого из <strong>50 типов</strong> в версии 1.0.40. Названия соответствуют инспектору: <strong>hint</strong> — подсказка при наведении, а <strong>placeholder</strong> относится к InputTextWithHint. Основные <strong>name</strong> и условная строка <strong>parent</strong> не повторяются. Variant выбирается до размещения; фиксированные оси размера доступны только для чтения.</p>
+<p>TabItem и TableCell — структурные типы, управляемые родителем; структуру вкладок и таблиц редактируйте через TabBar/Table. Общие строки при множественном выделении могут быть уже этого списка. Строка hint видна у контейнеров, но не выводится в Lua.</p>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Строки инспектора</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Button</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SmallButton</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ArrowButton</code></td>
+<td>direction, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>Checkbox</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>RadioButtonEx</code></td>
+<td>label / text, hint, prefix bullet, group, radio value, size, position</td>
+</tr>
+<tr>
+<td><code>Selectable</code></td>
+<td>label / text, hint, size, position</td>
+</tr>
+<tr>
+<td><code>Text</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>TextColored</code></td>
+<td>label / text, hint, prefix bullet, color, alpha, size, position</td>
+</tr>
+<tr>
+<td><code>TextDisabled</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>TextWrapped</code></td>
+<td>label / text, text tone, size, position</td>
+</tr>
+<tr>
+<td><code>BulletText</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>LabelText</code></td>
+<td>label / text, value, size, position</td>
+</tr>
+<tr>
+<td><code>TextLinkOpenURL</code></td>
+<td>label / text, url, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SeparatorText</code></td>
+<td>label / text, size, position</td>
+</tr>
+<tr>
+<td><code>Separator</code></td>
+<td>size, position</td>
+</tr>
+<tr>
+<td><code>HelpMarker</code></td>
+<td>hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ProgressBar</code></td>
+<td>label / text, hint, prefix bullet, overlay, indeterminate, size, position</td>
+</tr>
+<tr>
+<td><code>SliderInt</code></td>
+<td>variant (только размещение), label / text, value components, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderDouble</code></td>
+<td>variant (только размещение), label / text, value components, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderDoubleN</code></td>
+<td>label / text, array size, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>VSliderInt</code></td>
+<td>variant (только размещение), label / text, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>VSliderDouble</code></td>
+<td>variant (только размещение), label / text, min, max, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>SliderAngle</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragInt</code></td>
+<td>variant (только размещение), label / text, value components, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragDouble</code></td>
+<td>variant (только размещение), label / text, value components, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragDoubleN</code></td>
+<td>label / text, array size, min, max, speed, format, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragIntRange2</code></td>
+<td>variant (только размещение), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>DragFloatRange2</code></td>
+<td>variant (только размещение), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputInt</code></td>
+<td>variant (только размещение), label / text, value components, step, step fast, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputDouble</code></td>
+<td>variant (только размещение), label / text, value components, step, step fast, format, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputDoubleN</code></td>
+<td>label / text, array size, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>InputText</code></td>
+<td>label / text, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>InputTextWithHint</code></td>
+<td>label / text, placeholder, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>InputTextMultiline</code></td>
+<td>label / text, hint, prefix bullet, input flags, EEL2 callback, size, position</td>
+</tr>
+<tr>
+<td><code>Combo</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ListBox</code></td>
+<td>label / text, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
+<td><code>ColorEdit3</code></td>
+<td>variant (только размещение), label / text, hint, prefix bullet, color, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorEdit4</code></td>
+<td>variant (только размещение), label / text, hint, prefix bullet, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorPicker3</code></td>
+<td>variant (только размещение), label / text, hint, prefix bullet, color, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorPicker4</code></td>
+<td>variant (только размещение), label / text, hint, prefix bullet, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>ColorButton</code></td>
+<td>hint, color, alpha, color flags, size, position</td>
+</tr>
+<tr>
+<td><code>Panel</code></td>
+<td>label / text, hint (не экспортируется), border, h-scroll, size, position</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>label / text, hint (не экспортируется), size, position</td>
+</tr>
+<tr>
+<td><code>StyleRegion</code></td>
+<td>label / text, hint (не экспортируется), text color, frame bg, button color, rounding, selectable align, font, size, position</td>
+</tr>
+<tr>
+<td><code>CollapsingHeader</code></td>
+<td>label / text, hint (не экспортируется), bullet instead of arrow, size, position</td>
+</tr>
+<tr>
+<td><code>TreeNode</code></td>
+<td>label / text, hint (не экспортируется), bullet instead of arrow, hdr color, size, position</td>
+</tr>
+<tr>
+<td><code>TabBar</code></td>
+<td>tabs, label / text, hint (не экспортируется), size, position</td>
+</tr>
+<tr>
+<td><code>TabItem</code></td>
+<td>label / text, hint (не экспортируется), size, position</td>
+</tr>
+<tr>
+<td><code>Table</code></td>
+<td>table grid / columns / row heights / table flags, label / text, hint (не экспортируется), size, position</td>
+</tr>
+<tr>
+<td><code>TableCell</code></td>
+<td>label / text, hint (не экспортируется), size, position</td>
+</tr>
+</tbody></table>
+<hr>
+<p><a name="manual-приложение-c--структура-генерируемого-файла"></a></p>
+<h2>Приложение C · Как читать сгенерированный файл</h2>
+<p>Эти фрагменты взяты из экспорта версии 1.0.40 для макета <strong>600 × 400</strong> с Button_1 («Play») в точке (40, 60) и Slider_2 («Gain») в точке (40, 130). Они показывают актуальную структуру позиций и состояния, но не являются полным исполняемым скриптом. Полный файл создаётся через Export.</p>
+<pre><code class="language-lua">-- Positions
+local pos = {
+  BUTTON_1 = { x=40, y=60, w=100 },
+  SLIDER_2 = { x=40, y=130, w=120 },
+}
+
+local state = { radioGroups = {} }
+-- Widget state
+state.Slider_2_val = 0.0
+</code></pre>
+<p>Функция отрисовки открывает дочерний холст до получения его draw list и точки отсчёта. После этого виджеты используют эти значения:</p>
+<pre><code class="language-lua">    -- Button_1 [Button]
+    reaper.ImGui_SetCursorScreenPos(ctx, ox + pos.BUTTON_1.x, oy + pos.BUTTON_1.y)
+    if reaper.ImGui_Button(ctx, &quot;Play##Button_1&quot;, 100, 20) then
+      -- TODO: Button_1 pressed
+    end
+
+    -- Slider_2 [SliderDouble]
+    reaper.ImGui_SetCursorScreenPos(ctx, ox + pos.SLIDER_2.x, oy + pos.SLIDER_2.y)
+    reaper.ImGui_SetNextItemWidth(ctx, pos.SLIDER_2.w)
+    do
+      local _label = &quot;Gain&quot;
+      if _label ~= &quot;&quot; then
+        local _tw, _th = reaper.ImGui_CalcTextSize(ctx, _label)
+        reaper.ImGui_DrawList_AddText(dl, ox+40, oy+128-_th, 0x000000FF, _label)
+      end
+      local _rv
+      _rv, state.Slider_2_val = reaper.ImGui_SliderDouble(ctx, &quot;##Slider_2&quot;, state.Slider_2_val, 0.0, 1.0)
+    end
+</code></pre>
+<p>Для каждого интерактивного элемента добавляйте логику приложения там, где сгенерирован комментарий TODO. Состояние вроде <code>state.Slider_2_val</code> сохраняется между кадрами. Radio-группы хранятся отдельно в <code>state.radioGroups</code>.</p>
+<p>Полный экспорт также содержит создание контекста, размеры окна, нужные цвета, шрифты и колбэки, основную функцию рисования и цикл <code>reaper.defer</code>. Вложенные контейнеры создают соответствующие области ImGui. Не переносите вызов draw list через границу дочернего окна без подходящих draw list и точки отсчёта.</p>
+<p>Макет правьте в JSON-проекте и экспортируйте снова: часть размеров и координат рисунков находится прямо в вызовах, а не только в <code>pos</code>.</p>
+<hr>
+<p><em>ReaUI Builder — руководство пользователя для версии 1.0.40. Обновлено по исходному коду текущего релиза и журналам изменений, охватывающим разработку с версии 1.0.0. Дата обновления: 14 сентября 2026 года.</em></p>
+</div>
+</body>
+</html>

@@ -137,7 +137,7 @@ Autosave stores a recovery draft in the browser. Save a project file for a porta
 
 ### Open the editor
 
-Download [ReaUI_Builder_v1.0.3.html](ReaUI_Builder_v1.0.3.html) and open the downloaded file in Chrome, Edge, Firefox, or Safari. On GitHub, use the file's download control to save the HTML itself. The editor works locally through `file://`; editing and code generation do not require a network connection.
+Download [ReaUI_Builder.html](ReaUI_Builder.html) and open the downloaded file in Chrome, Edge, Firefox, or Safari. On GitHub, use the file's download control to save the HTML itself. The editor works locally through `file://`; editing and code generation do not require a network connection.
 
 Set the window size on **Canvas**, place widgets, and edit their properties in **Selection**. Use **File → Save Project** to keep an editable copy.
 

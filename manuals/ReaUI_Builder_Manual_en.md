@@ -139,7 +139,7 @@ Open the HTML file in a modern browser. Builder runs locally through `file://`; 
 
 > **Workspace at startup.** The tool palette is on the left. The canvas, window layout, and rulers occupy the center. On the right are the **Canvas / Elements / Info** tabs and the **Selection** inspector. The status bar runs along the bottom.
 
-![Builder workspace at startup, with the widget panel and inspector visible](screenshots/02__Quick_start.png)
+<p align="center"><img src="screenshots/02__Quick_start.png" alt="Builder workspace at startup, with the widget panel and inspector visible"></p>
 
 > **Save the editable project.** Choose **File → Save Project** (`Cmd/Ctrl + S`) and keep the JSON file with your script. Browser recovery drafts are available through **File → Restore projects…**; they do not replace a project file.
 
@@ -159,7 +159,7 @@ The top strip of **TabBar** is the actual tab row—the same one REAPER draws. C
 
 > **Layout in Editor mode.** Name tags and container strips help you edit the layout structure. They are editor aids and are not included in the exported interface.
 
-![Editor mode showing a Group open in the inspector, with the Sliders & Drags category expanded](screenshots/03__Workspace.png)
+<p align="center"><img src="screenshots/03__Workspace.png" alt="Editor mode showing a Group open in the inspector, with the Sliders & Drags category expanded"></p>
 
 <a name="manual-3-1-top-toolbar-and-menus"></a>
 
@@ -866,7 +866,7 @@ StyleRegion applies style overrides to its child widgets without affecting the r
 
 > The StyleRegion inspector provides a checkbox for each override. An unchecked property is inherited unchanged. For example, a region can override only the button color while inheriting every other style setting.
 
-![StyleRegion inspector with color, rounding, alignment, and font overrides](screenshots/7_3___StyleRegion.png)
+<p align="center"><img src="screenshots/7_3___StyleRegion.png" alt="StyleRegion inspector with color, rounding, alignment, and font overrides" width="380"></p>
 
 | Override | Export |
 | --- | --- |
@@ -911,7 +911,7 @@ The tab bar is enclosed in a transparent child region using its layout width and
 
 > The Table inspector provides row and column counts, a label and width mode for each column, individual row heights, a header-row checkbox, four table flags, and an overall sizing policy.
 
-![Table inspector with column and row settings](screenshots/7_6___Table.png)
+<p align="center"><img src="screenshots/7_6___Table.png" alt="Table inspector with column and row settings" width="380"></p>
 
 Table is a grid of cells, each a container. Row and column counts range from 1 to 16; a new table starts with 3 × 3 cells. When shrinking removes populated cells, the confirmation offers **OK** to delete their contents or **Cancel** to keep those widgets at the top level. Cancel keeps the contents; it does not cancel the table resize.
 
@@ -939,7 +939,7 @@ When **header row** is enabled, Builder subtracts the 18 px column-header strip 
 
 > The inspector shows the widget type, variant selector, name, label, contract-specific properties, position and size, and a delete button.
 
-![Inspector for an Input widget, Double variant, before placement](screenshots/08__Inspector_reference.png)
+<p align="center"><img src="screenshots/08__Inspector_reference.png" alt="Inspector for an Input widget, Double variant, before placement" width="380"></p>
 
 **Identification**
 
@@ -1056,7 +1056,7 @@ These flags apply to Slider, VSlider, Drag, DragRange, SliderN, and DragN. The e
 
 > The color flags inspector places independent toggles at the top, followed by four single-choice groups: display, data type, input, and picker style. Alpha-channel options appear last.
 
-![ColorPicker inspector with flags, display, data type, input, and picker groups](screenshots/Color_flags.png)
+<p align="center"><img src="screenshots/Color_flags.png" alt="ColorPicker inspector with flags, display, data type, input, and picker groups" width="380"></p>
 
 > **Note.** Display, data type, input, and picker options appear as segmented single-choice controls. Selecting an option clears the other flags in that group; clicking the active option clears it.
 
@@ -1094,7 +1094,7 @@ These flags apply to Slider, VSlider, Drag, DragRange, SliderN, and DragN. The e
 
 > Drawings on the canvas include rectangles, circles, triangles, lines, text, and arcs. All primitives export as draw list calls and appear below the widget layer.
 
-![All drawing primitives placed on the canvas](screenshots/Canvas_with_primitives.png)
+<p align="center"><img src="screenshots/Canvas_with_primitives.png" alt="All drawing primitives placed on the canvas" width="500"></p>
 
 To draw a shape, select its tool from the palette and drag on the canvas. For a polygon, click to place each vertex instead. Close it by clicking the first point again, double-clicking, or pressing `Enter`. Press `Esc` to cancel an unfinished polygon.
 
@@ -1110,7 +1110,7 @@ To draw a shape, select its tool from the palette and drag on the canvas. For a 
 
 > The arc inspector uses angles in degrees following ImGui conventions: 0° points right, and angles increase clockwise. A 270° sweep starting at 135° gives a conventional rotary knob scale.
 
-![Arc inspector with ring mode, angles, and primitive order](screenshots/Arc.png)
+<p align="center"><img src="screenshots/Arc.png" alt="Arc inspector with ring mode, angles, and primitive order" width="380"></p>
 
 Exported drawings are clipped to the layout. A drawing is included if any part of it intersects the layout: for example, a rectangle extending past an edge is exported, and ImGui clips the portion outside. Widgets follow a stricter rule: a widget must be entirely inside the frame to be exported.
 
@@ -1193,7 +1193,7 @@ Zoom ranges from **50% to 250%**. Choose a preset in the status bar, use `Cmd/Ct
 
 > The theme selector lists built-in and custom themes, with **+ Add** and **Edit** controls below. The active theme is saved with the project.
 
-![Theme selector closed](screenshots/Theme_selector_-_1.png) ![Theme selector open, showing Default, Slate, Light, and a custom theme](screenshots/Theme_selector_-_2.png)
+<p align="center"><img src="screenshots/Theme_selector_-_1.png" alt="Theme selector closed" width="260"> <img src="screenshots/Theme_selector_-_2.png" alt="Theme selector open, showing Default, Slate, Light, and a custom theme" width="260"></p>
 
 A theme defines fifteen color values: thirteen ImGui style colors, a child-window background, and a color for labels drawn through the draw list. Three themes are included: **Default** (no theme color overrides), **Slate (dark)**, and **Light**.
 
@@ -1201,7 +1201,7 @@ Themes affect both Preview mode and the export. For a theme other than Default, 
 
 > With Slate selected, Preview approximates how the layout will appear in REAPER using that palette.
 
-![Layout in Preview mode with the Light theme applied](screenshots/Layout_in_Preview_mode_with_Light_theme.png)
+<p align="center"><img src="screenshots/Layout_in_Preview_mode_with_Light_theme.png" alt="Layout in Preview mode with the Light theme applied"></p>
 
 <a name="manual-custom-themes"></a>
 
@@ -1209,7 +1209,7 @@ Themes affect both Preview mode and the export. For a theme other than Default, 
 
 > In the New Theme dialog, four colors define the palette. The swatch strip shows the derived color slots.
 
-![New Theme dialog with Background, Text, Controls, and Accent colors, and the derived swatch strip](screenshots/New_Theme_dialog.png)
+<p align="center"><img src="screenshots/New_Theme_dialog.png" alt="New Theme dialog with Background, Text, Controls, and Accent colors, and the derived swatch strip" width="450"></p>
 
 To create a theme, choose colors for the background, text, controls, and accent. The remaining eleven slots are calculated automatically. Hovered and active states are derived from the control color: lighter on dark backgrounds and darker on light backgrounds. Header colors blend the background and accent. The accent is also used for checkmarks and the active slider grab.
 

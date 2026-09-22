@@ -354,7 +354,7 @@ button:focus-visible,select:focus-visible,[tabindex]:focus-visible,input[type=co
   --accent-bg: rgba(111,168,190,0.14);
   --accent-sel: rgba(111,168,190,0.22);
 }
-html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-app);color:var(--text-0);font-family:var(--font-ui);font-size:12px;user-select:none}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg-app);color:var(--text-0);font-family:var(--font-ui);font-size:12px;user-select:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{display:flex;flex-direction:column}
 #app{width:100vw;flex:1;min-height:0;display:flex;flex-direction:column;background:var(--bg-app);overflow:hidden}
 #toolbar{display:flex;flex-direction:column;align-items:stretch;background:var(--bg-bar);border-bottom:1px solid var(--border);flex-shrink:0;z-index:10}
@@ -1518,11 +1518,11 @@ pre.code-out{margin-top:0;background:#f7f7f7;border:1px solid #e4e4e4;border-rad
               <div class="cvp2-two">
                 <label class="cvp2-f">
                   <span class="cvp2-flbl">Width</span>
-                  <span class="cvp2-fld"><i>W</i><input id="cw" value="400" onchange="applyCanvasEdited()" onkeydown="if(event.key==='Enter'){applyCanvasEdited();this.blur();}"></span>
+                  <span class="cvp2-fld"><i>W</i><input id="cw" value="550" onchange="applyCanvasEdited()" onkeydown="if(event.key==='Enter'){applyCanvasEdited();this.blur();}"></span>
                 </label>
                 <label class="cvp2-f">
                   <span class="cvp2-flbl">Height</span>
-                  <span class="cvp2-fld"><i>H</i><input id="ch" value="250" onchange="applyCanvasEdited()" onkeydown="if(event.key==='Enter'){applyCanvasEdited();this.blur();}"></span>
+                  <span class="cvp2-fld"><i>H</i><input id="ch" value="400" onchange="applyCanvasEdited()" onkeydown="if(event.key==='Enter'){applyCanvasEdited();this.blur();}"></span>
                 </label>
               </div>
             </div>
@@ -1931,7 +1931,7 @@ const canvasAreaEl = document.getElementById('canvas-area');
 const BUILD_VERSION='1.0.70';
 // Online user manual (English page; it links to the Russian version itself).
 // Paste the full https:// address between the quotes. Empty string hides Help > User Manual.
-const MANUAL_URL='';
+const MANUAL_URL='https://reauibuilder.patch34.workers.dev/ReaUI_Builder_Manual_en';
 function openManual(){
   if(!MANUAL_URL) return;
   window.open(MANUAL_URL, '_blank', 'noopener');
@@ -1996,7 +1996,7 @@ function measureLabelTextVisibleLabelWidth(label){
   return measureVisibleWidgetLabelWidth(label);
 }
 
-let cw=400, ch=250, tool='select', shapes=[];
+let cw=550, ch=400, tool='select', shapes=[];
 let selection={ids:[], primaryId:null, scope:'groups'};
 let drawing=null, action=null;
 let dragHoverContainerId=null;
@@ -2112,8 +2112,8 @@ window.addEventListener('error', e=>{ try{ DBG.log('ERROR', (e && e.message) ? (
 window.addEventListener('unhandledrejection', e=>{ try{ DBG.log('REJECTION', String((e && e.reason && e.reason.message) || e.reason || 'rejection')); }catch(_){} });
 
 const STARTUP_SEED = {
-  "cw": 400,
-  "ch": 250,
+  "cw": 550,
+  "ch": 400,
   "auditGridMode": false,
   "snapEnabled": true,
   "bgColor": "#ffffff",
@@ -6613,9 +6613,9 @@ function newProject(){
     if(getEditorTheme()==='light') themeId='light';
     savedCustomBg.color=bgColor; savedCustomBg.alpha=bgAlpha;
     clearAll();clipboardProjectId=uid();
-    cw=400; ch=250;
+    cw=550; ch=400;
     const cwEl=document.getElementById('cw'), chEl=document.getElementById('ch');
-    if(cwEl) cwEl.value='400'; if(chEl) chEl.value='250';
+    if(cwEl) cwEl.value='550'; if(chEl) chEl.value='400';
     applyCanvas();
     syncBgModeUI();
     syncThemeUI();

@@ -1189,7 +1189,7 @@ ImGui напрямую заливает только выпуклые пути. 
 
 > Иллюстрация. Выбор темы. Встроенные и пользовательские темы, ниже — кнопки + Add и Edit . Активная тема сохраняется в проекте.
 
-<p align="center"><img src="screenshots/Theme_selector_-_1.png" alt="Селектор тем закрыт" width="260"> <img src="screenshots/Theme_selector_-_2.png" alt="Селектор тем открыт: Default, Slate, Light и пользовательская тема" width="260"></p>
+<p align="center"><img src="screenshots/Theme_selector_-_2.png" alt="Theme selector open, showing Default, Slate, Light, and a custom theme" width="260"></p>
 
 Тема задаёт пятнадцать цветов: тринадцать слотов стиля ImGui, фон дочернего окна и цвет подписей, нарисованных через draw list. В комплект входят **Default** (без цветовых переопределений темы), **Slate (dark)** и **Light**.
 

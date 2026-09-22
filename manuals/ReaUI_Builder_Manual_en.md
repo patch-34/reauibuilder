@@ -1,6 +1,6 @@
 # ReaUI Builder — User Guide, Version 1.0.70
 
-[Русская версия](manuals/ReaUI_Builder_Manual_ru.md)
+[Русская версия](ReaUI_Builder_Manual_ru.md)
 
 <details>
 <summary>Contents</summary>

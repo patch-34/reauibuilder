@@ -131,7 +131,7 @@ The canvas, inspector, and code generator share the contract definitions, with a
 
 Open the HTML file in a modern browser. Builder runs locally through `file://`; editing layouts and generating code do not require a network connection. To run the exported Lua script, use REAPER with ReaImGui 0.10 or later installed.
 
-1. Open the **Canvas** tab in the right sidebar and set the window size. The default is **400 × 250 px**.
+1. Open the **Canvas** tab in the right sidebar and set the window size. The default is **550 × 400 px**.
 2. Choose a widget from a category in the top toolbar: **Buttons & Toggles, Display, Fields, Sliders & Drags, Selection, Color,** or **Layout**. The **Group, Style, Table, Header, Tree,** and **Tabs** containers are also available as permanent shortcuts in the left palette.
 3. Click the canvas to place the widget. Its top-left corner is positioned at the click location, adjusted for grid snapping.
 4. Use the **Selection** inspector to set the widget's label, value range, flags, position, and size.
@@ -1311,7 +1311,7 @@ The **JSON project** preserves the editable layout. Lua is an output format and 
 | **Save Project** · `Cmd/Ctrl + S` | Saves to the selected project file. The first save asks for a location where direct file access is available. |
 | **Save As…** · `Cmd/Ctrl + Shift + S` | Chooses a new project filename/location. |
 | **Load Project** | Opens a JSON project. With supported direct file access, later Save writes back to that file during the current session. |
-| **New Project** | Starts an empty 400 × 250 layout, retaining current title, background, theme, grid, and snapping settings. |
+| **New Project** | Starts an empty 550 × 400 layout, retaining current title, background, theme, grid, and snapping settings. |
 | **Restore projects…** | Opens the list of recoverable drafts from closed sessions. |
 
 Direct writing uses the browser’s file-access support and permissions. After a file is chosen, repeated Save reuses it in the current session, although the browser may still ask for write permission. The browser controls the appearance and wording of these system prompts.

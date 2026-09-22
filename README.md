@@ -1,7 +1,7 @@
 # ReaUI Builder
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-16B8A6?style=flat-square&labelColor=252A31)](LICENSE)
-[![Latest release](https://img.shields.io/github/v/release/patch-34/reaui-builder?style=flat-square&label=version&color=3B82F6&labelColor=252A31)](https://github.com/patch-34/reaui-builder/releases)
+[![Latest release](https://img.shields.io/github/v/release/patch-34/reauibuilder?style=flat-square&label=version&color=3B82F6&labelColor=252A31)](https://github.com/patch-34/reauibuilder/releases)
 ![ReaImGui](https://img.shields.io/badge/ReaImGui-v0.10%2B-65707D?style=flat-square&labelColor=252A31)
 
 A visual layout editor for [ReaImGui](https://github.com/cfillion/reaimgui) interfaces in [REAPER](https://www.reaper.fm/).
@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 1.0.3** · [Builder HTML](ReaUI_Builder_v1.0.3.html) · [English manual](manuals/ReaUI_Builder_Manual_en_v1_0_3.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru_v1_0_3.md)
+**Version 1.0.70** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md)
 
 ## Contents
 
@@ -36,7 +36,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 | Sizing | Widget-specific rules that follow ImGui's size constraints |
 | Containers | Panel, Group, StyleRegion, CollapsingHeader, TreeNode, TabBar, and Table |
 | Editing | Multiple selection, batch property editing, copy/paste, duplication, undo/redo |
-| Grid and view | 2, 5, or 10 px grid spacing; optional snapping; 75–250% zoom and panning |
+| Grid and view | 2, 5, or 10 px grid spacing; optional snapping; 50–250% zoom and panning |
 | Styling | Built-in and custom themes; scoped style and font overrides |
 | Preview | Approximation of the exported interface with theme and style overrides |
 | Export checks | Errors, warnings, and a count of included and omitted objects |
@@ -46,13 +46,14 @@ Builder generates the interface layer for a REAPER script. DSP, REAPER actions, 
 
 ## Supported widgets
 
-The palette groups widgets into six categories. Family names below match the editor.
+The palette groups widgets into seven categories. Family names below match the editor.
 
 | Category | Families |
 | --- | --- |
 | Buttons & Toggles | `Button`, `SmallButton`, `Checkbox`, `RadioButtonEx`, `ArrowButton` |
 | Display | `Text`, `BulletText`, `TextWrapped`, `TextColored`, `TextDisabled`, `LabelText`, `TextLinkOpenURL`, `ProgressBar` |
-| Input | `Slider`, `VSlider`, `SliderAngle`, `Drag`, `DragRange`, `Input`, `InputText`, `InputTextWithHint`, `InputTextMultiline`, `SliderN`, `DragN`, `InputN` |
+| Sliders & Drags | `Slider`, `VSlider`, `SliderAngle`, `Drag`, `DragRange`, `SliderN`, `DragN` |
+| Fields | `Input`, `InputText`, `InputTextWithHint`, `InputTextMultiline`, `InputN` |
 | Selection | `Combo`, `ListBox`, `Selectable` |
 | Color | `ColorEdit`, `ColorPicker`, `ColorButton` |
 | Layout | `SeparatorText`, `Separator`, `HelpMarker`, `Panel`, `Group`, `StyleRegion`, `CollapsingHeader`, `TreeNode`, `TabBar`, `Table` |
@@ -75,7 +76,7 @@ Builder exports explicit widget positions. It sets ImGui window padding and item
 
 Each widget has sizing rules that are shared by the canvas, inspector, and exporter. A Button can be resized in both directions; most single-line input controls have a height determined by ImGui. The inspector disables unsupported dimensions and the canvas shows only the applicable resize handles.
 
-Sliders, input fields, checkboxes, and several other controls have labels drawn above their bounds. Allow approximately 14 px of extra vertical space for these labels.
+Sliders, input fields, checkboxes, and several other controls have labels drawn above their bounds. Allow 12 px of extra vertical space for these labels.
 
 ### Containers and tables
 
@@ -153,21 +154,20 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 1.0.3 has the following limitations:
+Version 1.0.70 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
-- **Some settings must be applied after placement.** Pre-placement values for `min`, `max`, `format`, numeric flags, `components`, `tooltip`, and `bullet` are not transferred to the new widget.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
 - **Collapsible containers stay open in Builder.** Their collapse behavior is available in the exported interface.
-- **Background image controls are unavailable.** Themes are stored with projects; separate theme-file import and export are not provided.
+- **No separate theme-file import or export.** The active theme, including a custom definition, is stored with the project JSON.
 
 Check the exported interface in REAPER before distributing your script. The manual records the release's validation status and additional behavior to be aware of.
 
 ## Documentation and feedback
 
-- [English user guide — version 1.0.3](manuals/ReaUI_Builder_Manual_en_v1_0_3.md)
-- [Русское руководство — версия 1.0.3](manuals/ReaUI_Builder_Manual_ru_v1_0_3.md)
+- [English user guide — version 1.0.70](manuals/ReaUI_Builder_Manual_en.md)
+- [Русское руководство — версия 1.0.70](manuals/ReaUI_Builder_Manual_ru.md)
 
-Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. For offline reading with the original formatting, download the [English HTML manual](ReaUI_Builder_Manual_en_v1_0_3.html) or [Russian HTML manual](ReaUI_Builder_Manual_ru_v1_0_3.html) and open it in a browser.
+Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
 
-Use **Help → Report a Bug…** in Builder when preparing a report. Include the Builder version, browser, reproduction steps, and a minimal JSON project. For export problems, also include the REAPER and ReaImGui versions and the error message.
+Use **Help → Report a Bug…** in Builder when preparing a report. It assembles a ready-to-send report from the last 50 logged actions, the build number, and the current window size; add a short description of what happened and, optionally, check **Include my layout** to attach the whole project. Copy the report and send it to the listed address. For export problems, also mention the REAPER and ReaImGui versions.

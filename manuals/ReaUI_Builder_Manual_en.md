@@ -139,7 +139,7 @@ Open the HTML file in a modern browser. Builder runs locally through `file://`; 
 
 > **Workspace at startup.** The tool palette is on the left. The canvas, window layout, and rulers occupy the center. On the right are the **Canvas / Elements / Info** tabs and the **Selection** inspector. The status bar runs along the bottom.
 
-![Builder workspace with a Group open in the inspector](screenshots/03__Workspace.png)
+![Builder workspace at startup, with the widget panel and inspector visible](screenshots/02__Quick_start.png)
 
 > **Save the editable project.** Choose **File → Save Project** (`Cmd/Ctrl + S`) and keep the JSON file with your script. Browser recovery drafts are available through **File → Restore projects…**; they do not replace a project file.
 
@@ -158,6 +158,8 @@ The **Table** name (`⊞ <name>`) and lock icon appear on an editor tab **above*
 The top strip of **TabBar** is the actual tab row—the same one REAPER draws. Click it to select the TabBar.
 
 > **Layout in Editor mode.** Name tags and container strips help you edit the layout structure. They are editor aids and are not included in the exported interface.
+
+![Editor mode showing a Group open in the inspector, with the Sliders & Drags category expanded](screenshots/03__Workspace.png)
 
 <a name="manual-3-1-top-toolbar-and-menus"></a>
 
@@ -556,8 +558,6 @@ Movement of less than **5 screen pixels** counts as a click, even near a grid bo
 **Click and drag** beyond that threshold to set the size during placement. On each axis, a drag extent of at least **10 layout px**, after snapping, replaces the default dimension. Smaller extents use the default. Fixed or derived dimensions follow the widget’s sizing rules.
 
 For example, you can draw a Button at 200 × 70 px. Dragging a Slider can set its width to 300 px, but its height remains fixed.
-
-![Placing a widget: the status bar shows the drag-to-place readout](screenshots/02__Quick_start.png)
 
 After placement, Builder returns to **Select** and keeps the new widget selected, ready for editing in the inspector.
 

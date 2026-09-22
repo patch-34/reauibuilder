@@ -1193,7 +1193,7 @@ Zoom ranges from **50% to 250%**. Choose a preset in the status bar, use `Cmd/Ct
 
 > The theme selector lists built-in and custom themes, with **+ Add** and **Edit** controls below. The active theme is saved with the project.
 
-<img src="screenshots/Theme_selector_-_2.png" alt="Theme selector open, showing Default, Slate, Light, and a custom theme" width="260"></p>
+<p align="center"><img src="screenshots/Theme_selector_-_2.png" alt="Theme selector open, showing Default, Slate, Light, and a custom theme" width="260"></p>
 
 A theme defines fifteen color values: thirteen ImGui style colors, a child-window background, and a color for labels drawn through the draw list. Three themes are included: **Default** (no theme color overrides), **Slate (dark)**, and **Light**.
 

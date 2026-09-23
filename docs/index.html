@@ -20,7 +20,7 @@
   file:// freezes Arc/Chrome on CORS.
   ============================================================================
 -->
-<html lang="en">
+<html lang="en" class="boot-loading">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +31,11 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=Inter:wght@400;500;600&display=optional" rel="stylesheet">
 -->
 <style>
+/* Boot mask: hides the pre-init shell (unopened folders, empty canvas,
+   default theme) until INIT finishes and removes .boot-loading from <html>.
+   See the early failsafe <script> below body's opening tag and the
+   try/finally around the INIT block at the end of the main script. */
+html.boot-loading body{visibility:hidden}
 *{box-sizing:border-box;margin:0;padding:0}
 button:focus-visible,select:focus-visible,[tabindex]:focus-visible,input[type=color]:focus-visible,input[type=range]:focus-visible,input[type=file]:focus-visible{outline:var(--focus-width) solid var(--color-focus-ring);outline-offset:1px}
 :root {
@@ -1264,6 +1269,7 @@ pre.code-out{margin-top:0;background:#f7f7f7;border:1px solid #e4e4e4;border-rad
 </head>
 <body>
 <script>(function(){try{if(localStorage.getItem('reaperui_editor_theme')!=='light')document.documentElement.setAttribute('data-editor-theme','dark');}catch(e){document.documentElement.setAttribute('data-editor-theme','dark');}})();</script>
+<script>setTimeout(function(){document.documentElement.classList.remove('boot-loading');},3000);</script>
 <svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true" focusable="false"><defs>
 <symbol id="ic-select" viewBox="0 0 24 24"><path d="M6 4 L6 17 L9.6 13.6 L12 19 L14.2 18 L11.8 12.8 L16.6 12.8 Z"/></symbol>
 <symbol id="ic-hand" viewBox="0 0 24 24"><path d="M5 9 L2 12 L5 15 M9 5 L12 2 L15 5 M15 19 L12 22 L9 19 M19 9 L22 12 L19 15 M2 12 H22 M12 2 V22"/></symbol>
@@ -18027,6 +18033,11 @@ function swInit(){
 // ════════════════════════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════════════════════════
+// Everything below runs hidden behind the .boot-loading mask (see the CSS rule
+// near the top of <style> and the failsafe <script> right after <body> opens).
+// try/finally so a thrown error still reveals the UI instead of leaving the
+// page blank forever - a half-broken screen beats a permanently hidden one.
+try{
 setBgColor(bgColor);
 cpInit();
 swInit();
@@ -18050,6 +18061,9 @@ resetHistory();   // seed the undo/redo baseline for the freshly loaded document
 AUTOSAVE.init();
 initPanelVisibility();
 initElementsKeyboard();
+}finally{
+document.documentElement.classList.remove('boot-loading');
+}
 // Start at a predictable 100%; Fit remains available as an explicit viewport action.
 requestAnimationFrame(()=>{ try{ resetZoomToActualSize(); }catch(e){} });
 </script>

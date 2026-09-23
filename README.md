@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 1.0.70** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md)  [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version]([ReaUI_Builder.html](https://patch-34.github.io/reauibuilder)
+**Version 1.0.70** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md)  [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version][https://patch-34.github.io/reauibuilder]
 
 ## Contents
 

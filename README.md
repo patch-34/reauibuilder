@@ -44,6 +44,8 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 Builder generates the interface layer for a REAPER script. DSP, REAPER actions, and application logic are supplied by your code.
 
+![ReaUI Builder — nested StyleRegion, table, and color picker in the editor](assets/reaui-builder-screenshot.png)
+
 ## Supported widgets
 
 The palette groups widgets into seven categories. Family names below match the editor.

@@ -3,11 +3,11 @@ name: Export Gate
 on:
   push:
     paths:
-      - 'docs/ReaUI_Builder.html'
+      - 'ReaUI_Builder.html'
       - 'tools/export-gate/export_gate.js'
   pull_request:
     paths:
-      - 'docs/ReaUI_Builder.html'
+      - 'ReaUI_Builder.html'
       - 'tools/export-gate/export_gate.js'
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
       # Fails the build on SCRIPT/GENERATOR THROW or non-deterministic generator output.
       - name: Smoke check current build
         if: github.event_name == 'push'
-        run: node tools/export-gate/export_gate.js docs/ReaUI_Builder.html
+        run: node tools/export-gate/export_gate.js ReaUI_Builder.html
 
       # PR: diff the PR's version of the file against main's version. A diff is expected
       # for a feature/fix PR — this step only fails on SCRIPT/GENERATOR THROW, not on
@@ -38,7 +38,7 @@ jobs:
       # changing is a regression.
       - name: Fetch base version of the build
         if: github.event_name == 'pull_request'
-        run: git show origin/${{ github.base_ref }}:docs/ReaUI_Builder.html > base_ReaUI_Builder.html
+        run: git show origin/${{ github.base_ref }}:ReaUI_Builder.html > base_ReaUI_Builder.html
 
       - name: Diff against base branch
         if: github.event_name == 'pull_request'
@@ -48,7 +48,7 @@ jobs:
         # text rather than the exit code alone.
         run: |
           set +e
-          OUTPUT=$(node tools/export-gate/export_gate.js base_ReaUI_Builder.html docs/ReaUI_Builder.html 2>&1)
+          OUTPUT=$(node tools/export-gate/export_gate.js base_ReaUI_Builder.html ReaUI_Builder.html 2>&1)
           STATUS=$?
           echo "$OUTPUT"
           if echo "$OUTPUT" | grep -q "THROW"; then

@@ -1,0 +1,58 @@
+name: Export Gate
+
+on:
+  push:
+    paths:
+      - 'docs/ReaUI_Builder.html'
+      - 'tools/export-gate/export_gate.js'
+  pull_request:
+    paths:
+      - 'docs/ReaUI_Builder.html'
+      - 'tools/export-gate/export_gate.js'
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install jsdom
+        working-directory: tools/export-gate
+        run: npm install jsdom
+
+      # Push to main (or any push with no prior version to diff against): smoke-test only.
+      # Fails the build on SCRIPT/GENERATOR THROW or non-deterministic generator output.
+      - name: Smoke check current build
+        if: github.event_name == 'push'
+        run: node tools/export-gate/export_gate.js docs/ReaUI_Builder.html
+
+      # PR: diff the PR's version of the file against main's version. A diff is expected
+      # for a feature/fix PR — this step only fails on SCRIPT/GENERATOR THROW, not on
+      # CHANGED. Read the log for what actually differs; only an *unintended* widget
+      # changing is a regression.
+      - name: Fetch base version of the build
+        if: github.event_name == 'pull_request'
+        run: git show origin/${{ github.base_ref }}:docs/ReaUI_Builder.html > base_ReaUI_Builder.html
+
+      - name: Diff against base branch
+        if: github.event_name == 'pull_request'
+        # CHANGED (exit 1, no THROW text) is expected for most PRs — logged for a human to
+        # read, not a CI failure. SCRIPT THROW / GENERATOR THROW is a real failure and must
+        # still fail the job even though both cases share exit code 1, so check the output
+        # text rather than the exit code alone.
+        run: |
+          set +e
+          OUTPUT=$(node tools/export-gate/export_gate.js base_ReaUI_Builder.html docs/ReaUI_Builder.html 2>&1)
+          STATUS=$?
+          echo "$OUTPUT"
+          if echo "$OUTPUT" | grep -q "THROW"; then
+            echo "::error::export_gate reported a THROW — this is a real failure, not an expected export diff."
+            exit 1
+          fi
+          exit 0

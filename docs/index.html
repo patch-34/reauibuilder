@@ -18067,5 +18067,54 @@ document.documentElement.classList.remove('boot-loading');
 // Start at a predictable 100%; Fit remains available as an explicit viewport action.
 requestAnimationFrame(()=>{ try{ resetZoomToActualSize(); }catch(e){} });
 </script>
+<script>
+(function(){
+  try{
+    // Never runs from file:// — the offline release stays exactly as it is.
+    if(location.protocol==='file:') return;
+    var EP='https://reaui-analytics.patch34.workers.dev/collect'; // filled in by inject-analytics.js, e.g. https://reaui-analytics.<subdomain>.workers.dev/collect
+    var sid=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now()+'-'+Math.random().toString(36).slice(2));
+    var lastTick=Date.now();
+    var active=0;
+
+    function send(type,dur){
+      try{
+        var payload=JSON.stringify({sid:sid,type:type,dur:dur||0,ref:document.referrer||''});
+        if(navigator.sendBeacon){
+          navigator.sendBeacon(EP,new Blob([payload],{type:'text/plain'}));
+        }else{
+          fetch(EP,{method:'POST',body:payload,keepalive:true,headers:{'Content-Type':'text/plain'}});
+        }
+      }catch(e){}
+    }
+
+    send('view',0);
+
+    function tick(){
+      var now=Date.now();
+      if(document.visibilityState==='visible' && document.hasFocus()){
+        active += (now-lastTick)/1000;
+      }
+      lastTick=now;
+    }
+
+    var iv=setInterval(function(){
+      tick();
+      if(active>=20){ send('heartbeat',Math.round(active)); active=0; }
+    },5000);
+
+    function flush(){
+      tick();
+      if(active>0.5){ send('heartbeat',Math.round(active)); active=0; }
+    }
+
+    document.addEventListener('visibilitychange',function(){
+      if(document.visibilityState==='hidden') flush();
+    });
+    window.addEventListener('pagehide',flush);
+  }catch(e){}
+})();
+</script>
+
 </body>
 </html>

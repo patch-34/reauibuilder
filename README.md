@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 1.0.70** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
+**Version 1.6.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
 
 ## Contents
 
@@ -30,14 +30,16 @@ The editor runs from a single local HTML file. No installation, server, or build
 | --- | --- |
 | Editor | Single HTML file with embedded CSS and JavaScript; runs locally in a browser |
 | Output | Lua script targeting ReaImGui 0.10 |
-| Widgets | 41 families; 50 concrete types, including automatic tab and table-cell elements |
+| Widgets | 45 families; 55 concrete types, including automatic tab and table-cell elements |
+| Window | Optional menu bar (menus, items, check items, separators, submenus); title bar in ImGui or theme colours |
+| Modes | Basic (eleven common components, plain-language properties) and Advanced; both edit the same project |
 | Drawing | Rectangle, circle/ellipse, polygon, line, text, triangle, and arc |
 | Positioning | Absolute canvas coordinates; flow layout within exported table cells |
 | Sizing | Widget-specific rules that follow ImGui's size constraints |
 | Containers | Panel, Group, StyleRegion, CollapsingHeader, TreeNode, TabBar, and Table |
 | Editing | Multiple selection, batch property editing, copy/paste, duplication, undo/redo |
 | Grid and view | 2, 5, or 10 px grid spacing; optional snapping; 50–250% zoom and panning |
-| Styling | Built-in and custom themes; scoped style and font overrides |
+| Styling | Built-in and custom themes, theme files (import / export); scoped style and font overrides |
 | Preview | Approximation of the exported interface with theme and style overrides |
 | Export checks | Errors, warnings, and a count of included and omitted objects |
 | Project storage | JSON files; browser autosave for recovery |
@@ -52,8 +54,8 @@ The palette groups widgets into seven categories. Family names below match the e
 
 | Category | Families |
 | --- | --- |
-| Buttons & Toggles | `Button`, `SmallButton`, `Checkbox`, `RadioButtonEx`, `ArrowButton` |
-| Display | `Text`, `BulletText`, `TextWrapped`, `TextColored`, `TextDisabled`, `LabelText`, `TextLinkOpenURL`, `ProgressBar` |
+| Buttons & Toggles | `Button`, `SmallButton`, `InvisibleButton`, `Checkbox`, `CheckboxFlags`, `RadioButtonEx`, `ArrowButton` |
+| Display | `Text`, `BulletText`, `TextWrapped`, `TextColored`, `TextDisabled`, `LabelText`, `TextLinkOpenURL`, `TextLink`, `ProgressBar`, `Plot` |
 | Sliders & Drags | `Slider`, `VSlider`, `SliderAngle`, `Drag`, `DragRange`, `SliderN`, `DragN` |
 | Fields | `Input`, `InputText`, `InputTextWithHint`, `InputTextMultiline`, `InputN` |
 | Selection | `Combo`, `ListBox`, `Selectable` |
@@ -62,7 +64,7 @@ The palette groups widgets into seven categories. Family names below match the e
 
 ### Variants and numeric controls
 
-`Slider`, `VSlider`, `Drag`, `DragRange`, and `Input` provide **Int** and **Double** variants. `ColorEdit` and `ColorPicker` provide **RGB** and **RGBA** variants. Choose the variant before placing a widget; changing it later requires replacing the widget.
+`Slider`, `VSlider`, `Drag`, `DragRange`, and `Input` provide **Int** and **Double** variants. `ColorEdit` and `ColorPicker` provide **RGB** and **RGBA** variants. `Plot` provides **Lines** and **Histogram** variants. Choose the variant before placing a widget; changing it later requires replacing the widget.
 
 Standard numeric families that support multiple components use separate scalar variables for 1–4 components. The `SliderN`, `DragN`, and `InputN` families use `reaper.new_array` with 2–64 elements.
 
@@ -142,7 +144,7 @@ Autosave stores a recovery draft in the browser. Save a project file for a porta
 
 Download [ReaUI_Builder.html](ReaUI_Builder.html) and open the downloaded file in Chrome, Edge, Firefox, or Safari. On GitHub, use the file's download control to save the HTML itself. The editor works locally through `file://`; editing and code generation do not require a network connection.
 
-Set the window size on **Canvas**, place widgets, and edit their properties in **Selection**. Use **File → Save Project** to keep an editable copy.
+On launch, choose **Basic** or **Advanced** mode (switch later with **View › Interface mode**). Set the window size on **Canvas**, place widgets, and edit their properties in **Selection** (**Properties** in Basic mode); every setting there has a tooltip. Use **File → Save Project** to keep an editable copy.
 
 ### Run the exported interface
 
@@ -156,12 +158,13 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 1.0.70 has the following limitations:
+Version 1.6.0 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
 - **Collapsible containers stay open in Builder.** Their collapse behavior is available in the exported interface.
-- **No separate theme-file import or export.** The active theme, including a custom definition, is stored with the project JSON.
+- **Menus cover the window's menu bar only.** Right-click context menus and popups are not built yet.
+- **The manuals describe version 1.0.70.** Features added since then are listed in [CHANGELOG.md](CHANGELOG.md).
 
 Check the exported interface in REAPER before distributing your script. The manual records the release's validation status and additional behavior to be aware of.
 

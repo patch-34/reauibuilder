@@ -6,8 +6,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions correspond to the release tags on GitHub (tag name = build number,
 e.g. `1.0.70`).
 
-## [Unreleased]
-
 ## [2.0.0] - 2026-10-09
 
 2.0.0 is the build that was numbered 1.10.0 before its release, published under a new major

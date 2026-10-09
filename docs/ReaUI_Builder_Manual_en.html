@@ -151,7 +151,7 @@ strong { color: var(--text); }
 </head>
 <body id="top">
 <div class="page-header">
-  <h1>ReaUI Builder — User Guide, Version 1.10.0</h1>
+  <h1>ReaUI Builder — User Guide, Version 2.0.0</h1>
   <div class="lang-switch"><a href="ReaUI_Builder_Manual_ru.html">Русская версия</a></div>
 </div>
 <div class="page">
@@ -268,7 +268,7 @@ strong { color: var(--text); }
 <h1>ReaUI Builder</h1>
 <p>A visual layout editor for ReaImGui interfaces.</p>
 <p>Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.</p>
-<p>This guide covers version <strong>1.10.0</strong>. It describes the current features and workflow; obsolete workarounds are omitted.</p>
+<p>This guide covers version <strong>2.0.0</strong>. It describes the current features and workflow; obsolete workarounds are omitted.</p>
 <hr>
 <p><a name="manual-01-overview"></a></p>
 <h2>01. Overview</h2>
@@ -1927,7 +1927,7 @@ reaper.ImGui_EndChild(ctx)
 <p><a name="manual-fill-stroke-and-linked-colors"></a></p>
 <h3>Fill and stroke</h3>
 <p>Each available fill/stroke row has its own <strong>disable</strong> checkbox. Select it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.</p>
-<p>Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 1.10.0 has no color-link control.</p>
+<p>Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.0.0 has no color-link control.</p>
 <p>If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.</p>
 <p>ImGui fills convex paths directly. Builder triangulates a non-convex polygon for export using multiple <code>AddTriangleFilled</code> calls; its outline remains a single closed path. A filled polygon must not cross, touch, or turn back on itself: ImGui would fill a different shape than the canvas shows, so Preflight reports <strong>Polygon outline crosses itself</strong> as an error. Move a point, split the shape into separate polygons, or disable its fill to export only the outline.</p>
 <hr>
@@ -2475,7 +2475,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-17-release-limitations"></a></p>
 <h2>17. Release limitations</h2>
-<p>The following limitations apply to version <strong>1.10.0</strong>.</p>
+<p>The following limitations apply to version <strong>2.0.0</strong>.</p>
 <ul>
 <li><strong>Editing Combo and ListBox items.</strong> The export contains five placeholder items. Replace their strings in Lua; the selection state and widget calls are already generated.</li>
 <li><strong>Free rotation for drawings.</strong> Arc supports angles and Triangle supports orientation, but there is no general rotation handle or property.</li>
@@ -2954,7 +2954,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-appendix-b-inspector-matrix"></a></p>
 <h2>Appendix B · Inspector matrix</h2>
-<p>This table lists the fields available for each of the <strong>55 types</strong> in version 1.10.0. Names match the inspector: <strong>hint</strong> is a hover tooltip, while <strong>placeholder</strong> belongs to InputTextWithHint. The standard <strong>name</strong> field and conditional <strong>parent</strong> row are not repeated. Choose a variant before placement; fixed size axes remain read-only.</p>
+<p>This table lists the fields available for each of the <strong>55 types</strong> in version 2.0.0. Names match the inspector: <strong>hint</strong> is a hover tooltip, while <strong>placeholder</strong> belongs to InputTextWithHint. The standard <strong>name</strong> field and conditional <strong>parent</strong> row are not repeated. Choose a variant before placement; fixed size axes remain read-only.</p>
 <p>Every type except TabItem and TableCell also has <strong>constraints</strong> (§5.9); they are not repeated in the rows. TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. Panel, Group, CollapsingHeader, TreeNode, TabBar, and TabItem support <strong>hint</strong>; StyleRegion, Table, and TableCell do not.</p>
 <table class="tbl-2col">
 <thead>
@@ -3189,7 +3189,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-appendix-c-generated-file-structure"></a></p>
 <h2>Appendix C · Reading the generated file</h2>
-<p>These excerpts come from a version 1.10.0 export of a <strong>600 × 400</strong> layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.</p>
+<p>These excerpts come from a version 2.0.0 export of a <strong>600 × 400</strong> layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.</p>
 <pre><code class="language-lua">-- Positions
 local pos = {
   BUTTON_1 = { x=40, y=60, w=100 },
@@ -3224,7 +3224,7 @@ state.Slider_2_val = 0.0
 <p>The full export also contains context creation, window dimensions, applicable colors/fonts/callbacks, the main drawing function, and a <code>reaper.defer</code> loop. Nested containers establish their corresponding ImGui scopes. Do not move a draw-list call across a child-window boundary without using the appropriate draw list and origin.</p>
 <p>For layout revisions, edit the JSON project and export again: some dimensions and drawing coordinates appear inline, as well as in <code>pos</code>.</p>
 <hr>
-<p><em>ReaUI Builder — User Guide for Version 1.10.0. Updated 8 October 2026.</em></p>
+<p><em>ReaUI Builder — User Guide for Version 2.0.0. Updated 9 October 2026.</em></p>
 </div>
 <a href="#top" class="back-to-top">↑ Top</a>
 </body>

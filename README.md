@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 1.10.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
+**Version 2.0.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
 
 ## Contents
 
@@ -165,7 +165,7 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 1.10.0 has the following limitations:
+Version 2.0.0 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
@@ -178,8 +178,8 @@ Check the exported interface in REAPER before distributing your script. The manu
 
 ## Documentation and feedback
 
-- [English user guide — version 1.10.0](manuals/ReaUI_Builder_Manual_en.md)
-- [Русское руководство — версия 1.10.0](manuals/ReaUI_Builder_Manual_ru.md)
+- [English user guide — version 2.0.0](manuals/ReaUI_Builder_Manual_en.md)
+- [Русское руководство — версия 2.0.0](manuals/ReaUI_Builder_Manual_ru.md)
 
 Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
 

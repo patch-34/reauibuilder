@@ -1,4 +1,4 @@
-# ReaUI Builder — User Guide, Version 1.10.0
+# ReaUI Builder — User Guide, Version 2.0.0
 
 [Русская версия](ReaUI_Builder_Manual_ru.md)
 
@@ -94,7 +94,7 @@ A visual layout editor for ReaImGui interfaces.
 
 Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.
 
-This guide covers version **1.10.0**. It describes the current features and workflow; obsolete workarounds are omitted.
+This guide covers version **2.0.0**. It describes the current features and workflow; obsolete workarounds are omitted.
 
 ---
 
@@ -1296,7 +1296,7 @@ Exported drawings are clipped to the layout. A drawing is included if any part o
 
 Each available fill/stroke row has its own **disable** checkbox. Select it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.
 
-Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 1.10.0 has no color-link control.
+Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.0.0 has no color-link control.
 
 If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.
 
@@ -1733,7 +1733,7 @@ Text fields keep their normal typing, clipboard, and navigation behavior. Save/S
 
 ## 17. Release limitations
 
-The following limitations apply to version **1.10.0**.
+The following limitations apply to version **2.0.0**.
 
 - **Editing Combo and ListBox items.** The export contains five placeholder items. Replace their strings in Lua; the selection state and widget calls are already generated.
 - **Free rotation for drawings.** Arc supports angles and Triangle supports orientation, but there is no general rotation handle or property.
@@ -1823,7 +1823,7 @@ The table lists all 55 contract types, including the automatically managed TabIt
 
 ## Appendix B · Inspector matrix
 
-This table lists the fields available for each of the **55 types** in version 1.10.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
+This table lists the fields available for each of the **55 types** in version 2.0.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
 
 Every type except TabItem and TableCell also has **constraints** (§5.9); they are not repeated in the rows. TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. Panel, Group, CollapsingHeader, TreeNode, TabBar, and TabItem support **hint**; StyleRegion, Table, and TableCell do not.
 
@@ -1891,7 +1891,7 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 
 ## Appendix C · Reading the generated file
 
-These excerpts come from a version 1.10.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
+These excerpts come from a version 2.0.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
 
 ```lua
 -- Positions
@@ -1936,4 +1936,4 @@ For layout revisions, edit the JSON project and export again: some dimensions an
 
 ---
 
-*ReaUI Builder — User Guide for Version 1.10.0. Updated 8 October 2026.*
+*ReaUI Builder — User Guide for Version 2.0.0. Updated 9 October 2026.*

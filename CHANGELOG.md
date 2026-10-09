@@ -8,7 +8,16 @@ e.g. `1.0.70`).
 
 ## [Unreleased]
 
-## [1.10.0] - 2026-10-09
+## [2.0.0] - 2026-10-09
+
+2.0.0 is the build that was numbered 1.10.0 before its release, published under a new major
+version. Apart from the version number nothing differs: exports and project files are
+identical. It also contains everything listed below under 1.10.0, 1.9.0, 1.8.0 and 1.7.0,
+which were built and tested but not published on their own; the main additions are the
+resizable window with constraints and stretching, Theme Studio, and the editor changes listed
+under 1.10.0.
+
+## [1.10.0] - not published separately
 
 1.10.0 also contains everything listed below under 1.9.0, 1.8.0 and 1.7.0, which were built
 and tested but not published on their own.

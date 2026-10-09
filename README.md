@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 1.6.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
+**Version 1.10.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
 
 ## Contents
 
@@ -31,17 +31,17 @@ The editor runs from a single local HTML file. No installation, server, or build
 | Editor | Single HTML file with embedded CSS and JavaScript; runs locally in a browser |
 | Output | Lua script targeting ReaImGui 0.10 |
 | Widgets | 45 families; 55 concrete types, including automatic tab and table-cell elements |
-| Window | Optional menu bar (menus, items, check items, separators, submenus); title bar in ImGui or theme colours |
-| Modes | Basic (eleven common components, plain-language properties) and Advanced; both edit the same project |
+| Window | Fixed or resizable (optional min / max size; reopens at the last size); optional menu bar (menus, items, check items, separators, submenus); title bar in ImGui or theme colours |
+| Modes | Basic (eleven common components, plain-language properties) and Advanced; both edit the same project; the start dialog appears on the first launch |
 | Drawing | Rectangle, circle/ellipse, polygon, line, text, triangle, and arc |
-| Positioning | Absolute canvas coordinates; flow layout within exported table cells |
+| Positioning | Absolute canvas coordinates; constraints pin objects to an edge, keep them centred or stretch them (Left+Right, Top+Bottom) in a resizable window; flow layout within exported table cells |
 | Sizing | Widget-specific rules that follow ImGui's size constraints |
 | Containers | Panel, Group, StyleRegion, CollapsingHeader, TreeNode, TabBar, and Table |
-| Editing | Multiple selection, batch property editing, copy/paste, duplication, undo/redo |
+| Editing | Multiple selection, batch property editing, copy/paste, duplication, undo/redo, text editing on the canvas, a hint for every setting |
 | Grid and view | 2, 5, or 10 px grid spacing; optional snapping; 50–250% zoom and panning |
-| Styling | Built-in and custom themes, theme files (import / export); scoped style and font overrides |
-| Preview | Approximation of the exported interface with theme and style overrides |
-| Export checks | Errors, warnings, and a count of included and omitted objects |
+| Styling | Built-in and custom themes; Theme Studio with fifty ready-made palettes and a plugin preview; theme files (import / export); scoped style and font overrides |
+| Preview | Approximation of the exported interface with theme and style overrides; resizable windows can be previewed at any allowed size |
+| Export checks | Errors, warnings (including overlaps and too-small stretched objects across the whole window-size range), and a count of included and omitted objects |
 | Project storage | JSON files; browser autosave for recovery |
 
 Builder generates the interface layer for a REAPER script. DSP, REAPER actions, and application logic are supplied by your code.
@@ -97,6 +97,12 @@ Builder creates `TabItem` and `TableCell` elements automatically. Exported table
 
 Widget overlap is checked during placement, movement, and resizing. Containers reserve an editor strip for selecting the container itself; this strip is not exported.
 
+### Resizable window and constraints
+
+By default the exported window has a fixed size. Turn on **Resizable window** in the Canvas tab to let the user resize it in REAPER, optionally between a minimum and a maximum content size. The window opens at the design size the first time and reopens at the size the user left it.
+
+**Constraints** decide where each object goes when the window changes size: keep its distance to the left or right edge, to the top or bottom edge, or stay centred. Set them with the 3 × 3 preset grid in Properties; the canvas shows them as dashed lines to the parent's edges. Everything inside a pinned container moves with it. **Left+Right** and **Top+Bottom** keep both distances, so the object's width or height follows the window. Buttons, fields, panels, tab bars, progress bars and similar controls can stretch, as can rectangle and text drawings; controls sized by ImGui or by their text only move. Drag the frame in Preview to try other sizes, and Preflight reports any size at which widgets would overlap, leave their container or get too small.
+
 ### Drawings
 
 Drawing primitives form a separate layer below the widgets. Use them for section borders, meter backgrounds, scales, and other non-interactive elements. Drawings can overlap, and their stacking order is editable.
@@ -105,7 +111,7 @@ Shapes support the applicable fill, stroke, thickness, rounding, and opacity set
 
 ### Themes and preview
 
-Three themes are included: **Default**, **Slate (dark)**, and **Light**. Custom themes derive a fifteen-slot palette from four base colors: background, text, controls, and accent. The active theme is saved with the project.
+Three themes are included: **Default**, **Slate (dark)**, and **Light**. **Theme Studio** (View › Theme Studio…) edits the colors of the exported interface: pick one of fifty ready-made palettes in the Collection, or build a theme from four base colors (background, text, controls, accent) and adjust all fifteen slots. A sample plugin window shows the result before you apply it. The active theme is saved with the project; your own themes are kept in My themes in the browser and can be exported to a file.
 
 Use StyleRegion for local text, frame, button, rounding, alignment, and font overrides. Overrides are scoped to the region's children in the export. Labels with an explicit draw list color retain that color.
 
@@ -120,6 +126,7 @@ Use StyleRegion for local text, frame, button, rounding, alignment, and font ove
 - Widget state variables, shared radio-group state, and arrays where needed.
 - Font and EEL2 callback setup when used by the layout.
 - A drawing function with primitives, nested widget calls, and scoped styles.
+- For a resizable window: the size limits, the remembered size, and per-frame positions of pinned objects.
 - A `reaper.defer` loop.
 
 The generated `-- TODO` comments identify places to add application behavior. Object names are used in Lua identifiers and ImGui IDs. Use descriptive names to make the result easier to edit.
@@ -144,7 +151,7 @@ Autosave stores a recovery draft in the browser. Save a project file for a porta
 
 Download [ReaUI_Builder.html](ReaUI_Builder.html) and open the downloaded file in Chrome, Edge, Firefox, or Safari. On GitHub, use the file's download control to save the HTML itself. The editor works locally through `file://`; editing and code generation do not require a network connection.
 
-On launch, choose **Basic** or **Advanced** mode (switch later with **View › Interface mode**). Set the window size on **Canvas**, place widgets, and edit their properties in **Selection** (**Properties** in Basic mode); every setting there has a tooltip. Use **File → Save Project** to keep an editable copy.
+On the first launch, choose **Basic** or **Advanced** mode (switch later with **View › Interface mode**). Set the window size on **Canvas**, place widgets, and edit their properties in **Properties**; rest the pointer on any setting for a hint (**View → Show hints**). Double-click a text drawing, rectangle, or circle to type its text on the canvas. Use **File → Save Project** to keep an editable copy.
 
 ### Run the exported interface
 
@@ -158,20 +165,21 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 1.6.0 has the following limitations:
+Version 1.10.0 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
 - **Collapsible containers stay open in Builder.** Their collapse behavior is available in the exported interface.
 - **Menus cover the window's menu bar only.** Right-click context menus and popups are not built yet.
-- **The manuals describe version 1.0.70.** Features added since then are listed in [CHANGELOG.md](CHANGELOG.md).
+- **Some objects only move.** Table, ColorPicker, controls sized by ImGui or by their text, and circles, arcs, lines, polygons and triangles do not stretch in a resizable window.
+- **Theme Studio previews in its own window.** The canvas shows a theme after Apply; the Collection is a fixed set of palettes.
 
 Check the exported interface in REAPER before distributing your script. The manual records the release's validation status and additional behavior to be aware of.
 
 ## Documentation and feedback
 
-- [English user guide — version 1.0.70](manuals/ReaUI_Builder_Manual_en.md)
-- [Русское руководство — версия 1.0.70](manuals/ReaUI_Builder_Manual_ru.md)
+- [English user guide — version 1.10.0](manuals/ReaUI_Builder_Manual_en.md)
+- [Русское руководство — версия 1.10.0](manuals/ReaUI_Builder_Manual_ru.md)
 
 Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
 

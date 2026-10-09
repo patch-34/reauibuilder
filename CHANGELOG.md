@@ -8,6 +8,196 @@ e.g. `1.0.70`).
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-10-09
+
+1.10.0 also contains everything listed below under 1.9.0, 1.8.0 and 1.7.0, which were built
+and tested but not published on their own.
+
+### Added
+- Theme Studio (View › Theme Studio…, or from the theme selector): a window for the colours
+  of the exported interface. It does not change the editor's own look. Three tabs:
+  - **Collection** — fifty ready-made palettes in five groups (Vintage, Dark, Cold, Warm,
+    Earth; from Color Hunt). Dark / Light chooses whether the palette's darkest or lightest
+    colour becomes the background. Nothing changes in the project until Apply.
+  - **My themes** — the built-in themes, your saved themes and the themes that came with the
+    open project. + New starts a theme, Import… adds one from a file.
+  - **Edit** — Basic: Background, Text, Controls, Accent and Header opacity; the other colours
+    follow. Full: all fifteen colours, each Auto or Manual with a Reset, opacity sliders, and
+    a list of the further ImGui colours the export calculates from the theme.
+- A Plugin preview in the Studio shows a sample window in the theme and highlights where a
+  colour is used. Hold to compare shows the colours the theme had when it was opened or last
+  saved. Undo / Redo, Reset edits and Export… work inside the Studio.
+- Apply puts the selected theme into the project as one step in the main Undo history. A
+  palette, a new theme or an edited built-in theme becomes a theme of that project (dashed
+  outline in the theme selector, listed under "From this project"). Save and Save as… write to
+  My themes only and never switch the project's theme. Show in theme menu decides whether the
+  selector lists a saved theme; Delete removes it from My themes, and Remove from project
+  drops a theme that came with the project.
+- Closing the Studio with unsaved changes asks: Save theme, Discard changes or Cancel.
+- Preflight errors for a filled polygon: "Polygon outline crosses itself" (edges cross, touch,
+  overlap or turn back) and a second one when the fill triangles would not cover the polygon
+  exactly. A polygon with its fill off is not affected.
+
+### Changed
+- First launch: the editor opens in the light editor theme, and a new project starts on the
+  Light plugin preset. A choice made earlier in the browser is kept, and existing projects
+  keep their theme.
+- The start dialog (mode, new or open) appears on the first launch only. Later launches open an
+  empty project in the last mode; drafts from an earlier session are restored through
+  File › Restore projects….
+- The View menu is the same in Basic and Advanced, Theme Studio included (only Panels › Tools
+  differs). Basic's Add panel is tidier.
+- The theme editor that opened from the colour picker is gone; Theme Studio replaces it.
+- Theme storage is hardened: custom and library themes are kept in prototype-free maps, an
+  imported theme is written to browser storage first and dropped from memory when the write
+  fails, and a theme file or project whose id, label or colours are not text no longer stops
+  the import or the load (the value is dropped and the import reports it).
+- Themes that came with a project leave the theme lists on New Project and on opening another
+  project; a My theme they shadowed becomes visible again. Undo and Redo keep them.
+- Save Project and Save As… first apply the field you are typing in (canvas width / height, a
+  Properties field), exactly as a click elsewhere would. Before, the file could hold the old
+  value while the screen showed the new one.
+- A Preflight finding now opens every tab on the way to the object (nested tab bars too) and
+  centres it in the canvas view, also at another Preview size.
+- In Preview at another window size, a click selects the object that Preview draws there.
+
+### Fixed
+- Text and lines that the export draws itself (external labels, Text, Separator,
+  SeparatorText, LabelText, BulletText, a Group's label) were not dimmed inside a disabled
+  StyleRegion. They now go through `reaper.ImGui_GetColorEx`, which applies the style alpha
+  ImGui dims the region with.
+- A filled polygon with a repeated corner was exported as a convex fan, so a concave outline
+  was filled wrongly. The export now decides convexity and triangles on the points without
+  consecutive repeats.
+- A Preflight "Leaves the window" warning for a CollapsingHeader when the window narrows: on x
+  only its start is checked. Nested headers are checked too.
+- Multi-selection Properties had a dead band under the last row, so the Vertical constraint
+  row could not be clicked at 1440 × 900.
+- Theme Studio: the colour popover keeps focus in its HEX field, Esc closes only the popover,
+  and closing the Studio closes it; the Apply / Edit row stays visible at 1280 × 720; "Save
+  another copy" from the close prompt now saves and closes; Show in theme menu changes
+  nothing when the browser cannot store it; the Remove from project dialog says what really
+  happens.
+- An exported InvisibleButton whose size follows a stretched axis can no longer reach 0 px
+  when a docked window is smaller than its minimum (an ImGui assertion). Static sizes are
+  written as before.
+
+### Notes
+- Exports and project files are identical to 1.8.0 for every project without stretch, with
+  three exceptions: the text and lines inside a disabled StyleRegion (above), a filled polygon
+  with a repeated consecutive point, and the `defaults` of a new project (Light instead of
+  Default).
+- A project with stretch constraints opens in 1.8.0 with the stretch removed and a note.
+- The user manual (English and Russian, Markdown and HTML) covers 1.10.0: stretch constraints,
+  Theme Studio, the start dialog, the View menu, Preflight and saving. New and replaced
+  screenshots are in `manuals/screenshots/` (`Theme_selector.png`,
+  `Theme_Studio_Collection.png`, `Theme_Studio_Edit.png`, `Constraints.png`).
+
+## [1.9.0] - not published separately
+
+### Added
+- Stretch constraints for adaptive layouts. In Advanced mode, **Left+Right** and
+  **Top+Bottom** make an object's width or height follow a resizable parent. Horizontal
+  stretch is available on controls whose width Builder sets (40 types, e.g. Button, InputText,
+  Combo, ProgressBar, Panel, Group, StyleRegion, TabBar); vertical stretch on controls whose
+  height is set explicitly (15 types, e.g. Button, ListBox, InputTextMultiline, Panel,
+  TabBar). Rectangles and Text drawings stretch on both axes. Widgets sized by ImGui or by
+  their text, ColorPicker and Table cannot stretch; circles, arcs, lines, polygons and
+  triangles only move.
+- Preflight error "Too small at the minimum window size": a stretched object that would fall
+  below the editor's resize minimum at the window's minimum size. It is reported on a stretched
+  axis whose minimum is below the design size, once on a TabBar or Table rather than on every
+  tab or cell.
+
+### Changed
+- The loader keeps valid stretch constraints and removes them only where the object cannot
+  stretch, with one note.
+- In Constraints, Left+Right and Top+Bottom are real buttons for a selection that can stretch;
+  where nothing selected can, they stay greyed with a hint that says why. With several objects
+  selected the infobar reports how many were applied and which types were skipped. A stretch
+  edit is one Undo step.
+- The canvas shows both edge lines for a stretched axis. Basic mode shows it read-only as
+  "left+right" / "top+bottom".
+
+### Notes
+- Exports of projects without a resizable window, and of adaptive projects that only move or
+  centre objects, are unchanged. With stretch, the export writes `pos.N.w = <w> + dW` and
+  `pos.N.h = <h> + dH` and every size derived from them stays an expression.
+- A Text or rectangle label that stretches uses a text helper whose cache keeps only the last
+  layout per call site, so dragging the window does not grow it. The previous helper is
+  written unchanged when nothing text-sized stretches.
+
+## [1.8.0] - not published separately
+
+1.8.0 also contains everything listed below under 1.7.0, which was built and tested but
+not published on its own.
+
+### Added
+- Resizable window (Canvas tab › Window): the exported window can be resized in REAPER
+  between an optional minimum and maximum content size. It opens at the design size the
+  first time and afterwards at the size the user left it (stored in REAPER's ExtState,
+  section "ReaUI Builder", key "<window title> window size"). Off by default.
+- Constraints (Properties › Constraints): pin an object to the right or bottom edge of its
+  parent, or keep it centred, so it follows the window when the user resizes it. A 3 × 3
+  preset grid plus Horizontal (Left / Right / Center) and Vertical (Top / Bottom / Center).
+  Everything inside a pinned Panel, Group, StyleRegion, TabBar or Table moves with it.
+  Works on a multi-selection ("Applies to 2 of 3 selected · 1 skipped"). Constraints act
+  only while the window is resizable; otherwise they are kept and shown greyed, with a
+  "Make the window resizable" button.
+- The canvas shows the selected object's constraints, Figma-style: a dashed line to each
+  edge it keeps its distance to, and the parent's centre line for Center.
+- Preview of a resizable project: drag the frame's right edge, bottom edge or corner to see
+  the layout at another window size, with a W × H badge; double-click returns to the design
+  size. View only — nothing is saved and no undo step is added.
+- Preflight checks the whole size range: "Overlaps X when the window is N px wide or
+  narrower" (also "from A to B px" when an object passes through another while the window
+  grows) and "Leaves <container / the window> when …", with exact sizes.
+- Basic mode shows the window setting and an object's constraints as read-only lines.
+
+### Changed
+- Project files may carry `windowResize` (only when the window is resizable) and per-object
+  `pinH` / `pinV` (only when not the default). Builds before 1.8.0 open such files as
+  fixed-window projects.
+- Loading drops stretch constraints (planned for 1.9.0), unknown constraint values,
+  constraints on tabs and table cells, and window limits that are not whole numbers or are
+  out of range, with one note per kind.
+
+### Notes
+- Exports are byte-identical to 1.7.0 (and 1.6.0) for every project without "Resizable
+  window". With it, the export adds `SetNextWindowSizeConstraints`, reads the live content
+  size each frame and moves pinned objects by the difference.
+- Constraints move objects; they do not resize them yet. Left+Right and Top+Bottom are
+  shown greyed and are planned for 1.9.0.
+- The user manual (English and Russian, Markdown and HTML) covers 1.7.0 and 1.8.0: the new
+  sidebar, hints, text editing on the canvas, the resizable window, constraints, Preview at
+  another size and the size-range checks. New and replaced screenshots are in
+  `manuals/screenshots/`.
+
+## [1.7.0] - not published separately
+
+### Added
+- Hints for every setting in the right sidebar (Properties, the Canvas tab, batch editing,
+  placement settings, the menu bar editor, Basic mode): rest the pointer on a setting and a
+  hint appears next to it after a short pause, with the ReaImGui call or flag it becomes.
+  View › Show hints turns them off; the choice is remembered per browser.
+- Text editing on the canvas: double-click a Text drawing, a rectangle or a circle to type
+  its text in place. A new Text opens in edit mode. The edit is one undo step; Cmd/Ctrl+S
+  applies it and saves.
+- A multi-line label field in Properties for Text, rectangle and circle.
+- Cmd/Ctrl+S in the window-title editor applies the title and saves (Shift for Save As).
+
+### Changed
+- The right sidebar: tabs Canvas | Properties at the top (the Selection panel is now the
+  Properties tab), Elements as its own panel below. The Info tab is gone: its widget preview
+  card is at the top of Properties, and the project summary is no longer shown. View ›
+  Panels lists Canvas, Properties, Elements and Tools.
+- 1.6.0's tooltips in the Selection panel are replaced by the hints; the texts are the same,
+  corrected.
+
+### Notes
+- Exports are byte-identical to 1.6.0. The export now goes through one geometry seam
+  internally (preparation for the resizable window in 1.8.0).
+
 ## [1.6.0] - 2026-10-02
 
 1.6.0 is the first published release since 1.0.70. It also contains everything listed
@@ -146,6 +336,8 @@ tested but not published on their own, so they have no tags.
 - Opening a menu, hovering and the check mark toggling are ImGui's own and need no code;
   only what an item *does* is a TODO you fill in. Right-click context menus and popups
   are a separate, later decision — this release covers the window's own menu bar only.
+- The user manual (English and Russian, Markdown and HTML) covers 1.6.0: Basic mode, the menu
+  bar, title bar colour, theme files, the new widgets and table options, and the tooltips.
 
 ## [1.5.0] - not published separately
 

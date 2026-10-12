@@ -6,6 +6,88 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions correspond to the release tags on GitHub (tag name = build number,
 e.g. `1.0.70`).
 
+## [Unreleased]
+
+## [2.1.0] - 2026-10-12
+
+### Added
+- Tables stretch with a resizable window: Left+Right and Top+Bottom are offered for a Table. Fixed
+  columns and rows keep their size and the others share the change. What is inside a cell follows
+  its own cell: content pinned right stays at the cell's right edge, and Left+Right content grows
+  with a stretching column. Constraints of an object in a cell are relative to the cell.
+- Table › rows keep their height (with ScrollY): the rows keep their authored height and the space
+  below the last row stays empty, for lists filled from data. The editor hatches that space.
+- Table › cell padding (x / y, reset to ImGui's 4 × 2).
+- Table › a background colour per row, and a highlight colour your script can switch on per row at
+  runtime (`state.<table>_highlight[row] = true`). The editor previews the rows you tick.
+- Style region › frame padding (x / y): the space between a control's frame and its text.
+- Custom Checkbox: Checkbox › look draws the box in the export itself, with a size from 6 to 64 px,
+  a border on or off, colours for the fill, the mark and the border (or the theme's), a tick or a
+  filled square, and "starts checked".
+- Checkbox › click area: the square, the square widened left and right, or the whole table row
+  (offered for a checkbox in a table cell). The click area is not part of the box: other objects
+  may overlap it and keep their own clicks. An optional hover highlight for the row.
+- Checkbox › highlight row when checked (table cells), with an optional colour; by default the
+  table's highlight colour, else the theme's header colour.
+- Text inputs (InputText, InputTextWithHint, InputTextMultiline) › frame border, with a thickness
+  from 0.5 to 8 px and a colour.
+- File › Language ▸ English / Русский. The editor switches live, without a reload, and remembers the
+  choice in this browser. It is not stored in the project; exports and project files are identical
+  in both languages. Widget names, folder names and the labels in Properties stay English.
+  Help › User Manual opens the manual in the interface language.
+- Preflight information lines: a checkbox whose Table row click area or highlight needs a table cell,
+  a Style region whose frame padding makes its controls taller in REAPER than on the canvas, and a
+  table row whose content plus cell padding is taller than the row.
+- Preview clips what is inside a scrolling table to the table, as REAPER does.
+
+### Changed
+- Table cells are laid out as ImGui lays them out. A fixed column's width is the width of its
+  content; the cell adds the cell padding on each side and the border line between columns. Cell
+  content now sits in REAPER where the editor shows it (it was 4 px further right and down), and
+  rows no longer grow by the padding counted twice. Projects open with their tables' cells laid out
+  again by this rule. Column widths in the export do not change. A child that no longer fits a
+  narrower cell is moved inside it as on any resize; its size is kept.
+- Wrapped text inside a table cell wraps inside its column in REAPER at every window width, and
+  Preview shows the same break.
+- A Style region no longer reserves a 24 px header strip or blocks other objects: it draws nothing
+  in REAPER. Children can sit right under its top edge, other objects can overlap it, and it can be
+  moved over them.
+- A control with an empty label (Checkbox, InputTextWithHint and the other controls whose label is
+  drawn above them) no longer reserves the 12 px label band above it.
+- In the editor, a Table's name is written inside the box, top-left, and its lock sits top-right;
+  the tab above the box is gone.
+- A table's minimum size includes its cell padding and borders. The cell padding and Borders
+  settings lay the cells out again.
+- Preview no longer offsets cell content by the cell padding: the editor, Preview and REAPER agree.
+- The inspector's drop-down controls (checkbox mark, click area, table column modes) fit their
+  label and use the compact inspector font.
+- Project files may carry the new table, Style region, checkbox and text-input keys, each only when
+  not the default. Older builds ignore them.
+
+### Fixed
+- The custom checkbox's tick is one stroked path with no notch at its lower vertex, and its border
+  is drawn under the mark, so it no longer cuts the tick's ends at small sizes.
+
+### Exports
+- Byte for byte the same as 2.0.0 for a project that has no Table and uses none of the new
+  options, with one exception: a control with an empty label placed in the top 12 px of the window
+  is now exported (it was left out as "outside the window").
+- A project with a Table exports differently: the cell entries of `pos` follow the new cell layout,
+  and cell content is placed from the cell's edge (the cell padding is read once per table at
+  runtime). Column widths and `TableSetupColumn` lines do not change.
+- A stretched table: its width and height follow the window, its column widths are computed every
+  frame (`_reaui_table_cols`), and cell content moves by the change of its cell. A table whose height
+  stretches takes the runtime row path.
+- `PushStyleVar(CellPadding)` around a table, `PushStyleVar(FramePadding)` in a Style region,
+  `TableSetBgColor(RowBg0 / RowBg1)` per row, and a `state.<table>_highlight` slot.
+- A custom checkbox: one click item (`InvisibleButton`, or `Selectable` with
+  `SpanAllColumns | AllowOverlap` for a table row), then the fill, the border and the tick or square
+  with the DrawList; `state.<name>_checked` as before. Highlight row when checked adds
+  `TableSetBgColor(RowBg1)`.
+- A text input with a frame border: `PushStyleVar(FrameBorderSize)` and, with a colour,
+  `PushStyleColor(Col_Border)` around the widget.
+- Wrapped text in a cell is clamped to the cell's content region.
+
 ## [2.0.0] - 2026-10-09
 
 2.0.0 is the build that was numbered 1.10.0 before its release, published under a new major

@@ -1,4 +1,4 @@
-# ReaUI Builder — User Guide, Version 2.0.0
+# ReaUI Builder — User Guide, Version 2.1.0
 
 [Русская версия](ReaUI_Builder_Manual_ru.md)
 
@@ -12,6 +12,7 @@
   - [02. Quick start](#manual-02-quick-start)
   - [03. Workspace](#manual-03-workspace)
     - [3.1 · Top toolbar and menus](#manual-3-1-top-toolbar-and-menus)
+      - [Language](#manual-language)
     - [3.2 · Widget panel](#manual-3-2-widget-panel)
     - [3.3 · Left palette](#manual-3-3-left-palette)
     - [3.4 · Canvas area](#manual-3-4-canvas-area)
@@ -39,6 +40,7 @@
     - [5.9 · Constraints](#manual-5-9-constraints)
   - [06. Widget catalog](#manual-06-widget-catalog)
     - [Catalog notes](#manual-catalog-notes)
+      - [Custom Checkbox](#manual-custom-checkbox)
   - [07. Containers](#manual-07-containers)
     - [7.1 · Panel](#manual-7-1-panel)
     - [7.2 · Group](#manual-7-2-group)
@@ -46,6 +48,8 @@
     - [7.4 · CollapsingHeader and TreeNode](#manual-7-4-collapsingheader-and-treenode)
     - [7.5 · TabBar](#manual-7-5-tabbar)
     - [7.6 · Table](#manual-7-6-table)
+      - [Table in a resizable window](#manual-table-resizable)
+      - [Cell padding, row colours and highlight](#manual-table-rows)
   - [08. Inspector reference](#manual-08-inspector-reference)
   - [09. Flags](#manual-09-flags)
     - [Numeric flags](#manual-numeric-flags)
@@ -94,7 +98,7 @@ A visual layout editor for ReaImGui interfaces.
 
 Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.
 
-This guide covers version **2.0.0**. It describes the current features and workflow; obsolete workarounds are omitted.
+This guide covers version **2.1.0**. It describes the current features and workflow; obsolete workarounds are omitted.
 
 ---
 
@@ -171,7 +175,9 @@ The steps below use Advanced mode.
 
 In **Editor** mode, a gray name tag appears above each widget.
 
-The **Table** name (`⊞ <name>`) and lock icon appear on an editor tab **above** the table box. Click this tab to select or drag the table. It does not appear in Preview or the export.
+The **Table** name (`⊞ <name>`) is written inside the box, in its top-left corner, and the lock icon sits in the top-right corner. Click the strip with the name to select or drag the table. Both are editor aids: they take no room from the table and do not appear in Preview or the export.
+
+**StyleRegion** shows a small `✦ Style` label in its top-left corner. It is an editor aid too; the region reserves no space (§7.3).
 
 **Panel** shows a pale `☐ Panel` mark in its top-left corner. This editor aid reserves no space. Clicking within the top 24 px of the box selects the Panel, even over a child widget.
 
@@ -189,7 +195,7 @@ The top toolbar contains four menus, global commands, and widget categories.
 
 | Menu | Commands |
 | --- | --- |
-| **File** | New Project · Save Project · Save As… · Restore projects… · Load Project |
+| **File** | New Project · Save Project · Save As… · Restore projects… · Load Project · Language ▸ (English · Русский) |
 | **Edit** | Undo · Redo · Copy · Paste · Delete · Duplicate · Group selection · Ungroup selection · Select All · Deselect All · Clear All |
 | **View** | Dark mode · Theme Studio… · Interface mode (Basic · Advanced) · Grid · Snap to grid · Reference grid in export · Hide widget names · Hide draw objects names · Widget footprints · Show hints · Panels · Zoom to fit · Actual size (100%) |
 | **Help** | User Manual ↗ · Keyboard Shortcuts · Report a Bug… · About |
@@ -212,11 +218,21 @@ The top toolbar contains four menus, global commands, and widget categories.
 
 **Export** opens a window containing the generated code.
 
-**User Manual ↗** opens this guide in a new browser tab.
+**User Manual ↗** opens this guide in a new browser tab, in the language of the interface (see [Language](#manual-language)).
 
 > **Report a Bug…** opens a dialog for sending a report by email. It shows the last 50 logged actions together with the build number and current window size, assembled into a read-only report you can review before sending. Add a description of what happened, optionally check **Include my layout** to attach the whole project, then click the email address to copy it and paste the report into your mail client. No data leaves the browser until you send it yourself.
 
 The seven widget categories appear on the right side of the toolbar. Click a category to show its widgets. Click it again to close the panel.
+
+<a name="manual-language"></a>
+
+#### Language
+
+**File → Language ▸** switches the editor between **English** and **Русский**. The change is live: menus, panels, hints, dialogs and messages change at once, with no reload, and the project, its Undo history and its saved state are not touched. The choice is remembered in this browser. It is not stored in the project and is not an Undo step, and the exported Lua and the project file are the same in both languages.
+
+The Russian interface is hybrid. Widget names and families, the folder names of the toolbar (such as **Buttons & Toggles**) and the labels of the fields in Properties stay English; menus, hints, descriptions, dialogs and messages are translated. **Help → User Manual ↗** opens the manual in the interface language.
+
+<p align="center"><img src="screenshots/File_Language.png" alt="File menu open with the Language submenu: English (checked) and Русский" width="380"></p>
 
 <a name="manual-3-2-widget-panel"></a>
 
@@ -517,9 +533,9 @@ The widget itself receives a hidden ID, for example:
 
 The visible label is drawn separately through the draw list, above the widget's top edge. Builder shows it in the same position on the canvas.
 
-An external label needs **12 px** of additional vertical space. This space is outside the widget's own bounds.
+An external label needs **12 px** of additional vertical space. This space is outside the widget's own bounds. A control whose label is empty draws no label and reserves no band, so it can sit at the top edge of the window or of its container.
 
-Leave room for this label as well as the control body. Footprint checks include the above-label area, so the available gap can be smaller than the distance between the two control boxes suggests.
+Leave room for this label as well as the control body. Footprint checks include the above-label area of a control that has a label, so the available gap can be smaller than the distance between the two control boxes suggests.
 
 <a name="manual-4-6-containers-and-nesting"></a>
 
@@ -545,9 +561,9 @@ There is no separate command for adding an object to a container. Moving a conta
 
 Do not confuse container nesting with **Edit → Group selection**: editor grouping is a selection and movement aid and does not create a parent container. See §5.7.
 
-**Group, StyleRegion, CollapsingHeader, TreeNode,** and **TabBar** reserve a **24 px** strip at the top for a header or editor controls. Child coordinates include this space. Editor-only parts of the strip are not exported; ImGui draws native headers and tabs.
+**Group, CollapsingHeader, TreeNode,** and **TabBar** reserve a **24 px** strip at the top for a header or editor controls. Child coordinates include this space. Editor-only parts of the strip are not exported; ImGui draws native headers and tabs.
 
-**Panel** uses its entire box; the `☐ Panel` mark reserves no space. The **Table** editor tab sits above the box and does not reduce the table’s content area. Table reserves only an 18 px column-header strip when **header row** is enabled. Automatically created TabItem and TableCell objects reserve no additional strip.
+**Panel** and **StyleRegion** use their entire box; the `☐ Panel` mark and the StyleRegion label reserve no space, and children can sit right under the top edge. The **Table** name and lock sit inside the box, in its top corners, and do not reduce the table’s content area. Table reserves only an 18 px column-header strip when **header row** is enabled. Automatically created TabItem and TableCell objects reserve no additional strip.
 
 Resizing a container adjusts child positions toward its content area. Table cells and tab pages follow their parent’s size. Keep enough room for the contents: repositioning children does not reduce their dimensions, and the resize checks differ between canvas handles and inspector fields.
 
@@ -568,6 +584,8 @@ Builder uses widget **footprints** to check placement and movement. A footprint 
 Choose **View → Widget footprints** to inspect this reserved space. A position that looks empty beside a small control may still belong to its label or native control area.
 
 Inside a TabBar, overlap checks follow the active tab path. Widgets on inactive sibling tabs do not block placing, moving, resizing, drag previews, or paste validation at the same coordinates in the visible tab. Widgets on the same active tab still collide, and visible content from separate overlapping TabBars remains an obstacle.
+
+**StyleRegion** takes no part in these checks. It draws nothing in REAPER, so it can overlap other objects, be moved over them, and have other objects placed over it; its children are checked like any other widgets. To select a region whose body its children cover, click a free spot inside it or pick it in Elements.
 
 - Placing a new widget in occupied space is rejected with a status message.
 - Moving a widget may use a nearby free grid position.
@@ -838,11 +856,13 @@ The **parent** is the container the object is in, or the window for a top-level 
 
 **Which objects stretch.** Stretching needs a size that Builder sets, not ImGui or the content.
 
-- **Left+Right:** Button, InvisibleButton, Selectable, ColorButton; the text and number fields; Combo and ListBox; sliders and drags, including their multi-component and range variants, SliderAngle, and VSlider; ProgressBar; ColorEdit; PlotLines and PlotHistogram; Separator and SeparatorText; LabelText, BulletText, TextWrapped, TextLink, and TextLinkOpenURL; the containers Panel, Group, StyleRegion, TreeNode, and TabBar.
-- **Top+Bottom:** Button, InvisibleButton, Selectable, ColorButton, ListBox, InputTextMultiline, ProgressBar, VSlider, PlotLines, PlotHistogram, Panel, Group, StyleRegion, and TabBar.
+- **Left+Right:** Button, InvisibleButton, Selectable, ColorButton; the text and number fields; Combo and ListBox; sliders and drags, including their multi-component and range variants, SliderAngle, and VSlider; ProgressBar; ColorEdit; PlotLines and PlotHistogram; Separator and SeparatorText; LabelText, BulletText, TextWrapped, TextLink, and TextLinkOpenURL; the containers Panel, Group, StyleRegion, TreeNode, TabBar, and Table.
+- **Top+Bottom:** Button, InvisibleButton, Selectable, ColorButton, ListBox, InputTextMultiline, ProgressBar, VSlider, PlotLines, PlotHistogram, Panel, Group, StyleRegion, TabBar, and Table.
 - **Drawings:** rectangles and Text stretch on both axes; circles, arcs, lines, polygons, and triangles only move.
 
-Checkbox, Text, SmallButton, and other widgets sized by ImGui or by their text cannot stretch; on the vertical axis neither can sliders, single-line fields, headers, or TextWrapped. ColorPicker and Table cannot stretch either, and CollapsingHeader takes its width from its parent. For them the button stays greyed, and its hint says why. A ListBox that stretches vertically shows more rows. A stretched rectangle label or Text wraps again as its box changes.
+Checkbox, Text, SmallButton, and other widgets sized by ImGui or by their text cannot stretch; on the vertical axis neither can sliders, single-line fields, headers, or TextWrapped. ColorPicker cannot stretch either, and CollapsingHeader takes its width from its parent. For them the button stays greyed, and its hint says why. A ListBox that stretches vertically shows more rows. A stretched rectangle label or Text wraps again as its box changes.
+
+**Inside a table cell.** The parent of an object in a table cell is the cell, so its constraints are relative to the cell; Properties shows “Relative to its table cell”. When the table stretches (§7.6), its fixed columns and rows keep their size and the others share the change. An object pinned right stays at its cell's right edge, a Left+Right object grows with a stretching column, and an object with the defaults keeps its distance to the cell's top-left corner. In a table that keeps its size nothing moves.
 
 **On the canvas.** While the window is resizable, the selected object shows its constraints. A dashed line runs from each edge the object keeps its distance to, to the same edge of the parent, and ends in a short bar. A stretched axis shows both lines, to the left and right edges or to the top and bottom edges. For **Center**, a light dashed guide runs along the parent's center line, with a small diamond where the object's center sits. With a fixed window, an object that has constraints shows them greyed. The lines are an editing aid; they are not exported.
 
@@ -964,6 +984,27 @@ This catalog lists the **45 widget families** in the toolbar categories. For bas
 
 **Plot.** PlotLines and PlotHistogram have their own width and height. **values** takes 1–64 comma-separated numbers; **scale min** and **scale max** set the bottom and top of the graph (empty = taken from the data); **overlay** draws text over the plot. The export declares `state.<name>_values` as a `reaper.new_array` with a `-- TODO: fill … with your data` marker. Without your own values, a fixed sample series is shown.
 
+**Text inputs: frame border.** InputText, InputTextWithHint and InputTextMultiline have a **frame border** setting in Appearance: on or off (on starts at 1 px), a thickness from 0.5 to 8 px and a colour; × uses the theme's border colour. The export wraps the widget in `PushStyleVar(StyleVar_FrameBorderSize)` and, with a colour, `PushStyleColor(Col_Border)`.
+
+<a name="manual-custom-checkbox"></a>
+
+#### Custom Checkbox
+
+A Checkbox is ImGui's own `ImGui_Checkbox` until you turn on **custom look (size, border, colours, click area)** in Appearance. The export then draws the box itself with the draw list and keeps `state.<name>_checked` as before. Only Checkbox has the custom look; CheckboxFlags does not.
+
+| Setting | Effect |
+| --- | --- |
+| **size, px** | From 6 to 64; 12 when the look is turned on. The box is square, and W and H follow the size. |
+| **mark** | **Tick** or **Fill** (a filled square), with a colour. × uses the theme's colour. |
+| **background** | The colour of the square. × uses the theme's colour. |
+| **border** | On or off, with a colour. |
+| **starts checked** | The initial state: `state.<name>_checked = true`. Preview shows the mark. |
+| **click area** | Where a click toggles the box. **Square**: the square only. **Wider**: the square widened to the left and right by **left / right, px**. **Table row**: the whole row of the table, offered only for a checkbox in a table cell; outside a cell a stored Table row is kept and shown as Square. |
+| **row hover highlight** | **Table row** only. Paints the row while the pointer is over it (`Col_HeaderHovered`; × uses the theme's colour). Off by default. |
+| **highlight row when checked** | Checkbox in a table cell only. Paints the whole row while the box is checked. × uses the table's highlight colour (§7.6), else the theme's header colour (`Col_Header`). |
+
+The click area is not part of the box. Other objects may overlap it and keep their own clicks in REAPER. The Editor shows it as a dashed outline; it is not exported. The export adds one click item (`InvisibleButton`, or `Selectable` with `SpanAllColumns | AllowOverlap` for a table row), then draws the fill, the border and the mark. Preflight reports a **Table row** click area or **highlight row when checked** on a checkbox that is not in a table cell (§14).
+
 ---
 
 <a name="manual-07-containers"></a>
@@ -1015,8 +1056,13 @@ StyleRegion applies style overrides to its child widgets without affecting the r
 | frame bg | `PushStyleColor(Col_FrameBg)` |
 | button color | `PushStyleColor(Col_Button)` |
 | rounding | `PushStyleVar(StyleVar_FrameRounding)` |
+| frame padding | `PushStyleVar(StyleVar_FramePadding, x, y)` |
 | selectable align | `PushStyleVar(StyleVar_SelectableTextAlign, x, y)`, with both values from 0 to 1 |
 | font | `CreateFont(family, flags)` at startup, followed by `PushFont(ctx, font, size)` around the child widgets |
+
+**frame padding** (x and y, 0 to 32) sets the space between a control's frame and its text. ImGui gives inputs, sliders, combos and checkboxes a height of font size + 2 × y, so inside the region they are taller in REAPER than the 20 px the canvas shows; Preflight says so with an information line (§14).
+
+**No header strip.** A StyleRegion draws nothing in REAPER and reserves no space on the canvas: its top strip is only a label. Children can sit right under its top edge, other objects can overlap it, and it can be moved over them (§4.7). Drawing a new region around widgets still captures the widgets fully inside it; moving or resizing a region never does.
 
 The **font** override offers five generic families — sans-serif, serif, monospace, cursive, and fantasy — plus independent Bold and Italic toggles and a size from 6 to 72 px. Builder creates each unique family and style combination with one `CreateFont` call and attaches the font to the context before the first frame. It calls `PushFont` after applying the style overrides and the matching `PopFont` before removing them. The font therefore applies only to widgets inside the StyleRegion.
 
@@ -1058,7 +1104,7 @@ The tab bar is enclosed in a transparent child region using its layout width and
 
 ### 7.6 · Table
 
-> The Table inspector provides row and column counts, a label, width mode, and angled-header toggle for each column, individual row heights, a header-row checkbox, four table flags, an overall sizing policy, and scrolling options.
+> The Table inspector provides row and column counts, cell padding, a label, width mode, and angled-header toggle for each column, individual row heights with a background colour for each row, a row highlight, a header-row checkbox, four table flags, an overall sizing policy, and scrolling options.
 
 <p align="center"><img src="screenshots/7_6___Table.png" alt="Table inspector with column and row settings" width="380"></p>
 
@@ -1067,8 +1113,12 @@ Table is a grid of cells, each a container. Row and column counts range from 1 t
 | Setting | Description |
 | --- | --- |
 | columns / rows | From 1 to 16 per axis. Growing creates cells; shrinking removes cells and asks how to handle their contents. |
-| Column width | Three modes are available. **Auto** sets no width flag. **Fix** sets `WidthFixed` with a width in pixels. **Str** sets `WidthStretch` with a weighting factor. |
-| Row height | Requests a row height in pixels. Unspecified rows share remaining space. Oversized requests are reduced to fit the body; if every row is set, the last receives any remainder. The resolved height is a minimum for `TableNextRow`. |
+| Column width | Three modes are available. **Auto** sets no width flag. **Fix** sets `WidthFixed` with the width of the column's content in pixels; the cell is wider by the cell padding on each side (a Fix 12 column is a 20 px cell with the default padding). **Str** sets `WidthStretch` with a weighting factor. |
+| Row height | Requests a row height in pixels. Unspecified rows share remaining space. Oversized requests are reduced to fit the body; if every row is set, the last receives any remainder. The resolved height is a minimum for `TableNextRow`: ImGui makes a row at least as tall as its content plus 2 × the cell padding Y. |
+| cell padding | Space between a cell's edge and its content, x and y from 0 to 32; the default is ImGui's 4 × 2, and ⟲ resets it. Exported as `PushStyleVar(StyleVar_CellPadding, x, y)` around the table. Changing it lays out the cells again. |
+| Row N background | A background colour for a row (the swatch in **row heights**; × clears it): `TableSetBgColor(TableBgTarget_RowBg0, …)` for that row. It follows the row count. |
+| highlight | A colour, with an alpha from 0 to 255, that your script can switch on per row while it runs; see [Cell padding, row colours and highlight](#manual-table-rows). |
+| rows keep their height | Needs ScrollY. The rows keep their authored height and the space below the last row stays empty; see [Table in a resizable window](#manual-table-resizable). |
 | header row | Adds a `TableHeadersRow` call and reserves an 18 px strip for column labels on the canvas. |
 | Borders | Cell borders. |
 | RowBg | Alternating row backgrounds. |
@@ -1079,11 +1129,40 @@ Table is a grid of cells, each a container. Row and column counts range from 1 t
 | freeze header row | Keeps the header row in view while the rows scroll: `TableSetupScrollFreeze(ctx, 0, 1)`. Needs **header row** and ScrollY. With angled headers, the freeze covers both header rows. |
 | scroll rows | From 0 to 500, with ScrollY only. Adds that many uniform rows after the authored ones, in a `for` loop with a `-- TODO: … fill with your data` marker. The Editor shows a “+N rows” badge on the table. |
 
-When **header row** is enabled, Builder subtracts the 18 px column-header strip from the table height before resolving row heights. The Table editor tab is outside the box and is not part of this calculation. Cells are emitted row by row. Children keep their local placement within the cell; the exporter rebases their positions on the cell’s actual runtime cursor origin and obtains the current draw list. Labels and other draw-list content therefore use the table’s current clipping and scrolling context. This preserves designed offsets while allowing the native table to scroll and its columns to resize; it is not automatic flow layout.
+When **header row** is enabled, Builder subtracts the 18 px column-header strip from the table height before resolving row heights. The Table name and lock inside the box are not part of this calculation. Cells are emitted row by row. Children keep their local placement within the cell; the exporter rebases their positions on the cell’s actual runtime cursor origin and obtains the current draw list. Labels and other draw-list content therefore use the table’s current clipping and scrolling context. This preserves designed offsets while allowing the native table to scroll and its columns to resize; it is not automatic flow layout.
 
-> **Note.** Placement in a cell keeps the drop position where possible, clamps it to the cell’s interior with a 4 px inset, and reduces overflowing dimensions if needed. It does not center the widget. If the widget’s center misses the cells but its box intersects the table, placement moves it beyond the nearest table edge.
+The editor lays the columns out the way ImGui does: fixed columns, stretch weights, cell padding and border lines. A cell is the space between the borders: with **Borders** the first cell starts 1 px inside the table and the cells are 1 px apart; without them the outer cells touch the table's edges. Content therefore sits in REAPER where the canvas shows it. A table cannot be made smaller than its fixed columns and rows plus the cell padding and borders, with at least 10 px for each other column or row. Projects from earlier versions open with their cells laid out again by this rule; column widths in the export do not change, and a child that no longer fits a narrower cell is moved inside it with its size kept.
 
-**Row heights at runtime.** A ScrollY table with a header row, and any table with angled headers, sizes its body rows in REAPER from ReaImGui's own metrics: the export adds a helper function once, before `draw()`. Every other table uses the row heights resolved in Builder. Preview keeps Table schematic; the angled labels and a scrollbar lane over the table's full height are drawn on top of the placeholder.
+A TextWrapped in a cell wraps inside its column in REAPER at every window width, and Preview shows the same break. When a row's content plus cell padding is taller than the row, ImGui grows the row; Preflight reports it (§14).
+
+> **Note.** Placement in a cell keeps the drop position where possible, clamps it to the cell’s interior with an inset equal to the cell padding (4 px across and 2 px down by default), and reduces overflowing dimensions if needed. It does not center the widget. If the widget’s center misses the cells but its box intersects the table, placement moves it beyond the nearest table edge.
+
+**Row heights at runtime.** A ScrollY table with a header row, any table with angled headers, and any table whose height stretches with the window sizes its body rows in REAPER from ReaImGui's own metrics: the export adds a helper function once, before `draw()`. Every other table uses the row heights resolved in Builder. A table that only stretches in width does not need the helper. Preview keeps Table schematic; the angled labels and a scrollbar lane over the table's full height are drawn on top of the placeholder. Preview clips what is inside a scrolling table to the table, as REAPER does.
+
+<a name="manual-table-resizable"></a>
+
+#### Table in a resizable window
+
+Left+Right and Top+Bottom are offered for a Table (§5.9). Fixed columns and rows keep their size; the others share the change: **Str** columns by their weights, rows without a height equally. What is inside a cell follows its cell (§5.9).
+
+**rows keep their height** (with ScrollY) is for lists filled from data. The rows keep their authored height, fixed rows are not squeezed when they do not fit, and the space below the last row stays empty (the editor hatches it, Preview shows a dashed edge at the last row). The table scrolls when there are more rows. Without ScrollY the checkbox is greyed and its value kept.
+
+In the export, a stretched table takes its width and height from `pos.<name>.w` and `.h`. Its column widths are computed every frame by the rule ImGui uses, and each cell's content moves by the change of its cell (§14, [Resizable window in code](#manual-resizable-window-in-code)). Drag the frame in Preview to see it (§13).
+
+<p align="center"><img src="screenshots/Preview_table_stretch.png" alt="Preview of a table in a window dragged to 800 × 741: the name column is wider, the timecodes stay at the right edge, and the rows keep their height above an empty area" width="500"></p>
+
+<a name="manual-table-rows"></a>
+
+#### Cell padding, row colours and highlight
+
+A **Row N background** colour is drawn under the row's cells. The **highlight** colour is different: your script switches it on row by row while it runs. The export declares a slot for it:
+
+```lua
+state.items_table_highlight = { [2] = true, [4] = true }
+-- set state.items_table_highlight[row] = true (1-based) to tint a row, false or nil to clear it
+```
+
+The boxes **Preview the highlight on row N** choose the rows that start highlighted, and the editor shows them tinted. The colour is painted with `TableSetBgColor(TableBgTarget_RowBg1)` and has its own alpha. A custom checkbox can paint its row when it is checked (§6, [Custom Checkbox](#manual-custom-checkbox)); that wins over the table's highlight for the row.
 
 ---
 
@@ -1143,6 +1222,10 @@ Empty numeric fields use the type’s defaults; clearing a field removes its exp
 | tab button / button label | TabBar only. A Leading or Trailing button tab and its text. See §7.5. |
 | disabled (BeginDisabled) | StyleRegion only. Dims the region's children and blocks their input. See §7.3. |
 | values / scale min / scale max | Plot only. The data series and the vertical range. See §6. |
+| frame padding | StyleRegion only. Space between a control's frame and its text. See §7.3. |
+| look | Checkbox only: **custom look**, size, mark, background, border, starts checked, click area. See [Custom Checkbox](#manual-custom-checkbox). |
+| frame border | InputText, InputTextWithHint and InputTextMultiline only. Border on or off, thickness 0.5–8 px and colour. See §6. |
+| cell padding | Table only. See §7.6. |
 | EEL2 callback | Text input widgets only. See below. |
 
 **Bullet guide**
@@ -1296,7 +1379,7 @@ Exported drawings are clipped to the layout. A drawing is included if any part o
 
 Each available fill/stroke row has its own **disable** checkbox. Select it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.
 
-Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.0.0 has no color-link control.
+Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.1.0 has no color-link control.
 
 If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.
 
@@ -1523,12 +1606,13 @@ Some widgets appear as labeled, hatched placeholders: **Group**, **Table**, and 
 - Preview is view-only: arrow keys do not move the selection.
 - Text uses a proportional font at ReaImGui's own size, so line breaks are close to REAPER's; see §10.
 - InvisibleButton draws nothing. A disabled StyleRegion dims its children.
+- A scrolling table clips its content to its box, as REAPER does.
 
 <a name="manual-preview-at-another-window-size"></a>
 
 ### Preview at another window size
 
-When the window is resizable, Preview shows a handle on the frame's right edge, bottom edge, and bottom-right corner. Drag it to see the layout at another window size: pinned objects move and stretched objects change size as they will in REAPER, and a **W × H** badge shows the content size while you drag. The size stays between Min and Max; without a Max, you can drag up to 2000 px beyond the design size. Double-click the handle to return to the design size.
+When the window is resizable, Preview shows a handle on the frame's right edge, bottom edge, and bottom-right corner. Drag it to see the layout at another window size: pinned objects move and stretched objects, tables included, change size as they will in REAPER, and a **W × H** badge shows the content size while you drag. The size stays between Min and Max; without a Max, you can drag up to 2000 px beyond the design size. Double-click the handle to return to the design size.
 
 <p align="center"><img src="screenshots/Preview_resize.png" alt="Preview of a resizable layout dragged to 853 × 520: the pinned buttons follow the right and bottom edges"></p>
 
@@ -1550,7 +1634,7 @@ The preflight panel at the top of the *Export* window runs whenever you open the
 - **Warning.** Export remains available, but a setting or omission needs attention. Examples include objects outside the layout, children of omitted containers, clipped drawings, colliding names, duplicate radio values, an empty TabBar, or missing table cells.
 - **Size range.** With a resizable window, Preflight checks every size from Min to Max (without a Max, up to 8192 px beyond the design size). **Overlaps X when the window is N px wide or narrower** reports two widgets that do not touch at the design size but run into each other at some size. When a pinned object passes through another while the window grows, the range is given as **from A to B px**. **Leaves <container / the window> when …** reports a widget that fits its container or the window at the design size but leaves it at some size. The sizes are exact content sizes, like Min and Max in the Window section. These are warnings; drawings are not checked.
 - **Too small at the minimum window size.** A stretched widget, rectangle, or Text that would get smaller than its minimum at Min width or Min height is an **error**, and export is blocked. The minimum is 10 px, or the container's own minimum size for a container; only the axes that stretch and can shrink (Min below the design size) are checked. Tabs and table cells are covered by their TabBar or Table. The finding gives both sizes, for example “Stretched with the window, it is 6 × 20 px at 480 × 300, below its minimum of 10 × 10 px”. Raise Min width / Min height, or make the object larger at the design size.
-- **Information.** A single summary line reports how many elements have no visible label. Further information lines report rectangle or circle labels that will be cut with “…” in REAPER and a menu bar wider than the canvas. They do not disable export.
+- **Information.** A single summary line reports how many elements have no visible label. Further information lines report rectangle or circle labels that will be cut with “…” in REAPER and a menu bar wider than the canvas. More information lines report a checkbox whose **Table row** click area or **highlight row when checked** needs a table cell it is not in; a StyleRegion whose **frame padding** makes the controls inside taller in REAPER than on the canvas (“Controls inside are about N px tall in REAPER”); and a table row whose content plus cell padding is taller than the row (“Row N will be about H px tall in REAPER”). They do not disable export.
 
 The panel header reports how many objects will be **omitted** and how many will be exported out of the total. Review this summary to identify omissions that would not be apparent from the code alone.
 
@@ -1620,6 +1704,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 - A stretched object also gets its size: `pos.SEARCH.w = 300 + dW`, `pos.NOTES.h = 80 + dH`. Everything that depends on that size — child-window sizes, item widths, ListBox rows, tab widths — is computed from `pos` in the same frame.
 - When a rectangle label or a Text drawing stretches, the text helper keeps one wrapped layout per object, so dragging the window does not fill memory. Without such text, the helper is the same as in fixed-window exports.
 - The canvas child takes the live size, `CW × CH`.
+- A stretched table reads its size from `pos`, and a table that stretches in width computes its columns with the helper `_reaui_table_cols`. Each cell block adds `_dwc, _dhc`, the change of its cell's size since the design size, to the positions of the content. At the design size every `_dwc` is 0.
 - An InvisibleButton gets at least 1 px on each axis (`math.max(pos.HIT.w, 1)`): ImGui does not accept a zero size, and a window docked in REAPER can be smaller than Min.
 
 **The window remembers its size.** The size is stored in REAPER's ExtState, section `ReaUI Builder`, key `<window title> window size`, as `WxH`; characters other than Latin letters, digits, spaces, `.`, `_`, and `-` become `_` in the key. It is written when the size has changed and the mouse button is up, so a drag writes once. The first run opens at the design size; later runs open at the stored size, kept within Min and Max. Scripts with the same window title share the stored size. To forget it, delete the key, for example with `reaper.DeleteExtState('ReaUI Builder', 'Constraints demo window size', true)`.
@@ -1628,7 +1713,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 
 ### What is included
 
-- A widget is exported only if its full footprint lies inside the layout bounds. A widget extending past an edge is omitted. With a resizable window this is judged at the design size: a widget that leaves the window at a smaller size is still exported, clipped by the canvas, and Preflight reports it.
+- A widget is exported only if its full footprint lies inside the layout bounds. A widget extending past an edge is omitted. A control with an empty label has no label band in its footprint, so one placed in the top 12 px of the window is exported. With a resizable window this is judged at the design size: a widget that leaves the window at a smaller size is still exported, clipped by the canvas, and Preflight reports it.
 - A drawing is exported if it intersects the layout area.
 - The audit grid is exported when enabled.
 - The menu bar is exported when the project has one.
@@ -1661,9 +1746,11 @@ Canceling Save As or encountering a write error keeps the open project and its r
 
 Before New, Load, or Restore replaces a dirty project, Builder offers **Save project**, **Don’t save**, or **Cancel**. A canceled or failed load does not replace the current layout. Incoming project data is validated before replacement; invalid IDs, references, or other malformed data are rejected. Older project data is normalized into the current structure on a successful load. Loading clears Undo history.
 
-Project files include the objects and their nesting, editor groups and names, layer order, linked arc angles, widget settings, constraints, title, dimensions, the resizable window and its limits, background, active theme and its custom definition, title bar choice, menu bar, audit grid, snapping, and grid step. The interface mode is not stored in the project. Zoom, undo history, Editor/Preview mode, the Preview window size, ordinary-grid visibility, panel visibility, and the Show hints setting are not portable project settings.
+Project files include the objects and their nesting, editor groups and names, layer order, linked arc angles, widget settings, constraints, title, dimensions, the resizable window and its limits, background, active theme and its custom definition, title bar choice, menu bar, audit grid, snapping, and grid step. The interface mode and the interface language are not stored in the project. Zoom, undo history, Editor/Preview mode, the Preview window size, ordinary-grid visibility, panel visibility, and the Show hints setting are not portable project settings.
 
 The resizable window (`windowResize`) and constraints (`pinH`, `pinV`) are written only when they differ from the defaults. Builds before 1.8.0 open such a project as a fixed-window project. Version 1.8.0 opens a project with stretching without the stretch constraints. On loading, Builder removes stretch constraints from objects that cannot stretch (§5.9), unknown constraint values, constraints on tabs and table cells, and window limits that are not whole numbers or are out of range, and lists each kind once in the load message.
+
+The table settings (cell padding, rows that keep their height, row backgrounds, the highlight), the StyleRegion frame padding, the custom checkbox settings and the text-input frame border are written the same way, only when they differ from the defaults. Older builds ignore them.
 
 <a name="manual-autosave-and-recovery"></a>
 
@@ -1733,12 +1820,13 @@ Text fields keep their normal typing, clipboard, and navigation behavior. Save/S
 
 ## 17. Release limitations
 
-The following limitations apply to version **2.0.0**.
+The following limitations apply to version **2.1.0**.
 
 - **Editing Combo and ListBox items.** The export contains five placeholder items. Replace their strings in Lua; the selection state and widget calls are already generated.
 - **Free rotation for drawings.** Arc supports angles and Triangle supports orientation, but there is no general rotation handle or property.
 - **Context menus and popups.** Builder builds the window's menu bar only; right-click context menus and popups are not built.
-- **Stretching.** Table, ColorPicker, and widgets sized by ImGui or by their text do not stretch; circles, arcs, lines, polygons, and triangles only move. There is no “scale” constraint.
+- **Stretching.** ColorPicker and widgets sized by ImGui or by their text do not stretch; circles, arcs, lines, polygons, and triangles only move. There is no “scale” constraint.
+- **Table columns and cells.** The editor lays out fixed and stretch columns as ImGui does. Columns set to **Auto** and the scrollbar of a ScrollY table are not modelled, so their widths in REAPER can differ from the canvas. Preflight checks stretched objects against the window size, not against the size of their cell: a stretched object in a shrinking column can get smaller than 10 px without a finding. Check it by dragging the frame in Preview.
 - **Theme Studio.** Edits are shown in the Studio's own preview; the canvas shows a theme after **Apply**. Collection palettes are a fixed set.
 - Preview does not execute ReaImGui. Group, Table, and ColorPicker remain schematic; native fonts, interaction, and some flags require checking in REAPER. Basic mode offers eleven common components; use Advanced for everything else.
 - Widgets outside the export frame are omitted. Omitting a container also omits its contents. Drawings that intersect the frame are exported with clipping; inspect the preflight findings.
@@ -1757,7 +1845,7 @@ The following limitations apply to version **2.0.0**.
 
 ## Appendix A · Widget contracts
 
-The table lists all 55 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. **H** marks a fixed height; **D** marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits.
+The table lists all 55 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. **H** marks a fixed height; **D** marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits. A Checkbox with the custom look is a square of 6 to 64 px set under Appearance (§6), and its W and H are read-only. A Table and a StyleRegion stretch in both directions (§5.9); a StyleRegion has no header strip (§7.3).
 
 | Type | Family · variant | Size | Width | Height | Description |
 | --- | --- | --- | --- | --- | --- |
@@ -1823,7 +1911,7 @@ The table lists all 55 contract types, including the automatically managed TabIt
 
 ## Appendix B · Inspector matrix
 
-This table lists the fields available for each of the **55 types** in version 2.0.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
+This table lists the fields available for each of the **55 types** in version 2.1.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
 
 Every type except TabItem and TableCell also has **constraints** (§5.9); they are not repeated in the rows. TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. Panel, Group, CollapsingHeader, TreeNode, TabBar, and TabItem support **hint**; StyleRegion, Table, and TableCell do not.
 
@@ -1833,7 +1921,7 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 | `SmallButton` | label / text, hint, prefix bullet, size, position |
 | `InvisibleButton` | hint, prefix bullet, size, position |
 | `ArrowButton` | direction, hint, prefix bullet, size, position |
-| `Checkbox` | label / text, hint, prefix bullet, size, position |
+| `Checkbox` | label / text, hint, prefix bullet, look (custom look, size, mark, background, border, starts checked, click area, row hover highlight, highlight row when checked), size, position |
 | `CheckboxFlags` | label / text, flag group, bit (0–30), hint, prefix bullet, size, position |
 | `RadioButtonEx` | label / text, hint, prefix bullet, group, radio value, size, position |
 | `Selectable` | label / text, hint, highlight, size, position |
@@ -1865,9 +1953,9 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 | `InputInt` | variant (placement only), label / text, value components, step, step fast, hint, prefix bullet, size, position |
 | `InputDouble` | variant (placement only), label / text, value components, step, step fast, format, hint, prefix bullet, size, position |
 | `InputDoubleN` | label / text, array size, hint, prefix bullet, size, position |
-| `InputText` | label / text, hint, prefix bullet, input flags, EEL2 callback, size, position |
-| `InputTextWithHint` | label / text, placeholder, hint, prefix bullet, input flags, EEL2 callback, size, position |
-| `InputTextMultiline` | label / text, hint, prefix bullet, input flags, EEL2 callback, size, position |
+| `InputText` | label / text, hint, prefix bullet, frame border, input flags, EEL2 callback, size, position |
+| `InputTextWithHint` | label / text, placeholder, hint, prefix bullet, frame border, input flags, EEL2 callback, size, position |
+| `InputTextMultiline` | label / text, hint, prefix bullet, frame border, input flags, EEL2 callback, size, position |
 | `Combo` | label / text, hint, prefix bullet, size, position |
 | `ListBox` | label / text, hint, prefix bullet, size, position |
 | `ColorEdit3` | variant (placement only), label / text, hint, prefix bullet, color, color flags, size, position |
@@ -1877,12 +1965,12 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 | `ColorButton` | hint, color, alpha, color flags, size, position |
 | `Panel` | hint, border, h-scroll, size, position |
 | `Group` | label / text, hint, size, position |
-| `StyleRegion` | text color, frame bg, button color, rounding, selectable align, font, disabled (BeginDisabled), size, position |
+| `StyleRegion` | text color, frame bg, button color, rounding, frame padding, selectable align, font, disabled (BeginDisabled), size, position |
 | `CollapsingHeader` | label / text, hint, bullet instead of arrow, size, position |
 | `TreeNode` | label / text, hint, bullet instead of arrow, hdr color, tree lines, size, position |
 | `TabBar` | tabs, hint, tab button, button label, size, position |
 | `TabItem` | label / text, hint, size, position |
-| `Table` | table grid / columns (with angled header) / row heights / table flags / freeze header row / scroll rows, size, position |
+| `Table` | table grid (with cell padding) / columns (with angled header) / row heights (with row background) / highlight / rows keep their height / table flags / freeze header row / scroll rows, size, position |
 | `TableCell` | label / text, size, position |
 
 ---
@@ -1891,7 +1979,7 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 
 ## Appendix C · Reading the generated file
 
-These excerpts come from a version 2.0.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
+These excerpts come from a version 2.1.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
 
 ```lua
 -- Positions
@@ -1936,4 +2024,4 @@ For layout revisions, edit the JSON project and export again: some dimensions an
 
 ---
 
-*ReaUI Builder — User Guide for Version 2.0.0. Updated 9 October 2026.*
+*ReaUI Builder — User Guide for Version 2.1.0. Updated 12 October 2026.*

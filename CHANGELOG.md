@@ -8,6 +8,47 @@ e.g. `1.0.70`).
 
 ## [Unreleased]
 
+## [2.2.0] - 2026-10-15
+
+### Added
+- Knob widget (Sliders & Drags): a round dial, drawn with the draw list on an `InvisibleButton`.
+  In REAPER you turn it by dragging up and down (Shift is ten times finer) or with the mouse
+  wheel; a double-click returns it to its default, and Ctrl+click opens a field to type a value.
+  The value shows in a tooltip. Properties: min, max, default and format. The colours follow the
+  theme. The knob stays round in any box: its diameter is the shorter side.
+- Button › round: fully rounded ends. A square button becomes a circle, a wider one a pill. The
+  editor and Preview draw the shape.
+- Editor hover: the widget under the pointer gets a solid outline and shows its name.
+
+### Changed
+- Editor outlines are 1 screen pixel wide at any zoom and fully opaque for every widget. They used
+  to grow with the zoom, and many were translucent. The selection frame is 1.5 px, so a selected
+  widget stands out from its neighbours.
+- Editor names draw only where they fit: a name that would cover another widget or another name is
+  left out. The selected and hovered names always show. View › Hide widget names still hides them
+  all.
+- The Table name and the Style region label hide while a child widget covers them, and return when
+  you point at the container or select it.
+- A container's closed lock shows only when you point at the container or at something inside it,
+  when it is selected, or while you hold U. An open lock always shows. Clicking the lock works as
+  before.
+- The Russian interface covers the new hints and the Knob description.
+- Project files may carry `btnRound` and the Knob's `knobDefault`, each only when set. Older builds
+  ignore `btnRound`; a project with a Knob needs 2.2.0 or later.
+
+### Exports
+- Byte for byte the same as 2.1.0 for a project without a Knob and without a round Button.
+- A Knob adds `state.<name>_val` and one shared helper function, `reaui_knob`, written once and
+  only when the layout has a Knob.
+- A round Button is wrapped in `PushStyleVar(StyleVar_FrameRounding, min(w, h) / 2)` and
+  `PopStyleVar`.
+
+### Known limitations
+- Knob has no label, value text or per-widget colours yet. A hint on a Knob competes with its value
+  tooltip; do not set both.
+- Knob default and Button round are not available in multi-edit.
+- SmallButton and ArrowButton have no round option.
+
 ## [2.1.0] - 2026-10-12
 
 ### Added

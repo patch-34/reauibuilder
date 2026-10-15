@@ -151,7 +151,7 @@ strong { color: var(--text); }
 </head>
 <body id="top">
 <div class="page-header">
-  <h1>ReaUI Builder — User Guide, Version 2.1.0</h1>
+  <h1>ReaUI Builder — User Guide, Version 2.2.0</h1>
   <div class="lang-switch"><a href="ReaUI_Builder_Manual_ru.html">Русская версия</a></div>
 </div>
 <div class="page">
@@ -202,6 +202,7 @@ strong { color: var(--text); }
 <li><a href="#manual-06-widget-catalog">06. Widget catalog</a><ul>
 <li><a href="#manual-catalog-notes">Catalog notes</a></li>
 <li><a href="#manual-custom-checkbox">Custom Checkbox</a></li>
+<li><a href="#manual-knob">Knob</a></li>
 </ul>
 </li>
 <li><a href="#manual-07-containers">07. Containers</a><ul>
@@ -272,7 +273,7 @@ strong { color: var(--text); }
 <h1>ReaUI Builder</h1>
 <p>A visual layout editor for ReaImGui interfaces.</p>
 <p>Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.</p>
-<p>This guide covers version <strong>2.1.0</strong>. It describes the current features and workflow; obsolete workarounds are omitted.</p>
+<p>This guide covers version <strong>2.2.0</strong>. It describes the current features and workflow; obsolete workarounds are omitted.</p>
 <hr>
 <p><a name="manual-01-overview"></a></p>
 <h2>01. Overview</h2>
@@ -282,7 +283,7 @@ strong { color: var(--text); }
 <p>Builder does not generate DSP, project logic, or event handling. In the exported code, <code>-- TODO</code> comments mark where to add your own logic for interactive widgets.</p>
 <ul>
 <li><strong>Output:</strong> Lua code for ReaImGui 0.10 or later</li>
-<li><strong>Widgets:</strong> 53 placeable types in 45 families, plus the automatically managed TabItem and TableCell types</li>
+<li><strong>Widgets:</strong> 54 placeable types in 46 families, plus the automatically managed TabItem and TableCell types</li>
 <li><strong>Drawing primitives:</strong> 7 — rectangle, circle, polygon, line, text, triangle, and arc</li>
 <li><strong>Project format:</strong> versioned JSON</li>
 </ul>
@@ -322,10 +323,12 @@ strong { color: var(--text); }
 <hr>
 <p><a name="manual-03-workspace"></a></p>
 <h2>03. Workspace</h2>
-<p>In <strong>Editor</strong> mode, a gray name tag appears above each widget.</p>
+<p>In <strong>Editor</strong> mode, a gray name tag appears above each widget when it has room: a tag that would cover another widget or another tag is left out, so a dense layout stays readable. The name of the selected widget and of the widget under the pointer always shows. The widget under the pointer also gets a solid outline, so you can see what you are about to click.</p>
+<p>Editor outlines are 1 screen pixel wide at any zoom; the selection frame is heavier (1.5 px).</p>
 <p>The <strong>Table</strong> name (<code>⊞ &lt;name&gt;</code>) is written inside the box, in its top-left corner, and the lock icon sits in the top-right corner. Click the strip with the name to select or drag the table. Both are editor aids: they take no room from the table and do not appear in Preview or the export.</p>
 <p><strong>StyleRegion</strong> shows a small <code>✦ Style</code> label in its top-left corner. It is an editor aid too; the region reserves no space (§7.3).</p>
 <p><strong>Panel</strong> shows a pale <code>☐ Panel</code> mark in its top-left corner. This editor aid reserves no space. Clicking within the top 24 px of the box selects the Panel, even over a child widget.</p>
+<p>The Table name and the StyleRegion label hide while a child widget covers them; point at the container or select it to see them again. A container's closed lock icon shows only when you point at the container or at something inside it, when the container is selected, or while you hold <strong>U</strong>. An open lock always shows.</p>
 <p>The top strip of <strong>TabBar</strong> is the actual tab row—the same one REAPER draws. Click an empty part of the strip to select the TabBar; click a tab's label to select that tab (see §7.5).</p>
 <blockquote>
 <p><strong>Layout in Editor mode.</strong> Name tags and container strips help you edit the layout structure. They are editor aids and are not included in the exported interface.</p>
@@ -667,7 +670,7 @@ strong { color: var(--text); }
 <p>Builder also uses <strong>TabItem</strong> and <strong>TableCell</strong>. These are created automatically and cannot be placed manually.</p>
 <p>Nesting is determined by the positions of objects on the canvas.</p>
 <p>Placing a widget inside a container's content area makes it a child of that container. Moving it outside returns it to the layout's top level or makes it a child of another suitable container.</p>
-<p>There is no separate command for adding an object to a container. Moving a container can also capture eligible widgets fully enclosed by its content area. Click the lock badge to unlock the container for its next move: its existing children are left in place and capture is skipped. Hold <strong>U before starting to drag a container</strong> to leave its current children in place and skip capture during that move.</p>
+<p>There is no separate command for adding an object to a container. Moving a container can also capture eligible widgets fully enclosed by its content area. Click the lock badge to unlock the container for its next move (a closed badge shows when you point at the container, when it is selected, or while you hold <strong>U</strong>): its existing children are left in place and capture is skipped. Hold <strong>U before starting to drag a container</strong> to leave its current children in place and skip capture during that move.</p>
 <p>Do not confuse container nesting with <strong>Edit → Group selection</strong>: editor grouping is a selection and movement aid and does not create a parent container. See §5.7.</p>
 <p><strong>Group, CollapsingHeader, TreeNode,</strong> and <strong>TabBar</strong> reserve a <strong>24 px</strong> strip at the top for a header or editor controls. Child coordinates include this space. Editor-only parts of the strip are not exported; ImGui draws native headers and tabs.</p>
 <p><strong>Panel</strong> and <strong>StyleRegion</strong> use their entire box; the <code>☐ Panel</code> mark and the StyleRegion label reserve no space, and children can sit right under the top edge. The <strong>Table</strong> name and lock sit inside the box, in its top corners, and do not reduce the table’s content area. Table reserves only an 18 px column-header strip when <strong>header row</strong> is enabled. Automatically created TabItem and TableCell objects reserve no additional strip.</p>
@@ -947,7 +950,7 @@ strong { color: var(--text); }
 <hr>
 <p><a name="manual-06-widget-catalog"></a></p>
 <h2>06. Widget catalog</h2>
-<p>This catalog lists the <strong>45 widget families</strong> in the toolbar categories. For base dimensions and sizing modes, see <a href="#manual-appendix-a-widget-contracts">Appendix A</a>.</p>
+<p>This catalog lists the <strong>46 widget families</strong> in the toolbar categories. For base dimensions and sizing modes, see <a href="#manual-appendix-a-widget-contracts">Appendix A</a>.</p>
 <p><strong>Buttons &amp; Toggles</strong></p>
 <table class="tbl-2col">
 <thead>
@@ -959,7 +962,7 @@ strong { color: var(--text); }
 <tbody>
 <tr>
 <td><code>Button</code></td>
-<td>A button that triggers an action when clicked. <em>Use for commands such as render, apply, reset, or running a script step.</em></td>
+<td>A button that triggers an action when clicked; <strong>round</strong> makes it a circle or a pill. <em>Use for commands such as render, apply, reset, or running a script step.</em></td>
 </tr>
 <tr>
 <td><code>SmallButton</code></td>
@@ -1074,6 +1077,10 @@ strong { color: var(--text); }
 <tr>
 <td><code>DragN</code></td>
 <td>Multiple Drag fields forming one multicomponent value. <em>Use for coordinates and vectors such as X/Y/Z.</em></td>
+</tr>
+<tr>
+<td><code>Knob</code></td>
+<td>A round knob you turn by dragging up and down. <em>Use for volume, pan, mix, and other values that read better as a dial than as a slider.</em></td>
 </tr>
 </tbody>
 </table>
@@ -1214,6 +1221,7 @@ strong { color: var(--text); }
 <p><strong>TextColored.</strong> The initial color defaults to black. Preview and Lua use the chosen text color; Editor uses neutral selection/diagnostic styling rather than treating the text color as a frame color.</p>
 <p><strong>RadioButtonEx.</strong> Buttons with the same <strong>group</strong> value share a state field. Each button has its own <strong>radio value</strong>. This makes the options mutually exclusive in the exported interface.</p>
 <p><strong>InvisibleButton.</strong> Exports <code>if reaper.ImGui_InvisibleButton(...) then -- TODO: &lt;name&gt; pressed end</code>. Width and height are its own; it has no label. The Editor shows a dashed box with the type name; Preview shows nothing, as REAPER does. A tooltip (<strong>hint</strong>) works as on any button.</p>
+<p><strong>Button: round.</strong> Turn on <strong>round</strong> in Main to give a Button fully rounded ends: a square button becomes a circle, a wider one a pill. Editor and Preview draw the shape. The export wraps only that button in <code>PushStyleVar(StyleVar_FrameRounding, min(w, h) / 2)</code> and <code>PopStyleVar</code>. A theme border on the button follows the same rounding. SmallButton and ArrowButton do not have the option, and Basic mode does not show it.</p>
 <p><strong>CheckboxFlags.</strong> All checkboxes with the same <strong>flag group</strong> write one integer, <code>state.flagGroups.&lt;group&gt;_val</code>; <strong>bit (0–30)</strong> chooses the bit this checkbox toggles (the value <code>1&lt;&lt;bit</code>). A new, pasted, or duplicated CheckboxFlags takes the lowest bit still free in its group. Export preflight warns when two checkboxes in one group share a bit.</p>
 <p><strong>TextLink.</strong> Exports <code>if reaper.ImGui_TextLink(...) then -- TODO: &lt;name&gt; clicked end</code>. Unlike TextLinkOpenURL, it opens nothing itself.</p>
 <p><strong>Plot.</strong> PlotLines and PlotHistogram have their own width and height. <strong>values</strong> takes 1–64 comma-separated numbers; <strong>scale min</strong> and <strong>scale max</strong> set the bottom and top of the graph (empty = taken from the data); <strong>overlay</strong> draws text over the plot. The export declares <code>state.&lt;name&gt;_values</code> as a <code>reaper.new_array</code> with a <code>-- TODO: fill … with your data</code> marker. Without your own values, a fixed sample series is shown.</p>
@@ -1264,6 +1272,33 @@ strong { color: var(--text); }
 </tbody>
 </table>
 <p>The click area is not part of the box. Other objects may overlap it and keep their own clicks in REAPER. The Editor shows it as a dashed outline; it is not exported. The export adds one click item (<code>InvisibleButton</code>, or <code>Selectable</code> with <code>SpanAllColumns | AllowOverlap</code> for a table row), then draws the fill, the border and the mark. Preflight reports a <strong>Table row</strong> click area or <strong>highlight row when checked</strong> on a checkbox that is not in a table cell (§14).</p>
+<p><a name="manual-knob"></a></p>
+<h4>Knob</h4>
+<p>A Knob is a round dial in the <strong>Sliders &amp; Drags</strong> folder. The export draws it with the draw list over an <code>InvisibleButton</code>. It has no label; put a Text next to it. The knob is always round: its diameter is the shorter side of the box, and it sits in the centre of the box.</p>
+<table class="tbl-2col">
+<thead>
+<tr>
+<th>Setting</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>min / max</strong></td>
+<td>The range. Empty fields use 0 and 1.</td>
+</tr>
+<tr>
+<td><strong>default</strong></td>
+<td>The value the knob starts at and returns to on double-click. Empty = the minimum. A small tick on the scale marks it.</td>
+</tr>
+<tr>
+<td><strong>format</strong></td>
+<td>A printf-style format for the value tooltip, for example <code>%.1f dB</code>. Empty = <code>%.3f</code>. If the format does not fit the value, the tooltip falls back to <code>%.3f</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>In REAPER, drag up or down to turn the knob: 200 px of drag cover the whole range, and Shift makes it ten times finer. The mouse wheel moves the value by 1% of the range (with Shift, 0.1%). Double-click returns to the default. Ctrl+click opens a small field to type a value; Enter applies it, limited to the range. The value shows in a tooltip while you point at the knob or turn it.</p>
+<p>The colours follow the theme: the track uses the frame background, the value arc the slider grab, the body the button colour, the pointer the text colour, and the default tick the border colour. The value lives in <code>state.&lt;name&gt;_val</code>. The export adds one shared helper function, <code>reaui_knob</code>, written once and only when the layout has a Knob. Preflight checks the range as for sliders: min above max is an error, min equal to max a warning.</p>
 <hr>
 <p><a name="manual-07-containers"></a></p>
 <h2>07. Containers</h2>
@@ -1540,7 +1575,11 @@ reaper.ImGui_EndChild(ctx)
 </tr>
 <tr>
 <td>format</td>
-<td>A printf-style format, such as <code>%.2f</code> or <code>%d dB</code>. Also controls how the value appears in the widget.</td>
+<td>A printf-style format, such as <code>%.2f</code> or <code>%d dB</code>. Also controls how the value appears in the widget; on a Knob, in its value tooltip.</td>
+</tr>
+<tr>
+<td>default</td>
+<td>Knob only. The value the knob starts at and returns to on double-click. See <a href="#manual-knob">Knob</a>.</td>
 </tr>
 <tr>
 <td>format min / max</td>
@@ -1609,6 +1648,10 @@ reaper.ImGui_EndChild(ctx)
 <tr>
 <td>highlight</td>
 <td>Selectable only. Draws the row as hovered (<code>SelectableFlags_Highlight</code>).</td>
+</tr>
+<tr>
+<td>round</td>
+<td>Button only. Fully rounded ends: a circle for a square button, a pill otherwise. See §6.</td>
 </tr>
 <tr>
 <td>tree lines</td>
@@ -2041,7 +2084,7 @@ reaper.ImGui_EndChild(ctx)
 <p><a name="manual-fill-stroke-and-linked-colors"></a></p>
 <h3>Fill and stroke</h3>
 <p>Each available fill/stroke row has its own <strong>disable</strong> checkbox. Select it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.</p>
-<p>Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.1.0 has no color-link control.</p>
+<p>Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.2.0 has no color-link control.</p>
 <p>If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.</p>
 <p>ImGui fills convex paths directly. Builder triangulates a non-convex polygon for export using multiple <code>AddTriangleFilled</code> calls; its outline remains a single closed path. A filled polygon must not cross, touch, or turn back on itself: ImGui would fill a different shape than the canvas shows, so Preflight reports <strong>Polygon outline crosses itself</strong> as an error. Move a point, split the shape into separate polygons, or disable its fill to export only the outline.</p>
 <hr>
@@ -2592,13 +2635,15 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-17-release-limitations"></a></p>
 <h2>17. Release limitations</h2>
-<p>The following limitations apply to version <strong>2.1.0</strong>.</p>
+<p>The following limitations apply to version <strong>2.2.0</strong>.</p>
 <ul>
 <li><strong>Editing Combo and ListBox items.</strong> The export contains five placeholder items. Replace their strings in Lua; the selection state and widget calls are already generated.</li>
 <li><strong>Free rotation for drawings.</strong> Arc supports angles and Triangle supports orientation, but there is no general rotation handle or property.</li>
 <li><strong>Context menus and popups.</strong> Builder builds the window's menu bar only; right-click context menus and popups are not built.</li>
 <li><strong>Stretching.</strong> ColorPicker and widgets sized by ImGui or by their text do not stretch; circles, arcs, lines, polygons, and triangles only move. There is no “scale” constraint.</li>
 <li><strong>Table columns and cells.</strong> The editor lays out fixed and stretch columns as ImGui does. Columns set to <strong>Auto</strong> and the scrollbar of a ScrollY table are not modelled, so their widths in REAPER can differ from the canvas. Preflight checks stretched objects against the window size, not against the size of their cell: a stretched object in a shrinking column can get smaller than 10 px without a finding. Check it by dragging the frame in Preview.</li>
+<li><strong>Knob.</strong> There is no label, value text, or per-widget colour yet; use a Text next to the knob. A <strong>hint</strong> on a Knob competes with its value tooltip, so do not set both.</li>
+<li><strong>Multi-edit.</strong> <strong>default</strong> on Knob and <strong>round</strong> on Button are not offered for a multiple selection; set them one object at a time.</li>
 <li><strong>Theme Studio.</strong> Edits are shown in the Studio's own preview; the canvas shows a theme after <strong>Apply</strong>. Collection palettes are a fixed set.</li>
 <li>Preview does not execute ReaImGui. Group, Table, and ColorPicker remain schematic; native fonts, interaction, and some flags require checking in REAPER. Basic mode offers eleven common components; use Advanced for everything else.</li>
 <li>Widgets outside the export frame are omitted. Omitting a container also omits its contents. Drawings that intersect the frame are exported with clipping; inspect the preflight findings.</li>
@@ -2614,7 +2659,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-appendix-a-widget-contracts"></a></p>
 <h2>Appendix A · Widget contracts</h2>
-<p>The table lists all 55 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. <strong>H</strong> marks a fixed height; <strong>D</strong> marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits. A Checkbox with the custom look is a square of 6 to 64 px set under Appearance (§6), and its W and H are read-only. A Table and a StyleRegion stretch in both directions (§5.9); a StyleRegion has no header strip (§7.3).</p>
+<p>The table lists all 56 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. <strong>H</strong> marks a fixed height; <strong>D</strong> marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits. A Checkbox with the custom look is a square of 6 to 64 px set under Appearance (§6), and its W and H are read-only. A Table and a StyleRegion stretch in both directions (§5.9); a StyleRegion has no header strip (§7.3).</p>
 <table>
 <thead>
 <tr>
@@ -2892,6 +2937,14 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <td>Two linked Drag fields that define a lower and upper bound.</td>
 </tr>
 <tr>
+<td><code>Knob</code></td>
+<td><code>Knob</code></td>
+<td>56×56</td>
+<td><code>explicit-size</code></td>
+<td><code>explicit-size</code></td>
+<td>A round knob you turn by dragging up and down; drawn at the shorter side.</td>
+</tr>
+<tr>
 <td><code>InputInt</code></td>
 <td><code>Input</code> · <code>Int</code></td>
 <td>80×20 <strong>H</strong></td>
@@ -3072,7 +3125,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-appendix-b-inspector-matrix"></a></p>
 <h2>Appendix B · Inspector matrix</h2>
-<p>This table lists the fields available for each of the <strong>55 types</strong> in version 2.1.0. Names match the inspector: <strong>hint</strong> is a hover tooltip, while <strong>placeholder</strong> belongs to InputTextWithHint. The standard <strong>name</strong> field and conditional <strong>parent</strong> row are not repeated. Choose a variant before placement; fixed size axes remain read-only.</p>
+<p>This table lists the fields available for each of the <strong>56 types</strong> in version 2.2.0. Names match the inspector: <strong>hint</strong> is a hover tooltip, while <strong>placeholder</strong> belongs to InputTextWithHint. The standard <strong>name</strong> field and conditional <strong>parent</strong> row are not repeated. Choose a variant before placement; fixed size axes remain read-only.</p>
 <p>Every type except TabItem and TableCell also has <strong>constraints</strong> (§5.9); they are not repeated in the rows. TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. Panel, Group, CollapsingHeader, TreeNode, TabBar, and TabItem support <strong>hint</strong>; StyleRegion, Table, and TableCell do not.</p>
 <table class="tbl-2col">
 <thead>
@@ -3084,7 +3137,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <tbody>
 <tr>
 <td><code>Button</code></td>
-<td>label / text, hint, prefix bullet, size, position</td>
+<td>label / text, round, hint, prefix bullet, size, position</td>
 </tr>
 <tr>
 <td><code>SmallButton</code></td>
@@ -3215,6 +3268,10 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <td>variant (placement only), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position</td>
 </tr>
 <tr>
+<td><code>Knob</code></td>
+<td>min, max, default, format, hint, prefix bullet, size, position</td>
+</tr>
+<tr>
 <td><code>InputInt</code></td>
 <td>variant (placement only), label / text, value components, step, step fast, hint, prefix bullet, size, position</td>
 </tr>
@@ -3307,7 +3364,7 @@ local SIZE_SECTION, SIZE_KEY = 'ReaUI Builder', 'Constraints demo window size'
 <hr>
 <p><a name="manual-appendix-c-generated-file-structure"></a></p>
 <h2>Appendix C · Reading the generated file</h2>
-<p>These excerpts come from a version 2.1.0 export of a <strong>600 × 400</strong> layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.</p>
+<p>These excerpts come from a version 2.2.0 export of a <strong>600 × 400</strong> layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.</p>
 <pre><code class="language-lua">-- Positions
 local pos = {
   BUTTON_1 = { x=40, y=60, w=100 },
@@ -3342,7 +3399,7 @@ state.Slider_2_val = 0.0
 <p>The full export also contains context creation, window dimensions, applicable colors/fonts/callbacks, the main drawing function, and a <code>reaper.defer</code> loop. Nested containers establish their corresponding ImGui scopes. Do not move a draw-list call across a child-window boundary without using the appropriate draw list and origin.</p>
 <p>For layout revisions, edit the JSON project and export again: some dimensions and drawing coordinates appear inline, as well as in <code>pos</code>.</p>
 <hr>
-<p><em>ReaUI Builder — User Guide for Version 2.1.0. Updated 12 October 2026.</em></p>
+<p><em>ReaUI Builder — User Guide for Version 2.2.0. Updated 15 October 2026.</em></p>
 </div>
 <a href="#top" class="back-to-top">↑ Top</a>
 </body>

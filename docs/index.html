@@ -2130,6 +2130,7 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="Controls" id="tw-InputTextMultiline" onclick="setWidgetTool('InputTextMultiline')" style="display:none">Multiline</button>
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="SliderDrag" id="tw-SliderN" onclick="setWidgetTool('SliderN')" style="display:none">SliderN</button>
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="SliderDrag" id="tw-DragN" onclick="setWidgetTool('DragN')" style="display:none">DragN</button>
+      <button class="tb-btn widget-btn wchip drawer-group" data-folder="SliderDrag" id="tw-Knob" onclick="setWidgetTool('Knob')" style="display:none">Knob</button>
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="Controls" id="tw-InputN" onclick="setWidgetTool('InputN')" style="display:none">InputN</button>
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="Text" id="tw-ProgressBar" onclick="setWidgetTool('ProgressBar')" style="display:none">ProgressBar</button>
       <button class="tb-btn widget-btn wchip drawer-group" data-folder="Text" id="tw-Plot" onclick="setWidgetTool('Plot')" style="display:none">Plot</button>
@@ -2466,6 +2467,7 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
             <div id="array-size-row" style="display:none"><div class="pl">array size</div><input class="pi" id="p-array-size" type="number" min="2" max="64" step="1" placeholder="5" onchange="upropNumeric('arraySize',this.value)"></div>
             <div id="min-row" style="display:none"><div class="pl">min</div><input class="pi" id="p-min" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('min',this.value)"></div>
             <div id="max-row" style="display:none"><div class="pl">max</div><input class="pi" id="p-max" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('max',this.value)"></div>
+            <div id="knob-default-row" style="display:none"><div class="pl">default</div><input class="pi" id="p-knob-default" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('knobDefault',this.value)"></div>
             <div id="speed-row" style="display:none"><div class="pl">speed</div><input class="pi" id="p-speed" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('speed',this.value)"></div>
             <div id="step-row" style="display:none"><div class="pl">step</div><input class="pi" id="p-step" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('step',this.value)"></div>
             <div id="step-fast-row" style="display:none"><div class="pl">step fast</div><input class="pi" id="p-step-fast" type="text" inputmode="decimal" onfocus="numericFieldFocus(this)" onblur="numericFieldBlur(this)" onchange="this.dataset.autofilled='';upropNumeric('stepFast',this.value)"></div>
@@ -2496,6 +2498,7 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
             <div id="color-alpha-row" style="display:none"><div class="pl">alpha</div><input class="pi" type="number" id="p-color-alpha" min="0" max="255" step="1" placeholder="255" onchange="upropNumeric('colorAlpha',this.value)"></div>
             <div id="color-flags-row" style="display:none"><div class="pl">flags</div><div class="flag-stack" id="color-flags-container"></div></div>
             <div id="overlay-row" style="display:none"><div class="pl">overlay</div><input class="pi" id="p-overlay" placeholder="empty = no text" oninput="uprop('overlay',this.value)"></div>
+            <div id="btn-round-row" class="inspector-main-check-row" style="display:none"><div class="cvp2-row inspector-main-toggle"><button type="button" class="cvp2-chk" id="p-btn-round" onclick="upropOptionalTrue('btnRound',!this.classList.contains('active'))" aria-label="Round button" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="inspector-main-toggle-label">round</span></div></div>
             <div id="indeterminate-row" class="inspector-main-check-row" style="display:none"><div class="pl">indeterminate</div><div class="cvp2-row inspector-main-toggle"><button type="button" class="cvp2-chk" id="p-indeterminate" onclick="uprop('indeterminate',!this.classList.contains('active'))" aria-label="Animate indeterminate progress bar" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button><span class="inspector-main-toggle-label">animate</span></div></div>
             <div id="input-flags-row" style="display:none"><div class="pl">flags</div><div class="flag-stack" id="input-flags-container"></div></div>
             <div id="eel-callback-row" style="display:none"><div class="pl">EEL2 callback</div><textarea class="pi eel-code" id="p-eel-callback" rows="4" spellcheck="false" placeholder="// EEL2 — runs on the selected Callback* event" onchange="upropEEL(this.value)"></textarea><div class="eel-note" id="p-eel-note"></div></div>
@@ -2793,6 +2796,14 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
       "cb:row-highlight":"Закрашивает всю строку таблицы, пока флажок установлен. Вызов идёт после элемента нажатия, поэтому для этой строки он важнее собственной подсветки таблицы. × использует цвет подсветки таблицы, иначе цвет заголовка из темы. `TableSetBgColor(TableBgTarget_RowBg1)` `Col_Header`"
     };
     Object.assign(HINTS, HINTS_ADDED);
+    // 2.2.0 (K1): Knob widget and the Button "round" option. Field labels stay English (hybrid rule).
+    Object.assign(HINTS, {
+      "knob-default-row":"Значение, с которого ручка начинает и к которому возвращается по двойному щелчку. Пусто — минимум. На ручке отмечено небольшой засечкой.",
+      "btn-round-row":"Полностью скруглённые края. Квадратная кнопка становится кругом, более широкая — «пилюлей». Экспортируется как `StyleVar_FrameRounding` вокруг кнопки."
+    });
+    Object.assign(WIDGETS, {
+      "Knob":{"what":"Круглая ручка, которую поворачивают перетаскиванием вверх и вниз. Shift — точная настройка, колесо — шаг, двойной щелчок — сброс, Ctrl+щелчок — ввод значения.","use":"Для громкости, панорамы, баланса и других значений, которые удобнее читать по шкале, чем по ползунку."}
+    });
     // Displayed text that must stay as written: code panes, inputs, the element list and user names.
     const EXCLUDE = 'script,style,pre,code,textarea,[contenteditable="true"],'+
       '#scene-list-rows,#info-preview-slot .ig-input .caret,'+
@@ -3102,7 +3113,7 @@ const rulerHCtx = rulerHEl ? rulerHEl.getContext('2d') : null;
 const rulerVCtx = rulerVEl ? rulerVEl.getContext('2d') : null;
 const canvasAreaEl = document.getElementById('canvas-area');
 // Single source of truth for the semantic release version. Bump this line only.
-const BUILD_VERSION='2.1.0';
+const BUILD_VERSION='2.2.0';
 // Online user manual (English page; it links to the Russian version itself).
 // Paste the full https:// address between the quotes. Empty string hides Help > User Manual.
 const MANUAL_URL='https://reauibuilder.patch34.workers.dev/ReaUI_Builder_Manual_en';
@@ -3565,6 +3576,7 @@ let gridVisible=true;
 // button flips this one while Preview is active. Runtime-only, like gridVisible.
 let previewGridVisible=false;
 let showWidgetNames=true, showDrawObjectNames=true;
+let edHoverId=null, edNameLayout=null;   // 2.2.0-dev.5 (K1 S4): Editor hover + name-label layout
 let viewWidgetFootprintOverview = false;
 let sidebarShellTab = 'elements';
 let cvResizing=false, cvResizeStart=null;
@@ -4736,6 +4748,17 @@ const WIDGET_CONTRACTS = {
     nativeIdMode:'hidden-id',
     previewFrameKind:'invisible-button-box',
   },
+  // 2.2.0-dev.1 (K1 S1): round knob. An InvisibleButton takes the mouse, the DrawList paints the
+  // knob over it. No label (the ImGui id comes from the internal name); the size is min(w, h).
+  Knob: {
+    defaults:{w:56,h:56,hLocked:false,color:'#4C8399'},
+    placementMode:'absolute-box',
+    widthMode:'explicit-size',
+    heightMode:'explicit-size',
+    labelMode:'no-label',
+    nativeIdMode:'hidden-id',
+    previewFrameKind:'knob-box',
+  },
   Selectable: {
     defaults:{w:140,h:20,hLocked:false,color:'#669966'},
     placementMode:'absolute-box',
@@ -5020,7 +5043,7 @@ const WIDGET_CONTRACTS = {
 // call of its own. A `label` stored on these (older projects) is kept in the data
 // but ignored everywhere: not offered in the inspector, not painted on canvas,
 // not used in the ImGui ID.
-const LABELLESS_WIDGET_TYPES = new Set(['Panel','StyleRegion','TabBar','Table','TableCell','InvisibleButton']);
+const LABELLESS_WIDGET_TYPES = new Set(['Panel','StyleRegion','TabBar','Table','TableCell','InvisibleButton','Knob']);
 function widgetHasRuntimeLabel(s){
   return !(s && s.type==='widget' && LABELLESS_WIDGET_TYPES.has(s.widgetType));
 }
@@ -5051,6 +5074,7 @@ const FAMILY_REGISTRY = {
   LabelText:         { variants:[], defaultVariant:null, variantToType:{ _:'LabelText' } },
   SmallButton:       { variants:[], defaultVariant:null, variantToType:{ _:'SmallButton' } },
   InvisibleButton:   { variants:[], defaultVariant:null, variantToType:{ _:'InvisibleButton' } },
+  Knob:              { variants:[], defaultVariant:null, variantToType:{ _:'Knob' } },
   Selectable:        { variants:[], defaultVariant:null, variantToType:{ _:'Selectable' } },
   BulletText:        { variants:[], defaultVariant:null, variantToType:{ _:'BulletText' } },
   TextWrapped:       { variants:[], defaultVariant:null, variantToType:{ _:'TextWrapped' } },
@@ -5108,6 +5132,7 @@ const WIDGET_PREVIEWS = {
   Button:        `<span class="ig-btn">Render</span>`,
   SmallButton:   `<span class="ig-btn small">Apply</span>`,
   InvisibleButton: `<span style="display:inline-block;width:60px;height:24px;border:1px dashed #888;border-radius:3px"></span>`,
+  Knob: `<svg width="34" height="34" viewBox="0 0 34 34"><path d="M8.6 25.4 A12 12 0 1 1 25.4 25.4" fill="none" stroke="#c9d1d6" stroke-width="3"/><path d="M8.6 25.4 A12 12 0 0 1 17 5" fill="none" stroke="#4C8399" stroke-width="3"/><circle cx="17" cy="17" r="7" fill="#3E4852"/><line x1="17" y1="17" x2="17" y2="11" stroke="#fff" stroke-width="2"/></svg>`,
   ArrowButton:   `<span class="ig-arrowbtn">▸</span>`,
   Checkbox:      `<label class="ig-row ig-check"><span class="box"><svg viewBox="0 0 16 16"><path d="M2 8 L6 12 L14 3" stroke="rgb(66,150,250)" stroke-width="2.5" fill="none"/></svg></span><span>Enable loop</span></label>`,
   RadioButtonEx: `<div class="ig-col"><label class="ig-row ig-radio"><span class="dot"><i></i></span><span>Mono</span></label><label class="ig-row ig-radio"><span class="dot"></span><span>Stereo</span></label></div>`,
@@ -5254,6 +5279,7 @@ const WIDGET_DESCRIPTIONS = {
   Button:        { what:'A clickable button that fires an action once per press.', use:'Use to trigger commands — render, apply, reset, or run a script step.' },
   SmallButton:   { what:'A compact button with tighter padding, same click behaviour.', use:'Use for inline or secondary actions where space is tight.' },
   InvisibleButton: { what:'A clickable hit-region that draws nothing at runtime.', use:'Use to make a custom-drawn area (an icon, a region of another widget) clickable.' },
+  Knob: { what:'A round knob you turn by dragging up and down. Shift = fine, wheel = step, double-click = reset, Ctrl+click = type a value.', use:'Use for volume, pan, mix and other values that read better as a dial than a slider.' },
   ArrowButton:   { what:'A small square button showing a directional arrow.', use:'Use for steppers, spinners, or expand/collapse toggles.' },
   Checkbox:      { what:'A boolean toggle with a label; shows a tick when on. With a custom look it can be any size, have its own border and colours, and take clicks on a wider area or a whole table row.', use:'Use for on/off options like enable, mute, loop, or bypass.' },
   RadioButtonEx: { what:'A set of mutually exclusive options; only one is active.', use:'Use to pick a single mode from a small fixed list.' },
@@ -7389,6 +7415,9 @@ function hitTableEditorTab(absX,absY){
 function drawTableNameLabel(s){
   if(previewMode) return;
   const r=getTableEditorTabRect(s);
+  // 2.2.0-dev.5 (K1 S4): hidden while a child widget covers it; returns on hover / selection.
+  ctx.save(); ctx.font=canvasWidgetFontCss(s,9); const tnW=ctx.measureText('⊞ '+(s.name||'Table')).width; ctx.restore();
+  if(!edContainerLabelFree(s,r.x+6,r.y+r.h/2-6,Math.min(tnW,Math.max(8,r.w-12)),12)) return;
   const hasLock=containerHasUserContent(s)||containerCaptureUnlockedOnce.has(s.id);
   ctx.save();
   ctx.fillStyle=resolveEmittedTextColorHex(s,'Table');ctx.globalAlpha=0.62;
@@ -9065,6 +9094,7 @@ const BASIC_PROPERTY_ROWS_BY_FAMILY=Object.freeze({
   Input:['variant-row','label-row','step-row'],
   Combo:['label-row'],
   ProgressBar:['label-row','overlay-row','indeterminate-row'],
+  Knob:['min-row','max-row','knob-default-row'],
   Panel:['panel-bordered-row'],
   TabBar:['tabs-list-row'],
   Separator:[]
@@ -14629,7 +14659,7 @@ const LOADED_NUMERIC_FIELD_RULES={
   thickness:{min:0}, rounding:{min:0}, opacity:{integer:true,min:0,max:255}, textSize:{integer:true,min:6},
   angleStart:{}, angleEnd:{}, styleRounding:{min:0,nullable:true},
   styleSelectableAlignX:{min:0,max:1,nullable:true}, styleSelectableAlignY:{min:0,max:1,nullable:true},
-  styleFontSize:{min:0,exclusiveMin:true,nullable:true}, min:{}, max:{}, speed:{}, step:{}, stepFast:{},
+  styleFontSize:{min:0,exclusiveMin:true,nullable:true}, min:{}, max:{}, knobDefault:{}, speed:{}, step:{}, stepFast:{},
   componentCount:{integer:true,min:1,max:4}, arraySize:{integer:true,min:2,max:64},
   colorAlpha:{integer:true,min:0,max:255}, radioValue:{},
   highlightAlpha:{integer:true,min:0,max:255,nullable:true},   // 2.1.0-dev.1 (A07 S6): Table highlight
@@ -15519,7 +15549,8 @@ cv.addEventListener('mousemove',e=>{
       const pid=getPrimarySelectedId();
       if(pid&&isSingleSelection()){const s=shapes.find(q=>q.id===pid);if(s&&isShapeEditorResizable(s)){const hi=hitH(s,x,y);if(hi>=0){cv.style.cursor=HDEFS[hi].c;return;}}}
       if(isMultiSelection()){const hi=hitMultiSelH(x,y);if(hi>=0){cv.style.cursor=HDEFS[hi].c;return;}}
-      cv.style.cursor=(testTabStrip(x,y)||hitS(x,y))?(e.altKey?'copy':'move'):'default';
+      const hovS=hitS(x,y); edSetHover(hovS?hovS.id:null);   // 2.2.0-dev.5 (K1 S4)
+      cv.style.cursor=(testTabStrip(x,y)||hovS)?(e.altKey?'copy':'move'):'default';
     }
   }
 });
@@ -15778,7 +15809,7 @@ function applyResize(s,action,x,y,minW,minH,preserveAspect=false){
 }
 
 cv.addEventListener('mouseup',()=>{ if(previewMode) return; finalizeCanvasRelease(); });
-cv.addEventListener('mouseleave',()=>{polyMousePt=null;render();});
+cv.addEventListener('mouseleave',()=>{polyMousePt=null;edHoverId=null;render();});   // 2.2.0-dev.5: + hover
 // 1.7.0-dev.1 (B09 E7 T-1): double-click a Text / rectangle / circle (Select tool, Editor
 // mode) to edit its label in place. Preview stays view-only; widgets' labels: later.
 cv.addEventListener('dblclick',e=>{
@@ -16175,9 +16206,9 @@ const INSPECTOR_SECTION_DEFS=[
     'variant-row','name-row','parent-row','label-row','hint-row','value-row','url-row',
     'radio-group-row','radio-value-row','flag-group-row','flag-bit-row',
     'plot-values-row','plot-scale-min-row','plot-scale-max-row',
-    'direction-row','component-count-row','array-size-row','min-row','max-row','speed-row',
+    'direction-row','component-count-row','array-size-row','min-row','max-row','knob-default-row','speed-row',
     'step-row','step-fast-row','tooltip-row','indeterminate-row','panel-bordered-row','panel-hscroll-row',
-    'overlay-row','bullet-row','highlight-row'
+    'overlay-row','bullet-row','highlight-row','btn-round-row'
   ]},
   {key:'structure',label:'Structure',ids:['tabs-list-row','table-inspector-row']},
   {key:'appearance',label:'Appearance',ids:[
@@ -16284,6 +16315,7 @@ const INSPECTOR_HINTS = {
   'array-size-row': 'How many values the control edits (2–64), kept in one `reaper_array`. `SliderDoubleN` / `DragDoubleN` / `InputDoubleN`.',
   'min-row': 'Lowest value. Dragging stops here, but Ctrl+click typing can go below it unless Clamp is on. `v_min`.',
   'max-row': 'Highest value. Dragging stops here, but Ctrl+click typing can go above it unless Clamp is on. `v_max`.',
+  'knob-default-row': 'Value the knob starts at and returns to on double-click. Empty = the minimum. Marked with a small tick on the knob.',
   'speed-row': 'How fast the value changes while dragging, per pixel of mouse movement: 0.2 needs 5 px per step. `v_speed`.',
   'step-row': 'Amount the − / + buttons add or take away. 0 hides the buttons. `step`.',
   'step-fast-row': 'Amount the − / + buttons use while Ctrl is held. 0 = the normal step. `step_fast`.',
@@ -16299,6 +16331,7 @@ const INSPECTOR_HINTS = {
   'bullet-row': 'Draws a small dot to the left of the widget; the widget itself does not move. Drawn with `DrawList_AddCircleFilled`.',
   'bullet-row:tree': 'Shows a bullet instead of the open/close arrow; the node still opens and closes. `TreeNodeFlags_Bullet`.',
   'highlight-row': 'Draws the row as if the pointer were over it. `SelectableFlags_Highlight`.',
+  'btn-round-row': 'Fully rounded ends. A square button becomes a circle, a wider one a pill. Exported as `StyleVar_FrameRounding` around the button.',
   'sr-disabled-row': 'Greys out everything inside the region and blocks its input. `BeginDisabled` / `EndDisabled`.',
   'tree-lines-row': 'Guide lines from this node to its children.',
   'tree-lines:none': 'None: no guide lines (default).',
@@ -16505,6 +16538,7 @@ const ME_HINT_KEYS = {
   arraySize:'array-size-row',
   min:'min-row',
   max:'max-row',
+  knobDefault:'knob-default-row',
   speed:'speed-row',
   step:'step-row',
   stepFast:'step-fast-row',
@@ -16770,7 +16804,7 @@ const INSPECTOR_FIELDS = {
   },
   min: {
     rowId: 'min-row',
-    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','VSliderInt','VSliderDouble','DragIntRange2','DragFloatRange2','SliderDoubleN','DragDoubleN'].includes(s.widgetType),
+    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','VSliderInt','VSliderDouble','DragIntRange2','DragFloatRange2','SliderDoubleN','DragDoubleN','Knob'].includes(s.widgetType),
     inputId: 'p-min',
     type: 'number',
     getValue: (s) => (s.min !== undefined ? s.min : ''),
@@ -16784,7 +16818,7 @@ const INSPECTOR_FIELDS = {
   },
   max: {
     rowId: 'max-row',
-    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','VSliderInt','VSliderDouble','DragIntRange2','DragFloatRange2','SliderDoubleN','DragDoubleN'].includes(s.widgetType),
+    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','VSliderInt','VSliderDouble','DragIntRange2','DragFloatRange2','SliderDoubleN','DragDoubleN','Knob'].includes(s.widgetType),
     inputId: 'p-max',
     type: 'number',
     getValue: (s) => (s.max !== undefined ? s.max : ''),
@@ -16794,6 +16828,19 @@ const INSPECTOR_FIELDS = {
       el.value = (s.max !== undefined ? s.max : '');
       const def = getNumericDefault(s.widgetType, 'max');
       el.placeholder = (def !== undefined ? String(def) : '');
+    },
+  },
+  knobDefault: {
+    rowId: 'knob-default-row',
+    appliesTo: (s) => isWidgetShape(s) && s.widgetType==='Knob',
+    inputId: 'p-knob-default',
+    type: 'number',
+    getValue: (s) => (s.knobDefault !== undefined ? s.knobDefault : ''),
+    sync: (s) => {
+      const el = document.getElementById('p-knob-default');
+      if(!el) return;
+      el.value = (s.knobDefault !== undefined ? s.knobDefault : '');
+      el.placeholder = String(getKnobParams(s).min);
     },
   },
   speed: {
@@ -16840,7 +16887,7 @@ const INSPECTOR_FIELDS = {
   },
   format: {
     rowId: 'format-row',
-    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','InputDouble','VSliderInt','VSliderDouble','SliderDoubleN','DragDoubleN'].includes(s.widgetType),
+    appliesTo: (s) => isWidgetShape(s) && ['SliderInt','SliderDouble','DragInt','DragDouble','InputDouble','VSliderInt','VSliderDouble','SliderDoubleN','DragDoubleN','Knob'].includes(s.widgetType),
     inputId: 'p-format',
     type: 'text',
     getValue: (s) => s.format || '',
@@ -16912,6 +16959,14 @@ const INSPECTOR_FIELDS = {
     sync: (s) => syncBulletInspector(s),
   },
   // 1.2.0 — every new optional property is omitted at its default (ADR-002 G5).
+  btnRound: {
+    rowId: 'btn-round-row',
+    appliesTo: (s) => isWidgetShape(s) && s.widgetType==='Button',
+    inputId: null,
+    type: 'checkbox',
+    getValue: (s) => s.btnRound===true,
+    sync: (s) => syncInspectorMainCheckbox('p-btn-round', s.btnRound===true),
+  },
   highlight: {
     rowId: 'highlight-row',
     appliesTo: (s) => isWidgetShape(s) && s.widgetType==='Selectable',
@@ -17839,7 +17894,7 @@ const NUMERIC_DEFAULTS = {
 };
 
 const NUMERIC_SLIDER_RANGE_TYPES = new Set([
-  'SliderInt','SliderDouble','VSliderInt','VSliderDouble','SliderDoubleN',
+  'SliderInt','SliderDouble','VSliderInt','VSliderDouble','SliderDoubleN','Knob',
 ]);
 const NUMERIC_DRAG_RANGE_TYPES = new Set([
   'DragInt','DragDouble','DragIntRange2','DragFloatRange2','DragDoubleN',
@@ -17850,7 +17905,7 @@ const NUMERIC_RANGE_WIDGET_TYPES = new Set([
 
 function getNumericKindForWidget(widgetType){
   if(['SliderInt','DragInt','InputInt','VSliderInt','DragIntRange2'].includes(widgetType)) return 'Int';
-  if(['SliderDouble','DragDouble','InputDouble','VSliderDouble','DragFloatRange2','SliderDoubleN','DragDoubleN','InputDoubleN'].includes(widgetType)) return 'Double';
+  if(['SliderDouble','DragDouble','InputDouble','VSliderDouble','DragFloatRange2','SliderDoubleN','DragDoubleN','InputDoubleN','Knob'].includes(widgetType)) return 'Double';
   return null;
 }
 
@@ -17965,6 +18020,16 @@ function getEffectiveNumericRange(s){
   };
 }
 
+// 2.2.0-dev.1 (K1 S1): the numbers a Knob exports and draws with. Range = the shared numeric
+// range (Double defaults 0..1); default = knobDefault clamped into it, or the minimum.
+function getKnobParams(s){
+  const r=getEffectiveNumericRange(s)||{min:0,max:1};
+  let min=Number.isFinite(r.min)?r.min:0, max=Number.isFinite(r.max)?r.max:1;
+  if(max<min){ const t=min; min=max; max=t; }
+  const hasDef=Object.prototype.hasOwnProperty.call(s,'knobDefault')&&s.knobDefault!==''&&Number.isFinite(Number(s.knobDefault));
+  const def=hasDef?Math.min(max,Math.max(min,Number(s.knobDefault))):min;
+  return {min, max, def, fmt:(s.format&&String(s.format).trim())?String(s.format):'%.3f'};
+}
 function reconcileEffectiveNumericRange(s, editedKey){
   if(editedKey!=='min'&&editedKey!=='max') return;
   const range=getEffectiveNumericRange(s);
@@ -19766,7 +19831,11 @@ function drawThemedPreviewWidgetBody(s,geo,x,y,w,h,labelText,pal){
   }
   switch(geo.previewFrameKind){
     case 'button-box':
-      drawPreviewButtonBox(x,y,w,h,labelText,pal);
+      // 2.2.0-dev.2 (K1 S2a): previewFillFrame clamps the radius to half the shorter side.
+      drawPreviewButtonBox(x,y,w,h,labelText,s.btnRound===true?{...pal,rounding:Math.min(w,h)/2}:pal);
+      return true;
+    case 'knob-box':
+      drawKnobGlyph(s,x,y,w,h,pal);
       return true;
     case 'invisible-button-box':
       // REAPER draws nothing for an InvisibleButton at runtime; Preview matches that.
@@ -19997,6 +20066,42 @@ function drawPreviewProgressBar(s,x,y,w,h,pal){
   ctx.restore();
   drawProgressBarOverlayText(s,x,y,w,h,x+Math.round(w*0.45),pal.text);
 }
+// 2.2.0-dev.1 (K1 S1): the knob, drawn at its default value. Geometry mirrors reaui_knob in the
+// exported Lua (size = min(w,h); r_out = size/2-2; arc r_out-4, 5 px; body r_out-12; 270 degree sweep).
+function drawKnobGlyph(s,x,y,w,h,pal){
+  const size=Math.min(w,h), cx=x+w/2, cy=y+h/2;
+  const rOut=size/2-2, rArc=rOut-4, rBody=Math.max(2,rOut-12);
+  if(rArc<=2) return;
+  const a0=Math.PI*0.75, a1=Math.PI*2.25;
+  const kp=getKnobParams(s);
+  const t=kp.max>kp.min?Math.min(1,Math.max(0,(kp.def-kp.min)/(kp.max-kp.min))):0;
+  const a=a0+t*(a1-a0);
+  ctx.save();
+  ctx.lineWidth=5; ctx.lineCap='butt';
+  ctx.strokeStyle=pal.frameBg;
+  ctx.beginPath(); ctx.arc(cx,cy,rArc,a0,a1); ctx.stroke();
+  if(t>0.001){
+    ctx.strokeStyle=pal.sliderGrab;
+    ctx.beginPath(); ctx.arc(cx,cy,rArc,a0,a); ctx.stroke();
+  }
+  // tick at the default position, on the outer edge
+  ctx.strokeStyle=pal.border; ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(cx+Math.cos(a)*(rOut+1),cy+Math.sin(a)*(rOut+1));
+  ctx.lineTo(cx+Math.cos(a)*(rOut-3),cy+Math.sin(a)*(rOut-3));
+  ctx.stroke();
+  // body + pointer
+  ctx.fillStyle=pal.button;
+  ctx.beginPath(); ctx.arc(cx,cy,rBody,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle=pal.frameBg; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(cx,cy,rBody,0,Math.PI*2); ctx.stroke();
+  ctx.strokeStyle=pal.text; ctx.lineWidth=3;
+  ctx.beginPath();
+  ctx.moveTo(cx+Math.cos(a)*rBody*0.35,cy+Math.sin(a)*rBody*0.35);
+  ctx.lineTo(cx+Math.cos(a)*rBody*0.88,cy+Math.sin(a)*rBody*0.88);
+  ctx.stroke();
+  ctx.restore();
+}
 // VSlider: vertical frame, grab parked at the bottom (default = minimum).
 function drawPreviewVSlider(x,y,w,h,pal){
   ctx.save();
@@ -20215,7 +20320,7 @@ function drawCustomCheckboxHitArea(s,x,y){
   if(!r) return;
   const dx=x-getAbsoluteX(s), dy=y-getAbsoluteY(s);
   ctx.save();
-  ctx.strokeStyle='rgba(34,85,170,0.55)'; ctx.setLineDash([3,3]); ctx.lineWidth=1;
+  ctx.strokeStyle=edSolid('rgba(34,85,170,0.55)'); ctx.setLineDash([3,3]); ctx.lineWidth=edLw();
   ctx.strokeRect(r.x+dx+.5,r.y+dy+.5,Math.max(0,r.w-1),Math.max(0,r.h-1));
   ctx.restore();
 }
@@ -21453,6 +21558,9 @@ function openMenuBarEditorAt(x){
 function drawContainerCaptureLock(s){
   if(previewMode||!s||!s.isContainer||s.widgetType==='TableCell'||s.widgetType==='TabItem') return;
   if(!containerHasUserContent(s)&&!containerCaptureUnlockedOnce.has(s.id)) return;
+  // 2.2.0-dev.5 (K1 S4): a closed lock shows on the container under the pointer, a selected
+  // container, or while U is held; an open lock always shows. The click target is unchanged.
+  if(!containerUnlockHeld&&!containerCaptureUnlockedOnce.has(s.id)&&!isSelected(s.id)&&!edHoverWithin(s)) return;
   const r=getContainerLockRect(s);
   const open=containerUnlockHeld||containerCaptureUnlockedOnce.has(s.id);
   ctx.save();
@@ -21485,7 +21593,7 @@ function drawTableAngledBandEditor(s,x,y,w,angledH,strong){
   ctx.stroke();
   ctx.restore();
   ctx.save();
-  ctx.strokeStyle=rgbaFromHex(strong,0.7); ctx.lineWidth=1; ctx.setLineDash([2,2]);
+  ctx.strokeStyle=strong; ctx.lineWidth=edLw(); ctx.setLineDash([2,2]);   // 2.2.0-dev.4
   ctx.beginPath(); ctx.moveTo(x,Math.round(y+angledH)+.5); ctx.lineTo(x+w,Math.round(y+angledH)+.5); ctx.stroke();
   ctx.setLineDash([]);
   if(angledH>=12){
@@ -21530,7 +21638,7 @@ function drawTableEmptyRowsBand(x,top,w,bottom,strong,hatch){
     ctx.restore();
   }
   ctx.save();
-  ctx.strokeStyle=rgbaFromHex(strong,0.7); ctx.lineWidth=1; ctx.setLineDash([2,2]);
+  ctx.strokeStyle=strong; ctx.lineWidth=edLw(); ctx.setLineDash([2,2]);   // 2.2.0-dev.4
   ctx.beginPath(); ctx.moveTo(x,Math.round(top)+.5); ctx.lineTo(x+w,Math.round(top)+.5); ctx.stroke();
   ctx.restore();
 }
@@ -21627,6 +21735,83 @@ function drawWidget(s,pre){
   ctx.strokeRect(x+.5,y+.5,Math.max(0,w-1),Math.max(0,h-1));
   ctx.restore();
 }
+// 2.2.0-dev.3: Editor outline weight in SCREEN px. The canvas is scaled by viewport.scale, so a
+// plain lineWidth grows with the zoom; dividing keeps the stroke constant on screen.
+const ED_OUTLINE_W=1, ED_OUTLINE_SEL_W=1.5;
+function edLw(k){ const vs=(viewport&&viewport.scale)||1; return (k||ED_OUTLINE_W)/vs; }
+// 2.2.0-dev.4: Editor frames are drawn opaque; keep the hue, drop the alpha.
+function edSolid(c){
+  if(typeof c!=='string') return c;
+  const m=c.match(/^rgba\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*[\d.]+\s*\)$/i);
+  if(m) return 'rgb('+m[1]+','+m[2]+','+m[3]+')';
+  if(/^#[0-9a-f]{8}$/i.test(c)) return c.slice(0,7);
+  return c;
+}
+// 2.2.0-dev.5 (K1 S4): Editor focus. Hover outline, name labels only where they fit,
+// container locks only on the container under the pointer. Editor drawing only.
+function edSetHover(id){
+  if(edHoverId===id) return;
+  edHoverId=id; render();
+}
+function edHoverActive(){
+  return !previewMode && !action && !drawing && getEffectiveTool()==='select';
+}
+function edIsHovered(s){ return !!s && !!edHoverId && edHoverId===s.id && edHoverActive(); }
+// The pointer is on this container or on anything inside it.
+function edHoverWithin(s){
+  if(!s || !edHoverId || !edHoverActive()) return false;
+  if(edHoverId===s.id) return true;
+  const h=shapes.find(q=>q.id===edHoverId);
+  return !!h && isDescendantOf(h,s);
+}
+function edNameDrawable(s){
+  return isWidgetShape(s) && !!s.name && s.widgetType!=='TableCell' && s.widgetType!=='Table';
+}
+// Same place drawWidgetCore writes the name: baseline y-3 above the box, or y+h+10 below it.
+function edNameRect(s){
+  const x=getAbsoluteX(s), y=getAbsoluteY(s);
+  const h=resolveWidgetPreviewGeometry(s).resolvedHeight;
+  const base=y>12?y-3:y+h+10;
+  ctx.save(); ctx.font='500 9px monospace'; const tw=ctx.measureText(s.name).width; ctx.restore();
+  return {x:x-1, y:base-8, w:tw+2, h:10};
+}
+// Called once per render, before the widget pass.
+function edBeginNameLayout(){
+  edNameLayout=null;
+  if(previewMode || !showWidgetNames) return;
+  const boxes=[];
+  shapes.forEach(s=>{
+    if(!isWidgetShape(s) || s.widgetType==='TabItem' || !isShapeInActiveTabPath(s)) return;
+    const g=resolveWidgetPreviewGeometry(s);
+    boxes.push({id:s.id, x:getAbsoluteX(s), y:getAbsoluteY(s), w:g.resolvedWidth, h:g.resolvedHeight});
+  });
+  // Selected and hovered names always draw; reserve their room first.
+  const rects=[];
+  shapes.forEach(s=>{
+    if(edNameDrawable(s) && isShapeInActiveTabPath(s) && (isSelected(s.id)||edIsHovered(s))) rects.push(edNameRect(s));
+  });
+  edNameLayout={boxes, rects};
+}
+// A name fits when it covers no other widget (own box and ancestors excepted) and no other name.
+function edNameFits(s,r){
+  if(!edNameLayout) return true;
+  const skip=new Set([s.id]); getParentChain(s).forEach(p=>skip.add(p.id));
+  const hit=b=>r.x<b.x+b.w && r.x+r.w>b.x && r.y<b.y+b.h && r.y+r.h>b.y;
+  for(const b of edNameLayout.boxes){ if(!skip.has(b.id) && hit(b)) return false; }
+  for(const b of edNameLayout.rects){ if(hit(b)) return false; }
+  return true;
+}
+// Container header text (Style region label/badges, Table name): hidden while a child widget
+// covers it, unless the container itself is hovered or selected.
+function edContainerLabelFree(s,rx,ry,rw,rh){
+  if(previewMode || isSelected(s.id) || edIsHovered(s)) return true;
+  return !shapes.some(c=>{
+    if(c.id===s.id || !isWidgetShape(c) || c.widgetType==='TableCell' || c.widgetType==='TabItem') return false;
+    if(!isDescendantOf(c,s) || !isShapeInActiveTabPath(c)) return false;
+    const cx=getAbsoluteX(c), cy=getAbsoluteY(c), g=resolveWidgetPreviewGeometry(c);
+    return rx<cx+g.resolvedWidth && rx+rw>cx && ry<cy+g.resolvedHeight && ry+rh>cy;
+  });
+}
 function drawWidgetCore(s,pre){
   const sel=!pre&&!previewMode&&isSelected(s.id);
   const contract=getWidgetContract(s.widgetType)||{};
@@ -21647,7 +21832,7 @@ function drawWidgetCore(s,pre){
   // BeginDisabled StyleRegion ancestor dims its whole subtree in Preview, the same way
   // REAPER would render it. Editor keeps full alpha; only the badge marks it there.
   if(previewMode && !pre && isInsideDisabledStyleRegion(s)) ctx.globalAlpha *= STYLE_REGION_DISABLED_ALPHA;
-  ctx.lineWidth=1;
+  ctx.lineWidth=edLw();   // 2.2.0-dev.3
   if(pre)ctx.setLineDash([3,3]);
 
   if(previewMode && !pre && s.widgetType==='Group'){
@@ -21687,9 +21872,16 @@ function drawWidgetCore(s,pre){
   } else if(s.widgetType!=='TextColored'&&geo.familyKey==='native-fixed-height' && drawNativeFixedHeightPreviewWidget(s,geo,strong,labelText,pre,widgetFontCss)){
   } else if(geo.previewFrameKind==='button-box'){
     ctx.fillStyle=tint;
-    ctx.fillRect(x,y,w,h);
-    ctx.strokeStyle=strong;
-    ctx.strokeRect(x+1,y+1,w-2,h-2);
+    if(s.btnRound===true && typeof ctx.roundRect==='function'){   // 2.2.0-dev.2 (K1 S2a)
+      const rr=Math.min(w,h)/2;
+      ctx.beginPath(); ctx.roundRect(x,y,w,h,rr); ctx.fill();
+      ctx.strokeStyle=strong;
+      ctx.beginPath(); ctx.roundRect(x+1,y+1,w-2,h-2,Math.max(0,rr-1)); ctx.stroke();
+    } else {
+      ctx.fillRect(x,y,w,h);
+      ctx.strokeStyle=strong;
+      ctx.strokeRect(x+1,y+1,w-2,h-2);
+    }
     if(labelText){
       ctx.fillStyle='#333';ctx.font=widgetFontCss;
       ctx.textAlign='center';ctx.textBaseline='middle';
@@ -21725,7 +21917,7 @@ function drawWidgetCore(s,pre){
     }
   } else if(geo.previewFrameKind==='text-line'){
     if(!pre){
-      ctx.strokeStyle=s.widgetType==='TextColored'?strong:'rgba(34,136,68,0.55)';
+      ctx.strokeStyle=s.widgetType==='TextColored'?strong:edSolid('rgba(34,136,68,0.55)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -21740,7 +21932,7 @@ function drawWidgetCore(s,pre){
     }
   } else if(geo.previewFrameKind==='help-marker'){
     if(!pre){
-      ctx.strokeStyle='rgba(136,136,136,0.45)';
+      ctx.strokeStyle=edSolid('rgba(136,136,136,0.45)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -21812,7 +22004,7 @@ function drawWidgetCore(s,pre){
     }
   } else if(geo.previewFrameKind==='separator-text-line'){
     if(!pre){
-      ctx.strokeStyle='rgba(136,136,136,0.40)';
+      ctx.strokeStyle=edSolid('rgba(136,136,136,0.40)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -21894,7 +22086,7 @@ function drawWidgetCore(s,pre){
     ctx.fill();
   } else if(geo.previewFrameKind==='label-text-row'){
     if(!pre){
-      ctx.strokeStyle='rgba(85,136,170,0.45)';
+      ctx.strokeStyle=edSolid('rgba(85,136,170,0.45)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -22027,7 +22219,7 @@ function drawWidgetCore(s,pre){
       ctx.fillStyle=rgbaFromHex(strong,0.16);
       ctx.fillRect(x,y,w,h);
     }
-    ctx.strokeStyle='rgba(102,153,102,0.45)';
+    ctx.strokeStyle=edSolid('rgba(102,153,102,0.45)');
     ctx.setLineDash([3,3]);
     ctx.strokeRect(x+.5,y+.5,w-1,h-1);
     ctx.setLineDash([]);
@@ -22041,7 +22233,7 @@ function drawWidgetCore(s,pre){
     }
   } else if(geo.previewFrameKind==='bullet-text-line'){
     if(!pre){
-      ctx.strokeStyle='rgba(68,68,68,0.45)';
+      ctx.strokeStyle=edSolid('rgba(68,68,68,0.45)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -22058,7 +22250,7 @@ function drawWidgetCore(s,pre){
       ctx.fillText(labelText, x+5+dotR+4, cy);
     }
   } else if(geo.previewFrameKind==='text-wrapped-box'){
-    ctx.strokeStyle=pre?'rgba(34,136,68,0.65)':'rgba(34,136,68,0.40)';
+    ctx.strokeStyle=edSolid(pre?'rgba(34,136,68,0.65)':'rgba(34,136,68,0.40)');
     ctx.setLineDash([3,3]);
     ctx.strokeRect(x+.5,y+.5,w-1,h-1);
     ctx.setLineDash([]);
@@ -22085,7 +22277,7 @@ function drawWidgetCore(s,pre){
     }
   } else if(geo.previewFrameKind==='text-link-line'){
     if(!pre){
-      ctx.strokeStyle='rgba(76,131,153,0.45)';
+      ctx.strokeStyle=edSolid('rgba(76,131,153,0.45)');
       ctx.setLineDash([3,3]);
       ctx.strokeRect(x+.5,y+.5,w-1,h-1);
       ctx.setLineDash([]);
@@ -22246,7 +22438,7 @@ function drawWidgetCore(s,pre){
       const tabH=hdrH-4, tabY=y+2;
       ctx.fillStyle=strong+'22';
       ctx.fillRect(tx, tabY, tabW, tabH);
-      ctx.strokeStyle=strong+'88'; ctx.lineWidth=0.5; ctx.setLineDash([]);
+      ctx.strokeStyle=strong; ctx.lineWidth=edLw(); ctx.setLineDash([]);
       ctx.strokeRect(tx+.5, tabY+.5, tabW-1, tabH-1);
       ctx.lineWidth=1;
       ctx.fillStyle=resolveEmittedTextColorHex(s,'TabBar');ctx.globalAlpha=0.62;
@@ -22267,8 +22459,8 @@ function drawWidgetCore(s,pre){
       const tabY=y+2;
       ctx.fillRect(tx, tabY, tabW, tabH);
       // Tab button border
-      ctx.strokeStyle=isActive?strong:(strong+'88');
-      ctx.lineWidth=isActive?1.5:0.5;
+      ctx.strokeStyle=strong;   // 2.2.0-dev.4: inactive tabs opaque too; the active one is heavier
+      ctx.lineWidth=isActive?edLw(ED_OUTLINE_SEL_W):edLw();
       ctx.setLineDash([]);
       ctx.strokeRect(tx+.5, tabY+.5, tabW-1, tabH-1);
       ctx.lineWidth=1;
@@ -22335,8 +22527,8 @@ function drawWidgetCore(s,pre){
     // Editor-aid dividers. Strong enough to remain legible in both editor themes;
     // still dashed so they cannot be mistaken for exported table borders.
     ctx.save();
-    ctx.strokeStyle=rgbaFromHex(strong,pre?0.55:0.82);
-    ctx.lineWidth=1.25;
+    ctx.strokeStyle=pre?rgbaFromHex(strong,0.55):strong;   // 2.2.0-dev.4: opaque in the Editor
+    ctx.lineWidth=edLw();   // 2.2.0-dev.3 (was 1.25)
     ctx.setLineDash([4,2]);
     const bordersOn=tableHasBorders(s);
     for(let c=1;c<cols;c++){
@@ -22394,7 +22586,7 @@ function drawWidgetCore(s,pre){
     if(s.bordered!==false){
       ctx.strokeStyle=strong;ctx.setLineDash(pre?[3,3]:[]);   // solid = exported border
     } else {
-      ctx.strokeStyle=strong+'55';ctx.setLineDash([2,3]);     // faint dashed = no exported border (editor affordance only)
+      ctx.strokeStyle=strong;ctx.setLineDash([2,3]);     // faint dashed = no exported border (editor affordance only)
     }
     ctx.strokeRect(x+.5,y+.5,w-1,h-1);
     ctx.setLineDash([]);
@@ -22428,7 +22620,11 @@ function drawWidgetCore(s,pre){
     if(s.disabled===true) srBadges.push('\u2298'); // 1.4.0 (B4): BeginDisabled badge
     const srBadgeText=srBadges.join(' ');
     const srBadgeW=srBadgeText?24:0;
-    if(labelText){
+    ctx.font=canvasWidgetFontCss(s,labelText?10:9);   // 2.2.0-dev.5 (K1 S4): measured for the cover test
+    const srTextW=Math.min(ctx.measureText(labelText?'Style: '+labelText:'✦ Style').width,Math.max(8,w-12-srBadgeW));
+    if(!pre && !edContainerLabelFree(s,x+6,y+hdrH/2-6,srTextW,12)){
+      // 2.2.0-dev.5 (K1 S4): a child widget covers the header text; it returns on hover / selection.
+    } else if(labelText){
       ctx.fillStyle=resolveEmittedTextColorHex(s,'StyleRegion');ctx.font=canvasWidgetFontCss(s,10);
       ctx.fillText('Style: '+labelText,x+6,y+hdrH/2,Math.max(8,w-12-srBadgeW));
     } else {
@@ -22436,7 +22632,7 @@ function drawWidgetCore(s,pre){
       ctx.fillText('\u2726 Style',x+6,y+hdrH/2,Math.max(8,w-12-srBadgeW));
       ctx.globalAlpha=1;
     }
-    if(srBadgeText && !pre){
+    if(srBadgeText && !pre && edContainerLabelFree(s,x+w-30,y+hdrH/2-6,24,12)){   // 2.2.0-dev.5 (K1 S4)
       ctx.save();
       ctx.textAlign='right';
       ctx.fillStyle=resolveEmittedTextColorHex(s,'StyleRegion');ctx.globalAlpha=0.72;
@@ -22483,6 +22679,9 @@ function drawWidgetCore(s,pre){
       ctx.fillText(defaultLabel,x+6,y+hdrH/2,w-12);
       ctx.globalAlpha=1;
     }
+  } else if(geo.previewFrameKind==='knob-box'){
+    // 2.2.0-dev.1 (K1 S1): the knob is what REAPER draws, so the editor shows it too.
+    drawKnobGlyph(s,x,y,w,h,getPreviewPalette());
   } else if(geo.previewFrameKind==='invisible-button-box'){
     // Editor-only schematic: nothing paints at runtime, so show a dashed box with
     // the type name instead of a themed body (B2).
@@ -22512,14 +22711,27 @@ function drawWidgetCore(s,pre){
     drawTreeNodeLines(s, previewMode ? getPreviewPalette().treeLines : rgbaFromHex(strong,0.75));
   }
   if(!pre) drawContainerCaptureLock(s);
+  const hov=!pre&&!sel&&edIsHovered(s);   // 2.2.0-dev.5 (K1 S4)
   if(!pre&&!previewMode&&showWidgetNames&&s.name&&s.widgetType!=='TableCell'&&s.widgetType!=='Table'){ // Table: name is on its tab
-    ctx.fillStyle=sel?'#000':'#bbb';
-    ctx.font=(sel?'500 ':'')+'9px monospace';ctx.textAlign='left';ctx.textBaseline='alphabetic';
-    ctx.fillText(s.name,x,y>12?y-3:y+h+10);
+    // 2.2.0-dev.5 (K1 S4): selected / hovered names always draw, on a light plate;
+    // the rest only where they cover no other widget and no other name.
+    const nr=(sel||hov)?null:edNameRect(s);
+    if(!nr || edNameFits(s,nr)){
+      if(nr && edNameLayout) edNameLayout.rects.push(nr);
+      const ny=y>12?y-3:y+h+10;
+      ctx.font=((sel||hov)?'500 ':'')+'9px monospace';ctx.textAlign='left';ctx.textBaseline='alphabetic';
+      if(sel||hov){ const tw=ctx.measureText(s.name).width; ctx.fillStyle='rgba(255,255,255,.88)'; ctx.fillRect(x-1,ny-8,tw+2,10); }
+      ctx.fillStyle=(sel||hov)?'#000':'#bbb';
+      ctx.fillText(s.name,x,ny);
+    }
+  }
+  if(hov){   // 2.2.0-dev.5 (K1 S4): hover outline, solid, selection weight
+    ctx.strokeStyle=strong; ctx.lineWidth=edLw(ED_OUTLINE_SEL_W); ctx.setLineDash([]);
+    ctx.strokeRect(x+.5,y+.5,w-1,h-1);
   }
   if(sel){
     ctx.strokeStyle=strong;
-    ctx.lineWidth=1;
+    ctx.lineWidth=edLw(ED_OUTLINE_SEL_W);   // 2.2.0-dev.3 (was 1, same as unselected)
     ctx.setLineDash([4,3]);
     ctx.strokeRect(x+.5,y+.5,w-1,h-1);
     ctx.setLineDash([]);
@@ -22876,6 +23088,7 @@ function render(){
   }
   drawPolyInProgress();
 
+  edBeginNameLayout();   // 2.2.0-dev.5 (K1 S4)
   getScenePaintOrder().filter(s=>!dragLiftWidgetShapes.includes(s)).forEach(s=>{
     if(!isShapeInActiveTabPath(s)) return;
     const _pc=getPanelAncestorClipRects(s);
@@ -24782,6 +24995,79 @@ function needsReauiTableRowsHelperExt(widgetShapes){
   return widgetShapes.some(s=>s.widgetType==='Table'
     && ((tableUsesRuntimeRows(s) && tableRowsKeepHeight(s)) || exportTableStretch(s).h));
 }
+// 2.2.0-dev.1 (K1 S1): the knob helper is emitted once, and only when a Knob exists, so every
+// other export is byte-identical. Source = knob_prototype.lua, generalised to any range.
+function needsReauiKnobHelper(widgetShapes){
+  return widgetShapes.some(s=>s.widgetType==='Knob');
+}
+const REAUI_KNOB_HELPER_LUA = [
+  `-- ReaUI Builder knob: drag = value, Shift = fine, wheel = step, double-click = reset, Ctrl+click = type.`,
+  `-- Returns changed, value. Draws with the theme colours at the current cursor position.`,
+  `local function reaui_knob(ctx, id, size, v, vmin, vmax, vdef, fmt)`,
+  `  local changed = false`,
+  `  local x, y = reaper.ImGui_GetCursorScreenPos(ctx)`,
+  `  reaper.ImGui_InvisibleButton(ctx, id, size, size)`,
+  `  local active  = reaper.ImGui_IsItemActive(ctx)`,
+  `  local hovered = reaper.ImGui_IsItemHovered(ctx)`,
+  `  local mods  = reaper.ImGui_GetKeyMods(ctx)`,
+  `  local shift = (mods & reaper.ImGui_Mod_Shift()) ~= 0`,
+  `  local ctrl  = (mods & reaper.ImGui_Mod_Ctrl()) ~= 0`,
+  `  local range = vmax - vmin`,
+  `  if reaper.ImGui_IsItemActivated(ctx) and ctrl then reaper.ImGui_OpenPopup(ctx, id .. "_edit") end`,
+  `  if active and not ctrl and range > 0 then`,
+  `    local _, dy = reaper.ImGui_GetMouseDelta(ctx)`,
+  `    if dy ~= 0 then`,
+  `      local per_px = range / 200`,
+  `      if shift then per_px = per_px / 10 end`,
+  `      local nv = math.max(vmin, math.min(vmax, v - dy * per_px))`,
+  `      if nv ~= v then v = nv; changed = true end`,
+  `    end`,
+  `  end`,
+  `  if hovered and range > 0 then`,
+  `    local wheel = reaper.ImGui_GetMouseWheel(ctx)`,
+  `    if wheel ~= 0 then`,
+  `      v = math.max(vmin, math.min(vmax, v + wheel * range * (shift and 0.001 or 0.01)))`,
+  `      changed = true`,
+  `    end`,
+  `  end`,
+  `  if hovered and reaper.ImGui_IsMouseDoubleClicked(ctx, 0) then v = vdef; changed = true end`,
+  `  if reaper.ImGui_BeginPopup(ctx, id .. "_edit") then`,
+  `    reaper.ImGui_SetNextItemWidth(ctx, 90)`,
+  `    if reaper.ImGui_IsWindowAppearing(ctx) then reaper.ImGui_SetKeyboardFocusHere(ctx) end`,
+  `    local rv, nv = reaper.ImGui_InputDouble(ctx, "##" .. id .. "_in", v, 0, 0, "%.3f", reaper.ImGui_InputTextFlags_EnterReturnsTrue())`,
+  `    if rv then v = math.max(vmin, math.min(vmax, nv)); changed = true; reaper.ImGui_CloseCurrentPopup(ctx) end`,
+  `    reaper.ImGui_EndPopup(ctx)`,
+  `  end`,
+  `  if hovered or active then`,
+  `    local ok, txt = pcall(string.format, fmt, v)`,
+  `    reaper.ImGui_SetTooltip(ctx, ok and txt or string.format("%.3f", v))`,
+  `  end`,
+  `  -- drawing: size = square, 270 degree sweep with the gap at the bottom`,
+  `  local dl = reaper.ImGui_GetWindowDrawList(ctx)`,
+  `  local cx, cy = x + size * 0.5, y + size * 0.5`,
+  `  local r_out  = size * 0.5 - 2`,
+  `  local r_arc  = r_out - 4`,
+  `  local r_body = math.max(2, r_out - 12)`,
+  `  local a0, a1 = math.pi * 0.75, math.pi * 2.25`,
+  `  local t = range > 0 and (v - vmin) / range or 0`,
+  `  local a = a0 + t * (a1 - a0)`,
+  `  local ad = a0 + (range > 0 and (vdef - vmin) / range or 0) * (a1 - a0)`,
+  `  if r_arc > 2 then`,
+  `    reaper.ImGui_DrawList_PathArcTo(dl, cx, cy, r_arc, a0, a1, 48)`,
+  `    reaper.ImGui_DrawList_PathStroke(dl, reaper.ImGui_GetColor(ctx, reaper.ImGui_Col_FrameBg()), 0, 5)`,
+  `    if t > 0.001 then`,
+  `      reaper.ImGui_DrawList_PathArcTo(dl, cx, cy, r_arc, a0, a, 48)`,
+  `      reaper.ImGui_DrawList_PathStroke(dl, reaper.ImGui_GetColor(ctx, (active or hovered) and reaper.ImGui_Col_SliderGrabActive() or reaper.ImGui_Col_SliderGrab()), 0, 5)`,
+  `    end`,
+  `    reaper.ImGui_DrawList_AddLine(dl, cx + math.cos(ad) * (r_out + 1), cy + math.sin(ad) * (r_out + 1), cx + math.cos(ad) * (r_out - 3), cy + math.sin(ad) * (r_out - 3), reaper.ImGui_GetColor(ctx, reaper.ImGui_Col_Border()), 1.5)`,
+  `  end`,
+  `  reaper.ImGui_DrawList_AddCircleFilled(dl, cx, cy, r_body, reaper.ImGui_GetColor(ctx, (active or hovered) and reaper.ImGui_Col_ButtonHovered() or reaper.ImGui_Col_Button()), 48)`,
+  `  reaper.ImGui_DrawList_AddCircle(dl, cx, cy, r_body, reaper.ImGui_GetColor(ctx, reaper.ImGui_Col_FrameBg()), 48, 1.5)`,
+  `  reaper.ImGui_DrawList_AddLine(dl, cx + math.cos(a) * r_body * 0.35, cy + math.sin(a) * r_body * 0.35, cx + math.cos(a) * r_body * 0.88, cy + math.sin(a) * r_body * 0.88, reaper.ImGui_GetColor(ctx, reaper.ImGui_Col_Text()), 3)`,
+  `  return changed, v`,
+  `end`,
+  ``,
+];
 function needsReauiTableColsHelper(widgetShapes){
   return widgetShapes.some(s=>s.widgetType==='Table' && (exportTableStretch(s).w || exportTableStretch(s).h));
 }
@@ -25033,8 +25319,24 @@ function emitWidget(s,n,L){
   switch(wt){
     case 'Button': {
       const buttonLiteral = luaStr((s.label || '') + '##' + n);
+      // 2.2.0-dev.2 (K1 S2a): a round Button pushes FrameRounding for its own item only.
+      if(s.btnRound===true) L.push(`    reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_FrameRounding(), ${GN(GX.div(GX.min(G.w,G.h),2))})`);
       L.push(`    if reaper.ImGui_Button(ctx, ${buttonLiteral}, ${GN(G.w)}, ${GN(G.h)}) then`);
       L.push(`      -- TODO: ${n} pressed`);
+      L.push(`    end`);
+      if(s.btnRound===true) L.push(`    reaper.ImGui_PopStyleVar(ctx)`);
+      break;
+    }
+    case 'Knob': {
+      // 2.2.0-dev.1 (K1 S1): one helper call; the cursor is already at the widget. The size is the
+      // shorter side, never below 1 (a stretched size can reach 0, as for InvisibleButton).
+      const kp = getKnobParams(s);
+      L.push(`    do`);
+      L.push(`      local _rv`);
+      L.push(`      _rv, ${sv('val')} = reaui_knob(ctx, ${id}, ${GN(GX.max(GX.min(G.w,G.h),1))}, ${sv('val')}, ${luaNum(kp.min)}, ${luaNum(kp.max)}, ${luaNum(kp.def)}, ${luaStr(kp.fmt)})`);
+      L.push(`      if _rv then`);
+      L.push(`        -- TODO: ${n} changed (value is in ${sv('val')})`);
+      L.push(`      end`);
       L.push(`    end`);
       break;
     }
@@ -25965,6 +26267,7 @@ function genImGui(){
       return `state.${n}_arr = reaper.new_array({${zeros}})`;
     }
     if(isCustomCheckbox(s) && s.cbChecked===true) return `state.${n}_checked = true`;   // A09: starts checked
+    if(s.widgetType==='Knob') return `state.${n}_val = ${luaNum(getKnobParams(s).def)}`;   // 2.2.0-dev.1 (K1 S1)
     const tmpl=WIDGET_STATE[s.widgetType];
     return tmpl?tmpl.replace(/{n}/g,n):null;
   }).filter(Boolean);
@@ -26027,6 +26330,7 @@ function genImGui(){
   if(needsReauiTextHelper(exportShapes)) (__exportAdaptiveTextHelperCur ? REAUI_TEXT_HELPER_ADAPTIVE_LUA : REAUI_TEXT_HELPER_LUA).forEach(x=>L.push(x));
   if(needsReauiTableRowsHelper(widgetShapes)) (needsReauiTableRowsHelperExt(widgetShapes) ? REAUI_TABLE_ROWS_HELPER_EXT_LUA : REAUI_TABLE_ROWS_HELPER_LUA).forEach(x=>L.push(x));
   if(needsReauiTableColsHelper(widgetShapes)) REAUI_TABLE_COLS_HELPER_LUA.forEach(x=>L.push(x));   // 2.1.0-dev.2 (A08 S1)
+  if(needsReauiKnobHelper(widgetShapes)) REAUI_KNOB_HELPER_LUA.forEach(x=>L.push(x));   // 2.2.0-dev.1 (K1 S1)
   L.push(`local open = true`);
   L.push(``);
   L.push(`local function draw()`);

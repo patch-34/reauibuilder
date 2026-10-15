@@ -1,4 +1,4 @@
-# ReaUI Builder — User Guide, Version 2.1.0
+# ReaUI Builder — User Guide, Version 2.2.0
 
 [Русская версия](ReaUI_Builder_Manual_ru.md)
 
@@ -41,6 +41,7 @@
   - [06. Widget catalog](#manual-06-widget-catalog)
     - [Catalog notes](#manual-catalog-notes)
       - [Custom Checkbox](#manual-custom-checkbox)
+      - [Knob](#manual-knob)
   - [07. Containers](#manual-07-containers)
     - [7.1 · Panel](#manual-7-1-panel)
     - [7.2 · Group](#manual-7-2-group)
@@ -98,7 +99,7 @@ A visual layout editor for ReaImGui interfaces.
 
 Design a window on the canvas and export ReaImGui Lua code for its widgets, drawings, and styles. Builder uses logical layout coordinates; zoom changes the view without changing the exported coordinates. Preview approximates the appearance of the running interface.
 
-This guide covers version **2.1.0**. It describes the current features and workflow; obsolete workarounds are omitted.
+This guide covers version **2.2.0**. It describes the current features and workflow; obsolete workarounds are omitted.
 
 ---
 
@@ -115,7 +116,7 @@ Use Builder to design the **interface layout** for your script. Set widget posit
 Builder does not generate DSP, project logic, or event handling. In the exported code, `-- TODO` comments mark where to add your own logic for interactive widgets.
 
 - **Output:** Lua code for ReaImGui 0.10 or later
-- **Widgets:** 53 placeable types in 45 families, plus the automatically managed TabItem and TableCell types
+- **Widgets:** 54 placeable types in 46 families, plus the automatically managed TabItem and TableCell types
 - **Drawing primitives:** 7 — rectangle, circle, polygon, line, text, triangle, and arc
 - **Project format:** versioned JSON
 
@@ -173,13 +174,17 @@ The steps below use Advanced mode.
 
 ## 03. Workspace
 
-In **Editor** mode, a gray name tag appears above each widget.
+In **Editor** mode, a gray name tag appears above each widget when it has room: a tag that would cover another widget or another tag is left out, so a dense layout stays readable. The name of the selected widget and of the widget under the pointer always shows. The widget under the pointer also gets a solid outline, so you can see what you are about to click.
+
+Editor outlines are 1 screen pixel wide at any zoom; the selection frame is heavier (1.5 px).
 
 The **Table** name (`⊞ <name>`) is written inside the box, in its top-left corner, and the lock icon sits in the top-right corner. Click the strip with the name to select or drag the table. Both are editor aids: they take no room from the table and do not appear in Preview or the export.
 
 **StyleRegion** shows a small `✦ Style` label in its top-left corner. It is an editor aid too; the region reserves no space (§7.3).
 
 **Panel** shows a pale `☐ Panel` mark in its top-left corner. This editor aid reserves no space. Clicking within the top 24 px of the box selects the Panel, even over a child widget.
+
+The Table name and the StyleRegion label hide while a child widget covers them; point at the container or select it to see them again. A container's closed lock icon shows only when you point at the container or at something inside it, when the container is selected, or while you hold **U**. An open lock always shows.
 
 The top strip of **TabBar** is the actual tab row—the same one REAPER draws. Click an empty part of the strip to select the TabBar; click a tab's label to select that tab (see §7.5).
 
@@ -557,7 +562,7 @@ Nesting is determined by the positions of objects on the canvas.
 
 Placing a widget inside a container's content area makes it a child of that container. Moving it outside returns it to the layout's top level or makes it a child of another suitable container.
 
-There is no separate command for adding an object to a container. Moving a container can also capture eligible widgets fully enclosed by its content area. Click the lock badge to unlock the container for its next move: its existing children are left in place and capture is skipped. Hold **U before starting to drag a container** to leave its current children in place and skip capture during that move.
+There is no separate command for adding an object to a container. Moving a container can also capture eligible widgets fully enclosed by its content area. Click the lock badge to unlock the container for its next move (a closed badge shows when you point at the container, when it is selected, or while you hold **U**): its existing children are left in place and capture is skipped. Hold **U before starting to drag a container** to leave its current children in place and skip capture during that move.
 
 Do not confuse container nesting with **Edit → Group selection**: editor grouping is a selection and movement aid and does not create a parent container. See §5.7.
 
@@ -878,13 +883,13 @@ To check a layout, switch to Preview and drag the frame (§13), then open Export
 
 ## 06. Widget catalog
 
-This catalog lists the **45 widget families** in the toolbar categories. For base dimensions and sizing modes, see [Appendix A](#manual-appendix-a-widget-contracts).
+This catalog lists the **46 widget families** in the toolbar categories. For base dimensions and sizing modes, see [Appendix A](#manual-appendix-a-widget-contracts).
 
 **Buttons & Toggles**
 
 | Family | Purpose |
 | --- | --- |
-| `Button` | A button that triggers an action when clicked. *Use for commands such as render, apply, reset, or running a script step.* |
+| `Button` | A button that triggers an action when clicked; **round** makes it a circle or a pill. *Use for commands such as render, apply, reset, or running a script step.* |
 | `SmallButton` | A button with reduced padding and the same behavior as Button. *Use for secondary actions or compact layouts.* |
 | `InvisibleButton` | A clickable area that draws nothing. *Use to make a custom-drawn area, such as an icon or part of a drawing, clickable.* |
 | `Checkbox` | A Boolean control with a checkmark and an external label above it. *Use for on/off settings such as enable, mute, loop, or bypass.* |
@@ -918,6 +923,7 @@ This catalog lists the **45 widget families** in the toolbar categories. For bas
 | `DragRange` | Two linked Drag fields that define a lower and upper bound. *Use for ranges such as low/high cutoff or interval start and end.* |
 | `SliderN` | Multiple sliders forming one multicomponent value. *Use for vectors or color channels edited together.* |
 | `DragN` | Multiple Drag fields forming one multicomponent value. *Use for coordinates and vectors such as X/Y/Z.* |
+| `Knob` | A round knob you turn by dragging up and down. *Use for volume, pan, mix, and other values that read better as a dial than as a slider.* |
 
 **Fields**
 
@@ -978,6 +984,8 @@ This catalog lists the **45 widget families** in the toolbar categories. For bas
 
 **InvisibleButton.** Exports `if reaper.ImGui_InvisibleButton(...) then -- TODO: <name> pressed end`. Width and height are its own; it has no label. The Editor shows a dashed box with the type name; Preview shows nothing, as REAPER does. A tooltip (**hint**) works as on any button.
 
+**Button: round.** Turn on **round** in Main to give a Button fully rounded ends: a square button becomes a circle, a wider one a pill. Editor and Preview draw the shape. The export wraps only that button in `PushStyleVar(StyleVar_FrameRounding, min(w, h) / 2)` and `PopStyleVar`. A theme border on the button follows the same rounding. SmallButton and ArrowButton do not have the option, and Basic mode does not show it.
+
 **CheckboxFlags.** All checkboxes with the same **flag group** write one integer, `state.flagGroups.<group>_val`; **bit (0–30)** chooses the bit this checkbox toggles (the value `1<<bit`). A new, pasted, or duplicated CheckboxFlags takes the lowest bit still free in its group. Export preflight warns when two checkboxes in one group share a bit.
 
 **TextLink.** Exports `if reaper.ImGui_TextLink(...) then -- TODO: <name> clicked end`. Unlike TextLinkOpenURL, it opens nothing itself.
@@ -1004,6 +1012,22 @@ A Checkbox is ImGui's own `ImGui_Checkbox` until you turn on **custom look (size
 | **highlight row when checked** | Checkbox in a table cell only. Paints the whole row while the box is checked. × uses the table's highlight colour (§7.6), else the theme's header colour (`Col_Header`). |
 
 The click area is not part of the box. Other objects may overlap it and keep their own clicks in REAPER. The Editor shows it as a dashed outline; it is not exported. The export adds one click item (`InvisibleButton`, or `Selectable` with `SpanAllColumns | AllowOverlap` for a table row), then draws the fill, the border and the mark. Preflight reports a **Table row** click area or **highlight row when checked** on a checkbox that is not in a table cell (§14).
+
+<a name="manual-knob"></a>
+
+#### Knob
+
+A Knob is a round dial in the **Sliders & Drags** folder. The export draws it with the draw list over an `InvisibleButton`. It has no label; put a Text next to it. The knob is always round: its diameter is the shorter side of the box, and it sits in the centre of the box.
+
+| Setting | Effect |
+| --- | --- |
+| **min / max** | The range. Empty fields use 0 and 1. |
+| **default** | The value the knob starts at and returns to on double-click. Empty = the minimum. A small tick on the scale marks it. |
+| **format** | A printf-style format for the value tooltip, for example `%.1f dB`. Empty = `%.3f`. If the format does not fit the value, the tooltip falls back to `%.3f`. |
+
+In REAPER, drag up or down to turn the knob: 200 px of drag cover the whole range, and Shift makes it ten times finer. The mouse wheel moves the value by 1% of the range (with Shift, 0.1%). Double-click returns to the default. Ctrl+click opens a small field to type a value; Enter applies it, limited to the range. The value shows in a tooltip while you point at the knob or turn it.
+
+The colours follow the theme: the track uses the frame background, the value arc the slider grab, the body the button colour, the pointer the text colour, and the default tick the border colour. The value lives in `state.<name>_val`. The export adds one shared helper function, `reaui_knob`, written once and only when the layout has a Knob. Preflight checks the range as for sliders: min above max is an error, min equal to max a warning.
 
 ---
 
@@ -1196,7 +1220,8 @@ The boxes **Preview the highlight on row N** choose the rows that start highligh
 | min / max | Range bounds. Empty fields use the defaults for the widget type. |
 | speed | Drag families only. The change in value per pixel of mouse movement. |
 | step / step fast | Scalar InputInt/InputDouble. Explicit step sizes for the step controls. InputInt with 2–4 components omits these arguments in export. |
-| format | A printf-style format, such as `%.2f` or `%d dB`. Also controls how the value appears in the widget. |
+| format | A printf-style format, such as `%.2f` or `%d dB`. Also controls how the value appears in the widget; on a Knob, in its value tooltip. |
+| default | Knob only. The value the knob starts at and returns to on double-click. See [Knob](#manual-knob). |
 | format min / max | DragRange only. Separate formats for the lower and upper bounds, such as `Min: %d` and `Max: %d`. |
 | numeric flags | Clamp, Log, NoInput, Wrap. See [§9](#manual-09-flags). |
 
@@ -1218,6 +1243,7 @@ Empty numeric fields use the type’s defaults; clearing a field removes its exp
 | hdr color | TreeNode only. The node label color: default or custom. |
 | border / h-scroll | Panel only. Border and horizontal scrolling. |
 | highlight | Selectable only. Draws the row as hovered (`SelectableFlags_Highlight`). |
+| round | Button only. Fully rounded ends: a circle for a square button, a pill otherwise. See §6. |
 | tree lines | TreeNode only. None, Full, or To nodes. See §7.4. |
 | tab button / button label | TabBar only. A Leading or Trailing button tab and its text. See §7.5. |
 | disabled (BeginDisabled) | StyleRegion only. Dims the region's children and blocks their input. See §7.3. |
@@ -1379,7 +1405,7 @@ Exported drawings are clipped to the layout. A drawing is included if any part o
 
 Each available fill/stroke row has its own **disable** checkbox. Select it to turn that component off without losing its color. The controls are independent: a shape may have a fill, an outline, both, or neither.
 
-Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.1.0 has no color-link control.
+Stroke can also be disabled for Line and ring-mode Arc. A fully disabled or transparent drawing remains in the project; select it through Elements. Fill and stroke colors are edited independently; version 2.2.0 has no color-link control.
 
 If an opacity field is left empty, leaving the field restores its previous value. This also applies to batch editing.
 
@@ -1820,13 +1846,15 @@ Text fields keep their normal typing, clipboard, and navigation behavior. Save/S
 
 ## 17. Release limitations
 
-The following limitations apply to version **2.1.0**.
+The following limitations apply to version **2.2.0**.
 
 - **Editing Combo and ListBox items.** The export contains five placeholder items. Replace their strings in Lua; the selection state and widget calls are already generated.
 - **Free rotation for drawings.** Arc supports angles and Triangle supports orientation, but there is no general rotation handle or property.
 - **Context menus and popups.** Builder builds the window's menu bar only; right-click context menus and popups are not built.
 - **Stretching.** ColorPicker and widgets sized by ImGui or by their text do not stretch; circles, arcs, lines, polygons, and triangles only move. There is no “scale” constraint.
 - **Table columns and cells.** The editor lays out fixed and stretch columns as ImGui does. Columns set to **Auto** and the scrollbar of a ScrollY table are not modelled, so their widths in REAPER can differ from the canvas. Preflight checks stretched objects against the window size, not against the size of their cell: a stretched object in a shrinking column can get smaller than 10 px without a finding. Check it by dragging the frame in Preview.
+- **Knob.** There is no label, value text, or per-widget colour yet; use a Text next to the knob. A **hint** on a Knob competes with its value tooltip, so do not set both.
+- **Multi-edit.** **default** on Knob and **round** on Button are not offered for a multiple selection; set them one object at a time.
 - **Theme Studio.** Edits are shown in the Studio's own preview; the canvas shows a theme after **Apply**. Collection palettes are a fixed set.
 - Preview does not execute ReaImGui. Group, Table, and ColorPicker remain schematic; native fonts, interaction, and some flags require checking in REAPER. Basic mode offers eleven common components; use Advanced for everything else.
 - Widgets outside the export frame are omitted. Omitting a container also omits its contents. Drawings that intersect the frame are exported with clipping; inspect the preflight findings.
@@ -1845,7 +1873,7 @@ The following limitations apply to version **2.1.0**.
 
 ## Appendix A · Widget contracts
 
-The table lists all 55 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. **H** marks a fixed height; **D** marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits. A Checkbox with the custom look is a square of 6 to 64 px set under Appearance (§6), and its W and H are read-only. A Table and a StyleRegion stretch in both directions (§5.9); a StyleRegion has no header strip (§7.3).
+The table lists all 56 contract types, including the automatically managed TabItem and TableCell. Sizes are base contract values before placement snapping and type-specific adjustments. **H** marks a fixed height; **D** marks a height derived from width and flags. SmallButton and RadioButtonEx widths follow their labels; Checkbox and ArrowButton cannot be resized. Content-sized widths in this table are starting values, not fixed text limits. A Checkbox with the custom look is a square of 6 to 64 px set under Appearance (§6), and its W and H are read-only. A Table and a StyleRegion stretch in both directions (§5.9); a StyleRegion has no header strip (§7.3).
 
 | Type | Family · variant | Size | Width | Height | Description |
 | --- | --- | --- | --- | --- | --- |
@@ -1882,6 +1910,7 @@ The table lists all 55 contract types, including the automatically managed TabIt
 | `DragDoubleN` | `DragN` | 160×20 **H** | `next-item-width` | `native-fixed` | Multiple Drag fields forming one multicomponent value. |
 | `DragIntRange2` | `DragRange` · `Int` | 160×20 **H** | `next-item-width` | `native-fixed` | Two linked Drag fields that define a lower and upper bound. |
 | `DragFloatRange2` | `DragRange` · `Double` | 160×20 **H** | `next-item-width` | `native-fixed` | Two linked Drag fields that define a lower and upper bound. |
+| `Knob` | `Knob` | 56×56 | `explicit-size` | `explicit-size` | A round knob you turn by dragging up and down; drawn at the shorter side. |
 | `InputInt` | `Input` · `Int` | 80×20 **H** | `next-item-width` | `native-fixed` | A numeric input field with step buttons. |
 | `InputDouble` | `Input` · `Double` | 80×20 **H** | `next-item-width` | `native-fixed` | A numeric input field with step buttons. |
 | `InputDoubleN` | `InputN` | 160×20 **H** | `next-item-width` | `native-fixed` | Multiple numeric input fields in one widget. |
@@ -1911,13 +1940,13 @@ The table lists all 55 contract types, including the automatically managed TabIt
 
 ## Appendix B · Inspector matrix
 
-This table lists the fields available for each of the **55 types** in version 2.1.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
+This table lists the fields available for each of the **56 types** in version 2.2.0. Names match the inspector: **hint** is a hover tooltip, while **placeholder** belongs to InputTextWithHint. The standard **name** field and conditional **parent** row are not repeated. Choose a variant before placement; fixed size axes remain read-only.
 
 Every type except TabItem and TableCell also has **constraints** (§5.9); they are not repeated in the rows. TabItem and TableCell are structural types managed by their parent. Their fields describe the internal type; edit tab and table structure through TabBar/Table. Shared rows for a multiple selection can be narrower than this single-type list. Panel, Group, CollapsingHeader, TreeNode, TabBar, and TabItem support **hint**; StyleRegion, Table, and TableCell do not.
 
 | Type | Inspector rows |
 | --- | --- |
-| `Button` | label / text, hint, prefix bullet, size, position |
+| `Button` | label / text, round, hint, prefix bullet, size, position |
 | `SmallButton` | label / text, hint, prefix bullet, size, position |
 | `InvisibleButton` | hint, prefix bullet, size, position |
 | `ArrowButton` | direction, hint, prefix bullet, size, position |
@@ -1950,6 +1979,7 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 | `DragDoubleN` | label / text, array size, min, max, speed, format, numeric flags, hint, prefix bullet, size, position |
 | `DragIntRange2` | variant (placement only), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position |
 | `DragFloatRange2` | variant (placement only), label / text, min, max, speed, format min, format max, numeric flags, hint, prefix bullet, size, position |
+| `Knob` | min, max, default, format, hint, prefix bullet, size, position |
 | `InputInt` | variant (placement only), label / text, value components, step, step fast, hint, prefix bullet, size, position |
 | `InputDouble` | variant (placement only), label / text, value components, step, step fast, format, hint, prefix bullet, size, position |
 | `InputDoubleN` | label / text, array size, hint, prefix bullet, size, position |
@@ -1979,7 +2009,7 @@ Every type except TabItem and TableCell also has **constraints** (§5.9); they a
 
 ## Appendix C · Reading the generated file
 
-These excerpts come from a version 2.1.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
+These excerpts come from a version 2.2.0 export of a **600 × 400** layout with Button_1 (“Play”) at (40, 60) and Slider_2 (“Gain”) at (40, 130). They show the position and state structure but do not form a complete runnable script. Use Export to generate the complete file.
 
 ```lua
 -- Positions
@@ -2024,4 +2054,4 @@ For layout revisions, edit the JSON project and export again: some dimensions an
 
 ---
 
-*ReaUI Builder — User Guide for Version 2.1.0. Updated 12 October 2026.*
+*ReaUI Builder — User Guide for Version 2.2.0. Updated 15 October 2026.*

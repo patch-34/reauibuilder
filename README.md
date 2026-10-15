@@ -12,7 +12,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 
 ![ReaUI Builder logo](assets/reaui-builder-logo.svg)
 
-**Version 2.1.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
+**Version 2.2.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
 
 ## Contents
 
@@ -30,7 +30,7 @@ The editor runs from a single local HTML file. No installation, server, or build
 | --- | --- |
 | Editor | Single HTML file with embedded CSS and JavaScript; runs locally in a browser |
 | Output | Lua script targeting ReaImGui 0.10 |
-| Widgets | 45 families; 55 concrete types, including automatic tab and table-cell elements |
+| Widgets | 46 families; 56 concrete types, including automatic tab and table-cell elements |
 | Window | Fixed or resizable (optional min / max size; reopens at the last size); optional menu bar (menus, items, check items, separators, submenus); title bar in ImGui or theme colours |
 | Modes | Basic (eleven common components, plain-language properties) and Advanced; both edit the same project; the start dialog appears on the first launch |
 | Interface | English / Русский (File › Language), switched live and remembered per browser |
@@ -38,8 +38,8 @@ The editor runs from a single local HTML file. No installation, server, or build
 | Positioning | Absolute canvas coordinates; constraints pin objects to an edge, keep them centred or stretch them (Left+Right, Top+Bottom) in a resizable window, tables and the contents of their cells included; table cells laid out as ImGui lays them out |
 | Sizing | Widget-specific rules that follow ImGui's size constraints |
 | Containers | Panel, Group, StyleRegion, CollapsingHeader, TreeNode, TabBar, and Table (stretches with a resizable window; per-row colours and highlight, cell padding) |
-| Controls | Custom Checkbox (size, border, colours, click area up to a whole table row); frame border on text inputs |
-| Editing | Multiple selection, batch property editing, copy/paste, duplication, undo/redo, text editing on the canvas, a hint for every setting |
+| Controls | Knob (a round dial: drag, wheel, double-click reset, Ctrl+click to type); round Button (circle or pill); custom Checkbox (size, border, colours, click area up to a whole table row); frame border on text inputs |
+| Editing | Hover outline and name on the canvas; thin, zoom-independent outlines; multiple selection, batch property editing, copy/paste, duplication, undo/redo, text editing on the canvas, a hint for every setting |
 | Grid and view | 2, 5, or 10 px grid spacing; optional snapping; 50–250% zoom and panning |
 | Styling | Built-in and custom themes; Theme Studio with fifty ready-made palettes and a plugin preview; theme files (import / export); scoped style and font overrides |
 | Preview | Approximation of the exported interface with theme and style overrides; resizable windows can be previewed at any allowed size |
@@ -58,7 +58,7 @@ The palette groups widgets into seven categories. Family names below match the e
 | --- | --- |
 | Buttons & Toggles | `Button`, `SmallButton`, `InvisibleButton`, `Checkbox`, `CheckboxFlags`, `RadioButtonEx`, `ArrowButton` |
 | Display | `Text`, `BulletText`, `TextWrapped`, `TextColored`, `TextDisabled`, `LabelText`, `TextLinkOpenURL`, `TextLink`, `ProgressBar`, `Plot` |
-| Sliders & Drags | `Slider`, `VSlider`, `SliderAngle`, `Drag`, `DragRange`, `SliderN`, `DragN` |
+| Sliders & Drags | `Slider`, `VSlider`, `SliderAngle`, `Drag`, `DragRange`, `SliderN`, `DragN`, `Knob` |
 | Fields | `Input`, `InputText`, `InputTextWithHint`, `InputTextMultiline`, `InputN` |
 | Selection | `Combo`, `ListBox`, `Selectable` |
 | Color | `ColorEdit`, `ColorPicker`, `ColorButton` |
@@ -167,7 +167,7 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 2.1.0 has the following limitations:
+Version 2.2.0 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
@@ -176,14 +176,15 @@ Version 2.1.0 has the following limitations:
 - **Some objects only move.** ColorPicker, controls sized by ImGui or by their text, and circles, arcs, lines, polygons and triangles do not stretch in a resizable window.
 - **Table columns are modelled for fixed and stretch widths.** Columns set to Auto and the scrollbar of a ScrollY table are not, so their widths in REAPER can differ from the canvas.
 - **Russian interface is hybrid.** Widget and folder names and the labels in Properties stay English; the top bar needs a window about 1300 px wide.
+- **Knob is basic.** No label, value text or per-widget colours yet; use a Text beside it. Knob **default** and Button **round** are not available in multi-edit.
 - **Theme Studio previews in its own window.** The canvas shows a theme after Apply; the Collection is a fixed set of palettes.
 
 Check the exported interface in REAPER before distributing your script. The manual records the release's validation status and additional behavior to be aware of.
 
 ## Documentation and feedback
 
-- [English user guide — version 2.1.0](manuals/ReaUI_Builder_Manual_en.md)
-- [Русское руководство — версия 2.1.0](manuals/ReaUI_Builder_Manual_ru.md)
+- [English user guide — version 2.2.0](manuals/ReaUI_Builder_Manual_en.md)
+- [Русское руководство — версия 2.2.0](manuals/ReaUI_Builder_Manual_ru.md)
 
 Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
 

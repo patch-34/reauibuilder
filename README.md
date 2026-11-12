@@ -16,7 +16,7 @@ The editor runs from a single local HTML file. No installation, server, or build
   <img alt="ReaUI Builder" src="assets/reaui-builder-logo-light.svg" width="960">
 </picture>
 
-**Version 2.2.0** · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
+**Version 2.2.3** · [Release notes](RELEASE_NOTES_2_2_3.md) · [Builder HTML](ReaUI_Builder.html) · [English manual](manuals/ReaUI_Builder_Manual_en.md) · [Русское руководство](manuals/ReaUI_Builder_Manual_ru.md) · [Web version](https://patch-34.github.io/reauibuilder)
 
 ## Contents
 
@@ -171,7 +171,7 @@ See REAPER's [ReaScript documentation](https://www.reaper.fm/sdk/reascript/reasc
 
 ## Current limitations
 
-Version 2.2.0 has the following limitations:
+Version 2.2.3 has the following limitations:
 
 - **Preview is approximate.** Group, Table, ColorPicker, and TextWrapped use placeholders. ColorEdit does not reflect all display flags in Preview.
 - **Combo and ListBox use placeholder items.** Replace their item strings in the generated code.
@@ -190,6 +190,6 @@ Check the exported interface in REAPER before distributing your script. The manu
 - [English user guide — version 2.2.0](manuals/ReaUI_Builder_Manual_en.md)
 - [Русское руководство — версия 2.2.0](manuals/ReaUI_Builder_Manual_ru.md)
 
-Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
+The manuals document the interface through v2.2.0; v2.2.3 is a stability release with no new widget families. Read the Markdown manuals directly on GitHub. They include the full widget catalog, inspector reference, flags, keyboard shortcuts, and export examples. The same manual is also available inside Builder through **Help → User Manual ↗**.
 
 Use **Help → Report a Bug…** in Builder when preparing a report. It assembles a ready-to-send report from the last 50 logged actions, the build number, and the current window size; add a short description of what happened and, optionally, check **Include my layout** to attach the whole project. Copy the report and send it to the listed address. For export problems, also mention the REAPER and ReaImGui versions.

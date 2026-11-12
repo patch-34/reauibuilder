@@ -1257,6 +1257,9 @@ button.preflight-issue:hover{background:var(--accent-bg)}
 .preflight-msg{display:block;font-size:11.5px;font-weight:600;line-height:1.35}
 .preflight-detail{display:block;margin-top:2px;font-size:10.5px;line-height:1.4;color:var(--text-2)}
 .preflight-target{max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--font-mono);font-size:9.5px;color:var(--text-2)}
+.preflight-more{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;color:var(--text-2);font-size:11px}
+.preflight-more button{padding:5px 9px;border:1px solid var(--color-border-soft);border-radius:4px;background:transparent;color:var(--text-0);font:inherit;cursor:pointer}
+.preflight-more button:hover{background:var(--accent-bg)}
 #cbtn:disabled,#dlbtn:disabled{opacity:.42;cursor:not-allowed}
 /* ═══════════════════════════════════════════════════════════════════════════
    END EXPORT PREFLIGHT — STYLES
@@ -2764,7 +2767,7 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
   // ── Dictionary (built lazily, so an English session never allocates it) ───────────────
   function dictionary(){
     if(D) return D;
-    const UI = {"Start in ReaUI Builder":"Начало работы в ReaUI Builder","Choose the interface mode, then create a new project or open an existing one.":"Выберите режим интерфейса, затем создайте новый проект или откройте существующий.","Basic":"Базовый","Advanced":"Расширенный","A simpler workspace with the core components and settings.":"Упрощённая рабочая область с основными компонентами и настройками.","The complete editor with all components, tools and settings.":"Полный редактор со всеми компонентами, инструментами и параметрами.","The display mode can be changed at any time from":"Режим интерфейса можно в любой момент изменить через","View":"Вид",". It does not change the project file.":". Это не изменяет файл проекта.","Restore unsaved project…":"Восстановить несохранённый проект…","Open project…":"Открыть проект…","Create new project":"Создать проект","Interface mode":"Режим интерфейса","File":"Файл","New Project":"Создать проект","Save Project":"Сохранить проект","Save As…":"Сохранить как…","Restore projects…":"Восстановить проекты…","Load Project":"Открытие проекта","Edit":"Правка","Undo":"Отменить","Redo":"Повторить","Copy":"Копировать","Paste":"Вставить","Delete":"Удалить","Duplicate":"Дублировать","Group selection":"Сгруппировать выделенное","Ungroup selection":"Разгруппировать","Select All":"Выделить всё","Deselect All":"Снять выделение","Clear All":"Очистить всё","Dark mode":"Тёмная тема","Theme Studio…":"Редактор тем…","Grid":"Сетка","Snap to grid":"Привязка к сетке","Reference grid in export":"Сетка в экспортируемом интерфейсе","Hide widget names":"Скрыть имена виджетов","Hide draw objects names":"Скрыть имена графических объектов","Widget footprints":"Границы виджетов","Show hints":"Показывать подсказки","Panels":"Панели","Canvas":"Холст","Properties":"Свойства","Elements":"Элементы","Tools":"Инструменты","Zoom to fit":"Вписать в окно","Actual size (100%)":"Фактический размер (100 %)","Help":"Справка","User Manual ↗":"Руководство пользователя ↗","Keyboard Shortcuts":"Сочетания клавиш","Report a Bug…":"Сообщить об ошибке…","About":"О программе","Export":"Экспорт","Buttons & Toggles":"Кнопки и переключатели","Display":"Отображение","Fields":"Поля ввода","Sliders & Drags":"Ползунки и числовые поля","Selection":"Выбор","Color":"Цвет","Layout":"Компоновка","Add":"Добавить","Choose a component":"Выберите компонент","Then click or drag on the canvas to place it.":"Затем щёлкните или протяните указатель на холсте, чтобы разместить его.","Text Input":"Текстовое поле","Number Input":"Числовое поле","Dropdown":"Выпадающий список","Progress":"Выполнение","More components…":"Другие компоненты…","Select":"Выделение","Hand":"Рука","Zoom":"Масштаб","Rectangle":"Прямоугольник","Circle":"Окружность","Polygon":"Многоугольник","Line":"Линия","Triangle":"Треугольник","Arc":"Дуга","Header":"Заголовок","Tree":"Дерево","Default":"По умолчанию","Themes":"Темы","Choose a theme for the ReaImGui UI you will export.":"Выберите тему для экспортируемого интерфейса ReaImGui.","+ New":"+ Создать","Import":"Импорт","Edit…":"Изменить…","Editor":"Редактор","Preview":"Предпросмотр","Preview is approximate — hatched widgets are shown schematically":"Предпросмотр приблизительный — заштрихованные виджеты показаны схематично","Advanced canvas settings are active":"Используются расширенные параметры холста","Some canvas settings are hidden in Basic mode but remain part of this project.":"Некоторые параметры холста скрыты в базовом режиме, но сохранены в проекте.","Edit in Advanced":"Изменить в расширенном режиме","size":"размер","Width":"Ширина","Height":"Высота","background":"фон","grid":"сетка","Show grid":"Показывать сетку","Audit grid":"Контрольная сетка","color":"цвет","Opacity":"Прозрачность","Snap":"Привязка","Step":"Шаг","title bar":"строка заголовка","ImGui default":"По умолчанию ImGui","Theme colours":"Цвета темы","window":"окно","Resizable window":"Изменяемый размер окна","Min width":"Мин. ширина","Min height":"Мин. высота","Max width":"Макс. ширина","Max height":"Макс. высота","menu bar":"строка меню","+ Add menu":"+ Добавить меню","No menu bar. Add a menu to give the window a menu bar; the canvas keeps its size and nothing on it moves.":"Строка меню отсутствует. Добавьте меню, чтобы оно появилось в окне. Размер холста и расположение объектов не изменятся.","No element selected":"Элемент не выбран","Select one object on the canvas to edit its properties here.":"Выберите объект на холсте, чтобы изменить его свойства.","Multiple selection":"Выделено несколько объектов","Edit shared properties together.":"Редактируйте общие свойства объектов одновременно.","Move selection":"Переместить выделенное","move":"Переместить","Common properties":"Общие свойства","Mixed fields stay unchanged until you enter a value. Each edit is one undo step.":"Поля с различающимися значениями не изменяются, пока вы не введёте новое значение. Каждое изменение можно отменить отдельно.","delete selected":"Удалить выделенное","Advanced component":"Расширенный компонент","Some settings are available in Advanced mode.":"Некоторые настройки доступны только в расширенном режиме.","Configuring":"Настройка","Reset":"Сбросить","Click on canvas to place":"Щёлкните на холсте, чтобы разместить","Select a widget to preview":"Выберите виджет для предпросмотра","variant":"вариант","name":"имя","parent":"родительский объект","tabs":"вкладки","+ add tab":"+ добавить вкладку","table grid":"сетка таблицы","columns":"столбцы","row heights":"высота строк","label / text":"подпись / текст","placeholder":"замещающий текст","value":"значение","url":"URL","direction":"направление","value components":"компоненты значения","array size":"размер массива","min":"мин.","max":"макс.","speed":"скорость","step":"шаг","step fast":"ускоренный шаг","format":"формат","format min":"формат минимума","format max":"формат максимума","flags":"флаги","Clamp":"Ограничить","Log":"Логарифм.","NoInput":"Без ввода","Wrap":"Зациклить","hint":"подсказка","prefix bullet":"маркер в начале","highlight":"подсветка","disabled (BeginDisabled)":"отключено (BeginDisabled)","look":"вид","tree lines":"линии дерева","None":"Нет","Full":"Full","To nodes":"До узлов","tab button":"кнопка вкладки","Leading":"В начале","Trailing":"В конце","button label":"подпись кнопки","text tone":"цвет текста","Auto":"Авто","Dark":"Тёмный","Light":"Светлый","border":"граница","draw border":"рисовать границу","h-scroll":"горизонтальная прокрутка","horizontal scrollbar":"горизонтальная полоса прокрутки","text color":"цвет текста","frame bg":"фон элемента","button color":"цвет кнопки","rounding":"скругление","frame padding":"внутренние отступы","selectable align":"выравнивание элемента","font":"шрифт","sans-serif":"без засечек","serif":"с засечками","monospace":"моноширинный","cursive":"курсивный","fantasy":"декоративный","alpha":"альфа-канал","overlay":"наложенный текст","indeterminate":"неопределённый прогресс","animate":"анимация","EEL2 callback":"обработчик EEL2","group":"группа","flag group":"группа флагов","bit (0–30)":"бит (0–30)","values":"значения","scale min":"мин. шкалы","scale max":"макс. шкалы","text align":"выравнивание текста","left":"слева","center":"по центру","right":"справа","text size":"размер текста","vertical align":"выравнивание по вертикали","top":"сверху","middle":"по центру","bottom":"снизу","fill & stroke":"заливка и обводка","fill":"заливка","disable":"отключить","stroke":"обводка","thickness":"толщина","opacity":"прозрачность","hdr color":"цвет заголовка","default":"по умолчанию","custom":"пользовательский","hdr color val":"цвет заголовка","orient":"ориентация","angles (°)":"углы (°)","start":"начало","end":"конец","Link":"Связать","mode":"режим","ring":"кольцо","pie":"сектор","position":"положение","poly points":"вершины многоугольника","primitive order":"порядок отрисовки","back":"на задний план","backward":"назад","forward":"вперёд","front":"на передний план","delete":"удалить","select":"выделение","On":"Вкл.","Off":"Выкл.","0 elements":"0 элементов","No unsaved changes":"Нет несохранённых изменений","copy":"копировать","download .lua":"скачать .lua","Show code":"Показать код","Hide code":"Скрыть код","close":"закрыть","ReaUI Builder checks the project first, then exports the same ReaImGui Lua script as Advanced mode.":"Сначала ReaUI Builder проверит проект, затем экспортирует тот же Lua-скрипт ReaImGui, что и в расширенном режиме.","Checking export…":"Проверка перед экспортом…","Run again":"Проверить снова","Requires ReaImGui — install it via ReaPack.":"Требуется ReaImGui — установите его через ReaPack.","Colours of the exported plugin — not the builder's own look":"Цвета экспортируемого плагина, а не самого редактора","Hide service names of widgets in Editor":"Скрыть служебные имена виджетов в редакторе","Hide service names of draw objects in Editor":"Скрыть служебные имена графических объектов в редакторе","Open the online user manual in your browser":"Открыть руководство пользователя в браузере","Add components":"Добавить компоненты","Hand — drag to pan":"Рука — перетаскивайте для перемещения по холсту","Zoom — click to zoom in, Alt/Option + click to zoom out":"Масштаб — щелчок для увеличения, Alt/Option + щелчок для уменьшения","More widgets in the top-bar categories":"Другие виджеты в категориях верхней панели","Make a new theme, starting from the active one":"Создать тему на основе текущей","Add a theme from a .reaui-theme.json file":"Импортировать тему из файла .reaui-theme.json","Editor - schematic editing view":"Редактор — схематичный вид для редактирования","Preview - approximate ImGui look (view-only)":"Предпросмотр — приблизительный вид ImGui (без редактирования)","Drag to resize canvas":"Перетащите, чтобы изменить размер холста","Drag to try another window width (view only). Double-click: design size":"Перетащите, чтобы изменить ширину окна в предпросмотре. Двойной щелчок — размер макета","Drag to try another window height (view only). Double-click: design size":"Перетащите, чтобы изменить высоту окна в предпросмотре. Двойной щелчок — размер макета","Drag to try another window size (view only). Double-click: design size":"Перетащите, чтобы изменить размер окна в предпросмотре. Двойной щелчок — размер макета","Collapse or expand this panel":"Свернуть или развернуть панель","Pick a colour from the screen":"Выбрать цвет с экрана","Menu bar entries":"Элементы строки меню","Properties actions":"Действия со свойствами","placeholder text…":"Текст подсказки…","value text…":"Текст значения…","hover text…":"Текст при наведении…","Prefix bullet":"Маркер в начале","Highlight":"Подсветка","Disabled":"Отключено","Draw panel border":"Рисовать границу панели","Enable horizontal scrollbar":"Включить горизонтальную прокрутку","Frame padding X (0 to 32)":"Внутренний отступ по X (0–32)","Frame padding Y (0 to 32)":"Внутренний отступ по Y (0–32)","Selectable text align X (0 to 1)":"Выравнивание текста по X (0–1)","Selectable text align Y (0 to 1)":"Выравнивание текста по Y (0–1)","Font size in pixels":"Размер шрифта в пикселях","Bold":"Полужирный","Italic":"Курсив","empty = no text":"пусто — без текста","Animate indeterminate progress bar":"Анимировать индикатор выполнения","Plot values, comma-separated":"Значения графика через запятую","Link start and end angles":"Связать начальный и конечный углы","Expand Elements panel":"Развернуть панель «Элементы»","Zoom level":"Масштаб","Zoom out":"Уменьшить масштаб","Zoom in":"Увеличить масштаб","Button":"Кнопка","SmallButton":"Компактная кнопка","InvisibleButton":"Невидимая кнопка","ArrowButton":"Кнопка со стрелкой","Checkbox":"Флажок","CheckboxFlags":"Битовый флажок","RadioButton":"Переключатель","RadioButtonEx":"Переключатель","Text":"Текст","BulletText":"Маркированный текст","TextWrapped":"Текст с переносом","TextColored":"Цветной текст","TextDisabled":"Неактивный текст","SeparatorText":"Разделитель с текстом","Separator":"Разделитель","Hint":"Подсказка","HelpMarker":"Значок подсказки","LabelText":"Подпись со значением","TextLinkOpenURL":"Ссылка (URL)","TextLink":"Текстовая ссылка","Slider":"Ползунок","VSlider":"Вертикальный ползунок","SliderAngle":"Угловой ползунок","Drag":"Поле перетаскивания","DragRange":"Диапазон","Input":"Числовое поле","InputText":"Текстовое поле","InputTextMultiline":"Многострочное поле","Multiline":"Многострочное поле","SliderN":"Многокомпонентный ползунок","DragN":"Многокомпонентное поле","InputN":"Многокомпонентный ввод","ProgressBar":"Индикатор выполнения","Plot":"График","InputTextWithHint":"Поле с подсказкой","Combo":"Выпадающий список","ListBox":"Список","Selectable":"Выбираемый элемент","ColorEdit":"Редактор цвета","ColorPicker":"Выбор цвета","ColorButton":"Кнопка цвета","Panel":"Панель","Group":"Группа","StyleRegion":"Область стиля","Style":"Стиль","CollapsingHeader":"Сворачиваемый заголовок","TreeNode":"Узел дерева","TabBar":"Панель вкладок","Tabs":"Вкладки","Table":"Таблица","Main":"Основная","Appearance":"Оформление","Details":"Подробности","Options":"Параметры","Settings":"Настройки","Add widget":"Добавить виджет","Add menu":"Добавить меню","Delete selected":"Удалить выделенное","Duplicate selected":"Дублировать выделенное","Select group":"Выделить группу","Clear selection":"Снять выделение","Enter name":"Введите имя","No selection":"Ничего не выделено","Custom":"Пользовательский","Light mode":"Светлая тема","Theme Studio":"Редактор тем","Close Theme Studio":"Закрыть редактор тем","Plugin preview":"Предпросмотр","Hold to compare":"Сравнить","Editing":"Редактирование","Theme name":"Название темы","Click to rename":"Щёлкните для переименования","Theme actions":"Действия с темой","Collection":"Коллекция","My themes":"Мои темы","My Theme":"Моя тема","New theme":"Новая тема","Imported theme":"Импортированная тема","Not saved yet":"Ещё не сохранена","Built-in":"Встроенная","From Collection":"Из коллекции","From this project":"Из этого проекта","This project only":"Только в проекте","My theme":"Моя тема","Unsaved edits":"Несохранённые изменения","Saved":"Сохранено","Apply":"Применить","Apply to use it, or Save as… to keep it":"Нажмите «Применить», чтобы использовать, или «Сохранить как…», чтобы сохранить","Apply, or Save as… to keep edits":"Примените или сохраните изменения через «Сохранить как…»","Edits become a new theme":"Изменения будут сохранены как новая тема","Differs from the copy in My themes":"Отличается от копии в «Моих темах»","Save to add it to My themes":"Сохраните, чтобы добавить в «Мои темы»","Discard changes":"Не сохранять","Save theme":"Сохранить тему","Theme already saved":"Тема уже сохранена","Save another copy":"Сохранить ещё одну копию","Save":"Сохранить","Save as…":"Сохранить как…","Save edits to this theme in My themes":"Сохранить изменения темы в «Моих темах»","Save as a new theme in My themes":"Сохранить новую тему в «Моих темах»","Reset edits":"Сбросить изменения","Restore this theme to its last saved or starting colours":"Восстановить последние сохранённые или исходные цвета темы","Export…":"Экспорт…","Export Theme":"Экспортировать тему","Edit a copy":"Изменить копию","Change the colours of this theme":"Изменить цвета темы","Change the colours; saving makes a new theme":"Изменить цвета; при сохранении будет создана новая тема","In theme menu":"В меню тем","Show in theme menu":"Показывать в меню тем","Show or hide this theme in the quick theme menu; the active theme stays visible":"Показать или скрыть тему в быстром меню. Активная тема остаётся видимой.","Remove from project":"Удалить из проекта","Rename theme":"Переименовать тему","Manual":"Вручную","Click a colour to change it. The other colours follow automatically; colours set by hand in Full keep their values.":"Нажмите на цвет для изменения. Остальные цвета обновятся автоматически; вручную заданные цвета в полном наборе сохранят свои значения.","Default uses REAPER’s colours. Use Save as… to keep this palette as a custom theme.":"Тема по умолчанию использует цвета REAPER. Чтобы сохранить палитру как пользовательскую тему, выберите «Сохранить как…».","Background":"Фон","Controls":"Элементы управления","Accent":"Акцент","Header opacity":"Прозрачность заголовка","Rebuild all colours":"Пересоздать все цвета","Replace all manual RGB colours with the generated palette?":"Заменить все вручную заданные цвета RGB автоматически созданной палитрой?","Rebuild palette":"Пересоздать палитру","Rebuild":"Пересоздать","Label text":"Текст подписи","Window background":"Фон окна","Field":"Поле","Field · hovered":"Поле · наведение","Field · active":"Поле · активное","Button · hovered":"Кнопка · наведение","Button · active":"Кнопка · активная","Header · hovered":"Заголовок · наведение","Header · active":"Заголовок · активный","Check mark":"Галочка","Slider grab":"Ползунок","Slider grab · active":"Ползунок · активный","Automatically generated colours":"Автоматически созданные цвета","These colours are calculated from your palette and cannot be edited separately.":"Эти цвета вычисляются из палитры; редактировать их по отдельности нельзя.","Title colours are used when the project’s Title bar option is Theme colours. Menu bar colour is used with a menu bar.":"Цвета заголовка применяются при параметре «Строка заголовка → Цвета темы». Цвет строки меню используется при наличии меню.","ImGui colour":"Цвет ImGui","Value":"Значение","Rule":"Правило","Palette collection":"Коллекция палитр","Click a palette to load it into the editor. Your project changes only when you press Apply.":"Выберите палитру, чтобы загрузить её в редактор. Проект изменится только после нажатия «Применить».","Palettes from":"Палитры из","Import…":"Импорт…","No themes here yet.":"Здесь пока нет тем.","Active":"Активная","Select theme":"Выбрать тему","Close":"Закрыть","OK":"ОК","Cancel":"Отмена","Yes":"Да","No":"Нет","Continue":"Продолжить","Confirm":"Подтвердить","Delete Theme":"Удаление темы","Delete theme":"Удалить тему","Delete failed":"Ошибка удаления","Import failed":"Ошибка импорта","Import Theme":"Импорт темы","Export Lua":"Экспорт Lua","Export Lua Script":"Экспорт Lua-скрипта","Export ReaImGui Lua":"Экспорт Lua для ReaImGui","Preflight":"Предэкспортная проверка","Preflight check":"Проверка перед экспортом","Check":"Проверить","Run checks":"Запустить проверку","Checking…":"Проверка…","Passed":"Успешно","Warnings":"Предупреждения","Errors":"Ошибки","Error":"Ошибка","Warning":"Предупреждение","Info":"Информация","Valid":"Допустимо","Invalid":"Недопустимо","Failed":"Не удалось","Ready":"Готово","Done":"Готово","Copy to clipboard":"Копировать в буфер обмена","Copied":"Скопировано","Download":"Скачать","Download Lua":"Скачать Lua","All checks passed":"Все проверки пройдены","Print":"Печать","Show details":"Подробнее","Hide details":"Скрыть подробности","Show more":"Показать ещё","Show less":"Скрыть","ReaUI project":"Проект ReaUI","Untitled project":"Безымянный проект","No unsaved projects to restore.":"Нет несохранённых проектов для восстановления.","Restore projects":"Восстановление проектов","Restore":"Восстановить","Save project as":"Сохранить проект как","Load failed":"Ошибка открытия","Save failed":"Ошибка сохранения","Recovery failed":"Ошибка восстановления","Unsaved changes":"Несохранённые изменения","Saving…":"Сохранение…","Autosave failed":"Ошибка автосохранения","Loaded":"Загружено","Failed to load project":"Не удалось загрузить проект","Recovery draft saved locally in this browser at":"Резервная копия проекта сохранена в этом браузере:","Saving a local recovery draft":"Сохранение локальной резервной копии","Changes are waiting to be saved locally":"Изменения ожидают локального сохранения","New project has no unsaved changes":"В новом проекте нет несохранённых изменений","Loaded project has no unsaved changes":"В открытом проекте нет несохранённых изменений","The recovery draft could not be applied. It has not been deleted.":"Не удалось восстановить резервную копию. Она не удалена.","Stored projects could not be read.":"Не удалось прочитать сохранённые проекты.","Save the current project before restoring another one?":"Сохранить текущий проект перед восстановлением другого?","Save the current project before loading another one?":"Сохранить текущий проект перед открытием другого?","The project root must be an object.":"Корневой элемент проекта должен быть объектом.","The project shapes field is required and must be an array.":"Поле shapes обязательно и должно быть массивом.","This project version is not supported.":"Эта версия проекта не поддерживается.","This file is not valid JSON.":"Файл содержит некорректный JSON.","This file is not a ReaUI theme: it is not a JSON object.":"Это не тема ReaUI: содержимое не является объектом JSON.","This file is not a ReaUI theme: \"format\" is not \"reaui-theme\".":"Это не тема ReaUI: значение \"format\" отличается от \"reaui-theme\".","This theme file has no valid format version.":"В файле темы отсутствует корректная версия формата.","The file contains no theme.":"Файл не содержит темы.","The theme has no colours.":"В теме отсутствуют цвета.","The theme needs a valid \"childBg\" and a valid \"text\" colour.":"В теме должны быть корректные цвета \"childBg\" и \"text\".","The theme could not be added.":"Не удалось добавить тему.","The file could not be read.":"Не удалось прочитать файл.","Nothing was imported.":"Импорт не выполнен.","It is in the theme list now - click it to apply. The current theme is unchanged.":"Тема добавлена в список. Выберите её для применения. Текущая тема не изменилась.","Could not change the theme menu. Check browser storage and try again.":"Не удалось изменить меню тем. Проверьте хранилище браузера и повторите попытку.","Could not save the theme. Check browser storage and try again.":"Не удалось сохранить тему. Проверьте хранилище браузера и повторите попытку.","Could not apply the theme.":"Не удалось применить тему.","The theme could not be deleted. Check browser storage and try again.":"Не удалось удалить тему. Проверьте хранилище браузера и повторите попытку.","no callback event selected — this code will never run":"Не выбрано событие обработчика — этот код не будет выполняться","compiled once at startup via CreateFunctionFromEEL":"Компилируется один раз при запуске через CreateFunctionFromEEL","radio group":"группа переключателей","radio value":"значение переключателя","bullet (tree: replaces arrow)":"маркер (в дереве вместо стрелки)","start angle":"начальный угол","end angle":"конечный угол","link angles":"связать углы","arc mode":"режим дуги","header color":"цвет заголовка","header value":"значение заголовка","blocked: shape needs at least one of fill/stroke":"Невозможно: фигуре нужна хотя бы заливка или обводка","value must be finite":"Значение должно быть конечным числом","value must be an integer":"Значение должно быть целым числом","value is below the native API range":"Значение меньше допустимого диапазона API","value is above the native API range":"Значение больше допустимого диапазона API","callback events":"события обработчика","data type":"тип данных","ReadOnly":"Только чтение","Password":"Пароль","Pass":"Пароль","CharsDecimal":"Десятичные символы","Dec":"Дес.","CharsHexadecimal":"Шестнадцатеричные символы","Hex":"HEX","EnterReturnsTrue":"Подтверждение Enter","AllowTabInput":"Ввод Tab","CtrlEnterForNewLine":"Новая строка по Ctrl+Enter","CallbackEdit":"При изменении","CallbackAlways":"Всегда","CallbackCharFilter":"Фильтр символов","CallbackCompletion":"Автодополнение","CallbackHistory":"История","OnEdit":"Изменение","Always":"Всегда","CharFilter":"Фильтр","OnTab":"По Tab","OnUp/Down":"По ↑/↓","NoAlpha":"Без альфа","NoPicker":"Без палитры","NoInputs":"Без полей","NoTooltip":"Без подсказки","NoTip":"Без подсказки","NoLabel":"Без подписи","NoSidePreview":"Без бокового образца","NoSidePrev":"Без бокового образца","NoSmallPreview":"Без маленького образца","NoSmallPrev":"Без мини-образца","NoOptions":"Без параметров","NoDragDrop":"Без перетаскивания","NoBorder":"Без границы","DisplayRGB":"Показать RGB","DisplayHSV":"Показать HSV","DisplayHex":"Показать HEX","Uint8":"0–255","Float":"Дробные","InputRGB":"Ввод RGB","InputHSV":"Ввод HSV","PickerHueBar":"Полоса оттенка","HueBar":"Полоса оттенка","PickerHueWheel":"Цветовой круг","HueWheel":"Цветовой круг","AlphaBar":"Шкала альфа","AlphaPreviewHalf":"Полупрозрачный образец","HalfPrev":"Полуобразец","AlphaNoBg":"Без фона","NoBg":"Без фона","AlphaOpaque":"Непрозрачный образец","Opaque":"Непрозрачный","No elements yet":"Элементов пока нет","Add a widget or draw object, then click the canvas.":"Добавьте виджет или графический объект, затем щёлкните на холсте.","↑ height fixed by ImGui":"↑ высота задаётся ImGui","↑ size fixed by ImGui":"↑ размер задаётся ImGui","⊞ Snap:":"⊞ Привязка:","click=select  Shift=range  Cmd/Ctrl=toggle":"щелчок — выделить; Shift — диапазон; Cmd/Ctrl — переключить","click=select Shift=range Cmd/Ctrl=toggle":"щелчок — выделить; Shift — диапазон; Cmd/Ctrl — переключить","drag to place  (or click for default size)":"протяните для размещения (или щёлкните для стандартного размера)","Structure":"Структура","Constraints":"Привязки","Constraints apply when the window is resizable":"Привязки работают при изменяемом размере окна","Make the window resizable":"Разрешить изменение размера окна","Pinned to":"Привязка к","Left":"Слева","Right":"Справа","Center":"Центр","Top":"Сверху","Bottom":"Снизу","Left+Right":"Слева + справа","Top+Bottom":"Сверху + снизу","Left · Top":"Слева · сверху","Horizontal":"По горизонтали","Vertical":"По вертикали","Name":"Имя","Enable loop":"Включить цикл","custom look (size, border, colours, click area)":"Пользовательский вид (размер, границы, цвета, область нажатия)","Constraint presets":"Шаблоны привязок","Pin left top":"Привязать слева сверху","Pin center top":"Привязать по центру сверху","Pin right top":"Привязать справа сверху","Pin left center":"Привязать слева по центру","Pin center":"Привязать к центру","Pin right center":"Привязать справа по центру","Pin left bottom":"Привязать слева снизу","Pin center bottom":"Привязать по центру снизу","Pin right bottom":"Привязать справа снизу","Horizontal constraint":"Горизонтальная привязка","Vertical constraint":"Вертикальная привязка","Select and edit this element":"Выделить и изменить этот элемент","Built-in · in use":"Встроенная · используется","Built-in · active":"Встроенная · активна","Vintage":"Винтажные","Cold":"Холодные","Warm":"Тёплые","Earth":"Землистые","Vintage palettes":"Винтажные палитры","Dark palettes":"Тёмные палитры","Cold palettes":"Холодные палитры","Warm palettes":"Тёплые палитры","Earth palettes":"Землистые палитры","Default — built-in":"Default — встроенная","Edit a copy of Light":"Изменить копию Light","Use this theme in the project and close. Edits stay in this project until you save them.":"Применить тему к проекту и закрыть редактор. Изменения останутся в проекте, пока вы не сохраните тему отдельно.","none":"нет","sample data":"пример данных","// EEL2 — runs on the selected Callback* event":"// EEL2 — выполняется при выбранном событии Callback*","Normal":"Обычный","Hovered":"Наведение","Active header":"Активный заголовок","Hovered header":"Заголовок при наведении","Parameter":"Параметр","Gain":"Усиление","Mix":"Смешивание","More":"Ещё","Sample plugin":"Пример плагина","Enable processing":"Включить обработку","Instruments":"Инструменты","Popup / tooltip selected text":"Всплывающая подсказка и выделенный текст","Documentation ↗":"Документация ↗","Documentation":"Документация","Current theme":"Текущая тема","New Theme":"Новая тема","View → Interface mode":"Вид → Режим интерфейса","File　Edit　View":"Файл　Правка　Вид","▾ Header":"▾ Заголовок","▾ Hovered header":"▾ Заголовок при наведении","▾ Active header":"▾ Активный заголовок","Popup / tooltip":"Всплывающее окно / подсказка","selected text":"выделенный текст","Disable":"Отключить","Basic layout":"Базовая компоновка","Title bar":"Строка заголовка","Edited":"Изменено","Edit theme":"Изменить тему","Edit a copy of":"Изменить копию","Theme":"Тема","Root":"Корень","Insert":"Вставить","Delete all":"Удалить всё","Clear All?":"Очистить всё?","ReaUI Builder — About":"ReaUI Builder — О программе","Keyboard shortcuts":"Сочетания клавиш","About ReaUI Builder":"О ReaUI Builder","Report a bug":"Сообщить об ошибке","Ready to export":"Готово к экспорту","No export blockers or warnings detected.":"Ошибок и предупреждений, препятствующих экспорту, нет.","Arrow keys":"Клавиши со стрелками","Nudge selection (grid step, or 1 px with Snap off)":"Переместить выделенное на шаг сетки (или на 1 пиксель без привязки)","Shift + Arrow keys":"Shift + стрелки","Nudge selection by 10 steps":"Переместить выделенное на 10 шагов","Copy selection":"Копировать выделенное","Duplicate selection":"Дублировать выделенное","Delete selection":"Удалить выделенное","Escape":"Esc","Deselect, cancel tool/polygon, or close an open dialog/menu":"Снять выделение, отменить инструмент/многоугольник или закрыть окно/меню","Enter (Polygon)":"Enter (многоугольник)","Finish polygon":"Завершить многоугольник","Shift + click object":"Shift + щелчок по объекту","Extend selection from the anchor object":"Расширить выделение от опорного объекта","⌘/Ctrl + click object":"⌘/Ctrl + щелчок по объекту","Toggle object in selection":"Добавить объект к выделению или снять выделение","Shift + marquee":"Shift + рамка выделения","Add objects intersecting the marquee to selection":"Добавить объекты, пересекаемые рамкой, к выделению","Toggle objects intersecting the marquee":"Переключить выделение объектов, пересекаемых рамкой","Alt + drag object":"Alt + перетаскивание объекта","Drag a copy":"Перетащить копию объекта","U + drag container":"U + перетаскивание контейнера","Unlock for this move: leave its contents behind and ignore widgets underneath":"Временно разблокировать перемещение: оставить содержимое на месте и игнорировать виджеты под контейнером","Space + drag canvas":"Пробел + перетаскивание холста","Pan canvas":"Переместить холст","Zoom to cursor":"Масштабировать относительно указателя","Right-click canvas":"Правая кнопка мыши на холсте","Open the widget menu at the pointer":"Открыть меню виджетов у указателя","Shift + drawing tool button":"Shift + кнопка инструмента рисования","Keep Rectangle, Circle, Line, Triangle, or Arc active":"Оставить активными «Прямоугольник», «Окружность», «Линия», «Треугольник» или «Дуга»","Polygon: double-click / first point":"Многоугольник: двойной щелчок / первая вершина","Visual layout tool for ReaImGui (REAPER DAW).":"Визуальный редактор интерфейсов ReaImGui (REAPER).","Generates Lua code using the ReaImGui API.":"Генерирует Lua-код на основе API ReaImGui.","Single-file Vanilla HTML/CSS/JS — no build tools.":"Один HTML-файл с CSS и JavaScript, без сборки и зависимостей.","Report a Bug":"Сообщить об ошибке","Describe what happened, what you expected, and how to reproduce it.":"Опишите, что произошло, как должно было работать и как воспроизвести ошибку.","Copy Report":"Копировать отчёт","Download Report":"Скачать отчёт","Send the report to:":"Отправьте отчёт по адресу:","Copied ✓":"Скопировано ✓","Include my layout (helps reproduce it; sends the whole project)":"Включить мой макет (для воспроизведения ошибки; прикладывается весь проект)","The text below is everything that gets sent - the last 50 actions plus your build and window size. Nothing else is collected.":"Ниже приведён полный состав отчёта: последние 50 действий, версия сборки и размер окна. Другие данные не собираются.","Popups / text":"Всплывающие окна и текст","Borders / scrollbars":"Границы и прокрутка","Tables":"Таблицы","Window / menu":"Окно и меню","Plots / tree":"Графики и дерево","7 colours set by hand":"7 цветов заданы вручную","shift(Background, 3% away from background)":"shift(Фон, 3% от исходного фона)","mix(Background, Text, 55%)":"mix(Фон, Текст, 55%)","mix(Background, Check mark, 45%)":"mix(Фон, Галочка, 45%)","= Check mark":"= Галочка","= Text":"= Текст","mix(Background, Text, 30%)":"mix(Фон, Текст, 30%)","mix(Background, Field, 35%)":"mix(Фон, Поле, 35%)","= Field":"= Поле","= Hovered field":"= Поле при наведении","= Active field":"= Активное поле","= Header (opaque)":"= Заголовок (непрозрачный)","mix(Background, Text, 35%)":"mix(Фон, Текст, 35%)","mix(Background, Text, 18%)":"mix(Фон, Текст, 18%)","= Background":"= Фон","shift(Background, 5% away from background)":"shift(Фон, 5% от исходного фона)","mix(Background, Field, 60%)":"mix(Фон, Поле, 60%)","mix(Background, Header, 80%)":"mix(Фон, Заголовок, 80%)","mix(Background, Field, 40%)":"mix(Фон, Поле, 40%)","mix(Background, Field, 50%)":"mix(Фон, Поле, 50%)","shift(Check mark, 12% away from background)":"shift(Галочка, 12% от исходного фона)","mix(Background, Text, 65%)":"mix(Фон, Текст, 65%)","= Border":"= Граница","= Active header (fallback: Active button, Header)":"= Активный заголовок (иначе: Активная кнопка, Заголовок)","= Hovered header (fallback: Hovered button)":"= Заголовок при наведении (иначе: Кнопка при наведении)","= Check mark (fallback: Slider grab)":"= Галочка (иначе: Ползунок)","Visual layout tool for ReaImGui (REAPER DAW).\nGenerates Lua code using the ReaImGui API.\nSingle-file Vanilla HTML/CSS/JS — no build tools.":"Визуальный редактор интерфейсов ReaImGui для REAPER.\nГенерирует Lua-код через API ReaImGui.\nРаботает как единый HTML-файл с CSS и JavaScript, без сборки.","Popup / tooltip ":"Всплывающее окно / подсказка ","Project":"Проект","Element":"Элемент","Project background colour is invalid":"Некорректный цвет фона проекта","Use a hexadecimal colour in #RRGGBB format.":"Укажите цвет в шестнадцатеричном формате #RRGGBB.","Element has no ID":"У элемента отсутствует ID","Export maps and parent relationships require a stable element ID.":"Для экспорта и связей родительских объектов необходим постоянный ID элемента.","Duplicate element ID:":"Повторяющийся ID элемента:","IDs must be unique; the exporter uses them as map keys.":"ID должны быть уникальны: генератор использует их как ключи.","Unknown element type:":"Неизвестный тип элемента:","The Lua exporter supports widgets and the documented drawing primitives only.":"Экспорт Lua поддерживает только виджеты и описанные графические примитивы.","Parent ID is ambiguous":"Неоднозначный ID родительского объекта","Parent element is missing":"Родительский объект отсутствует","Cyclic parent relationship":"Циклическая вложенность","The parent chain loops back to an element already visited.":"Цепочка родительских объектов содержит цикл.","Invalid position or size":"Некорректные координаты или размер","X, Y, width and height must be finite numbers; width and height must be greater than zero.":"X, Y, ширина и высота должны быть конечными числами; ширина и высота — больше нуля.","Unknown widget type:":"Неизвестный тип виджета:","The Lua exporter has no contract for this widget.":"Генератор Lua не поддерживает этот тип виджета.","Choose Left, Right, Up or Down.":"Выберите Left, Right, Up или Down.","Arrow direction is not supported":"Неподдерживаемое направление стрелки","Polygon has fewer than three points":"У многоугольника менее трёх вершин","A polygon needs at least three points to export.":"Для экспорта многоугольнику необходимо минимум три вершины.","Polygon contains a nonnumeric point":"У многоугольника есть некорректная вершина","Every polygon point needs finite numeric X and Y coordinates.":"У каждой вершины должны быть конечные числовые координаты X и Y.","Polygon outline crosses itself":"Контур многоугольника пересекает сам себя","ImGui fills only a polygon whose outline does not cross, touch or turn back on itself. Move a point, split the shape into separate polygons, or disable its fill to export the outline only.":"ImGui может заливать только многоугольник без самопересечений и касаний контура. Переместите вершину, разделите фигуру или отключите заливку.","Polygon fill cannot be exported":"Не удалось экспортировать заливку многоугольника","Builder could not split this polygon into triangles for ImGui. Remove repeated points, or disable its fill to export the outline only.":"Не удалось разбить многоугольник на треугольники для ImGui. Удалите повторяющиеся вершины либо отключите заливку.","Line points are invalid":"Некорректные точки линии","A line needs exactly two points with finite numeric X and Y coordinates.":"Линии нужны ровно две точки с конечными числовыми координатами X и Y.","Invalid numeric property:":"Некорректный числовой параметр:","The value must be a finite number.":"Значение должно быть конечным числом.","Invalid StyleRegion property:":"Некорректный параметр StyleRegion:","Use a finite value inside the supported range.":"Укажите конечное число в допустимом диапазоне.","Invalid colour property:":"Некорректный параметр цвета:","Invalid colour flags":"Некорректные флаги цвета","Could not resolve export bounds":"Не удалось определить границы экспорта","Check the element parent chain and geometry.":"Проверьте геометрию и вложенность элемента.","Widget will not be exported":"Виджет не будет экспортирован","Draw object will not be exported":"Графический объект не будет экспортирован","It does not intersect the canvas, so it is omitted from the Lua.":"Объект не пересекает холст и исключён из экспорта Lua.","Draw object crosses the canvas edge":"Графический объект пересекает границу холста","Only the intersecting part will be visible in the exported plugin.":"В экспортированном интерфейсе будет видна только часть объекта внутри холста.","Link URL is empty":"Адрес ссылки не указан","The exporter will use https://example.com as a fallback.":"Генератор использует резервный адрес https://example.com.","Callback flags require EEL callback code":"Для флагов Callback необходим код обработчика EEL","Add a non-empty EEL callback or disable all Callback* flags.":"Добавьте код обработчика EEL или отключите все флаги Callback*.","Minimum is not numeric":"Минимум не является числом","Maximum is not numeric":"Максимум не является числом","Enter a finite number or clear the field.":"Введите конечное число или очистите поле.","Minimum is greater than maximum":"Минимум больше максимума","Swap the values or correct the numeric range.":"Поменяйте значения местами или исправьте диапазон.","Minimum equals maximum":"Минимум равен максимуму","The control has no usable value range.":"У элемента нет допустимого диапазона значений.","Step should be zero or positive":"Шаг должен быть неотрицательным","Negative or non-numeric step values can behave unexpectedly.":"Отрицательный или нечисловой шаг может вызвать некорректную работу.","Speed should be greater than zero":"Скорость должна быть больше нуля","Drag controls need a positive finite speed.":"Для элементов Drag требуется положительная конечная скорость.","Component count must be 1–4":"Число компонентов должно быть от 1 до 4","The selected widget family only supports one to four components.":"Этот тип виджета поддерживает от одного до четырёх компонентов.","Array size must be 2–64":"Размер массива должен быть от 2 до 64","N-wide controls allocate a ReaScript array of this size.":"Многокомпонентные элементы создают массив ReaScript указанного размера.","Color alpha must be 0–255":"Альфа-канал должен быть в диапазоне 0–255","The Lua color packer expects an 8-bit alpha value.":"Упаковка цвета в Lua требует 8-битного значения альфа-канала.","Will not be exported with its container":"Не экспортируется вместе с контейнером","Widget is unreachable by the exporter":"Виджет недоступен генератору","Its parent chain is not traversed by the generated Lua.":"Сгенерированный Lua-код не обходит цепочку родительских объектов виджета.","Widget overlaps":"Виджет перекрывает","Their occupied areas intersect on the canvas. Move or resize one of the widgets before export.":"Области виджетов на холсте пересекаются. Перед экспортом переместите один из виджетов или измените его размер.","Overlaps":"Перекрывает","Leaves the window":"Выходит за границы окна","Too small at the minimum window size":"Слишком мал при минимальном размере окна","Export name collides after sanitizing":"Совпадение экспортируемого имени после нормализации","Radio value is not numeric":"Значение переключателя не является числом","RadioButtonEx requires a finite numeric value.":"Для RadioButtonEx требуется конечное числовое значение.","Duplicate radio value in group":"Повторяющееся значение в группе переключателей","Flag bit must be an integer 0–":"Номер бита должен быть целым числом от 0 до","Duplicate bit in flag group":"Повторяющийся бит в группе флагов","Plot values are invalid":"Некорректные значения графика","Enter a number or clear the field for automatic scaling.":"Введите число или оставьте поле пустым для автоматического масштаба.","Scale min is not below scale max":"Минимум шкалы не меньше максимума","The plot has no usable value range.":"У графика нет допустимого диапазона значений.","PlotLines needs at least two values":"PlotLines требует минимум два значения","With one value ImGui draws an empty frame.":"При одном значении ImGui рисует пустую рамку.","TabBar has no tabs":"В TabBar отсутствуют вкладки","The exported tab bar will have no visible tab items.":"В экспортированной панели не будет видимых вкладок.","Active tab does not exist":"Активная вкладка отсутствует","Choose one of the TabItems contained by this TabBar.":"Выберите одну из вкладок TabItem этой панели TabBar.","TabItem is not inside a TabBar":"TabItem находится вне TabBar","Standalone TabItems are not emitted correctly.":"Отдельные TabItem вне TabBar экспортируются некорректно.","Table rows and columns must be positive integers":"Число строк и столбцов таблицы должно быть положительным целым числом","Correct rowCount and columnCount before export.":"Перед экспортом исправьте rowCount и columnCount.","Table cell is outside the table grid":"Ячейка выходит за границы таблицы","Row and column indices must fit the parent table dimensions.":"Индексы строки и столбца должны соответствовать размеру родительской таблицы.","Duplicate table cell":"Повторяющаяся ячейка таблицы","Only one TableCell can occupy each row and column.":"Каждую позицию строки и столбца может занимать только одна TableCell.","Table has missing structural cells":"В таблице отсутствуют структурные ячейки","TableCell is not inside a Table":"TableCell находится вне Table","Standalone structural cells are not emitted correctly.":"Отдельные структурные ячейки экспортируются некорректно.","Menus past the right edge are cut off in REAPER":"Меню, выходящее за правую границу, будет обрезано в REAPER","Frame padding Y is":"Внутренний отступ рамки по Y равен","Copy generated Lua":"Копировать сгенерированный Lua","Download generated Lua":"Скачать сгенерированный Lua","Resolve the errors above to enable copy":"Исправьте ошибки выше, чтобы разблокировать копирование","Resolve the errors above to enable download":"Исправьте ошибки выше, чтобы разблокировать скачивание","Ready with":"Готово, но есть","Select this element on canvas":"Выделить этот элемент на холсте"};
+    const UI = {"Start in ReaUI Builder":"Начало работы в ReaUI Builder","Choose the interface mode, then create a new project or open an existing one.":"Выберите режим интерфейса, затем создайте новый проект или откройте существующий.","Basic":"Базовый","Advanced":"Расширенный","A simpler workspace with the core components and settings.":"Упрощённая рабочая область с основными компонентами и настройками.","The complete editor with all components, tools and settings.":"Полный редактор со всеми компонентами, инструментами и параметрами.","The display mode can be changed at any time from":"Режим интерфейса можно в любой момент изменить через","View":"Вид",". It does not change the project file.":". Это не изменяет файл проекта.","Restore unsaved project…":"Восстановить несохранённый проект…","Open project…":"Открыть проект…","Create new project":"Создать проект","Interface mode":"Режим интерфейса","File":"Файл","New Project":"Создать проект","Save Project":"Сохранить проект","Save As…":"Сохранить как…","Restore projects…":"Восстановить проекты…","Load Project":"Открытие проекта","Edit":"Правка","Undo":"Отменить","Redo":"Повторить","Copy":"Копировать","Paste":"Вставить","Delete":"Удалить","Duplicate":"Дублировать","Group selection":"Сгруппировать выделенное","Ungroup selection":"Разгруппировать","Select All":"Выделить всё","Deselect All":"Снять выделение","Clear All":"Очистить всё","Dark mode":"Тёмная тема","Theme Studio…":"Редактор тем…","Grid":"Сетка","Snap to grid":"Привязка к сетке","Reference grid in export":"Сетка в экспортируемом интерфейсе","Hide widget names":"Скрыть имена виджетов","Hide draw objects names":"Скрыть имена графических объектов","Widget footprints":"Границы виджетов","Show hints":"Показывать подсказки","Panels":"Панели","Canvas":"Холст","Properties":"Свойства","Elements":"Элементы","Tools":"Инструменты","Zoom to fit":"Вписать в окно","Actual size (100%)":"Фактический размер (100 %)","Help":"Справка","User Manual ↗":"Руководство пользователя ↗","Keyboard Shortcuts":"Сочетания клавиш","Report a Bug…":"Сообщить об ошибке…","About":"О программе","Export":"Экспорт","Buttons & Toggles":"Кнопки и переключатели","Display":"Отображение","Fields":"Поля ввода","Sliders & Drags":"Ползунки и числовые поля","Selection":"Выбор","Color":"Цвет","Layout":"Компоновка","Add":"Добавить","Choose a component":"Выберите компонент","Then click or drag on the canvas to place it.":"Затем щёлкните или протяните указатель на холсте, чтобы разместить его.","Text Input":"Текстовое поле","Number Input":"Числовое поле","Dropdown":"Выпадающий список","Progress":"Выполнение","More components…":"Другие компоненты…","Select":"Выделение","Hand":"Рука","Zoom":"Масштаб","Rectangle":"Прямоугольник","Circle":"Окружность","Polygon":"Многоугольник","Line":"Линия","Triangle":"Треугольник","Arc":"Дуга","Header":"Заголовок","Tree":"Дерево","Default":"По умолчанию","Themes":"Темы","Choose a theme for the ReaImGui UI you will export.":"Выберите тему для экспортируемого интерфейса ReaImGui.","+ New":"+ Создать","Import":"Импорт","Edit…":"Изменить…","Editor":"Редактор","Preview":"Предпросмотр","Preview is approximate — hatched widgets are shown schematically":"Предпросмотр приблизительный — заштрихованные виджеты показаны схематично","Advanced canvas settings are active":"Используются расширенные параметры холста","Some canvas settings are hidden in Basic mode but remain part of this project.":"Некоторые параметры холста скрыты в базовом режиме, но сохранены в проекте.","Edit in Advanced":"Изменить в расширенном режиме","size":"размер","Width":"Ширина","Height":"Высота","background":"фон","grid":"сетка","Show grid":"Показывать сетку","Audit grid":"Контрольная сетка","color":"цвет","Opacity":"Прозрачность","Snap":"Привязка","Step":"Шаг","title bar":"строка заголовка","ImGui default":"По умолчанию ImGui","Theme colours":"Цвета темы","window":"окно","Resizable window":"Изменяемый размер окна","Min width":"Мин. ширина","Min height":"Мин. высота","Max width":"Макс. ширина","Max height":"Макс. высота","menu bar":"строка меню","+ Add menu":"+ Добавить меню","No menu bar. Add a menu to give the window a menu bar; the canvas keeps its size and nothing on it moves.":"Строка меню отсутствует. Добавьте меню, чтобы оно появилось в окне. Размер холста и расположение объектов не изменятся.","No element selected":"Элемент не выбран","Select one object on the canvas to edit its properties here.":"Выберите объект на холсте, чтобы изменить его свойства.","Multiple selection":"Выделено несколько объектов","Edit shared properties together.":"Редактируйте общие свойства объектов одновременно.","Move selection":"Переместить выделенное","move":"Переместить","Common properties":"Общие свойства","Mixed fields stay unchanged until you enter a value. Each edit is one undo step.":"Поля с различающимися значениями не изменяются, пока вы не введёте новое значение. Каждое изменение можно отменить отдельно.","delete selected":"Удалить выделенное","Advanced component":"Расширенный компонент","Some settings are available in Advanced mode.":"Некоторые настройки доступны только в расширенном режиме.","Configuring":"Настройка","Reset":"Сбросить","Click on canvas to place":"Щёлкните на холсте, чтобы разместить","Select a widget to preview":"Выберите виджет для предпросмотра","variant":"вариант","name":"имя","parent":"родительский объект","tabs":"вкладки","+ add tab":"+ добавить вкладку","table grid":"сетка таблицы","columns":"столбцы","row heights":"высота строк","label / text":"подпись / текст","placeholder":"замещающий текст","value":"значение","url":"URL","direction":"направление","value components":"компоненты значения","array size":"размер массива","min":"мин.","max":"макс.","speed":"скорость","step":"шаг","step fast":"ускоренный шаг","format":"формат","format min":"формат минимума","format max":"формат максимума","flags":"флаги","Clamp":"Ограничить","Log":"Логарифм.","NoInput":"Без ввода","Wrap":"Зациклить","hint":"подсказка","prefix bullet":"маркер в начале","highlight":"подсветка","disabled (BeginDisabled)":"отключено (BeginDisabled)","look":"вид","tree lines":"линии дерева","None":"Нет","Full":"Full","To nodes":"До узлов","tab button":"кнопка вкладки","Leading":"В начале","Trailing":"В конце","button label":"подпись кнопки","text tone":"цвет текста","Auto":"Авто","Dark":"Тёмный","Light":"Светлый","border":"граница","draw border":"рисовать границу","h-scroll":"горизонтальная прокрутка","horizontal scrollbar":"горизонтальная полоса прокрутки","text color":"цвет текста","frame bg":"фон элемента","button color":"цвет кнопки","rounding":"скругление","frame padding":"внутренние отступы","selectable align":"выравнивание элемента","font":"шрифт","sans-serif":"без засечек","serif":"с засечками","monospace":"моноширинный","cursive":"курсивный","fantasy":"декоративный","alpha":"альфа-канал","overlay":"наложенный текст","indeterminate":"неопределённый прогресс","animate":"анимация","EEL2 callback":"обработчик EEL2","group":"группа","flag group":"группа флагов","bit (0–30)":"бит (0–30)","values":"значения","scale min":"мин. шкалы","scale max":"макс. шкалы","text align":"выравнивание текста","left":"слева","center":"по центру","right":"справа","text size":"размер текста","vertical align":"выравнивание по вертикали","top":"сверху","middle":"по центру","bottom":"снизу","fill & stroke":"заливка и обводка","fill":"заливка","disable":"отключить","stroke":"обводка","thickness":"толщина","opacity":"прозрачность","hdr color":"цвет заголовка","default":"по умолчанию","custom":"пользовательский","hdr color val":"цвет заголовка","orient":"ориентация","angles (°)":"углы (°)","start":"начало","end":"конец","Link":"Связать","mode":"режим","ring":"кольцо","pie":"сектор","position":"положение","poly points":"вершины многоугольника","primitive order":"порядок отрисовки","back":"на задний план","backward":"назад","forward":"вперёд","front":"на передний план","delete":"удалить","select":"выделение","On":"Вкл.","Off":"Выкл.","0 elements":"0 элементов","No unsaved changes":"Нет несохранённых изменений","copy":"копировать","download .lua":"скачать .lua","Show code":"Показать код","Hide code":"Скрыть код","close":"закрыть","ReaUI Builder checks the project first, then exports the same ReaImGui Lua script as Advanced mode.":"Сначала ReaUI Builder проверит проект, затем экспортирует тот же Lua-скрипт ReaImGui, что и в расширенном режиме.","Checking export…":"Проверка перед экспортом…","Run again":"Проверить снова","Requires ReaImGui — install it via ReaPack.":"Требуется ReaImGui — установите его через ReaPack.","Colours of the exported plugin — not the builder's own look":"Цвета экспортируемого плагина, а не самого редактора","Hide service names of widgets in Editor":"Скрыть служебные имена виджетов в редакторе","Hide service names of draw objects in Editor":"Скрыть служебные имена графических объектов в редакторе","Open the online user manual in your browser":"Открыть руководство пользователя в браузере","Add components":"Добавить компоненты","Hand — drag to pan":"Рука — перетаскивайте для перемещения по холсту","Zoom — click to zoom in, Alt/Option + click to zoom out":"Масштаб — щелчок для увеличения, Alt/Option + щелчок для уменьшения","More widgets in the top-bar categories":"Другие виджеты в категориях верхней панели","Make a new theme, starting from the active one":"Создать тему на основе текущей","Add a theme from a .reaui-theme.json file":"Импортировать тему из файла .reaui-theme.json","Editor - schematic editing view":"Редактор — схематичный вид для редактирования","Preview - approximate ImGui look (view-only)":"Предпросмотр — приблизительный вид ImGui (без редактирования)","Drag to resize canvas":"Перетащите, чтобы изменить размер холста","Drag to try another window width (view only). Double-click: design size":"Перетащите, чтобы изменить ширину окна в предпросмотре. Двойной щелчок — размер макета","Drag to try another window height (view only). Double-click: design size":"Перетащите, чтобы изменить высоту окна в предпросмотре. Двойной щелчок — размер макета","Drag to try another window size (view only). Double-click: design size":"Перетащите, чтобы изменить размер окна в предпросмотре. Двойной щелчок — размер макета","Collapse or expand this panel":"Свернуть или развернуть панель","Pick a colour from the screen":"Выбрать цвет с экрана","Menu bar entries":"Элементы строки меню","Properties actions":"Действия со свойствами","placeholder text…":"Текст подсказки…","value text…":"Текст значения…","hover text…":"Текст при наведении…","Prefix bullet":"Маркер в начале","Highlight":"Подсветка","Disabled":"Отключено","Draw panel border":"Рисовать границу панели","Enable horizontal scrollbar":"Включить горизонтальную прокрутку","Frame padding X (0 to 32)":"Внутренний отступ по X (0–32)","Frame padding Y (0 to 32)":"Внутренний отступ по Y (0–32)","Selectable text align X (0 to 1)":"Выравнивание текста по X (0–1)","Selectable text align Y (0 to 1)":"Выравнивание текста по Y (0–1)","Font size in pixels":"Размер шрифта в пикселях","Bold":"Полужирный","Italic":"Курсив","empty = no text":"пусто — без текста","Animate indeterminate progress bar":"Анимировать индикатор выполнения","Plot values, comma-separated":"Значения графика через запятую","Link start and end angles":"Связать начальный и конечный углы","Expand Elements panel":"Развернуть панель «Элементы»","Zoom level":"Масштаб","Zoom out":"Уменьшить масштаб","Zoom in":"Увеличить масштаб","Button":"Кнопка","SmallButton":"Компактная кнопка","InvisibleButton":"Невидимая кнопка","ArrowButton":"Кнопка со стрелкой","Checkbox":"Флажок","CheckboxFlags":"Битовый флажок","RadioButton":"Переключатель","RadioButtonEx":"Переключатель","Text":"Текст","BulletText":"Маркированный текст","TextWrapped":"Текст с переносом","TextColored":"Цветной текст","TextDisabled":"Неактивный текст","SeparatorText":"Разделитель с текстом","Separator":"Разделитель","Hint":"Подсказка","HelpMarker":"Значок подсказки","LabelText":"Подпись со значением","TextLinkOpenURL":"Ссылка (URL)","TextLink":"Текстовая ссылка","Slider":"Ползунок","VSlider":"Вертикальный ползунок","SliderAngle":"Угловой ползунок","Drag":"Поле перетаскивания","DragRange":"Диапазон","Input":"Числовое поле","InputText":"Текстовое поле","InputTextMultiline":"Многострочное поле","Multiline":"Многострочное поле","SliderN":"Многокомпонентный ползунок","DragN":"Многокомпонентное поле","InputN":"Многокомпонентный ввод","ProgressBar":"Индикатор выполнения","Plot":"График","InputTextWithHint":"Поле с подсказкой","Combo":"Выпадающий список","ListBox":"Список","Selectable":"Выбираемый элемент","ColorEdit":"Редактор цвета","ColorPicker":"Выбор цвета","ColorButton":"Кнопка цвета","Panel":"Панель","Group":"Группа","StyleRegion":"Область стиля","Style":"Стиль","CollapsingHeader":"Сворачиваемый заголовок","TreeNode":"Узел дерева","TabBar":"Панель вкладок","Tabs":"Вкладки","Table":"Таблица","Main":"Основная","Appearance":"Оформление","Details":"Подробности","Options":"Параметры","Settings":"Настройки","Add widget":"Добавить виджет","Add menu":"Добавить меню","Delete selected":"Удалить выделенное","Duplicate selected":"Дублировать выделенное","Select group":"Выделить группу","Clear selection":"Снять выделение","Enter name":"Введите имя","No selection":"Ничего не выделено","Custom":"Пользовательский","Light mode":"Светлая тема","Theme Studio":"Редактор тем","Close Theme Studio":"Закрыть редактор тем","Plugin preview":"Предпросмотр","Hold to compare":"Сравнить","Editing":"Редактирование","Theme name":"Название темы","Click to rename":"Щёлкните для переименования","Theme actions":"Действия с темой","Collection":"Коллекция","My themes":"Мои темы","My Theme":"Моя тема","New theme":"Новая тема","Imported theme":"Импортированная тема","Not saved yet":"Ещё не сохранена","Built-in":"Встроенная","From Collection":"Из коллекции","From this project":"Из этого проекта","This project only":"Только в проекте","My theme":"Моя тема","Unsaved edits":"Несохранённые изменения","Saved":"Сохранено","Apply":"Применить","Apply to use it, or Save as… to keep it":"Нажмите «Применить», чтобы использовать, или «Сохранить как…», чтобы сохранить","Apply, or Save as… to keep edits":"Примените или сохраните изменения через «Сохранить как…»","Edits become a new theme":"Изменения будут сохранены как новая тема","Differs from the copy in My themes":"Отличается от копии в «Моих темах»","Save to add it to My themes":"Сохраните, чтобы добавить в «Мои темы»","Discard changes":"Не сохранять","Save theme":"Сохранить тему","Theme already saved":"Тема уже сохранена","Save another copy":"Сохранить ещё одну копию","Save":"Сохранить","Save as…":"Сохранить как…","Save edits to this theme in My themes":"Сохранить изменения темы в «Моих темах»","Save as a new theme in My themes":"Сохранить новую тему в «Моих темах»","Reset edits":"Сбросить изменения","Restore this theme to its last saved or starting colours":"Восстановить последние сохранённые или исходные цвета темы","Export…":"Экспорт…","Export Theme":"Экспортировать тему","Edit a copy":"Изменить копию","Change the colours of this theme":"Изменить цвета темы","Change the colours; saving makes a new theme":"Изменить цвета; при сохранении будет создана новая тема","In theme menu":"В меню тем","Show in theme menu":"Показывать в меню тем","Show or hide this theme in the quick theme menu; the active theme stays visible":"Показать или скрыть тему в быстром меню. Активная тема остаётся видимой.","Remove from project":"Удалить из проекта","Rename theme":"Переименовать тему","Manual":"Вручную","Click a colour to change it. The other colours follow automatically; colours set by hand in Full keep their values.":"Нажмите на цвет для изменения. Остальные цвета обновятся автоматически; вручную заданные цвета в полном наборе сохранят свои значения.","Default uses REAPER’s colours. Use Save as… to keep this palette as a custom theme.":"Тема по умолчанию использует цвета REAPER. Чтобы сохранить палитру как пользовательскую тему, выберите «Сохранить как…».","Background":"Фон","Controls":"Элементы управления","Accent":"Акцент","Header opacity":"Прозрачность заголовка","Rebuild all colours":"Пересоздать все цвета","Replace all manual RGB colours with the generated palette?":"Заменить все вручную заданные цвета RGB автоматически созданной палитрой?","Rebuild palette":"Пересоздать палитру","Rebuild":"Пересоздать","Label text":"Текст подписи","Window background":"Фон окна","Field":"Поле","Field · hovered":"Поле · наведение","Field · active":"Поле · активное","Button · hovered":"Кнопка · наведение","Button · active":"Кнопка · активная","Header · hovered":"Заголовок · наведение","Header · active":"Заголовок · активный","Check mark":"Галочка","Slider grab":"Ползунок","Slider grab · active":"Ползунок · активный","Automatically generated colours":"Автоматически созданные цвета","These colours are calculated from your palette and cannot be edited separately.":"Эти цвета вычисляются из палитры; редактировать их по отдельности нельзя.","Title colours are used when the project’s Title bar option is Theme colours. Menu bar colour is used with a menu bar.":"Цвета заголовка применяются при параметре «Строка заголовка → Цвета темы». Цвет строки меню используется при наличии меню.","ImGui colour":"Цвет ImGui","Value":"Значение","Rule":"Правило","Palette collection":"Коллекция палитр","Click a palette to load it into the editor. Your project changes only when you press Apply.":"Выберите палитру, чтобы загрузить её в редактор. Проект изменится только после нажатия «Применить».","Palettes from":"Палитры из","Import…":"Импорт…","No themes here yet.":"Здесь пока нет тем.","Active":"Активная","Select theme":"Выбрать тему","Close":"Закрыть","OK":"ОК","Cancel":"Отмена","Yes":"Да","No":"Нет","Continue":"Продолжить","Confirm":"Подтвердить","Delete Theme":"Удаление темы","Delete theme":"Удалить тему","Delete failed":"Ошибка удаления","Import failed":"Ошибка импорта","Import Theme":"Импорт темы","Export Lua":"Экспорт Lua","Export Lua Script":"Экспорт Lua-скрипта","Export ReaImGui Lua":"Экспорт Lua для ReaImGui","Preflight":"Предэкспортная проверка","Preflight check":"Проверка перед экспортом","Check":"Проверить","Run checks":"Запустить проверку","Checking…":"Проверка…","Passed":"Успешно","Warnings":"Предупреждения","Errors":"Ошибки","Error":"Ошибка","Warning":"Предупреждение","Info":"Информация","Valid":"Допустимо","Invalid":"Недопустимо","Failed":"Не удалось","Ready":"Готово","Done":"Готово","Copy to clipboard":"Копировать в буфер обмена","Copied":"Скопировано","Download":"Скачать","Download Lua":"Скачать Lua","All checks passed":"Все проверки пройдены","Print":"Печать","Show details":"Подробнее","Hide details":"Скрыть подробности","Show more":"Показать ещё","Show less":"Скрыть","ReaUI project":"Проект ReaUI","Untitled project":"Безымянный проект","No unsaved projects to restore.":"Нет несохранённых проектов для восстановления.","Restore projects":"Восстановление проектов","Restore":"Восстановить","Save project as":"Сохранить проект как","Load failed":"Ошибка открытия","Save failed":"Ошибка сохранения","Recovery failed":"Ошибка восстановления","Unsaved changes":"Несохранённые изменения","Saving…":"Сохранение…","Autosave failed":"Ошибка автосохранения","Loaded":"Загружено","Failed to load project":"Не удалось загрузить проект","Recovery draft saved locally in this browser at":"Резервная копия проекта сохранена в этом браузере:","Saving a local recovery draft":"Сохранение локальной резервной копии","Changes are waiting to be saved locally":"Изменения ожидают локального сохранения","New project has no unsaved changes":"В новом проекте нет несохранённых изменений","Loaded project has no unsaved changes":"В открытом проекте нет несохранённых изменений","The recovery draft could not be applied. It has not been deleted.":"Не удалось восстановить резервную копию. Она не удалена.","Stored projects could not be read.":"Не удалось прочитать сохранённые проекты.","Save the current project before restoring another one?":"Сохранить текущий проект перед восстановлением другого?","Save the current project before loading another one?":"Сохранить текущий проект перед открытием другого?","The project root must be an object.":"Корневой элемент проекта должен быть объектом.","The project shapes field is required and must be an array.":"Поле shapes обязательно и должно быть массивом.","This project version is not supported.":"Эта версия проекта не поддерживается.","This file is not valid JSON.":"Файл содержит некорректный JSON.","This file is not a ReaUI theme: it is not a JSON object.":"Это не тема ReaUI: содержимое не является объектом JSON.","This file is not a ReaUI theme: \"format\" is not \"reaui-theme\".":"Это не тема ReaUI: значение \"format\" отличается от \"reaui-theme\".","This theme file has no valid format version.":"В файле темы отсутствует корректная версия формата.","The file contains no theme.":"Файл не содержит темы.","The theme has no colours.":"В теме отсутствуют цвета.","The theme needs a valid \"childBg\" and a valid \"text\" colour.":"В теме должны быть корректные цвета \"childBg\" и \"text\".","The theme could not be added.":"Не удалось добавить тему.","The file could not be read.":"Не удалось прочитать файл.","Nothing was imported.":"Импорт не выполнен.","It is in the theme list now - click it to apply. The current theme is unchanged.":"Тема добавлена в список. Выберите её для применения. Текущая тема не изменилась.","Could not change the theme menu. Check browser storage and try again.":"Не удалось изменить меню тем. Проверьте хранилище браузера и повторите попытку.","Could not save the theme. Check browser storage and try again.":"Не удалось сохранить тему. Проверьте хранилище браузера и повторите попытку.","Could not apply the theme.":"Не удалось применить тему.","The theme could not be deleted. Check browser storage and try again.":"Не удалось удалить тему. Проверьте хранилище браузера и повторите попытку.","no callback event selected — this code will never run":"Не выбрано событие обработчика — этот код не будет выполняться","compiled once at startup via CreateFunctionFromEEL":"Компилируется один раз при запуске через CreateFunctionFromEEL","radio group":"группа переключателей","radio value":"значение переключателя","bullet (tree: replaces arrow)":"маркер (в дереве вместо стрелки)","start angle":"начальный угол","end angle":"конечный угол","link angles":"связать углы","arc mode":"режим дуги","header color":"цвет заголовка","header value":"значение заголовка","blocked: shape needs at least one of fill/stroke":"Невозможно: фигуре нужна хотя бы заливка или обводка","value must be finite":"Значение должно быть конечным числом","value must be an integer":"Значение должно быть целым числом","value is below the native API range":"Значение меньше допустимого диапазона API","value is above the native API range":"Значение больше допустимого диапазона API","callback events":"события обработчика","data type":"тип данных","ReadOnly":"Только чтение","Password":"Пароль","Pass":"Пароль","CharsDecimal":"Десятичные символы","Dec":"Дес.","CharsHexadecimal":"Шестнадцатеричные символы","Hex":"HEX","EnterReturnsTrue":"Подтверждение Enter","AllowTabInput":"Ввод Tab","CtrlEnterForNewLine":"Новая строка по Ctrl+Enter","CallbackEdit":"При изменении","CallbackAlways":"Всегда","CallbackCharFilter":"Фильтр символов","CallbackCompletion":"Автодополнение","CallbackHistory":"История","OnEdit":"Изменение","Always":"Всегда","CharFilter":"Фильтр","OnTab":"По Tab","OnUp/Down":"По ↑/↓","NoAlpha":"Без альфа","NoPicker":"Без палитры","NoInputs":"Без полей","NoTooltip":"Без подсказки","NoTip":"Без подсказки","NoLabel":"Без подписи","NoSidePreview":"Без бокового образца","NoSidePrev":"Без бокового образца","NoSmallPreview":"Без маленького образца","NoSmallPrev":"Без мини-образца","NoOptions":"Без параметров","NoDragDrop":"Без перетаскивания","NoBorder":"Без границы","DisplayRGB":"Показать RGB","DisplayHSV":"Показать HSV","DisplayHex":"Показать HEX","Uint8":"0–255","Float":"Дробные","InputRGB":"Ввод RGB","InputHSV":"Ввод HSV","PickerHueBar":"Полоса оттенка","HueBar":"Полоса оттенка","PickerHueWheel":"Цветовой круг","HueWheel":"Цветовой круг","AlphaBar":"Шкала альфа","AlphaPreviewHalf":"Полупрозрачный образец","HalfPrev":"Полуобразец","AlphaNoBg":"Без фона","NoBg":"Без фона","AlphaOpaque":"Непрозрачный образец","Opaque":"Непрозрачный","No elements yet":"Элементов пока нет","Add a widget or draw object, then click the canvas.":"Добавьте виджет или графический объект, затем щёлкните на холсте.","↑ height fixed by ImGui":"↑ высота задаётся ImGui","↑ size fixed by ImGui":"↑ размер задаётся ImGui","⊞ Snap:":"⊞ Привязка:","click=select  Shift=range  Cmd/Ctrl=toggle":"щелчок — выделить; Shift — диапазон; Cmd/Ctrl — переключить","click=select Shift=range Cmd/Ctrl=toggle":"щелчок — выделить; Shift — диапазон; Cmd/Ctrl — переключить","drag to place  (or click for default size)":"протяните для размещения (или щёлкните для стандартного размера)","Structure":"Структура","Constraints":"Привязки","Constraints apply when the window is resizable":"Привязки работают при изменяемом размере окна","Make the window resizable":"Разрешить изменение размера окна","Pinned to":"Привязка к","Left":"Слева","Right":"Справа","Center":"Центр","Top":"Сверху","Bottom":"Снизу","Left+Right":"Слева + справа","Top+Bottom":"Сверху + снизу","Left · Top":"Слева · сверху","Horizontal":"По горизонтали","Vertical":"По вертикали","Name":"Имя","Enable loop":"Включить цикл","custom look (size, border, colours, click area)":"Пользовательский вид (размер, границы, цвета, область нажатия)","Constraint presets":"Шаблоны привязок","Pin left top":"Привязать слева сверху","Pin center top":"Привязать по центру сверху","Pin right top":"Привязать справа сверху","Pin left center":"Привязать слева по центру","Pin center":"Привязать к центру","Pin right center":"Привязать справа по центру","Pin left bottom":"Привязать слева снизу","Pin center bottom":"Привязать по центру снизу","Pin right bottom":"Привязать справа снизу","Horizontal constraint":"Горизонтальная привязка","Vertical constraint":"Вертикальная привязка","Select and edit this element":"Выделить и изменить этот элемент","Built-in · in use":"Встроенная · используется","Built-in · active":"Встроенная · активна","Vintage":"Винтажные","Cold":"Холодные","Warm":"Тёплые","Earth":"Землистые","Vintage palettes":"Винтажные палитры","Dark palettes":"Тёмные палитры","Cold palettes":"Холодные палитры","Warm palettes":"Тёплые палитры","Earth palettes":"Землистые палитры","Default — built-in":"Default — встроенная","Edit a copy of Light":"Изменить копию Light","Use this theme in the project and close. Edits stay in this project until you save them.":"Применить тему к проекту и закрыть редактор. Изменения останутся в проекте, пока вы не сохраните тему отдельно.","none":"нет","sample data":"пример данных","// EEL2 — runs on the selected Callback* event":"// EEL2 — выполняется при выбранном событии Callback*","Normal":"Обычный","Hovered":"Наведение","Active header":"Активный заголовок","Hovered header":"Заголовок при наведении","Parameter":"Параметр","Gain":"Усиление","Mix":"Смешивание","More":"Ещё","Sample plugin":"Пример плагина","Enable processing":"Включить обработку","Instruments":"Инструменты","Popup / tooltip selected text":"Всплывающая подсказка и выделенный текст","Documentation ↗":"Документация ↗","Documentation":"Документация","Current theme":"Текущая тема","New Theme":"Новая тема","View → Interface mode":"Вид → Режим интерфейса","File　Edit　View":"Файл　Правка　Вид","▾ Header":"▾ Заголовок","▾ Hovered header":"▾ Заголовок при наведении","▾ Active header":"▾ Активный заголовок","Popup / tooltip":"Всплывающее окно / подсказка","selected text":"выделенный текст","Disable":"Отключить","Basic layout":"Базовая компоновка","Title bar":"Строка заголовка","Edited":"Изменено","Edit theme":"Изменить тему","Edit a copy of":"Изменить копию","Theme":"Тема","Root":"Корень","Insert":"Вставить","Delete all":"Удалить всё","Clear All?":"Очистить всё?","ReaUI Builder — About":"ReaUI Builder — О программе","Keyboard shortcuts":"Сочетания клавиш","About ReaUI Builder":"О ReaUI Builder","Report a bug":"Сообщить об ошибке","Ready to export":"Готово к экспорту","Export failed: nothing was generated":"Экспорт не удался: ничего не сгенерировано","Nothing was generated, so there is nothing to copy":"Ничего не сгенерировано — копировать нечего","Nothing was generated, so there is nothing to download":"Ничего не сгенерировано — скачивать нечего","Load cancelled":"Загрузка отменена","Invalid table column settings":"Некорректные настройки столбцов таблицы","Adaptive table analysis is partial":"Проверка адаптивных таблиц выполнена частично","The project changed while the file was being read, so the file was not opened. Your current project is unchanged.":"Проект изменился, пока читался файл, поэтому файл не открыт. Текущий проект не изменён.","No export blockers or warnings detected.":"Ошибок и предупреждений, препятствующих экспорту, нет.","Arrow keys":"Клавиши со стрелками","Nudge selection (grid step, or 1 px with Snap off)":"Переместить выделенное на шаг сетки (или на 1 пиксель без привязки)","Shift + Arrow keys":"Shift + стрелки","Nudge selection by 10 steps":"Переместить выделенное на 10 шагов","Copy selection":"Копировать выделенное","Duplicate selection":"Дублировать выделенное","Delete selection":"Удалить выделенное","Escape":"Esc","Deselect, cancel tool/polygon, or close an open dialog/menu":"Снять выделение, отменить инструмент/многоугольник или закрыть окно/меню","Enter (Polygon)":"Enter (многоугольник)","Finish polygon":"Завершить многоугольник","Shift + click object":"Shift + щелчок по объекту","Extend selection from the anchor object":"Расширить выделение от опорного объекта","⌘/Ctrl + click object":"⌘/Ctrl + щелчок по объекту","Toggle object in selection":"Добавить объект к выделению или снять выделение","Shift + marquee":"Shift + рамка выделения","Add objects intersecting the marquee to selection":"Добавить объекты, пересекаемые рамкой, к выделению","Toggle objects intersecting the marquee":"Переключить выделение объектов, пересекаемых рамкой","Alt + drag object":"Alt + перетаскивание объекта","Drag a copy":"Перетащить копию объекта","U + drag container":"U + перетаскивание контейнера","Unlock for this move: leave its contents behind and ignore widgets underneath":"Временно разблокировать перемещение: оставить содержимое на месте и игнорировать виджеты под контейнером","Space + drag canvas":"Пробел + перетаскивание холста","Pan canvas":"Переместить холст","Zoom to cursor":"Масштабировать относительно указателя","Right-click canvas":"Правая кнопка мыши на холсте","Open the widget menu at the pointer":"Открыть меню виджетов у указателя","Shift + drawing tool button":"Shift + кнопка инструмента рисования","Keep Rectangle, Circle, Line, Triangle, or Arc active":"Оставить активными «Прямоугольник», «Окружность», «Линия», «Треугольник» или «Дуга»","Polygon: double-click / first point":"Многоугольник: двойной щелчок / первая вершина","Visual layout tool for ReaImGui (REAPER DAW).":"Визуальный редактор интерфейсов ReaImGui (REAPER).","Generates Lua code using the ReaImGui API.":"Генерирует Lua-код на основе API ReaImGui.","Single-file Vanilla HTML/CSS/JS — no build tools.":"Один HTML-файл с CSS и JavaScript, без сборки и зависимостей.","Report a Bug":"Сообщить об ошибке","Describe what happened, what you expected, and how to reproduce it.":"Опишите, что произошло, как должно было работать и как воспроизвести ошибку.","Copy Report":"Копировать отчёт","Download Report":"Скачать отчёт","Send the report to:":"Отправьте отчёт по адресу:","Copied ✓":"Скопировано ✓","Include my layout (helps reproduce it; sends the whole project)":"Включить мой макет (для воспроизведения ошибки; прикладывается весь проект)","The text below is everything that gets sent - the last 50 actions plus your build and window size. Nothing else is collected.":"Ниже приведён полный состав отчёта: последние 50 действий, версия сборки и размер окна. Другие данные не собираются.","Popups / text":"Всплывающие окна и текст","Borders / scrollbars":"Границы и прокрутка","Tables":"Таблицы","Window / menu":"Окно и меню","Plots / tree":"Графики и дерево","7 colours set by hand":"7 цветов заданы вручную","shift(Background, 3% away from background)":"shift(Фон, 3% от исходного фона)","mix(Background, Text, 55%)":"mix(Фон, Текст, 55%)","mix(Background, Check mark, 45%)":"mix(Фон, Галочка, 45%)","= Check mark":"= Галочка","= Text":"= Текст","mix(Background, Text, 30%)":"mix(Фон, Текст, 30%)","mix(Background, Field, 35%)":"mix(Фон, Поле, 35%)","= Field":"= Поле","= Hovered field":"= Поле при наведении","= Active field":"= Активное поле","= Header (opaque)":"= Заголовок (непрозрачный)","mix(Background, Text, 35%)":"mix(Фон, Текст, 35%)","mix(Background, Text, 18%)":"mix(Фон, Текст, 18%)","= Background":"= Фон","shift(Background, 5% away from background)":"shift(Фон, 5% от исходного фона)","mix(Background, Field, 60%)":"mix(Фон, Поле, 60%)","mix(Background, Header, 80%)":"mix(Фон, Заголовок, 80%)","mix(Background, Field, 40%)":"mix(Фон, Поле, 40%)","mix(Background, Field, 50%)":"mix(Фон, Поле, 50%)","shift(Check mark, 12% away from background)":"shift(Галочка, 12% от исходного фона)","mix(Background, Text, 65%)":"mix(Фон, Текст, 65%)","= Border":"= Граница","= Active header (fallback: Active button, Header)":"= Активный заголовок (иначе: Активная кнопка, Заголовок)","= Hovered header (fallback: Hovered button)":"= Заголовок при наведении (иначе: Кнопка при наведении)","= Check mark (fallback: Slider grab)":"= Галочка (иначе: Ползунок)","Visual layout tool for ReaImGui (REAPER DAW).\nGenerates Lua code using the ReaImGui API.\nSingle-file Vanilla HTML/CSS/JS — no build tools.":"Визуальный редактор интерфейсов ReaImGui для REAPER.\nГенерирует Lua-код через API ReaImGui.\nРаботает как единый HTML-файл с CSS и JavaScript, без сборки.","Popup / tooltip ":"Всплывающее окно / подсказка ","Project":"Проект","Element":"Элемент","Project background colour is invalid":"Некорректный цвет фона проекта","Use a hexadecimal colour in #RRGGBB format.":"Укажите цвет в шестнадцатеричном формате #RRGGBB.","Element has no ID":"У элемента отсутствует ID","Export maps and parent relationships require a stable element ID.":"Для экспорта и связей родительских объектов необходим постоянный ID элемента.","Duplicate element ID:":"Повторяющийся ID элемента:","IDs must be unique; the exporter uses them as map keys.":"ID должны быть уникальны: генератор использует их как ключи.","Unknown element type:":"Неизвестный тип элемента:","The Lua exporter supports widgets and the documented drawing primitives only.":"Экспорт Lua поддерживает только виджеты и описанные графические примитивы.","Parent ID is ambiguous":"Неоднозначный ID родительского объекта","Parent element is missing":"Родительский объект отсутствует","Cyclic parent relationship":"Циклическая вложенность","The parent chain loops back to an element already visited.":"Цепочка родительских объектов содержит цикл.","Invalid position or size":"Некорректные координаты или размер","X, Y, width and height must be finite numbers; width and height must be greater than zero.":"X, Y, ширина и высота должны быть конечными числами; ширина и высота — больше нуля.","Unknown widget type:":"Неизвестный тип виджета:","The Lua exporter has no contract for this widget.":"Генератор Lua не поддерживает этот тип виджета.","Choose Left, Right, Up or Down.":"Выберите Left, Right, Up или Down.","Arrow direction is not supported":"Неподдерживаемое направление стрелки","Polygon has fewer than three points":"У многоугольника менее трёх вершин","A polygon needs at least three points to export.":"Для экспорта многоугольнику необходимо минимум три вершины.","Polygon contains a nonnumeric point":"У многоугольника есть некорректная вершина","Every polygon point needs finite numeric X and Y coordinates.":"У каждой вершины должны быть конечные числовые координаты X и Y.","Polygon outline crosses itself":"Контур многоугольника пересекает сам себя","ImGui fills only a polygon whose outline does not cross, touch or turn back on itself. Move a point, split the shape into separate polygons, or disable its fill to export the outline only.":"ImGui может заливать только многоугольник без самопересечений и касаний контура. Переместите вершину, разделите фигуру или отключите заливку.","Polygon fill cannot be exported":"Не удалось экспортировать заливку многоугольника","Builder could not split this polygon into triangles for ImGui. Remove repeated points, or disable its fill to export the outline only.":"Не удалось разбить многоугольник на треугольники для ImGui. Удалите повторяющиеся вершины либо отключите заливку.","Line points are invalid":"Некорректные точки линии","A line needs exactly two points with finite numeric X and Y coordinates.":"Линии нужны ровно две точки с конечными числовыми координатами X и Y.","Invalid numeric property:":"Некорректный числовой параметр:","The value must be a finite number.":"Значение должно быть конечным числом.","Invalid StyleRegion property:":"Некорректный параметр StyleRegion:","Use a finite value inside the supported range.":"Укажите конечное число в допустимом диапазоне.","Invalid colour property:":"Некорректный параметр цвета:","Invalid colour flags":"Некорректные флаги цвета","Could not resolve export bounds":"Не удалось определить границы экспорта","Check the element parent chain and geometry.":"Проверьте геометрию и вложенность элемента.","Widget will not be exported":"Виджет не будет экспортирован","Draw object will not be exported":"Графический объект не будет экспортирован","It does not intersect the canvas, so it is omitted from the Lua.":"Объект не пересекает холст и исключён из экспорта Lua.","Draw object crosses the canvas edge":"Графический объект пересекает границу холста","Only the intersecting part will be visible in the exported plugin.":"В экспортированном интерфейсе будет видна только часть объекта внутри холста.","Link URL is empty":"Адрес ссылки не указан","The exporter will use https://example.com as a fallback.":"Генератор использует резервный адрес https://example.com.","Callback flags require EEL callback code":"Для флагов Callback необходим код обработчика EEL","Add a non-empty EEL callback or disable all Callback* flags.":"Добавьте код обработчика EEL или отключите все флаги Callback*.","Minimum is not numeric":"Минимум не является числом","Maximum is not numeric":"Максимум не является числом","Enter a finite number or clear the field.":"Введите конечное число или очистите поле.","Minimum is greater than maximum":"Минимум больше максимума","Swap the values or correct the numeric range.":"Поменяйте значения местами или исправьте диапазон.","Minimum equals maximum":"Минимум равен максимуму","The control has no usable value range.":"У элемента нет допустимого диапазона значений.","Step should be zero or positive":"Шаг должен быть неотрицательным","Negative or non-numeric step values can behave unexpectedly.":"Отрицательный или нечисловой шаг может вызвать некорректную работу.","Speed should be greater than zero":"Скорость должна быть больше нуля","Drag controls need a positive finite speed.":"Для элементов Drag требуется положительная конечная скорость.","Component count must be 1–4":"Число компонентов должно быть от 1 до 4","The selected widget family only supports one to four components.":"Этот тип виджета поддерживает от одного до четырёх компонентов.","Array size must be 2–64":"Размер массива должен быть от 2 до 64","N-wide controls allocate a ReaScript array of this size.":"Многокомпонентные элементы создают массив ReaScript указанного размера.","Color alpha must be 0–255":"Альфа-канал должен быть в диапазоне 0–255","The Lua color packer expects an 8-bit alpha value.":"Упаковка цвета в Lua требует 8-битного значения альфа-канала.","Will not be exported with its container":"Не экспортируется вместе с контейнером","Widget is unreachable by the exporter":"Виджет недоступен генератору","Its parent chain is not traversed by the generated Lua.":"Сгенерированный Lua-код не обходит цепочку родительских объектов виджета.","Widget overlaps":"Виджет перекрывает","Their occupied areas intersect on the canvas. Move or resize one of the widgets before export.":"Области виджетов на холсте пересекаются. Перед экспортом переместите один из виджетов или измените его размер.","Overlaps":"Перекрывает","Leaves the window":"Выходит за границы окна","Too small at the minimum window size":"Слишком мал при минимальном размере окна","Export name collides after sanitizing":"Совпадение экспортируемого имени после нормализации","Radio value is not numeric":"Значение переключателя не является числом","RadioButtonEx requires a finite numeric value.":"Для RadioButtonEx требуется конечное числовое значение.","Duplicate radio value in group":"Повторяющееся значение в группе переключателей","Flag bit must be an integer 0–":"Номер бита должен быть целым числом от 0 до","Duplicate bit in flag group":"Повторяющийся бит в группе флагов","Plot values are invalid":"Некорректные значения графика","Enter a number or clear the field for automatic scaling.":"Введите число или оставьте поле пустым для автоматического масштаба.","Scale min is not below scale max":"Минимум шкалы не меньше максимума","The plot has no usable value range.":"У графика нет допустимого диапазона значений.","PlotLines needs at least two values":"PlotLines требует минимум два значения","With one value ImGui draws an empty frame.":"При одном значении ImGui рисует пустую рамку.","TabBar has no tabs":"В TabBar отсутствуют вкладки","The exported tab bar will have no visible tab items.":"В экспортированной панели не будет видимых вкладок.","Active tab does not exist":"Активная вкладка отсутствует","Choose one of the TabItems contained by this TabBar.":"Выберите одну из вкладок TabItem этой панели TabBar.","TabItem is not inside a TabBar":"TabItem находится вне TabBar","Standalone TabItems are not emitted correctly.":"Отдельные TabItem вне TabBar экспортируются некорректно.","Table rows and columns must be positive integers":"Число строк и столбцов таблицы должно быть положительным целым числом","Correct rowCount and columnCount before export.":"Перед экспортом исправьте rowCount и columnCount.","Table cell is outside the table grid":"Ячейка выходит за границы таблицы","Row and column indices must fit the parent table dimensions.":"Индексы строки и столбца должны соответствовать размеру родительской таблицы.","Duplicate table cell":"Повторяющаяся ячейка таблицы","Only one TableCell can occupy each row and column.":"Каждую позицию строки и столбца может занимать только одна TableCell.","Table has missing structural cells":"В таблице отсутствуют структурные ячейки","TableCell is not inside a Table":"TableCell находится вне Table","Standalone structural cells are not emitted correctly.":"Отдельные структурные ячейки экспортируются некорректно.","Menus past the right edge are cut off in REAPER":"Меню, выходящее за правую границу, будет обрезано в REAPER","Frame padding Y is":"Внутренний отступ рамки по Y равен","Copy generated Lua":"Копировать сгенерированный Lua","Download generated Lua":"Скачать сгенерированный Lua","Resolve the errors above to enable copy":"Исправьте ошибки выше, чтобы разблокировать копирование","Resolve the errors above to enable download":"Исправьте ошибки выше, чтобы разблокировать скачивание","Ready with":"Готово, но есть","Select this element on canvas":"Выделить этот элемент на холсте"};
     const HINTS = {"variant-row":"Вариант виджета: Int или Double, RGB или RGBA, Lines или Histogram. Выберите перед размещением; позднее сменить вариант нельзя.","name-row":"Имя элемента. У виджета используется в экспортируемом скрипте для переменных состояния и скрытого идентификатора ImGui. При настройке нового виджета задаётся автоматически. `state.<name>_…` `##<name>`","parent-row":"Контейнеры, содержащие этот элемент, начиная с внешнего. Перетащите элемент в контейнер или за его пределы, чтобы изменить вложенность.","label-row":"Видимый текст: подпись виджета либо текст графического объекта. Дважды щёлкните по тексту, прямоугольнику или окружности на холсте для изменения на месте.","hint-row":"Серый замещающий текст, пока поле пусто. `InputTextWithHint`","value-row":"Текст значения в поле; подпись располагается справа. `LabelText`","url-row":"Адрес, открываемый браузером при нажатии на ссылку. `TextLinkOpenURL`","direction-row":"Направление стрелки. `ArrowButton` `Dir_Left` `Right` `Up` `Down`","component-count-row":"Количество значений, редактируемых рядом (1–4), например X/Y или XYZ. Для 2–4 компонентов используется соответствующая функция ImGui. `SliderInt3`","array-size-row":"Количество редактируемых значений (2–64) в одном массиве. `reaper_array` `SliderDoubleN` `DragDoubleN` `InputDoubleN`","min-row":"Нижняя граница значения. Перетаскивание ограничено ею, но ввод через Ctrl+щелчок может выйти за границу без флага Clamp. `v_min`","max-row":"Верхняя граница значения. Перетаскивание ограничено ею, но ввод через Ctrl+щелчок может выйти за границу без флага Clamp. `v_max`","speed-row":"Скорость изменения при перетаскивании в расчёте на пиксель движения мыши. При 0.2 для изменения на единицу требуется 5 пикселей. `v_speed`","step-row":"Шаг кнопок − / +. Значение 0 скрывает кнопки. `step`","step-fast-row":"Ускоренный шаг кнопок − / + при удержании Ctrl. Значение 0 означает обычный шаг. `step_fast`","format-row":"Формат отображения в стиле printf, например %.2f dB или %d%%. Также определяет точность редактирования. Пустое поле — формат по умолчанию. `%.2f dB` `%d%%`","format-min-row":"Формат отображения нижней границы, например Min: %d. `Min: %d` `format`","format-max-row":"Формат отображения верхней границы, например Max: %d. `Max: %d` `format_max`","numeric-flags-row":"Дополнительные параметры поведения числового поля или ползунка. `SliderFlags_*`","numeric-flags:AlwaysClamp":"Ограничить: значение, введённое через Ctrl+щелчок, также удерживается в пределах минимума и максимума. `SliderFlags_AlwaysClamp`","numeric-flags:Logarithmic":"Логарифмическая шкала с повышенной точностью на нижнем участке. `SliderFlags_Logarithmic`","numeric-flags:NoInput":"Отключает ввод значения через Ctrl+щелчок и клавишу Enter. `SliderFlags_NoInput`","numeric-flags:WrapAround":"Циклический переход с максимума на минимум и обратно при перетаскивании. Только для числовых полей Drag. `SliderFlags_WrapAround`","tooltip-row":"Текст подсказки в REAPER при наведении на виджет. Пустое поле — без подсказки. `SetItemTooltip`","bullet-row":"Добавляет маркер слева от виджета, не перемещая сам виджет. `DrawList_AddCircleFilled`","bullet-row:tree":"Показывает маркер вместо стрелки сворачивания. Узел по-прежнему можно раскрывать и сворачивать. `TreeNodeFlags_Bullet`","highlight-row":"Подсвечивает строку так, как при наведении указателя. `SelectableFlags_Highlight`","sr-disabled-row":"Делает содержимое области неактивным и блокирует ввод. `BeginDisabled` `EndDisabled`","tree-lines-row":"Направляющие линии от узла к дочерним узлам.","tree-lines:none":"Нет: направляющие линии отсутствуют (по умолчанию).","tree-lines:full":"Полные: линии соединяют дочерние узлы; вертикальная линия тянется до конца содержимого. `TreeNodeFlags_DrawLinesFull`","tree-lines:toNodes":"До узлов: линии соединяют дочерние узлы; вертикальная линия заканчивается на последнем дочернем узле. `TreeNodeFlags_DrawLinesToNodes`","tab-button-row":"Добавляет на одном из краёв панели вкладок кнопку (например, «+»), которую нельзя выбрать как вкладку. `TabItemButton`","tab-button:none":"Кнопка вкладки отсутствует (по умолчанию).","tab-button:leading":"В начале панели вкладок, слева. `TabItemFlags_Leading`","tab-button:trailing":"В конце панели вкладок, справа. `TabItemFlags_Trailing`","tab-button-label-row":"Текст кнопки на панели вкладок. Доступен при положении «В начале» или «В конце».","text-tone-row":"Цвет текста с переносом. «Авто» использует цвет темы, «Тёмный» и «Светлый» фиксируют цвет. `PushStyleColor(Col_Text)`","panel-bordered-row":"Рисует рамку вокруг панели и добавляет внутренние отступы. `ChildFlags_Borders`","panel-hscroll-row":"Показывает горизонтальную полосу прокрутки, когда содержимое шире панели. `WindowFlags_HorizontalScrollbar`","sr-text-row":"Цвет текста внутри области. Включается отдельным флажком. `PushStyleColor(Col_Text)`","sr-framebg-row":"Цвет фона полей ввода, ползунков и флажков внутри области. Включается отдельным флажком. `Col_FrameBg`","sr-button-row":"Цвет кнопок внутри области. Включается отдельным флажком. `Col_Button`","sr-rounding-row":"Радиус скругления рамок и кнопок внутри области в пикселях. Включается отдельным флажком. `StyleVar_FrameRounding`","sr-framepad-row":"Внутренние отступы между рамкой элемента и текстом по X и Y, в пикселях. В REAPER меняют высоту стандартных элементов управления. `StyleVar_FramePadding`","sr-selalign-row":"Положение текста Selectable внутри области по X и Y: от 0 (лево/верх) до 1 (право/низ). `StyleVar_SelectableTextAlign`","sr-font-row":"Гарнитура, размер и полужирное/курсивное начертание текста внутри области. Включается отдельным флажком. `CreateFont` `PushFont`","color-row":"Начальный цвет ColorEdit/ColorPicker, образец ColorButton или цвет текста TextColored.","color-alpha-row":"Прозрачность цвета: от 0 (прозрачный) до 255 (непрозрачный).","color-flags-row":"Параметры цветового виджета. В сегментированных группах можно выбрать только один вариант. `ColorEditFlags_*`","overlay-row":"Текст поверх индикатора выполнения или графика. По умолчанию ProgressBar показывает процент (кроме анимации), график — ничего. `overlay`","indeterminate-row":"Анимирует индикатор туда и обратно вместо фиксированного уровня. Экспортирует отрицательную долю. `-1.0 * GetTime()`","input-flags-row":"Параметры поведения текстового поля. Флаги Callback определяют события запуска обработчика EEL2. `InputTextFlags_*`","eel-callback-row":"Код EEL2, выполняемый при отмеченных выше событиях; компилируется один раз при запуске. Без выбранного события не запускается. `CreateFunctionFromEEL`","radio-group-row":"Переключатели с одинаковой группой используют одну переменную: выбор одного снимает выбор остальных.","radio-value-row":"Число, записываемое выбранным переключателем в переменную группы. `RadioButtonEx`","flag-group-row":"Флажки группы используют одно целое число; каждый переключает собственный бит. `CheckboxFlags`","flag-bit-row":"Номер переключаемого бита (0–30) общего целого числа. `1<<bit`","plot-values-row":"Значения графика через запятую (1–64 числа). Пустое поле — демонстрационные данные.","plot-scale-min-row":"Нижняя граница шкалы графика. Пустое поле — минимальное значение данных. `scale_min`","plot-scale-max-row":"Верхняя граница шкалы графика. Пустое поле — максимальное значение данных. `scale_max`","p-align":"Горизонтальное выравнивание текста внутри области.","p-text-size":"Размер шрифта в пикселях. `DrawList_AddTextEx`","text-valign-row":"Вертикальное расположение строк текста: сверху, по центру или снизу. Не помещающиеся строки могут выйти за границу объекта.","fill-stroke-section":"Цвет заливки и обводки фигуры. Хотя бы один вариант должен быть включён.","fill-color-row":"Цвет заливки фигуры.","fill-none-label":"Без заливки: рисуется только обводка. Обводка должна быть включена.","stroke-color-row":"Цвет обводки фигуры.","stroke-none-label":"Без обводки: рисуется только заливка. Заливка должна быть включена.","rounding-row":"Радиус скругления углов прямоугольника в пикселях. `DrawList_AddRect` `AddRectFilled`","thickness-row":"Толщина обводки или линии в пикселях.","opacity-row":"Общая прозрачность фигуры: 0 — невидима, 255 — непрозрачна. Применяется к заливке, обводке и тексту.","text-color-row":"Цвет текстового объекта.","hdr-color-mode-row":"Цвет подписи узла. По умолчанию выбирается контрастный чёрный или белый; «Пользовательский» использует цвет ниже. `PushStyleColor(Col_Text)`","hdr-color-row":"Пользовательский цвет подписи.","orient-row":"Направление вершины треугольника.","arc-angles-row":"Начальный и конечный углы дуги в градусах. 0° направлен вправо, дуга идёт по часовой стрелке. При одинаковых углах дуга не рисуется. `DrawList_PathArcTo`","arc-link-btn":"Связать: изменение одного угла сдвигает другой на столько же, сохраняя длину дуги.","arc-mode-row":"Режим дуги: «Кольцо» — только криволинейная линия; «Сектор» — закрашенный сегмент из центра.","arc-mode:ring":"Кольцо: только криволинейная линия. `PathArcTo` `PathStroke`","arc-mode:pie":"Сектор: закрашенный сегмент из центра с обводкой. До 180° — выпуклый, свыше 180° — вогнутый; полный оборот — окружность. `PathFillConvex` `PathFillConcave`","xy-section":"Координаты верхнего левого угла элемента в пикселях относительно области содержимого окна. В ячейке таблицы положение задаёт таблица; изменить его нельзя.","wh-section":"Ширина и высота в пикселях. У некоторых виджетов размер задаёт ImGui, а у ячеек таблицы — сама таблица.","primitive-reorder-section":"Порядок отрисовки фигур: на задний план, на шаг назад, на шаг вперёд, на передний план. Экспорт сохраняет этот порядок.","pending-reset":"Сбрасывает настройки размещаемого виджета к значениям по умолчанию.","tabs-list-row":"Вкладки панели по порядку. Выберите строку, чтобы открыть вкладку на холсте.","tabs:label":"Подпись вкладки. `BeginTabItem`","tabs:delete":"Удаляет вкладку со всем содержимым. В панели всегда остаётся хотя бы одна вкладка.","tabs-add-btn":"Добавляет вкладку в конец панели.","table-inspector-row":"Столбцы, строки и параметры таблицы.","table:columns":"Число столбцов (1–16). При удалении столбцов с виджетами программа предложит выбрать действие.","table:rows":"Число строк (1–16). При удалении строк с виджетами программа предложит выбрать действие.","table:col-label":"Название столбца в строке заголовков. `TableSetupColumn`","table:col-sizing":"Ширина столбца: Auto — по правилам таблицы; Fix — фиксированная в пикселях; Str — растягивается с заданным весом. `TableColumnFlags_WidthFixed` `WidthStretch`","table:col-value":"Ширина в пикселях для Fix или относительный вес для Str. 0 — значение определяет ImGui.","table:col-angled":"Наклонный заголовок в дополнительной строке. Требуется строка заголовков. `TableColumnFlags_AngledHeader`","table:row-height":"Высота строки в пикселях. Пустое поле или 0 — автоматически. `TableNextRow`","table:headers-row":"Добавляет строку заголовков с названиями столбцов. `TableHeadersRow`","table:flag:Borders":"Рисует внутренние и внешние границы таблицы. `TableFlags_Borders`","table:flag:RowBg":"Чередует цвета фона строк. `TableFlags_RowBg`","table:flag:Resizable":"Разрешает изменять ширину столбцов перетаскиванием границ. `TableFlags_Resizable`","table:flag:ScrollY":"Таблица сохраняет высоту; строки прокручиваются внутри. `TableFlags_ScrollY`","table:sizing:SizingFixedFit":"По умолчанию столбцы имеют фиксированную ширину по содержимому. `TableFlags_SizingFixedFit`","table:sizing:SizingStretchSame":"По умолчанию столбцы равномерно растягиваются на доступную ширину. `TableFlags_SizingStretchSame`","table:freeze":"Закрепляет строку заголовков при вертикальной прокрутке. Нужны строка заголовков и ScrollY. `TableSetupScrollFreeze`","table:scroll-rows":"Дополнительные строки после размещённых вручную (0 — нет). В экспорт добавляется цикл для заполнения данными. Требуется ScrollY.","table:rows-fill":"Созданные вручную строки сохраняют высоту, а свободная область снизу остаётся пустой. При большем числе строк появляется прокрутка. Требуется ScrollY.","table:cell-padding":"Отступы между границей ячейки и содержимым. По умолчанию ImGui: 4 × 2. Увеличение Y повышает строки в REAPER. ⟲ сбрасывает. `StyleVar_CellPadding`","checkbox-style-row":"Вид флажка и область нажатия. При отключении используется стандартный Checkbox ImGui высотой в строку текста. `ImGui_Checkbox`","cb:custom":"Рисовать флажок самостоятельно: размер, граница, цвета и область нажатия настраиваются отдельно. Экспорт использует DrawList и прежнюю переменную состояния. При отключении — стандартный флажок ImGui. `state.<name>_checked`","cb:size":"Размер квадрата в пикселях (6–64). Размер стандартного флажка зависит от высоты строки; пользовательский имеет указанный размер.","cb:mark":"Вид установленного флажка: галочка ImGui или закрашенный квадрат. × использует цвет галочки из темы. `Col_CheckMark`","cb:bg":"Заливка квадрата. × использует цвет поля из темы. `Col_FrameBg`","cb:border":"Граница квадрата толщиной 1 пиксель и её цвет. × использует цвет границы из темы. `Col_Border`","cb:checked":"Установить флажок при запуске. Предпросмотр показывает метку, а экспорт задаёт исходное состояние true. `state.<name>_checked = true`","cb:hit":"Область нажатия: только квадрат, вся строка таблицы или расширенная по горизонтали область. Она не часть квадрата: другие объекты могут её перекрывать и сохраняют собственные нажатия в REAPER. `Selectable` `SpanAllColumns` `AllowOverlap`","cb:hit-extend":"Расширение области нажатия влево и вправо от квадрата, в пикселях.","cb:hover":"Подсветка строки при наведении указателя. × использует цвет темы. Отключено — без подсветки. `Col_HeaderHovered`","table:row-bg":"Цвет фона строки таблицы; × сбрасывает его. `TableSetBgColor(TableBgTarget_RowBg0)`","table:highlight":"Цвет подсветки любой строки во время работы скрипта. Задайте соответствующий флаг состояния для строки (нумерация от 1). Отмеченные строки видны в предпросмотре и экспорте. `state.<name>_highlight[row] = true` `TableSetBgColor(TableBgTarget_RowBg1)`","color-flag:NoAlpha":"Не учитывать альфа-канал цвета. `ColorEditFlags_NoAlpha`","color-flag:NoPicker":"Нажатие на образец цвета не открывает палитру. `ColorEditFlags_NoPicker`","color-flag:NoInputs":"Скрывает числовые поля, оставляя только образец цвета. `ColorEditFlags_NoInputs`","color-flag:NoTooltip":"Отключает подсказку при наведении на образец. `ColorEditFlags_NoTooltip`","color-flag:NoLabel":"Скрывает подпись рядом с элементом, но оставляет её в подсказке и палитре. `ColorEditFlags_NoLabel`","color-flag:NoSidePreview":"Заменяет большой образец рядом с палитрой на маленький квадрат, чтобы палитра помещалась в поле. `ColorEditFlags_NoSidePreview`","color-flag:NoSmallPreview":"Скрывает маленький образец цвета рядом с полями. `ColorEditFlags_NoSmallPreview`","color-flag:NoOptions":"Запрещает открытие меню настроек правой кнопкой мыши. `ColorEditFlags_NoOptions`","color-flag:NoDragDrop":"Отключает перетаскивание цвета на элемент и с него. `ColorEditFlags_NoDragDrop`","color-flag:NoBorder":"Убирает границу кнопки. `ColorEditFlags_NoBorder`","color-flag:DisplayRGB":"Показывает значения как R, G, B. `ColorEditFlags_DisplayRGB`","color-flag:DisplayHSV":"Показывает значения как H, S, V. `ColorEditFlags_DisplayHSV`","color-flag:DisplayHex":"Показывает цвет в шестнадцатеричном формате. `ColorEditFlags_DisplayHex`","color-flag:Uint8":"Показывает значения в диапазоне 0–255. `ColorEditFlags_Uint8`","color-flag:Float":"Показывает значения в диапазоне 0.0–1.0. `ColorEditFlags_Float`","color-flag:InputRGB":"Скрипт читает и записывает цвет в формате RGB. `ColorEditFlags_InputRGB`","color-flag:InputHSV":"Скрипт читает и записывает цвет в формате HSV. `ColorEditFlags_InputHSV`","color-flag:PickerHueBar":"Палитра с полосой оттенка и квадратом насыщенности/яркости. `ColorEditFlags_PickerHueBar`","color-flag:PickerHueWheel":"Палитра с цветовым кругом и треугольником насыщенности/яркости. `ColorEditFlags_PickerHueWheel`","color-flag:AlphaBar":"Добавляет в палитру вертикальную шкалу альфа-канала. `ColorEditFlags_AlphaBar`","color-flag:AlphaPreviewHalf":"Половина образца непрозрачна, другая половина прозрачна. `ColorEditFlags_AlphaPreviewHalf`","color-flag:AlphaNoBg":"Убирает шахматный фон за прозрачным цветом. `ColorEditFlags_AlphaNoBg`","color-flag:AlphaOpaque":"Предпросмотр игнорирует альфа-канал, но его можно редактировать. `ColorEditFlags_AlphaOpaque`","input-flag:ReadOnly":"Текст можно выделять и копировать, но нельзя изменять. `InputTextFlags_ReadOnly`","input-flag:Password":"Показывает символы как * и запрещает копирование. `InputTextFlags_Password`","input-flag:CharsDecimal":"Принимает только 0–9 . + - * /. `InputTextFlags_CharsDecimal`","input-flag:CharsHexadecimal":"Принимает только 0–9 и A–F. `InputTextFlags_CharsHexadecimal`","input-flag:EnterReturnsTrue":"Функция сообщает об изменении только при нажатии Enter, а не на каждом вводимом символе. `InputTextFlags_EnterReturnsTrue`","input-flag:AllowTabInput":"Клавиша Tab вставляет символ табуляции вместо перехода к следующему полю. `InputTextFlags_AllowTabInput`","input-flag:CtrlEnterForNewLine":"Enter подтверждает ввод, Ctrl+Enter добавляет новую строку (по умолчанию наоборот). `InputTextFlags_CtrlEnterForNewLine`","input-flag:CallbackEdit":"Вызывает обработчик EEL2 при каждом изменении текста. `InputTextFlags_CallbackEdit`","input-flag:CallbackAlways":"Вызывает обработчик EEL2 каждый кадр, пока поле активно. `InputTextFlags_CallbackAlways`","input-flag:CallbackCharFilter":"Вызывает обработчик EEL2 при вводе каждого символа; обработчик может заменить или отклонить его. `InputTextFlags_CallbackCharFilter`","input-flag:CallbackCompletion":"Вызывает обработчик EEL2 при нажатии Tab, например для автодополнения. `InputTextFlags_CallbackCompletion`","input-flag:CallbackHistory":"Вызывает обработчик EEL2 при нажатии стрелок вверх/вниз, например для истории ввода. `InputTextFlags_CallbackHistory`","me-move":"Перемещает все выделенные элементы на ΔX / ΔY пикселей; при привязке значения округляются до шага сетки. Одна операция отмены. Enter в поле тоже перемещает.","cw":"Ширина области содержимого окна плагина в пикселях. В экспорте — W. `W`","ch":"Высота области содержимого окна плагина под строкой заголовка и меню, в пикселях. В экспорте — H. `H`","bg-mode-default":"По умолчанию: собственный фон не экспортируется, используется цвет окна из темы.","bg-mode-custom":"Пользовательский: экспорт заливает окно указанным ниже цветом. `PushStyleColor(Col_WindowBg)`","grid-toggle-btn":"Показать или скрыть сетку редактора. Только в билдере, не влияет на экспорт.","audit-grid-btn":"Добавляет контрольную сетку в экспортируемый интерфейс для проверки выравнивания в REAPER. Перед выпуском отключите.","cp-sv":"Выбрать насыщенность и яркость цвета фона. Выбор переключает фон в пользовательский режим.","cp-hue":"Выбрать оттенок фона. Выбор переключает фон в пользовательский режим.","cp-cur":"Текущий цвет фона.","cp-eye":"Взять цвет в любой точке экрана.","cp-recents":"Недавно использованные цвета; нажмите для повторного выбора.","bg-alpha":"Смешивает цвет фона с белым. В экспорт передаётся итоговый непрозрачный цвет.","snap-toggle-btn":"Привязка размещения, перемещения и изменения размеров к шагу сетки. Только в билдере, не влияет на экспорт.","grid-step-seg":"Шаг сетки редактора и привязки в пикселях. Только в билдере, не влияет на экспорт.","bg-color-field":"Цвет фона в шестнадцатеричном формате (#RRGGBB). В режиме «По умолчанию» обозначает тему, определяющую фон.","titlebar-option":"Цвета строки заголовка экспортируемого окна. Не действует с темой Default (неактивно).","titlebar-mode-default":"По умолчанию ImGui: собственные цвета строки заголовка.","titlebar-mode-theme":"Цвета темы: строка заголовка использует цвета заданной темы. `Col_TitleBg` `Col_TitleBgActive`","mbx-add-menu":"Добавляет меню в строку меню окна, не меняя размер холста. `BeginMenuBar` `BeginMenu`","mbx:label":"Текст, показываемый для пункта меню.","mbx:name":"Уникальный идентификатор пункта в экспортируемом скрипте: скрытый ID ImGui и, при наличии флажка, переменная состояния. `##<name>` `state.<name>_checked`","mbx:shortcut":"Текст сочетания клавиш справа от пункта. Только отображение: ImGui не обрабатывает его автоматически. `MenuItem`","mbx:enabled":"При выключении пункт становится неактивным и не реагирует на нажатие. `MenuItem` `BeginMenu` `enabled`","mbx:checked":"Установлен ли флажок пункта при запуске экспортированного скрипта.","mbx:add-item":"Добавляет обычный пункт после выделенного или внутри выбранного меню. `MenuItem`","mbx:add-check":"Добавляет пункт с флажком, переключаемым нажатием. `MenuItem` `selected`","mbx:add-separator":"Добавляет разделительную линию. `Separator`","mbx:add-submenu":"Добавляет подменю. Максимальная глубина вложенности — 4 уровня. `BeginMenu`","mbx:up":"Перемещает пункт выше в текущем меню.","mbx:down":"Перемещает пункт ниже в текущем меню.","mbx:delete":"Удаляет пункт. Удаление меню также удаляет всё его содержимое.","del-btn":"Удаляет выделенный объект (также клавиша Delete). Для контейнера с виджетами предлагается сохранить содержимое. Удаление можно отменить.","me-delete":"Удаляет все выделенные объекты (также клавиша Delete). Для контейнеров с виджетами предлагается сохранить содержимое. Удаление можно отменить.","group-btn":"Объединяет выделенные объекты в группу: выделение одного выбирает всю группу, перемещение выполняется совместно. Только для редактора, не экспортируется.","ungroup-btn":"Расформировывает группу, оставляя элементы на прежних местах.","group-select-btn":"Добавляет остальные объекты этой группы к выделению.","editor-group-name-row":"Имя группы в списке «Элементы». Используется только редактором, не экспортируется.","window-resize-section":"Разрешение менять размер экспортируемого окна в REAPER и пределы изменения. В базовом режиме показывается краткая сводка.","wr-toggle":"Разрешает изменять размер экспортируемого окна в REAPER; объекты с привязками следуют за его границами. Выключено — фиксированный размер. `SetNextWindowSizeConstraints`","wr-min-w":"Минимальная ширина содержимого окна в пикселях: от 64 до ширины холста. Пустое поле — ширина холста. `SetNextWindowSizeConstraints`","wr-min-h":"Минимальная высота содержимого окна в пикселях (без заголовка и меню): от 64 до высоты холста. Пустое поле — высота холста.","wr-max-w":"Максимальная ширина содержимого окна в пикселях: не меньше ширины холста. Пустое поле — без ограничения. `SetNextWindowSizeConstraints`","wr-max-h":"Максимальная высота содержимого окна в пикселях: не меньше высоты холста. Пустое поле — без ограничения.","wr-basic-summary":"Размер окна можно изменять: диапазон ширины × диапазон высоты в пикселях (∞ — без ограничения). Изменение доступно в расширенном режиме.","pin-grid":"Готовые варианты привязки по двум осям: к углам, к краям или к центру родительского контейнера. Растяжение задаётся ниже.","pin-h:left":"Слева: сохраняет расстояние до левого края родителя (по умолчанию).","pin-h:right":"Справа: сохраняет расстояние до правого края при изменении ширины окна.","pin-h:center":"По центру: объект остаётся по центру родителя по горизонтали.","pin-h:stretch":"Слева и справа: сохраняет отступы от обоих краёв; ширина растёт и уменьшается вместе с родителем.","pin-h:stretch-off":"Растяжение по ширине для этого объекта недоступно: ширину задают ImGui, текст или связанные размеры.","pin-v:top":"Сверху: сохраняет расстояние до верхнего края родителя (по умолчанию).","pin-v:bottom":"Снизу: сохраняет расстояние до нижнего края при изменении высоты окна.","pin-v:center":"По центру: объект остаётся по центру родителя по вертикали.","pin-v:stretch":"Сверху и снизу: сохраняет отступы от обоих краёв; высота меняется вместе с родителем.","pin-v:stretch-off":"Растяжение по высоте для этого объекта недоступно: высоту задают ImGui или содержимое.","pin-grid:in-cell":"В ячейке таблицы привязки действуют относительно ячейки. Ячейка растягиваемого столбца увеличивается вместе с ним.","pin-make-resizable":"Включает «Изменяемый размер окна» на вкладке «Холст». Все привязки сохраняются и без этого режима.","constraints-basic-row":"К каким краям родителя привязан объект при изменении размера окна. Редактируется в расширенном режиме.","basic-edit-advanced":"Переключает билдер в расширенный режим для редактирования скрытых параметров. Проект и экспорт не изменяются."};
     const WIDGETS = {"Button":{"what":"Кнопка, которая выполняет действие при нажатии.","use":"Для запуска команд: рендеринга, применения настроек, сброса или операции скрипта."},"SmallButton":{"what":"Компактная кнопка с уменьшенными отступами.","use":"Для дополнительных действий в условиях ограниченного пространства."},"InvisibleButton":{"what":"Невидимая в готовом интерфейсе область, реагирующая на нажатия.","use":"Для обработки щелчков по собственным графическим элементам."},"ArrowButton":{"what":"Небольшая квадратная кнопка со стрелкой.","use":"Для пошагового изменения значений и сворачивания разделов."},"Checkbox":{"what":"Флажок с подписью для включения и отключения параметра. Пользовательский стиль позволяет менять размер, границы и цвета, а также расширять область нажатия до строки таблицы.","use":"Для параметров «включено/выключено»: активации, приглушения, цикла или обхода эффекта."},"RadioButtonEx":{"what":"Группа взаимоисключающих переключателей: активен только один.","use":"Для выбора одного режима из небольшого набора вариантов."},"CheckboxFlags":{"what":"Флажок, переключающий отдельный бит общего целого числа.","use":"Для групп параметров, хранящихся как битовые флаги."},"Text":{"what":"Статическая однострочная текстовая надпись.","use":"Для названий полей, подписей и коротких сообщений состояния."},"LabelText":{"what":"Значение только для чтения с подписью справа.","use":"Для отображения значения и подписи в стандартном выравнивании Dear ImGui."},"BulletText":{"what":"Текстовая строка с маркером в начале.","use":"Для простых маркированных списков и заметок."},"TextWrapped":{"what":"Текст, автоматически переносимый по доступной ширине.","use":"Для длинных описаний и справочных абзацев."},"TextColored":{"what":"Текст заданного цвета.","use":"Для предупреждений, состояний и цветовых обозначений."},"TextDisabled":{"what":"Приглушённый текст неактивного элемента.","use":"Для подсказок и подписей недоступных параметров."},"TextLinkOpenURL":{"what":"Подчёркнутая ссылка, открывающая URL в браузере.","use":"Для документации, сайтов и страниц поддержки."},"TextLink":{"what":"Подчёркнутая текстовая ссылка, сообщающая о нажатии.","use":"Для текстовых команд, например «Подробнее». Место для обработчика отмечается при экспорте."},"Separator":{"what":"Тонкая горизонтальная разделительная линия.","use":"Для визуального разделения областей интерфейса."},"SeparatorText":{"what":"Разделительная линия с текстом по центру.","use":"Для заголовков разделов и отделения блоков."},"Slider":{"what":"Горизонтальный ползунок для числового значения.","use":"Для ограниченных диапазоном величин: усиления, баланса или порога."},"VSlider":{"what":"Вертикальный ползунок для числового значения.","use":"Для фейдеров, уровней и вертикальных регуляторов."},"SliderAngle":{"what":"Ползунок угла в градусах.","use":"Для поворота, панорамирования и фазы."},"SliderN":{"what":"Несколько ползунков для многокомпонентного значения.","use":"Для векторов и цветовых каналов, например RGB."},"Drag":{"what":"Числовое поле, изменяемое перетаскиванием влево или вправо.","use":"Для точной настройки значений, которым не нужен ползунок."},"DragN":{"what":"Несколько полей с изменением перетаскиванием.","use":"Для координат и многокомпонентных векторов X/Y/Z."},"DragRange":{"what":"Два связанных поля, задающих минимум и максимум.","use":"Для диапазонов: нижней и верхней границы, начала и конца."},"Input":{"what":"Поле числового ввода с кнопками уменьшения и увеличения.","use":"Для точного ввода целых и дробных чисел."},"InputN":{"what":"Группа числовых полей.","use":"Для точного ввода многокомпонентных значений."},"InputText":{"what":"Однострочное поле ввода текста.","use":"Для имён, путей и коротких текстовых значений."},"InputTextWithHint":{"what":"Текстовое поле с замещающей подсказкой.","use":"Для полей, где полезно показать пример ожидаемого ввода."},"InputTextMultiline":{"what":"Многострочное поле ввода текста.","use":"Для заметок, описаний и объёмных текстовых блоков."},"ProgressBar":{"what":"Горизонтальный индикатор выполнения от 0 до 100 %.","use":"Для отображения хода рендеринга, сканирования или длительной операции."},"Plot":{"what":"Компактный график числовых данных: линия или гистограмма.","use":"Для индикаторов, огибающих и истории значений. При экспорте массив заполняется вашими данными."},"Combo":{"what":"Выпадающий список с отображением выбранного пункта.","use":"Для компактного выбора одного варианта из списка."},"ListBox":{"what":"Список с прокруткой, показывающий несколько строк одновременно.","use":"Когда варианты должны оставаться видимыми без раскрытия списка."},"Selectable":{"what":"Строка во всю ширину, которую можно выделить.","use":"Для пользовательских списков, меню и интерактивных строк."},"ColorEdit":{"what":"Компактный редактор цвета с числовыми каналами RGB(A).","use":"Для точного задания цвета непосредственно в интерфейсе."},"ColorPicker":{"what":"Полный выбор цвета с полем насыщенности и полосой оттенка.","use":"Для визуального выбора цвета."},"ColorButton":{"what":"Небольшая кнопка с образцом цвета.","use":"Для индикации цвета или открытия выбора цвета по нажатию."},"Group":{"what":"Невидимый контейнер, объединяющий дочерние виджеты.","use":"Для совместного выравнивания, размещения и обработки нескольких виджетов."},"StyleRegion":{"what":"Невидимая область, переопределяющая стиль дочерних виджетов: цвета, скругление, выравнивание и шрифт. Сама область не занимает места; верхняя полоса на холсте служит только подписью.","use":"Для изменения оформления группы виджетов, включая гарнитуру, размер и начертание шрифта. Если область перекрыта дочерними объектами, выберите её на свободном участке или в панели «Элементы»."},"CollapsingHeader":{"what":"Заголовок во всю ширину, сворачивающий и разворачивающий содержимое.","use":"Для разделов с дополнительными и расширенными настройками."},"TreeNode":{"what":"Разворачиваемый узел с вложенными элементами.","use":"Для иерархий папок, дорожек и параметров."},"TabBar":{"what":"Панель вкладок, переключающая страницы содержимого.","use":"Для разделения интерфейса на вкладки, например «Главная / FX / MIDI»."},"Table":{"what":"Таблица строк и столбцов, содержащая другие виджеты.","use":"Для выровненных макетов, матриц и табличных данных."},"HelpMarker":{"what":"Значок вопроса, показывающий подсказку при наведении.","use":"Для пояснения элементов управления без перегрузки интерфейса."},"Panel":{"what":"Панель с границей, содержащая виджеты и поддерживающая прокрутку.","use":"Для боковых панелей, блоков настроек и списков."}};
     const DRAWS = {"rect":{"what":"Прямоугольник с заливкой или обводкой, отрисованный через DrawList.","use":"Для панелей, фонов, рамок и шкал индикаторов."},"circle":{"what":"Окружность с заливкой или обводкой.","use":"Для индикаторов, ручек управления и сигнальных точек."},"poly":{"what":"Произвольный многоугольник, заданный вершинами.","use":"Для пользовательских форм, меток и указателей."},"line":{"what":"Прямой отрезок между двумя точками.","use":"Для разделителей, соединений и осей графика."},"text":{"what":"Текст с произвольным расположением в DrawList.","use":"Для надписей с точным положением."},"triangle":{"what":"Треугольник с заливкой или обводкой.","use":"Для стрелок, значков воспроизведения и указателей."},"arc":{"what":"Дуговой сегмент окружности.","use":"Для круговых шкал, регуляторов и индикаторов."}};
@@ -2772,6 +2775,8 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
     // Entries added after the Russian branch was cut (dev.3): File > Language (dev.6) and the dev.4 / dev.5 additions
     // (checkbox row highlight, text-input frame border, hit-area choice, the new Preflight note). Merged over the table above.
     const UI_ADDED = {
+      "Failed to read project: The selected file could not be read.":"Не удалось прочитать проект: Не удалось прочитать выбранный файл.",
+      "Show more issues":"Показать ещё",
       "Language":"Язык",
       "Highlight row when checked":"Подсвечивать строку, когда флажок установлен",
       "Checked-row colour":"Цвет строки с установленным флажком",
@@ -2789,6 +2794,7 @@ html[lang="ru"] #tree-lines-row .dir-row.seg .dir-btn {white-space:normal;line-h
       "Move it into a table cell, or turn the option off.":"Переместите его в ячейку таблицы или отключите параметр."
     };
     Object.assign(UI, UI_ADDED);
+    PATTERNS.push([/^Failed to read project:/,'Не удалось прочитать проект:']);
     const HINTS_ADDED = {
       "cb:hit":"Область нажатия: только квадрат, вся строка таблицы (доступна, когда флажок находится в ячейке таблицы) или расширенная по горизонтали область. Она не часть квадрата: другие объекты могут её перекрывать и сохраняют собственные нажатия в REAPER. `Selectable` `SpanAllColumns` `AllowOverlap`",
       "frame-border-row":"Граница вокруг поля ввода: толщина и цвет. Выключено — как в теме (без границы). `PushStyleVar(StyleVar_FrameBorderSize)` `PushStyleColor(Col_Border)`",
@@ -3113,7 +3119,7 @@ const rulerHCtx = rulerHEl ? rulerHEl.getContext('2d') : null;
 const rulerVCtx = rulerVEl ? rulerVEl.getContext('2d') : null;
 const canvasAreaEl = document.getElementById('canvas-area');
 // Single source of truth for the semantic release version. Bump this line only.
-const BUILD_VERSION='2.2.0';
+const BUILD_VERSION='2.2.3';
 // Online user manual (English page; it links to the Russian version itself).
 // Paste the full https:// address between the quotes. Empty string hides Help > User Manual.
 const MANUAL_URL='https://reauibuilder.patch34.workers.dev/ReaUI_Builder_Manual_en';
@@ -3970,7 +3976,18 @@ function adaptiveCellCoeffsIn(s, byId, memo){
   return r;
 }
 // R(v) = floor(v + 0.5): JS Math.floor and Lua math.floor agree on every integer d (AD5).
-function adaptiveRound(v){ return Math.floor(v + 0.5); }
+const adaptiveFloor=Math.floor;
+function adaptiveRound(v){ return adaptiveFloor(v + 0.5); }
+// Shared cell-local arithmetic for Preview and the preflight interval resolver.
+function resolveAdaptiveCellBox(s,cell,offset,k,delta){
+  // C07: a fixed axis is overwhelmingly common while scanning the other one.
+  // Coefficients are finite contract values; retain the original arithmetic
+  // when the cell changes on that axis, including fractional cell deltas.
+  const fixedW=delta.dw===0,fixedH=delta.dh===0;
+  return {x:cell.x+offset.x+(fixedW?0:adaptiveFloor(k.kx*delta.dw+0.5)),
+    y:cell.y+offset.y+(fixedH?0:adaptiveFloor(k.ky*delta.dh+0.5)),
+    w:s.w+(fixedW?0:adaptiveFloor(k.kw*delta.dw+0.5)),h:s.h+(fixedH?0:adaptiveFloor(k.kh*delta.dh+0.5))};
+}
 // Resolved geometry of the whole scene for a canvas of CW x CH (design = cw x ch):
 // parent-relative x / y (what s.x / s.y mean) plus w / h. Never mutates shapes.
 // Absolute x' = absX + R(kx*dW); parent-relative = x' - parent's resolved absolute x. As
@@ -3980,24 +3997,32 @@ function adaptiveRound(v){ return Math.floor(v + 0.5); }
 // a cell is placed from the cell's resolved rect plus R(k*dWc) / R(k*dHc), with its
 // cell-relative coefficients (adaptiveCellCoeffsIn) and the cell's own size change
 // dWc = colW'(c) - colW(c), dHc = rowH'(r) - rowH(r).
-function resolveAdaptiveView(CW, CH){
+// 2.2.3-dev.1 (audit 2.2.2 F02): opts.absolute returns the ABSOLUTE boxes {x, y, w, h} instead
+// (Preflight measures shapes inside table cells on exactly the geometry Preview draws).
+function resolveAdaptiveView(CW, CH, opts){
   const dW = Math.floor(CW) - cw, dH = Math.floor(CH) - ch;
-  const byId = new Map(shapes.map(q => [q.id, q]));
-  const memo = new Map(), cellMemo = new Map(), abs = new Map(), cellDelta = new Map(), out = new Map();
+  // C02: Preflight may resolve many sizes of the same immutable scene. Its private
+  // context reuses identity, coefficients and design positions, never resolved boxes.
+  const context=opts&&opts.context;
+  const byId = context?context.byId:new Map(shapes.map(q => [q.id, q]));
+  const memo = context?context.memo:new Map(), cellMemo = context?context.cellMemo:new Map();
+  const abs = new Map(), cellDelta = new Map(), out = new Map(), tableLayouts=new Map();
+  const design=s=>context?context.design.get(s.id):{x:getAbsoluteX(s),y:getAbsoluteY(s)};
   // Resolved ABSOLUTE box of s (x, y absolute; w, h size). The design absolute box is the start.
   const absOf = s => {
     let r = abs.get(s.id);
     if(r) return r;
-    const ax = getAbsoluteX(s), ay = getAbsoluteY(s);
+    const {x:ax,y:ay}=design(s);
     abs.set(s.id, {x:ax, y:ay, w:s.w, h:s.h});   // cycle guard: a cyclic chain resolves as static
     const parent = s.parentId ? (byId.get(s.parentId) || null) : null;
     if(s.type === 'widget' && s.widgetType === 'TableCell' && parent && parent.type === 'widget' && parent.widgetType === 'Table'){
       const t = absOf(parent);
       if(t.w === parent.w && t.h === parent.h){
-        r = {x:t.x + (ax - getAbsoluteX(parent)), y:t.y + (ay - getAbsoluteY(parent)), w:s.w, h:s.h};
+        const p=design(parent);
+        r = {x:t.x + (ax - p.x), y:t.y + (ay - p.y), w:s.w, h:s.h};
       } else {
-        const rect = computeTableCellRect({...parent, w:t.w, h:t.h}, s.tableRow, s.tableCol);
-        const des = computeTableCellRect(parent, s.tableRow, s.tableCol);
+        const rect = computeTableCellRect({...parent, w:t.w, h:t.h}, s.tableRow, s.tableCol,tableLayouts);
+        const des = computeTableCellRect(parent, s.tableRow, s.tableCol,tableLayouts);
         cellDelta.set(s.id, {dw:rect.w - des.w, dh:rect.h - des.h});
         r = {x:t.x + rect.x, y:t.y + rect.y, w:rect.w, h:rect.h};
       }
@@ -4006,12 +4031,8 @@ function resolveAdaptiveView(CW, CH){
       const cell = lk ? byId.get(lk.cellId) : null;
       if(lk && cell){
         const c = absOf(cell), d = cellDelta.get(cell.id) || {dw:0, dh:0};
-        r = {
-          x: c.x + (ax - getAbsoluteX(cell)) + adaptiveRound(lk.kx * d.dw),
-          y: c.y + (ay - getAbsoluteY(cell)) + adaptiveRound(lk.ky * d.dh),
-          w: s.w + adaptiveRound(lk.kw * d.dw),
-          h: s.h + adaptiveRound(lk.kh * d.dh),
-        };
+        const p=design(cell);
+        r=resolveAdaptiveCellBox(s,c,{x:ax-p.x,y:ay-p.y},lk,d);
       } else {
         const k = adaptiveCoeffsIn(s, byId, memo);
         r = {x:ax + adaptiveRound(k.kx * dW), y:ay + adaptiveRound(k.ky * dH),
@@ -4021,6 +4042,7 @@ function resolveAdaptiveView(CW, CH){
     abs.set(s.id, r);
     return r;
   };
+  if(opts && opts.absolute){ for(const s of (opts.targets||shapes)) absOf(s); return abs; }
   for(const s of shapes){
     const r = absOf(s);
     const parent = s.parentId ? (byId.get(s.parentId) || null) : null;
@@ -7740,12 +7762,18 @@ function getTableHeaderBandHeight(t){
 // Relative-to-table rect for cell (r,c). Body sits below the optional column-label
 // band only (c63: the editor strip left the box). Inspector column/row sizing is used
 // directly, so the canvas mirrors the generated table geometry.
-function computeTableCellRect(table, r, c){
-  const band=getTableHeaderBandHeight(table); // 1.5.0: 18 + predicted angled row (angled tables only)
-  const bodyY=band;
-  const bodyH=Math.max(GRID, table.h-bodyY);
-  const cols=getTableColumnLayout(table,table.w);   // 2.1.0-dev.2 (A08 S1): ImGui's columns
-  const heights=getResolvedTableRowHeights(table,bodyH);
+function computeTableCellRect(table, r, c, layoutCache){
+  // C02: one resolver pass visits all cells of a table. Share its column/row
+  // distribution at this exact size; never retain it across scene mutations.
+  const key=layoutCache?table.id+':'+table.w+':'+table.h:null;
+  let layout=layoutCache&&layoutCache.get(key);
+  if(!layout){
+    const bodyY=getTableHeaderBandHeight(table);
+    const bodyH=Math.max(GRID,table.h-bodyY);
+    layout={bodyY,cols:getTableColumnLayout(table,table.w),heights:getResolvedTableRowHeights(table,bodyH)};
+    if(layoutCache)layoutCache.set(key,layout);
+  }
+  const {bodyY,cols,heights}=layout;
   const col=cols[c]||{x:0,w:1};
   const cellY=heights.slice(0,r).reduce((sum,value)=>sum+value,0);
   return {
@@ -9959,9 +9987,8 @@ function uiConfirm(message, onOk, opts){
 // Replacing the canvas destroys unsaved work. A plain "are you sure?" makes the
 // only safe answer Cancel -> save by hand -> start the action again, so the
 // save is offered inline as a third choice instead.
-// Note: the browser's own save dialog can still be dismissed after "Save
-// project", and there is no way to observe that from here — proceeding anyway
-// matches how saveProject() behaves everywhere else in the app.
+// Continue only after a successful save. Download-only browsers retain a local
+// recovery copy because they cannot report whether a requested download completed.
 function uiConfirmDiscard(message, proceed, opts){
   opts=opts||{};
   showDialog({ title:opts.title||'Unsaved work', body:message, buttons:[
@@ -14208,9 +14235,10 @@ const AUTOSAVE = (() => {
   let projectRecoveryId = makeRecoveryId();
   const currentStorageKey = () => STORAGE_PREFIX + projectRecoveryId;
   const liveSessions=new Set([SESSION_ID]);
-  const presenceChannel=typeof BroadcastChannel==='function'
-    ? new BroadcastChannel('reaui_builder_autosave_presence_v1') : null;
-  if(presenceChannel){
+  let presenceChannel=null;
+  function openPresenceChannel(){
+    if(presenceChannel || typeof BroadcastChannel!=='function') return;
+    presenceChannel=new BroadcastChannel('reaui_builder_autosave_presence_v1');
     presenceChannel.addEventListener('message',event=>{
       const msg=event.data||{};
       if(!msg.sessionId||msg.sessionId===SESSION_ID) return;
@@ -14221,6 +14249,7 @@ const AUTOSAVE = (() => {
       }
     });
   }
+  openPresenceChannel();
   const ENVELOPE_VERSION = 1;
   const MODULE_VERSION = 1;
   const SAVE_DELAY_MS = 800;
@@ -14487,7 +14516,15 @@ const AUTOSAVE = (() => {
       if(presenceChannel){
         presenceChannel.postMessage({type:'bye',sessionId:SESSION_ID});
         presenceChannel.close();
+        presenceChannel=null;
       }
+    });
+    // A page restored from the back/forward cache resumes the same module. Its
+    // closed channel must rejoin presence before other tabs offer its live draft.
+    window.addEventListener('pageshow', event => {
+      if(!event.persisted) return;
+      openPresenceChannel();
+      if(presenceChannel) presenceChannel.postMessage({type:'ping',sessionId:SESSION_ID});
     });
     window.addEventListener('beforeunload', event => {
       scanForUncommittedChanges();
@@ -14512,7 +14549,8 @@ const AUTOSAVE = (() => {
     },
     acceptLoadedProject,
     acceptNewProject,
-    hasUnsavedChanges: () => dirty,
+    // New/Open must also see mutations made since the 500 ms safety scan.
+    hasUnsavedChanges: () => {scanForUncommittedChanges();return dirty;},
     // 1.6.0-dev.12: read-only probe for the startup chooser; Restore re-reads on click.
     hasRestorableDrafts: () => readStoredDrafts().some(d=>d.storageKey!==currentStorageKey()),
     hasSafeRecoveryDraft: () => draftSafe,
@@ -14525,6 +14563,25 @@ const AUTOSAVE = (() => {
 let projectFileHandle=null;
 let projectFilename='reaper-ui-project.json';
 let projectDocumentEpoch=0;
+// 2.2.3-dev.2 (audit 2.2.2 F01): a load is a request with an identity. Reading the file is
+// asynchronous after the picker closes, so a slow read could land on a newer document or on
+// edits made in the meantime, reset history and mark the result clean. A result applies only
+// if it is the latest load, the document epoch is unchanged, and the content is still the one
+// the user agreed to replace.
+let projectLoadToken=0;
+function projectContentSnapshot(){
+  try{ return JSON.stringify(serializeProjectCore()); }catch(_){ return null; }
+}
+function beginProjectLoad(){
+  return {token:++projectLoadToken, epoch:projectDocumentEpoch, content:projectContentSnapshot()};
+}
+function projectLoadIsCurrent(req){
+  return req.token===projectLoadToken && req.epoch===projectDocumentEpoch && req.content===projectContentSnapshot();
+}
+function reportStaleProjectLoad(req){
+  if(req.token!==projectLoadToken) return;   // a newer load replaced this one; it reports for itself
+  uiAlert('The project changed while the file was being read, so the file was not opened. Your current project is unchanged.','Load cancelled');
+}
 let projectSavePromise=null;
 const PROJECT_FILE_TYPES=[{description:'ReaUI project',accept:{'application/json':['.json']}}];
 function downloadProjectCopy(filename){
@@ -14583,14 +14640,17 @@ function saveProjectFile(asNew){
   return projectSavePromise;
 }
 async function openProjectWithHandle(replacement={}){
+  const req=beginProjectLoad();   // 2.2.3-dev.2 (F01)
   try{
     const [handle]=await window.showOpenFilePicker({multiple:false,types:PROJECT_FILE_TYPES});
     const file=await handle.getFile(),project=JSON.parse(await file.text());
+    if(!projectLoadIsCurrent(req)){ reportStaleProjectLoad(req); return false; }
     if(applyLoadedProject(project)===false) return false;
     projectFileHandle=handle;projectFilename=handle.name;projectDocumentEpoch++;
     resetHistory();resetZoomToActualSize();AUTOSAVE.acceptLoadedProject(file.name,replacement);
     return true;
   }catch(error){
+    if(req.token!==projectLoadToken) return false;   // superseded: its failure is not news
     if(error.name!=='AbortError') uiAlert('Could not load project: '+error.message,'Load failed');
     return false;
   }
@@ -14603,6 +14663,7 @@ function loadProject(){
 }
 function _loadProjectPick(replacement={}){
   if(typeof window.showOpenFilePicker==='function') return openProjectWithHandle(replacement);
+  const req = beginProjectLoad();   // 2.2.3-dev.2 (F01): same contract as openProjectWithHandle
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = '.json';
@@ -14614,16 +14675,24 @@ function _loadProjectPick(replacement={}){
     reader.onload = (ev) => {
       try {
         const project = JSON.parse(ev.target.result);
+        if(!projectLoadIsCurrent(req)){ reportStaleProjectLoad(req); return; }
         if(applyLoadedProject(project)===false) return;
         resetHistory();
         resetZoomToActualSize();
         projectFileHandle=null;projectFilename=file.name;projectDocumentEpoch++;
         AUTOSAVE.acceptLoadedProject(file.name, replacement); // AUTOSAVE INTEGRATION HOOK
       } catch(err){
+        if(!projectLoadIsCurrent(req)) return;
         uiAlert('Failed to load project: ' + err.message, 'Load failed');
       }
     };
-    reader.readAsText(file);
+    reader.onerror = () => {
+      if(!projectLoadIsCurrent(req)) return;
+      uiAlert('Failed to read project: ' + (reader.error?.message || 'The selected file could not be read.'), 'Load failed');
+    };
+    try{reader.readAsText(file);}catch(err){
+      if(projectLoadIsCurrent(req))uiAlert('Failed to read project: ' + err.message, 'Load failed');
+    }
   };
   document.body.appendChild(input);
   input.click();
@@ -14734,6 +14803,34 @@ function normalizeLoadedPoint(point,shapeIndex,pointIndex){
   return {...point,x,y};
 }
 
+// 2.2.3-dev.3 (C01 / audit F03): import and Preflight share this pure validation
+// boundary. Do not coerce objects or booleans, and never retain settings outside
+// the table grid. A successful result is a fresh, bounded array; callers decide
+// whether to adopt it (import) or only inspect it (Preflight).
+function validateTableColumnConfig(table){
+  const config=table.columnConfig;
+  const fail=(message,columnIndex=null)=>({value:null,problem:{message,columnIndex}});
+  if(config===undefined) return {value:undefined,problem:null};
+  if(!Array.isArray(config)) return fail('columnConfig must be an array.');
+  const count=Number(table.columnCount===undefined?1:table.columnCount);
+  if(!Number.isInteger(count)||count<1||count>16) return fail('Table column count must be an integer from 1 to 16.');
+  if(config.length>count) return fail('columnConfig has '+config.length+' entries for '+count+' columns; the first excess column setting is at index '+count+'.',count);
+  const value=[];
+  for(let i=0;i<config.length;i++){
+    const item=config[i];
+    if(item===null||item===undefined){ value.push(null); continue; }
+    const bad=()=>fail('Invalid column setting at index '+i+': use null or fixed/stretch sizing with a finite, nonnegative number.',i);
+    if(typeof item!=='object'||Array.isArray(item)) return bad();
+    if(item.sizing!=='fixed'&&item.sizing!=='stretch') return bad();
+    const raw=item.value;
+    if(raw!==undefined&&typeof raw!=='number'&&typeof raw!=='string') return bad();
+    const number=raw===undefined?0:Number(raw);
+    if(!Number.isFinite(number)||number<0) return bad();
+    value.push({sizing:item.sizing,value:number});
+  }
+  return {value,problem:null};
+}
+
 function normalizeLoadedShape(raw,index){
   if(!raw || typeof raw!=='object' || Array.isArray(raw)){
     throw new Error('Shape '+(index+1)+' must be an object.');
@@ -14763,6 +14860,16 @@ function normalizeLoadedShape(raw,index){
       if(!Number.isFinite(n)||n<0) throw new Error('Shape '+(index+1)+' has an invalid row height at index '+rowIndex+'.');
       return n;
     });
+  }
+  // 2.2.3-dev.3 (C01): validate before load commits; keep dev.2's numeric-string,
+  // null-entry and omitted-value semantics. Excess entries reject the entire load.
+  if(shape.columnConfig!==undefined){
+    if(shape.widgetType!=='Table') delete shape.columnConfig;
+    else{
+      const config=validateTableColumnConfig(shape);
+      if(config.problem) throw new Error('Shape '+(index+1)+': '+config.problem.message);
+      shape.columnConfig=config.value;
+    }
   }
   // Family/variant are derived data. Never trust display or inspector routing fields
   // supplied by project JSON; rebuild them from the canonical widget type (F01).
@@ -22395,7 +22502,7 @@ function drawWidgetCore(s,pre){
       ctx.fillText(labelText,x,y-2);
     }
   } else if(geo.previewFrameKind==='color-button-square'){
-    ctx.fillStyle=def.color;
+    ctx.fillStyle=(typeof s.color==='string'&&s.color)?s.color:def.color;
     ctx.fillRect(x,y,w,h);
     ctx.strokeStyle=strong;
     ctx.strokeRect(x+1,y+1,w-2,h-2);
@@ -23180,11 +23287,20 @@ function render(){
 // a silent wrong-file export. Generation now owns both buttons: nothing is
 // downloadable unless this run produced it.
 let exportCodeReady=false;
+// 2.2.3-dev.2 (audit 2.2.2 F04): true after genImGui() threw in this dialog run. Preflight
+// reads it, so a rerun (switching the UI language with the dialog open reruns Preflight)
+// cannot show "Ready to export" over a failed generation.
+let exportGenerationFailed=false;
 function setExportAvailable(ok){
   exportCodeReady=!!ok;
   const c=document.getElementById('cbtn'), d=document.getElementById('dlbtn');
   if(c) c.disabled=!exportCodeReady;
   if(d) d.disabled=!exportCodeReady;
+  if(exportCodeReady){
+    exportGenerationFailed=false;
+    if(c) c.title='Copy generated Lua';
+    if(d) d.title='Download generated Lua';
+  }
 }
 function switchTab(t){
   activeTab='imgui';
@@ -23196,6 +23312,9 @@ function switchTab(t){
   }catch(err){
     out.textContent='Export failed: '+((err&&err.message)?err.message:String(err))+
       '\n\nNothing was generated. The previous export is not shown and cannot be downloaded.';
+    exportGenerationFailed=true;
+    const panel=document.getElementById('preflight-panel'), heading=document.getElementById('preflight-title');
+    if(panel&&heading){ panel.dataset.state='blocked'; heading.textContent='Export failed: nothing was generated'; }
     return;
   }
   out.textContent=code;
@@ -23230,6 +23349,7 @@ function openModal(){
   document.getElementById('modal-bg').classList.add('show');
   toggleBasicExportCode(false);
   setExportAvailable(false);   // nothing from an earlier run stays downloadable
+  exportGenerationFailed=false;   // 2.2.3-dev.2 (F04): this run has not failed yet
   const report=EXPORT_PREFLIGHT.run(); // Validate before generation: malformed state must not crash the dialog.
   if(report.stats.errors){
     document.getElementById('code-out').textContent='Export is blocked until the errors above are resolved.';
@@ -23314,6 +23434,33 @@ const EXPORT_PREFLIGHT = (() => {
 
   let currentIssues = [];
   let currentStats = {checked:0, exportable:0, errors:0, warnings:0};
+  // C07: keep one immutable-model report. Rendering still reads generation state
+  // on every run, so a cache hit cannot revive an unavailable export (F04).
+  let reportCache=null,watchedFonts=null,fontRevision=0;
+  function reportCacheKey(){
+    try{
+      const fonts=document.fonts;
+      if(fonts!==watchedFonts){
+        watchedFonts=fonts;fontRevision++;
+        if(fonts&&typeof fonts.addEventListener==='function'){
+          const invalidate=()=>{if(fonts===watchedFonts){fontRevision++;reportCache=null;}};
+          fonts.addEventListener('loadingdone',invalidate);
+          fonts.addEventListener('loadingerror',invalidate);
+        }
+      }
+      if(fonts&&fonts.status==='loading')return null;
+      let safe=true;
+      // Use raw shapes as well as the save metadata: serializeProjectCore omits
+      // undefined/functions, which must never hide malformed live-state changes.
+      const model=JSON.stringify({...serializeProjectCore(),shapes},(_,value)=>{
+        const type=typeof value;
+        if(value===undefined||type==='function'||type==='symbol'||type==='bigint'||(type==='number'&&!Number.isFinite(value)))safe=false;
+        return value;
+      });
+      return safe?fontRevision+'|'+(fonts?fonts.size:0)+'|'+(window.devicePixelRatio||1)+'|'+model:null;
+    }catch(_){return null;}
+  }
+  const copyIssues=list=>list.map(item=>({...item}));
 
   const own = (obj,key) => Object.prototype.hasOwnProperty.call(obj||{},key);
   const finite = value => value !== '' && value !== null && value !== undefined && Number.isFinite(Number(value));
@@ -23400,6 +23547,17 @@ const EXPORT_PREFLIGHT = (() => {
     const idGroups=new Map();
     const duplicateIds=new Set();
     const structurallyUnsafe=new Set();
+
+    // 2.2.3-dev.3 (C01): malformed live column settings are a prerequisite
+    // failure. Diagnose every affected table before geometry can consume them;
+    // no scene or configuration is normalized or mutated by this check.
+    shapes.forEach(s=>{
+      if(s.type!=='widget'||s.widgetType!=='Table') return;
+      const config=validateTableColumnConfig(s);
+      if(config.problem) found.push(issue('error','invalid-table-column-config',s,
+        'Invalid table column settings',config.problem.message));
+    });
+    if(found.length) return {issues:found,checked:shapes.length,exportable:0};
 
     if(!isCanonicalHexColor(bgColor)){
       found.push(issue('error','invalid-background-color',null,'Project background colour is invalid','Use a hexadecimal colour in #RRGGBB format.'));
@@ -23684,17 +23842,53 @@ const EXPORT_PREFLIGHT = (() => {
     }
 
     // 1.8.0-dev.3 (A05, ADR-009 AD8): the resolved layout over the whole allowed window size.
-    // Each edge moves by R(k·d) (k ∈ {0, ½, 1}), so on one axis the offset between two edges is
-    // monotone in d and "overlaps on this axis" holds on one interval of d. The intervals are
-    // solved exactly over the integers (bisection on monotone predicates), not sampled, and the
-    // two axes are independent. Pairs that already overlap at the design size are reported
-    // above (widget-overlap), so only overlaps that appear while resizing are reported here.
+    // Outside table cells, R(k·d) (k ∈ {0, ½, 1}) gives monotone edge differences,
+    // so bisection solves the intervals. C02 uses measured integer intervals when
+    // a table cell is involved: column distribution can change that monotonicity.
+    // Axes are independent. Design-size overlaps are reported above (widget-overlap).
     if(windowResize!==null){
+      const adFloor=Math.floor,adMin=Math.min,adMax=Math.max;
+      const adRound=adaptiveRound,adCellBox=resolveAdaptiveCellBox,adResolve=resolveAdaptiveView;
       const lim=getPreviewWindowLimits();
       const rangeW=[lim.minW-cw, (windowResize.maxW!==undefined?windowResize.maxW:cw+8192)-cw];
       const rangeH=[lim.minH-ch, (windowResize.maxH!==undefined?windowResize.maxH:ch+8192)-ch];
       const adById=new Map(shapes.map(q=>[q.id,q])), adMemo=new Map();
       const K=s=>adaptiveCoeffsIn(s,adById,adMemo);
+      // 2.2.3-dev.1 (audit 2.2.2 F02): a TableCell is a local root. adaptiveCoeffsIn gives the
+      // cell and its whole subtree kw = kh = 0, so K() alone never sees a size or position change
+      // that comes from the cell's own resize (a stretched table redistributing its columns /
+      // rows). Shapes in a cell are measured on the geometry Preview draws (resolveAdaptiveView),
+      // one axis at a time: a cell's x / w follow the table width only, its y / h the height only.
+      // Resolved edges also cover nested tables and fixed/stretch transitions;
+      // C02 measures their intervals without assuming monotone edge differences.
+      const adCellMemo=new Map(), resolvedAt=new Map();
+      const cellOf=s=>{
+        if(!s) return null;
+        if(s.type==='widget'&&s.widgetType==='TableCell') return s.id;
+        const lk=adaptiveCellCoeffsIn(s,adById,adCellMemo);
+        return lk?lk.cellId:null;
+      };
+      const resolverContext={byId:adById,memo:adMemo,cellMemo:adCellMemo,
+        design:new Map(shapes.map(s=>[s.id,{x:getAbsoluteX(s),y:getAbsoluteY(s)}]))};
+      const resolvedBox=(s,axis,d)=>{
+        const key=axis+d;
+        let view=resolvedAt.get(key);
+        if(!view){ view=adResolve(axis==='x'?cw+d:cw, axis==='y'?ch+d:ch, {absolute:true,context:resolverContext}); resolvedAt.set(key,view); }
+        return view.get(s.id)||null;
+      };
+      // Same [start, end] contract as edges() below, driven by s's resolved geometry instead of
+      // R(k·d). box is s's design box on the canvas (a footprint or an interior rect); it moves
+      // and grows by exactly as much as s does.
+      const cellEdges=(s,box,axis)=>{
+        const pos=axis==='x'?box.x:box.y, len=axis==='x'?box.w:box.h;
+        const a0=axis==='x'?getAbsoluteX(s):getAbsoluteY(s), l0=Number(axis==='x'?s.w:s.h);
+        return d=>{
+          const r=d===0?null:resolvedBox(s,axis,d);
+          if(!r) return [pos,pos+len];
+          const dp=(axis==='x'?r.x:r.y)-a0, dl=(axis==='x'?r.w:r.h)-l0;
+          return [pos+dp, pos+dp+len+dl];
+        };
+      };
       // Integer sub-range of [r0, r1] where a monotone predicate holds, or null.
       const halfLine=(pred,r0,r1)=>{
         const a=pred(r0), b=pred(r1);
@@ -23709,7 +23903,7 @@ const EXPORT_PREFLIGHT = (() => {
       const edges=(box,k,axis)=>{
         const pos=axis==='x'?box.x:box.y, len=axis==='x'?box.w:box.h;
         const kp=axis==='x'?k.kx:k.ky, kl=axis==='x'?k.kw:k.kh;
-        return d=>{ const s=pos+adaptiveRound(kp*d); return [s, s+len+adaptiveRound(kl*d)]; };
+        return d=>{ const s=pos+adRound(kp*d); return [s, s+len+adRound(kl*d)]; };
       };
       const D0={x:cw,y:ch};
       const sizeText=(axis,p,q,r)=>{
@@ -23719,23 +23913,149 @@ const EXPORT_PREFLIGHT = (() => {
         return p<=r[0] ? (base+q)+' px '+word+' or '+less : 'from '+(base+p)+' to '+(base+q)+' px '+word;
       };
       const moving=k=>!!(k.kx||k.kw||k.ky||k.kh);
+      // C02: different cells and outside controls do not share one linear frame.
+      // Fixed/stretch transitions can reverse an edge difference, so halfLine is
+      // not a valid solver for these pairs. Enumerate integer sizes once per axis
+      // into compact edge arrays, then reuse them for every pair and container.
+      // A very large explicit range is reported as partial rather than freezing
+      // the UI or claiming that unexamined sizes are safe. The existing no-Max
+      // horizon (design + 8192) is unchanged.
+      const cellShapes=shapes.filter(s=>cellOf(s)!==null), sequences=new Map(), edgeDescriptors=new Map();
+      const cellRoots=cellShapes.filter(s=>s.type==='widget'&&s.widgetType==='TableCell');
+      const rootIndex=new Map(cellRoots.map((s,i)=>[s.id,i])),designLayouts=new Map();
+      const roots=cellRoots.map(s=>{
+        const parent=adById.get(s.parentId);
+        return {s,parent,rect:parent&&parent.widgetType==='Table'?computeTableCellRect(parent,s.tableRow,s.tableCol,designLayouts):s};
+      });
+      const cellSpecs=cellShapes.map(s=>{
+        if(rootIndex.has(s.id))return {s,root:rootIndex.get(s.id),managed:true};
+        const k=adaptiveCellCoeffsIn(s,adById,adCellMemo),p=resolverContext.design.get(s.id),c=resolverContext.design.get(k.cellId);
+        return {s,root:rootIndex.get(k.cellId),k,offset:{x:p.x-c.x,y:p.y-c.y}};
+      });
+      const TABLE_AXIS_SCAN_MAX=32768;
+      const scanRange=axis=>{
+        const r=axis==='x'?rangeW:rangeH;
+        return [r[0],Math.min(r[1],r[0]+TABLE_AXIS_SCAN_MAX-1)];
+      };
+      const prepareAxis=axis=>{
+        if(sequences.has(axis)) return sequences.get(axis);
+        const r=scanRange(axis), count=r[1]-r[0]+1, data=new Map();
+        for(const s of cellShapes) data.set(s.id,{start:new Float64Array(count),end:new Float64Array(count)});
+        const rootBoxes=[],deltas=roots.map(()=>({dw:0,dh:0}));
+        for(let i=0;i<count;i++){
+          const d=r[0]+i;
+          const view=adResolve(axis==='x'?cw+d:cw,axis==='y'?ch+d:ch,
+            {absolute:true,targets:cellRoots,context:resolverContext});
+          for(let j=0;j<roots.length;j++){
+            const {s,parent,rect}=roots[j],box=view.get(s.id),p=parent&&view.get(parent.id);
+            const changed=p&&(p.w!==parent.w||p.h!==parent.h);
+            rootBoxes[j]=box;deltas[j].dw=changed?box.w-rect.w:0;deltas[j].dh=changed?box.h-rect.h:0;
+          }
+          for(const spec of cellSpecs){
+            const box=spec.managed?rootBoxes[spec.root]:adCellBox(spec.s,rootBoxes[spec.root],spec.offset,spec.k,deltas[spec.root]);
+            const q=data.get(spec.s.id);
+            const a=axis==='x'?box.x:box.y, b=a+(axis==='x'?box.w:box.h);
+            q.start[i]=a;q.end[i]=b;
+          }
+        }
+        for(const q of data.values()){
+          q.blocks=[];
+          for(let i=0;i<count;i+=64){
+            let minStart=Infinity,maxStart=-Infinity,minEnd=Infinity,maxEnd=-Infinity;
+            for(let j=i;j<adMin(i+64,count);j++){
+              minStart=adMin(minStart,q.start[j]);maxStart=adMax(maxStart,q.start[j]);
+              minEnd=adMin(minEnd,q.end[j]);maxEnd=adMax(maxEnd,q.end[j]);
+            }
+            q.blocks.push([minStart,maxStart,minEnd,maxEnd]);
+          }
+          q.tree=new Float64Array(q.blocks.length*16);
+          const build=(node,lo,hi)=>{
+            let b;
+            if(lo===hi)b=q.blocks[lo];
+            else{
+              const mid=adFloor((lo+hi)/2),a=build(node*2,lo,mid),c=build(node*2+1,mid+1,hi);
+              b=[adMin(a[0],c[0]),adMax(a[1],c[1]),adMin(a[2],c[2]),adMax(a[3],c[3])];
+            }
+            q.tree.set(b,node*4);return b;
+          };
+          build(1,0,q.blocks.length-1);
+        }
+        const all=axis==='x'?rangeW:rangeH;
+        if(r[1]<all[1]) found.push(issue('warning','adaptive-table-range-limited',null,
+          'Adaptive table analysis is partial',
+          'Table relationships were checked at integer window '+(axis==='x'?'widths':'heights')+' from '+(D0[axis]+r[0])+' to '+(D0[axis]+r[1])+' px. The configured maximum is larger; relationships beyond this range were not checked.'));
+        const result={range:r,data};sequences.set(axis,result);return result;
+      };
+      const measuredEdges=(s,box,axis)=>{
+        const cacheKey=axis+'|'+s.id+'|'+box.x+'|'+box.y+'|'+box.w+'|'+box.h;
+        if(edgeDescriptors.has(cacheKey))return edgeDescriptors.get(cacheKey);
+        const keep=edge=>{
+          const node=edge.node,cache=new Map();
+          edge.node=(i,lo,hi)=>{if(!cache.has(i))cache.set(i,node(i,lo,hi));return cache.get(i);};
+          edgeDescriptors.set(cacheKey,edge);return edge;
+        };
+        const r=scanRange(axis);
+        if(cellOf(s)===null){
+          const k=K(s),pos=axis==='x'?box.x:box.y,len=axis==='x'?box.w:box.h;
+          const kp=axis==='x'?k.kx:k.ky,kl=axis==='x'?k.kw:k.kh;
+          const start=d=>pos+adRound(kp*d),end=d=>start(d)+len+adRound(kl*d);
+          const bounds=(a,b)=>[adMin(start(a),start(b)),adMax(start(a),start(b)),adMin(end(a),end(b)),adMax(end(a),end(b))];
+          return keep({start,end,node:(i,lo,hi)=>bounds(r[0]+lo*64,Math.min(r[1],r[0]+hi*64+63))});
+        }
+        const q=prepareAxis(axis).data.get(s.id), p=resolverContext.design.get(s.id);
+        const shift=(axis==='x'?box.x-p.x:box.y-p.y), tail=shift+(axis==='x'?box.w-s.w:box.h-s.h);
+        const start=d=>q.start[d-r[0]]+shift,end=d=>q.end[d-r[0]]+tail;
+        return keep({start,end,node:i=>{const k=i*4,b=q.tree;return [b[k]+shift,b[k+1]+shift,b[k+2]+tail,b[k+3]+tail];}});
+      };
+      const measuredRelation=(x,y,axis,outside=false)=>{
+        const r=scanRange(axis),out=[];
+        const add=(lo,hi)=>{const last=out[out.length-1];if(last&&last[1]+1===lo)last[1]=hi;else out.push([lo,hi]);};
+        const classify=(p,q)=>outside
+          ? (p[0]>=q[1]&&p[3]<=q[2]?0:p[1]<q[0]||p[2]>q[3]?1:-1)
+          : (p[0]>=q[3]||q[0]>=p[3]?0:p[1]<q[2]&&q[1]<p[2]?1:-1);
+        const visit=(node,lo,hi)=>{
+          const a=r[0]+lo*64,b=adMin(r[1],r[0]+hi*64+63),state=classify(x.node(node,lo,hi),y.node(node,lo,hi));
+          if(state===0)return;
+          if(state===1){add(a,b);return;}
+          if(lo!==hi){const mid=adFloor((lo+hi)/2);visit(node*2,lo,mid);visit(node*2+1,mid+1,hi);return;}
+          let first=null;
+          for(let d=a;d<=b;d++){
+            const hit=outside?x.start(d)<y.start(d)||x.end(d)>y.end(d):x.start(d)<y.end(d)&&y.start(d)<x.end(d);
+            if(hit){if(first===null)first=d;}
+            else if(first!==null){add(first,d-1);first=null;}
+          }
+          if(first!==null)add(first,b);
+        };
+        // Tree bounds cover every integer, without assuming monotone predicates.
+        visit(1,0,adFloor((r[1]-r[0])/64));return out;
+      };
+      const measuredOverlap=(A,a,B,b,axis)=>measuredRelation(measuredEdges(A,a,axis),measuredEdges(B,b,axis),axis);
+      const describeIntervals=(axis,list,r)=>{
+        const text=list.map(p=>sizeText(axis,p[0],p[1],r)).join(' or ');
+        return list.length>1?'('+text+')':text;
+      };
+      const covers=(list,r)=>list.length===1&&list[0][0]===r[0]&&list[0][1]===r[1];
       // adaptive-overlap
       for(let i=0;i<overlapCandidates.length;i++){
         const A=overlapCandidates[i], boxA=overlapBoxes[i];
         if(!boxA) continue;
-        const kA=K(A);
+        const kA=K(A), cA=cellOf(A);
         for(let j=i+1;j<overlapCandidates.length;j++){
           const B=overlapCandidates[j], boxB=overlapBoxes[j];
           if(!boxB||areInMutuallyExclusiveTabs(A,B,firstById)) continue;
           const kB=K(B);
-          if(!moving(kA)&&!moving(kB)) continue;
-          const ax=edges(boxA,kA,'x'), bx=edges(boxB,kB,'x'), ay=edges(boxA,kA,'y'), by=edges(boxB,kB,'y');
-          const X=meet(halfLine(d=>ax(d)[0]<bx(d)[1],...rangeW), halfLine(d=>bx(d)[0]<ax(d)[1],...rangeW));
-          const Y=meet(halfLine(d=>ay(d)[0]<by(d)[1],...rangeH), halfLine(d=>by(d)[0]<ay(d)[1],...rangeH));
-          if(!X||!Y) continue;
-          const xNow=X[0]<=0&&0<=X[1], yNow=Y[0]<=0&&0<=Y[1];
-          if(xNow&&yNow) continue;              // overlapping at the design size: widget-overlap
-          const when=[!xNow?sizeText('x',X[0],X[1],rangeW):'', !yNow?sizeText('y',Y[0],Y[1],rangeH):''].filter(Boolean).join(' and ');
+          const cellDriven=cA!==null||cellOf(B)!==null;
+          if(!cellDriven&&!moving(kA)&&!moving(kB)) continue;
+          if(boxesOverlap(boxA,boxB)) continue; // already reported as widget-overlap
+          const overlapOn=axis=>{
+            if(cellDriven)return measuredOverlap(A,boxA,B,boxB,axis);
+            const a=edges(boxA,kA,axis),b=edges(boxB,kB,axis),r=axis==='x'?rangeW:rangeH;
+            const p=meet(halfLine(d=>a(d)[0]<b(d)[1],...r),halfLine(d=>b(d)[0]<a(d)[1],...r));
+            return p?[p]:[];
+          };
+          const Y=overlapOn('y');if(!Y.length)continue;
+          const X=overlapOn('x');if(!X.length)continue;
+          const when=[!covers(X,rangeW)?describeIntervals('x',X,rangeW):'',!covers(Y,rangeH)?describeIntervals('y',Y,rangeH):''].filter(Boolean).join(' and ');
           found.push(issue('warning','adaptive-overlap',A,
             'Overlaps '+targetName(B)+' when the window is '+when,
             'The two widgets do not touch at the design size, but their constraints move them into each other inside the allowed window size range. Sizes are content sizes, like Min / Max in the Window section.'));
@@ -23756,16 +24076,28 @@ const EXPORT_PREFLIGHT = (() => {
           frame={x:pos.x+ir.x,y:pos.y+ir.y,w:ir.w,h:ir.h}; kP=K(parent);
         } else { frame={x:0,y:0,w:cw,h:ch}; kP={kx:0,kw:1,ky:0,kh:1}; }
         const kS=K(s);
-        if(!moving(kS)&&!moving(kP)&&rangeW[0]===0&&rangeH[0]===0) return;
+        // 2.2.3-dev.1 (F02): inside a cell, s and its container follow the cell's resize.
+        const inCell=!!parent&&cellOf(s)!==null;
+        if(!inCell&&!moving(kS)&&!moving(kP)&&rangeW[0]===0&&rangeH[0]===0) return;
         const parts=[];
         for(const [axis,r] of [['x',rangeW],['y',rangeH]]){
           // 1.10.0-dev.11 (audit F4): ImGui draws a CollapsingHeader to the right edge of its
           // frame, so on x only its start moves; it needs GRID px of room after it.
+          const sEdges=inCell?cellEdges(s,box,axis):edges(box,kS,axis);
           const se=(axis==='x'&&s.widgetType==='CollapsingHeader')
-            ? (d=>{ const a=box.x+adaptiveRound(kS.kx*d); return [a, a+GRID]; })
-            : edges(box,kS,axis);
-          const pe=edges(frame,kP,axis);
+            ? (d=>{ const a=sEdges(d)[0]; return [a, a+GRID]; })
+            : sEdges;
+          const pe=inCell?cellEdges(parent,frame,axis):edges(frame,kP,axis);
           if(!(se(0)[0]>=pe(0)[0]&&se(0)[1]<=pe(0)[1])) return;   // not inside at the design size: not ours
+          if(inCell){
+            let a=measuredEdges(s,box,axis);const b=measuredEdges(parent,frame,axis);
+            if(axis==='x'&&s.widgetType==='CollapsingHeader'){
+              const original=a;a={...a,end:d=>original.start(d)+GRID,node:(...args)=>{const p=original.node(...args);return [p[0],p[1],p[0]+GRID,p[1]+GRID];}};
+            }
+            const outside=measuredRelation(a,b,axis,true);
+            if(outside.length)parts.push(describeIntervals(axis,outside,r));
+            continue;
+          }
           const inside=meet(halfLine(d=>se(d)[0]>=pe(d)[0],...r), halfLine(d=>se(d)[1]<=pe(d)[1],...r));
           if(!inside) continue;
           if(inside[0]>r[0]) parts.push(sizeText(axis,r[0],inside[0]-1,r));
@@ -23796,6 +24128,22 @@ const EXPORT_PREFLIGHT = (() => {
           found.push(issue('error','adaptive-too-small',s,
             'Too small at the minimum window size',
             'Stretched with the window, it is ' + wMin + ' × ' + hMin + ' px at ' + lim.minW + ' × ' + lim.minH + ', below its minimum of ' + mn.minW + ' × ' + mn.minH + ' px. Raise Min width / height, or make it larger at the design size.'));
+        });
+        // 2.2.3-dev.1 (audit 2.2.2 F02): the same floor for shapes a table cell resizes. K() is
+        // zero for them, so the check above never reached them, and a button stretched in a
+        // shrinking cell exported a negative width. Measured on the resolved geometry (Preview's).
+        exportableShapes.forEach(s=>{
+          if(isParentManagedShape(s)||cellOf(s)===null) return;
+          if(!(isWidgetShape(s) || (isPrimitiveShape(s) && (s.type==='rect' || s.type==='text')))) return;
+          const rx=resolvedBox(s,'x',lim.minW-cw), ry=resolvedBox(s,'y',lim.minH-ch);
+          if(!rx||!ry) return;
+          const w0=Number(s.w), h0=Number(s.h), wMin=rx.w, hMin=ry.h;
+          const mn=(isWidgetShape(s) && isCanonicalWidgetContainer(s)) ? getContainerMinResize(s) : {minW:GRID,minH:GRID};
+          // Only an axis the cell actually shrinks is subject to the floor.
+          if((wMin>=w0 || wMin>=mn.minW) && (hMin>=h0 || hMin>=mn.minH)) return;
+          found.push(issue('error','adaptive-too-small',s,
+            'Too small at the minimum window size',
+            'Stretched with its table cell, it is ' + wMin + ' × ' + hMin + ' px at ' + lim.minW + ' × ' + lim.minH + ', below its minimum of ' + mn.minW + ' × ' + mn.minH + ' px. Raise Min width / height, give its column or row more room, or reduce the space around it in the cell.'));
         });
       }
     }
@@ -23970,10 +24318,14 @@ const EXPORT_PREFLIGHT = (() => {
     return {issues:found, checked:shapes.length, exportable};
   }
 
+  // 2.2.3-dev.2 (audit 2.2.2 F04): a clean Preflight is not a generated script. Both are
+  // required. When Preflight runs first (openModal), the buttons stay off until switchTab()
+  // succeeds; setExportAvailable(true) then arms them and restores their titles.
   function setExportEnabled(enabled){
+    const ready=enabled&&exportCodeReady;
     const copy=document.getElementById('cbtn'), download=document.getElementById('dlbtn');
-    if(copy){ copy.disabled=!enabled; copy.title=enabled?'Copy generated Lua':'Resolve the errors above to enable copy'; }
-    if(download){ download.disabled=!enabled; download.title=enabled?'Download generated Lua':'Resolve the errors above to enable download'; }
+    if(copy){ copy.disabled=!ready; copy.title=ready?'Copy generated Lua':enabled?'Nothing was generated, so there is nothing to copy':'Resolve the errors above to enable copy'; }
+    if(download){ download.disabled=!ready; download.title=ready?'Download generated Lua':enabled?'Nothing was generated, so there is nothing to download':'Resolve the errors above to enable download'; }
   }
 
   function focusIssue(item){
@@ -24027,6 +24379,8 @@ const EXPORT_PREFLIGHT = (() => {
     else if(skipped){ panel.dataset.state='warning'; title.textContent=skipped+' element'+(skipped===1?'':'s')+' will not be exported'; }
     else if(warnings){ panel.dataset.state='warning'; title.textContent='Ready with '+warnings+' warning'+(warnings===1?'':'s'); }
     else { panel.dataset.state='ready'; title.textContent='Ready to export'; }
+    // 2.2.3-dev.2 (F04): Preflight passed, but this run's generation did not.
+    if(!blocked && exportGenerationFailed){ panel.dataset.state='blocked'; title.textContent='Export failed: nothing was generated'; }
     meta.textContent=exportable+' of '+checked+' element'+(checked===1?'':'s')+' will export';
     setExportEnabled(!blocked);
 
@@ -24035,7 +24389,16 @@ const EXPORT_PREFLIGHT = (() => {
       const empty=document.createElement('div'); empty.className='preflight-empty';
       empty.textContent='No export blockers or warnings detected.'; list.appendChild(empty); return;
     }
-    currentIssues.forEach(item=>{
+    // C07: retain every diagnostic in the model and progressively add DOM rows.
+    // Severity sorting keeps blockers first; counters always show the full total.
+    const issues=currentIssues;let visible=0,more=null;
+    const appendIssues=()=>{
+      if(issues!==currentIssues)return;
+      if(more)more.remove();
+      const limit=Math.min(issues.length,visible+Math.max(200,visible));
+      const fragment=document.createDocumentFragment();
+      for(;visible<limit;visible++){
+      const item=issues[visible];
       const row=document.createElement(item.shapeId?'button':'div');
       row.className='preflight-issue '+item.severity;
       if(item.shapeId){ row.type='button'; row.title='Select this element on canvas'; row.onclick=()=>focusIssue(item); }
@@ -24045,12 +24408,23 @@ const EXPORT_PREFLIGHT = (() => {
       const detail=document.createElement('span'); detail.className='preflight-detail'; detail.textContent=item.detail;
       copy.appendChild(msg); if(item.detail) copy.appendChild(detail);
       const target=document.createElement('span'); target.className='preflight-target'; target.textContent=item.target;
-      row.appendChild(sev); row.appendChild(copy); row.appendChild(target); list.appendChild(row);
-    });
+      row.appendChild(sev); row.appendChild(copy); row.appendChild(target); fragment.appendChild(row);
+      }
+      if(visible<issues.length){
+        more=document.createElement('div');more.className='preflight-more';
+        const count=document.createElement('span');count.textContent=visible+' / '+issues.length;
+        const button=document.createElement('button');button.type='button';button.textContent='Show more issues';button.onclick=appendIssues;
+        more.appendChild(count);more.appendChild(button);fragment.appendChild(more);
+      }
+      list.appendChild(fragment);
+    };
+    appendIssues();
   }
 
   function run(){
-    const result=collectIssues();
+    const key=reportCacheKey();
+    const result=key!==null&&reportCache&&reportCache.key===key?reportCache.result:collectIssues();
+    reportCache=key===null?null:{key,result};
     currentIssues=result.issues;
     currentStats={
       checked:result.checked,
@@ -24059,14 +24433,14 @@ const EXPORT_PREFLIGHT = (() => {
       warnings:currentIssues.filter(x=>x.severity==='warning').length,
     };
     renderReport();
-    return {issues:currentIssues.slice(),stats:{...currentStats}};
+    return {issues:copyIssues(currentIssues),stats:{...currentStats}};
   }
 
   function open(){ run(); }
 
   document.getElementById('preflight-rerun').addEventListener('click',run);
 
-  return {open,run,getReport:()=>({issues:currentIssues.slice(),stats:{...currentStats}})};
+  return {open,run,getReport:()=>({issues:copyIssues(currentIssues),stats:{...currentStats}})};
 })();
 // ════════════════════════════════════════════════════════════════════════════
 // END EXPORT PREFLIGHT — SELF-CONTAINED MODULE
@@ -26345,6 +26719,10 @@ function genImGui(){
   L.push(_menuBarExport
     ? `  reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_ItemSpacing(),   8, 0)`
     : `  reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_ItemSpacing(),   0, 0)`);
+  // 2.2.1: no window border. With a 1px border the canvas child is clipped 1px inside the
+  // window on every side, while rects (clip rect intersect=false) paint over the border.
+  // Border 0 makes the exported canvas exactly W x H, like the editor.
+  L.push(`  reaper.ImGui_PushStyleVar(ctx, reaper.ImGui_StyleVar_WindowBorderSize(), 0)`);
   if(_reaBgExport){
     L.push(`  reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_WindowBg(), BG)`);
   }
@@ -26375,7 +26753,7 @@ function genImGui(){
     L.push(`  reaper.ImGui_PopStyleColor(ctx)`);
   };
   if(chromePushes.length) L.push(`  reaper.ImGui_PopStyleColor(ctx, ${chromePushes.length})`);
-  L.push(`  reaper.ImGui_PopStyleVar(ctx, 2)`);
+  L.push(`  reaper.ImGui_PopStyleVar(ctx, 3)`);
   L.push(`  if visible then`);
   // 1.6.0 (ADR-007 M3/M5): the menu bar, before the canvas child. It is drawn in the
   // outer window, so it pushes ##Canvas down as a whole and no widget coordinate moves.
@@ -26612,7 +26990,13 @@ function genImGui(){
             const scrollY=!!(s.tableFlags&&s.tableFlags.ScrollY);
             // 2.1.0-dev.1 (A07): cell padding (S5), stretch (S2/S3), rows keep their height (S4),
             // row backgrounds and the highlight hook (S6). None of them = the 2.0.0 lines.
-            const cellPad=tableHasCustomCellPadding(s)?getTableCellPadding(s):null;
+            // C02: default padding is still a table-owned value. If an enclosing
+            // table pushed custom padding, explicitly restore this table's own
+            // pair so nested helpers and cell rebasing agree with Preview.
+            const ownCellPad=getTableCellPadding(s);
+            const enclosingTable=getParentChain(s).find(q=>q.widgetType==='Table');
+            const enclosingPad=enclosingTable?getTableCellPadding(enclosingTable):null;
+            const cellPad=tableHasCustomCellPadding(s)||(enclosingPad&&(enclosingPad[0]!==ownCellPad[0]||enclosingPad[1]!==ownCellPad[1]))?ownCellPad:null;
             const tStretch=exportTableStretch(s), tStretched=tStretch.w||tStretch.h;
             const nofill=tableRowsKeepHeight(s);
             const hlCol=getTableHighlightColor(s);

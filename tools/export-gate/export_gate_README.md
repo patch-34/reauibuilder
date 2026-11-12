@@ -1,49 +1,25 @@
-# export_gate.js — standing export-gate harness
+# Export Gate v13
 
-Headless regression check for the REAPER UI Layout Editor. Proves that a patch does **not**
-change the exported `genImGui` / `genSeed` output of widgets it shouldn't affect.
-It loads the single-file HTML under jsdom and builds a fixed fixture (bare widget, widget in a
-Group, widget in a Tab, and a widget in a Table cell) by driving the tool's own creation
-functions — no edits to the tool are needed.
+Headless regression harness for ReaUI Builder (Node.js + jsdom). The test constructs UI scenes through the editor's own creation/export functions; it compares generated ReaImGui Lua, JSON project serialization, deterministic regeneration, and Save → Reset → Load output.
 
-`genLua` does not exist in the tool and never has an export to check here — `genImGui` is the
-Lua/ReaImGui code generator. An earlier revision of this gate also captured a `genLua` artefact;
-it was removed once `genLua` was removed from the tool, and the gate has emitted only `imgui`
-and `seed` ever since.
+The original v12 is retained at [historical/export_gate_v12.js](historical/export_gate_v12.js). v13 refreshes Table-cell geometry after setting Table properties in the `tables-b` fixture, before creating its nested Button. This corrects the test setup; it does **not** change ReaUI Builder.
 
-## One-time setup (in this folder)
+## Run
+
+From the repository root:
+
 ```bash
-npm install jsdom
+cd tools/export-gate
+npm install --no-save jsdom@26.1.0
+node export_gate.js ../../ReaUI_Builder.html --scene tables-b
+node export_gate.js ../../ReaUI_Builder.html
 ```
 
-## When the gate is required
-- **Required** for patches touching export / coordinate / placement logic.
-- **Exempt:** CSS-only and selection-only patches.
+The full gate includes the five frozen example projects stored in `fixtures/examples/`. Outputs are written to `golden/` in capture mode.
 
-## Usage
+- Exit 0: all checks pass.
+- Exit 1: export/model output changed in a before/after comparison; inspect the diff.
+- Exit 2: configuration, file, or fixture error.
+- Exit 3: non-determinism, failed round-trip, cross-scene invariance error, or uncaught error.
 
-Capture a baseline for the current build:
-```bash
-node export_gate.js plugin_ui_layout_v3_NNN.html
-# → writes golden/plugin_ui_layout_v3_NNN.{imgui,seed}, prints sizes + determinism
-```
-
-Gate a patch — run BEFORE vs AFTER and diff the two exports:
-```bash
-node export_gate.js plugin_ui_layout_v3_OLD.html plugin_ui_layout_v3_NEW.html
-```
-
-## Reading the result
-- **CLEAN (exit 0)** — exports byte-identical. This is what a selection-only / CSS patch must
-  produce, and what a placement patch must produce for every widget it did **not** intend to move.
-- **CHANGED (exit 1)** — there is a diff. For a placement/coordinate patch this is expected:
-  read the diff and confirm **only** the widgets you intended to move/resize changed. Any
-  unrelated widget changing is a regression — stop and investigate.
-- Seed `id` fields are random per run and are normalized before diffing, so a seed diff is real
-  structure/coordinate change, never just ids.
-
-## Notes
-- The fixture is a fixed regression baseline. If a future patch needs a different scenario
-  (e.g. a specific saved project), extend `buildFixtureAndExport()` — keep it deterministic.
-- A `SCRIPT THROW during init` or `GENERATOR THROW` means the build doesn't load/generate
-  cleanly — that's a syntax/logic break to fix before judging the diff.
+Chromium-adapted v13 verification passed in the release QA environment, but that is not a substitute for the Node/jsdom workflow. Consult [the QA addendum](../../docs/Export_Gate_v13_QA_EN.md).

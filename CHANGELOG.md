@@ -8,6 +8,27 @@ e.g. `1.0.70`).
 
 ## [Unreleased]
 
+## [2.2.3] - 2026-11-13
+
+Stability and audit-remediation release. No project format migration or intended new widget families.
+
+### Fixed
+- F01: Ignore stale asynchronous project loads instead of overwriting newer work or history.
+- F02: Detect undersized or negative-width adaptive controls inside Table cells, improve geometry diagnostics, and correct nested Table padding in generated Lua.
+- F03: Validate Table column sizing consistently on project load and before export, rejecting invalid and surplus configurations.
+- F04: Keep Copy/Download disabled after failed generation, even when Preflight is rerun.
+- Restore unsaved-change detection, fallback file-read failure handling, and tab presence after back/forward-cache restore.
+
+### Improved
+- Cache repeated adaptive geometry work during Preflight and render large diagnostic lists progressively (200 initial rows, all issues retained).
+- Add regression coverage for load/recovery, column validation, nested Tables, export gating, and responsive layouts.
+- Update export-gate fixture ordering in v13 to recalculate Table cell geometry after changing Table properties; preserves original v12 for historical reproduction. This is a test-harness fix, not a change to the exported Lua engine.
+
+### Verification and remaining scope
+- The accepted v2.2.3 HTML differs from dev.6 only in its build-version string.
+- Manual browser and REAPER acceptance completed; Chromium-adapted export gate v13 reports 36/36 tested scenes and cross-checks PASS.
+- The unmodified Node/jsdom gate and Windows-specific native checks had not been executed in the local release QA environment; GitHub Actions is configured to run the full gate with five repository example fixtures.
+
 ## [2.2.0] - 2026-10-15
 
 ### Added
